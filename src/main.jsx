@@ -12,40 +12,41 @@ import "./index.css";
 import ResponsiveAppBar from "./components/layouts/Header.jsx";
 
 const router = createBrowserRouter([
-  {
-    path: "/",
-    element: <App />,
-  },
-  {
-    path: "/about",
-    element: <div>About</div>,
-  },
-  {
-    path: "/app",
-    element: <ResponsiveAppBar />,
-  },
+	{
+		path: "/",
+		element: <App />,
+	},
+	{
+		path: "/about",
+		element: <div>About</div>,
+	},
+	{
+		path: "/app",
+		element: <ResponsiveAppBar />,
+	},
 ]);
 
 export const themeOptions = {
-  palette: {
-    mode: "light",
-    primary: {
-      main: "#263238",
-    },
-    secondary: {
-      main: "#ffa000",
-    },
-    background: {
-      default: "#eeeeee",
-    },
-  },
+	palette: {
+		mode: "light",
+		primary: {
+			main: "#263238",
+		},
+		secondary: {
+			main: "#ffa000",
+		},
+		background: {
+			default: "#eeeeee",
+		},
+	},
 };
 
 ReactDOM.createRoot(document.getElementById("root")).render(
-  <React.StrictMode>
-    <CssBaseline />
-    <ThemeProvider theme={themeOptions}>
-      <RouterProvider router={router} />
-    </ThemeProvider>
-  </React.StrictMode>,
+	<React.StrictMode>
+		<CssBaseline />
+		<ThemeProvider theme={themeOptions}>
+			<RouterProvider router={router} />
+			<App />
+		</ThemeProvider>
+	</React.StrictMode>,
 );
