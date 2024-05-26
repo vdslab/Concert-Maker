@@ -2,8 +2,6 @@ import React from "react";
 import ReactDOM from "react-dom/client";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import { CssBaseline, ThemeProvider } from "@mui/material";
-import Toolbar from "@mui/material/Toolbar";
-import Box from "@mui/material/Box";
 import "@fontsource/roboto/300.css";
 import "@fontsource/roboto/400.css";
 import "@fontsource/roboto/500.css";
@@ -21,6 +19,10 @@ const router = createBrowserRouter([
   {
     path: "/about",
     element: <div>About</div>,
+  },
+  {
+    path: "/app",
+    element: <ResponsiveAppBar />,
   },
 ]);
 
@@ -43,11 +45,7 @@ ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
     <CssBaseline />
     <ThemeProvider theme={themeOptions}>
-      <ResponsiveAppBar />
-      <Box component="main">
-        <Toolbar />
-        <RouterProvider router={router} />
-      </Box>
+      <RouterProvider router={router} />
     </ThemeProvider>
   </React.StrictMode>,
 );
