@@ -1,6 +1,6 @@
 import ForceGraph2D from "react-force-graph-2d";
-import Data from "../../assets/works1.json";
-import Data1 from "../../assets/playedWith.json";
+import Works from "../../assets/works.json";
+import PlayedWith from "../../assets/playedWith.json";
 import React, { useEffect, useRef } from "react";
 
 const drawCircle = (ctx, x, y, radius, color) => {
@@ -49,7 +49,7 @@ const drawLabel = (ctx, x, y, label, globalScale) => {
   ctx.fillText(label, x, y + 15 / globalScale);
 };
 
-const nodeData = Data.map((work) => ({
+const nodeData = Works.map((work) => ({
   id: work.id,
   composerName: work.composerName,
   name: work.composer + " / " + work.title,
@@ -58,11 +58,11 @@ const nodeData = Data.map((work) => ({
 }));
 
 const getMatchedDataByIds = () => {
-  const getItemsWithPlayedWith = Data1.filter(
+  const getItemsWithPlayedWith = PlayedWith.filter(
     (item) => item.playedWith.length > 0
   );
   const workIds = getItemsWithPlayedWith.map((item) => item.workId);
-  const matched = Data.filter((item) => workIds.includes(item.id));
+  const matched = Works.filter((item) => workIds.includes(item.id));
 
   return matched.map((work) => ({
     id: work.id,
@@ -72,7 +72,7 @@ const getMatchedDataByIds = () => {
   }));
 };
 
-const linkData = Data1.flatMap((work) =>
+const linkData = PlayedWith.flatMap((work) =>
   work.playedWith
     .filter((playedWith) => playedWith.workId > work.workId)
     .map((playedWith) => ({
