@@ -1,0 +1,90 @@
+[
+  {
+    "workId": 1,
+    "composerName": "Aa, Michael van der",
+    "title": "Concerto, Violin",
+    "year": "<2014>",
+    "duration": 26,
+    "workFormula": [
+      "1 1 2[1.bcl] 2[1.cbn] — 4 2 3 1 — 3perc — hp — str[12.12.10.8.6]",
+      "",
+      "I. quarter note = 64\n\t\t\tII. quarter note = 64\n\t\t\tIII. quarter note = 136"
+    ],
+    "workFormula_perc": "perc: vib, bd, marac, bongos, whip, ratch, cast, glock, cym, szl cym, tri, vibrslp, tambn, sd, scrap wood, cabasa, egg shaker, sandpaper, washboard, LP one shot shaker, bamboo chimes, key chimes, stone chimes, 3tomtoms",
+    "workMovements": [
+      "I. quarter note = 64",
+      "II. quarter note = 64",
+      "III. quarter note = 136"
+    ],
+    "workMovementDuration": [""],
+    "workSources": ["Boosey"],
+    "playedWith": [
+      { "workId": 2, "amount": 2 },
+      { "workId": 4, "amount": 4 }
+    ]
+  },
+  {
+    "workId": 2,
+    "composerName": "Abe, Kōmei",
+    "title": "Sinfonietta",
+    "year": "<1964>",
+    "duration": 26,
+    "workFormula": [
+      "3[1.2.pic] 3[1.2.Eh] 2 2 — 4 2 3 1 — tmp+4 — hp — cel — str",
+      "Tuba in mvt 3 only; hp & cel in mvt 2 only. Eh tacet mvt 3; tbn 2 & 3 tacet mvt 2.",
+      "I. Allegro con brio\n\t\t\tII. Moderato\n\t\t\tIII. Scherzo: Andante–Presto\n\t\t\tIV. Finale: Allegro assai\n\n\n\t\t\t7'\n\t\t\t7'\n\t\t\t6'\n\t\t\t6'"
+    ],
+    "workFormula_perc": "perc: tri, cym, bd, sd, xyl, woodblk, güiro",
+    "workMovements": [
+      "I. Allegro con brio",
+      "II. Moderato",
+      "III. Scherzo: Andante–Presto",
+      "IV. Finale: Allegro assai"
+    ],
+    "workMovementDuration": ["7'", "7'", "6'", "6'"],
+    "workSources": ["JFC"],
+    "playedWith": [
+      { "workId": 1, "amount": 2 },
+      { "workId": 4, "amount": 4 }
+    ]
+  },
+  {
+    "workId": 3,
+    "composerName": "Abel, Karl Friedrich",
+    "title": "Concerto, Flute, WK 51, op.6, no.6, C major",
+    "year": null,
+    "duration": 13,
+    "workFormula": [
+      "str",
+      "Ed. Gerhard-Ewald Peter.",
+      "I. Allegro\n\t\t\tII. Adagio\n\t\t\tIII. Allegro\n\n\n\t\t\t5'\n\t\t\t4'\n\t\t\t4'"
+    ],
+    "workMovements": ["I. Allegro", "II. Adagio", "III. Allegro"],
+    "workMovementDuration": ["5'", "4'", "4'"],
+    "workSources": ["Luck's"],
+    "playedWith": []
+  },
+  {
+    "workId": 4,
+    "composerName": "Abel, Karl Friedrich",
+    "title": "Concerto, Violoncello, WK 52, B-flat major",
+    "year": null,
+    "duration": 14,
+    "workFormula": [
+      "cnt — str",
+      "",
+      "I. Moderato\n\t\t\tII. Adagio ma non troppo\n\t\t\tIII. Allegro\n\n\n\t\t\t6'\n\t\t\t4'\n\t\t\t4'"
+    ],
+    "workMovements": [
+      "I. Moderato",
+      "II. Adagio ma non troppo",
+      "III. Allegro"
+    ],
+    "workMovementDuration": ["6'", "4'", "4'"],
+    "workSources": ["Luck's", "Möseler"],
+    "playedWith": [
+      { "workId": 1, "amount": 2 },
+      { "workId": 2, "amount": 4 }
+    ]
+  }
+]
