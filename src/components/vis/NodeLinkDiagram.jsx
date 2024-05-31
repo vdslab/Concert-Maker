@@ -58,7 +58,10 @@ const nodeData = Data.map((work) => ({
 }));
 
 const getMatchedDataByIds = () => {
-  const workIds = Data1.map((item) => item.workId);
+  const getItemsWithPlayedWith = Data1.filter(
+    (item) => item.playedWith.length > 0
+  );
+  const workIds = getItemsWithPlayedWith.map((item) => item.workId);
   const matched = Data.filter((item) => workIds.includes(item.id));
 
   return matched.map((work) => ({
