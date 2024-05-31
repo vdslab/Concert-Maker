@@ -9,7 +9,8 @@ import "@fontsource/roboto/400.css";
 import "@fontsource/roboto/500.css";
 import "@fontsource/roboto/700.css";
 
-import App from "./App.jsx";
+import App from "./pages/App.jsx";
+import MyConcert from "./pages/MyConcert.jsx";
 import ResponsiveAppBar from "./components/layouts/Header.jsx";
 
 const router = createBrowserRouter([
@@ -23,7 +24,11 @@ const router = createBrowserRouter([
   },
   {
     path: "/app",
-    element: <div>App</div>,
+    element: <App />,
+  },
+  {
+    path: "/my-concert",
+    element: <MyConcert />,
   },
 ]);
 
