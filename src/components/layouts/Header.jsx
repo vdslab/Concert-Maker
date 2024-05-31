@@ -12,8 +12,8 @@ import MenuItem from "@mui/material/MenuItem";
 import MusicNoteIcon from "@mui/icons-material/MusicNote";
 
 const navItems = [
-  { item: "root", link: "/", target: "_self" },
-  { item: "app", link: "/app", target: "_self" },
+  { item: "Search", link: "/", target: "_self" },
+  { item: "MyConcert", link: "/my-concert", target: "_self" },
   {
     item: "Shirashoji",
     link: "https://github.com/Shirashoji/",
