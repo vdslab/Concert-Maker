@@ -44,6 +44,7 @@ export const themeOptions = responsiveFontSizes(
       },
       background: {
         default: "#eeeeee",
+        paper: "#ffffff",
       },
     },
   }),
@@ -51,8 +52,8 @@ export const themeOptions = responsiveFontSizes(
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
-    <CssBaseline />
     <ThemeProvider theme={themeOptions}>
+      <CssBaseline />
       <ResponsiveAppBar />
       <Toolbar />
       <RouterProvider router={router} />
