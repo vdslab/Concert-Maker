@@ -1,5 +1,5 @@
 import ForceGraph2D from "react-force-graph-2d";
-import Data from "../../assets/works.json";
+import Data from "../../assets/works1.json";
 
 const drawCircle = (ctx, x, y, radius, color) => {
 	ctx.beginPath();
@@ -26,10 +26,20 @@ const drawStar = (ctx, x, y, radius, points, inset, color) => {
 	ctx.stroke();
 };
 
+const drawLabel = (ctx, x, y, label, globalScale) => {
+	const fontSize = 12 / globalScale;
+	ctx.font = `${fontSize}px Sans-Serif`;
+	ctx.textAlign = "center";
+	ctx.textBaseline = "middle";
+	ctx.fillStyle = "black";
+	ctx.fillText(label, x, y + 15 / globalScale);
+};
+
 const nodeData = Data.map((work) => ({
 	id: work.workId,
 	composerName: work.composerName,
-	name: work.composerName + " / " + work.title,
+	name: work.composer + " / " + work.title,
+	// name: work.composerName + " / " + work.title,
 	group: 0,
 }));
 
@@ -53,21 +63,12 @@ const NodeLinkDiagram = () => {
 		<ForceGraph2D
 			graphData={data}
 			nodeCanvasObject={(node, ctx, globalScale) => {
-				const label = node.workId;
-				const fontSize = 12 / globalScale;
-				ctx.font = `${fontSize}px Sans-Serif`;
-				ctx.textAlign = "center";
-				ctx.textBaseline = "middle";
-
-				if (node.group === 0) {
+				if (node.group === 0)
 					drawCircle(ctx, node.x, node.y, 10 / globalScale, "blue");
-				} else if (node.group === 1) {
+				else if (node.group === 1)
 					drawStar(ctx, node.x, node.y, 10 / globalScale, 5, 0.5, "yellow");
-				}
 
-				// Draw text label
-				// ctx.fillStyle = "black";
-				// ctx.fillText(label, node.x, node.y + 15 / globalScale);
+				// drawLabel(ctx, node.x, node.y, node.name, globalScale);
 			}}
 		/>
 	);
