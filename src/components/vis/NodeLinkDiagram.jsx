@@ -1,6 +1,7 @@
 import ForceGraph2D from "react-force-graph-2d";
-import Works from "../../assets/works.json";
+import Works from "../../assets/works_v02.json";
 import PlayedWith from "../../assets/playedWith.json";
+import Composer from "../../assets/composers_v02.json";
 import React, { useEffect, useRef } from "react";
 
 const drawCircle = (ctx, x, y, radius, color) => {
@@ -49,6 +50,16 @@ const drawLabel = (ctx, x, y, label, globalScale) => {
   ctx.fillText(label, x, y + 15 / globalScale);
 };
 
+const getComposerFromName = (composerName) => {
+  const composer = Composer.find((item) => item.name === composerName);
+  return composer ? composer : "NULL";
+};
+
+const getComposerFromId = (composerId) => {
+  const work = getMatchedDataByIds().find((item) => item.id === composerId);
+  return work ? work : "NULL";
+};
+
 const nodeData = Works.map((work) => ({
   id: work.id,
   composerName: work.composerName,
@@ -64,29 +75,92 @@ const getMatchedDataByIds = () => {
   const workIds = getItemsWithPlayedWith.map((item) => item.workId);
   const matched = Works.filter((item) => workIds.includes(item.id));
 
-  return matched.map((work) => ({
-    id: work.id,
-    composerName: work.composerName,
-    name: work.composer + " / " + work.title,
-    group: 0,
-  }));
+  return (
+    matched
+      // .filter((item) => item.year > 1800)
+      .map((work) => ({
+        id: work.id,
+        composerName: work.composer,
+        year: work.year,
+        name:
+          getComposerFromName(work.composer).nationality +
+          "/" +
+          work.year +
+          "/" +
+          work.composer +
+          " / " +
+          work.title,
+        group: 0,
+        latitude: getComposerFromName(work.composer).latitude,
+        longitude: getComposerFromName(work.composer).longitude,
+      }))
+  );
 };
 
+const R = Math.PI / 180;
+
+function distance(lat1, lng1, lat2, lng2) {
+  lat1 *= R;
+  lng1 *= R;
+  lat2 *= R;
+  lng2 *= R;
+  return (
+    Math.acos(
+      Math.cos(lat1) * Math.cos(lat2) * Math.cos(lng2 - lng1) +
+        Math.sin(lat1) * Math.sin(lat2)
+    ) / Math.PI
+  );
+}
+
+// 直接worksを参照してない。
 const linkData = PlayedWith.flatMap((work) =>
   work.playedWith
-    .filter((playedWith) => playedWith.workId > work.workId)
+    .filter(
+      (playedWith) =>
+        playedWith.workId > work.workId &&
+        Math.pow(
+          1 -
+            Math.pow(
+              distance(
+                getComposerFromId(work.workId).latitude,
+                getComposerFromId(work.workId).longitude,
+                getComposerFromId(playedWith.workId).latitude,
+                getComposerFromId(playedWith.workId).longitude
+              ),
+              1 / 2
+            ),
+          2
+        ) > 0.6
+    )
     .map((playedWith) => ({
       source: work.workId,
       target: playedWith.workId,
       distance: (100 * 1.0) / (1.0 * playedWith.amount),
+      sourceData: getComposerFromId(work.workId),
+      targetData: getComposerFromId(playedWith.workId),
+      // test: distance(
+      //   getComposerFromId(work.workId).latitude,
+      //   getComposerFromId(work.workId).longitude,
+      //   getComposerFromId(playedWith.workId).latitude,
+      //   getComposerFromId(playedWith.workId).longitude
+      // ),
     }))
 );
 
 const NodeLinkDiagram = () => {
   const fgRef = useRef();
+
   const data = {
     nodes: getMatchedDataByIds(),
-    links: linkData,
+    links: linkData.filter((link) => {
+      // console.log(Math.abs(link.sourceData.year - link.targetData.year));
+      return (
+        Math.pow(
+          1.1,
+          -1 * Math.abs(link.sourceData.year - link.targetData.year)
+        ) > 0.1
+      );
+    }),
   };
 
   useEffect(() => {
@@ -105,8 +179,6 @@ const NodeLinkDiagram = () => {
         } else if (node.group === 1) {
           drawStar(ctx, node.x, node.y, size * 2, "gold");
         }
-
-        // drawLabel(ctx, node.x, node.y, node.name, globalScale);
       }}
     />
   );
