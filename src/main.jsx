@@ -12,6 +12,7 @@ import "@fontsource/roboto/700.css";
 import App from "./pages/App.jsx";
 import MyConcert from "./pages/MyConcert.jsx";
 import ResponsiveAppBar from "./components/layouts/Header.jsx";
+import SearchPopup from "./components/layouts/Search.jsx";
 
 const router = createBrowserRouter([
   {
@@ -30,6 +31,10 @@ const router = createBrowserRouter([
     path: "/my-concert",
     element: <MyConcert />,
   },
+  {
+    path: "search",
+    element: <SearchPopup />,
+  },
 ]);
 
 export const themeOptions = responsiveFontSizes(
@@ -47,7 +52,7 @@ export const themeOptions = responsiveFontSizes(
         paper: "#ffffff",
       },
     },
-  })
+  }),
 );
 
 ReactDOM.createRoot(document.getElementById("root")).render(
@@ -58,5 +63,5 @@ ReactDOM.createRoot(document.getElementById("root")).render(
       <Toolbar />
       <RouterProvider router={router} />
     </ThemeProvider>
-  </React.StrictMode>
+  </React.StrictMode>,
 );
