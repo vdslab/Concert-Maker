@@ -106,7 +106,7 @@ const allPlayedWithWorkIds = new Set(
 const NodeLinkDiagram = () => {
   const fgRef = useRef();
 
-  const filteredWorks = Works.filter((work) =>
+  const filteredWorks = matchedDataByIds.filter((work) =>
     allPlayedWithWorkIds.has(work.id)
   );
 
@@ -121,31 +121,32 @@ const NodeLinkDiagram = () => {
         sourceData.lon !== null &&
         targetData.lat !== null &&
         targetData.lon !== null &&
-        Math.pow(1.1, -1 * Math.abs(sourceData.year - targetData.year)) > 0.1 &&
-        Math.pow(
-          1 -
-            Math.pow(
-              distance(
-                sourceData.lat,
-                sourceData.lon,
-                targetData.lat,
-                targetData.lon
+        Math.pow(1.1, -1 * Math.abs(sourceData.year - targetData.year)) *
+          Math.pow(
+            1 -
+              Math.pow(
+                distance(
+                  sourceData.lat,
+                  sourceData.lon,
+                  targetData.lat,
+                  targetData.lon
+                ),
+                1 / 2
               ),
-              1 / 2
-            ),
-          2
-        ) > 0.6
+            2
+          ) >
+          0.1
       );
     }),
   };
 
   console.log(data.links);
 
-  useEffect(() => {
-    if (fgRef.current) {
-      fgRef.current.d3Force("link").distance((link) => link.distance);
-    }
-  }, []);
+  // useEffect(() => {
+  //   if (fgRef.current) {
+  //     fgRef.current.d3Force("link").distance((link) => link.distance);
+  //   }
+  // }, []);
 
   return (
     <ForceGraph2D
