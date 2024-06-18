@@ -3,6 +3,7 @@ import Works from "../../assets/works_v02.json";
 import PlayedWithData from "../../assets/playedWith.json";
 import Composer from "../../assets/composers_v02.json";
 import React, { useEffect, useRef } from "react";
+import * as d3 from "d3";
 
 const drawCircle = (ctx, x, y, radius, color) => {
   ctx.beginPath();
@@ -142,18 +143,21 @@ const NodeLinkDiagram = () => {
 
   console.log(data.links);
 
-  // useEffect(() => {
-  //   if (fgRef.current) {
-  //     fgRef.current.d3Force("link").distance((link) => link.distance);
-  //   }
-  // }, []);
+  useEffect(() => {
+    if (fgRef.current) {
+      fgRef.current.d3Force("link").distance((link) => link.distance);
+      fgRef.current.d3Force("x", d3.forceX(0).strength(0.05));
+      fgRef.current.d3Force("y", d3.forceY(0).strength(0.05));
+      fgRef.current.d3Force("charge").strength(-100);
+    }
+  }, []);
 
   return (
     <ForceGraph2D
       ref={fgRef}
       graphData={data}
       nodeCanvasObject={(node, ctx, globalScale) => {
-        const size = 10 / globalScale;
+        const size = 5 / globalScale;
         drawCircle(ctx, node.x, node.y, size, "blue");
       }}
     />
