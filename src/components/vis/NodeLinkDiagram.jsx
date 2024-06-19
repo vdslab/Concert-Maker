@@ -2,7 +2,7 @@ import ForceGraph2D from "react-force-graph-2d";
 import Works from "../../assets/works_v02.json";
 import PlayedWithData from "../../assets/playedWith.json";
 import Composer from "../../assets/composers_v02.json";
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useRef, useState, useCallback } from "react";
 import * as d3 from "d3";
 
 const drawCircle = (ctx, x, y, radius, color) => {
@@ -38,7 +38,6 @@ const matchedDataByIds = Works.map((work) => {
       work.composer +
       "/" +
       work.title,
-    work: work,
   };
 });
 
@@ -107,7 +106,6 @@ const allPlayedWithWorkIds = new Set(
 
 const NodeLinkDiagram = () => {
   const fgRef = useRef();
-  const [selectedNode, setSelectedNode] = useState(null);
 
   const filteredWorks = matchedDataByIds.filter((work) =>
     allPlayedWithWorkIds.has(work.id)
@@ -162,47 +160,9 @@ const NodeLinkDiagram = () => {
           drawCircle(ctx, node.x, node.y, size, "blue");
         }}
         onNodeClick={(node) => {
-          setSelectedNode(node);
+          console.log(node);
         }}
       />
-      {selectedNode && (
-        <div
-          style={{
-            position: "absolute",
-            top: 10,
-            right: 10,
-            background: "#fff",
-            padding: 10,
-            border: "1px solid #ccc",
-          }}
-        >
-          <h3>Node Details</h3>
-          <p>
-            <strong>ID:</strong> {selectedNode.id}
-          </p>
-          <p>
-            <strong>Composer:</strong> {selectedNode.composer}
-          </p>
-          <p>
-            <strong>Title:</strong> {selectedNode.title}
-          </p>
-          <p>
-            <strong>Year:</strong> {selectedNode.year}
-          </p>
-          <p>
-            <strong>Latitude:</strong> {selectedNode.lat}
-          </p>
-          <p>
-            <strong>Longitude:</strong> {selectedNode.lon}
-          </p>
-          <p>
-            <strong>Nationality:</strong> {selectedNode.nationality}
-          </p>
-          <p>
-            <strong>works:</strong> {selectedNode.work.workFormula}
-          </p>
-        </div>
-      )}
     </div>
   );
 };
