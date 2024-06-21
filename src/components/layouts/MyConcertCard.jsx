@@ -19,7 +19,6 @@ export default function MyConcertCard() {
         >
           <Grid item>
             <Stack
-              container
               direction="row"
               justifyContent="space-between"
               alignItems="center"
