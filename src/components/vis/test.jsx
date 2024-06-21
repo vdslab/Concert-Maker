@@ -1,8 +1,9 @@
 import ForceGraph2D from "react-force-graph-2d";
 import Works from "../../assets/works_v02.json";
-import PlayedWith from "../../assets/playedWith.json";
+import PlayedWithData from "../../assets/playedWith.json";
 import Composer from "../../assets/composers_v02.json";
-import React, { useEffect, useRef } from "react";
+import { useEffect, useRef, useState, useMemo } from "react";
+import * as d3 from "d3";
 
 const drawCircle = (ctx, x, y, radius, color) => {
   ctx.beginPath();
@@ -13,93 +14,38 @@ const drawCircle = (ctx, x, y, radius, color) => {
   ctx.stroke();
 };
 
-const drawStar = (ctx, cx, cy, outerRadius, color) => {
-  const spikes = 5;
-  const innerRadius = outerRadius / 2;
-  const step = Math.PI / spikes;
-  let rot = (Math.PI / 2) * 3;
-  let x = cx;
-  let y = cy;
-
-  ctx.beginPath();
-  ctx.moveTo(cx, cy - outerRadius);
-  for (let i = 0; i < spikes; i++) {
-    x = cx + Math.cos(rot) * outerRadius;
-    y = cy + Math.sin(rot) * outerRadius;
-    ctx.lineTo(x, y);
-    rot += step;
-
-    x = cx + Math.cos(rot) * innerRadius;
-    y = cy + Math.sin(rot) * innerRadius;
-    ctx.lineTo(x, y);
-    rot += step;
-  }
-  ctx.lineTo(cx, cy - outerRadius);
-  ctx.closePath();
-  ctx.lineWidth = 1;
-  ctx.fillStyle = color;
-  ctx.fill();
-};
-
-const drawLabel = (ctx, x, y, label, globalScale) => {
-  const fontSize = 12 / globalScale;
-  ctx.font = `${fontSize}px Sans-Serif`;
-  ctx.textAlign = "center";
-  ctx.textBaseline = "middle";
-  ctx.fillStyle = "black";
-  ctx.fillText(label, x, y + 15 / globalScale);
-};
-
-const getComposerFromName = (composerName) => {
-  const composer = Composer.find((item) => item.name === composerName);
-  return composer ? composer : "NULL";
-};
-
 const getComposerFromId = (composerId) => {
-  const work = getMatchedDataByIds().find((item) => item.id === composerId);
-  return work ? work : "NULL";
+  const work = matchedDataByIds.find((item) => item.id === composerId);
+  return work ? work : { lat: null, lon: null };
 };
 
-const nodeData = Works.map((work) => ({
-  id: work.id,
-  composerName: work.composerName,
-  name: work.composer + " / " + work.title,
-  // name: work.composerName + " / " + work.title,
-  group: 0,
-}));
+const matchedDataByIds = Works.map((work) => {
+  const composerInfo = Composer.find((c) => c.name === work.composer);
 
-const getMatchedDataByIds = () => {
-  const getItemsWithPlayedWith = PlayedWith.filter(
-    (item) => item.playedWith.length > 0
-  );
-  const workIds = getItemsWithPlayedWith.map((item) => item.workId);
-  const matched = Works.filter((item) => workIds.includes(item.id));
-
-  return (
-    matched
-      // .filter((item) => item.year > 1800)
-      .map((work) => ({
-        id: work.id,
-        composerName: work.composer,
-        year: work.year,
-        name:
-          getComposerFromName(work.composer).nationality +
-          "/" +
-          work.year +
-          "/" +
-          work.composer +
-          " / " +
-          work.title,
-        group: 0,
-        latitude: getComposerFromName(work.composer).latitude,
-        longitude: getComposerFromName(work.composer).longitude,
-      }))
-  );
-};
-
-const R = Math.PI / 180;
+  return {
+    composer: work.composer,
+    id: work.id,
+    title: work.title,
+    year: work.year,
+    lat: composerInfo ? composerInfo.latitude : null,
+    lon: composerInfo ? composerInfo.longitude : null,
+    nationality: composerInfo ? composerInfo.nationality : null,
+    name:
+      (composerInfo ? composerInfo.nationality : "Unknown") +
+      "/" +
+      work.year +
+      "/" +
+      work.composer +
+      "/" +
+      work.title,
+  };
+});
 
 function distance(lat1, lng1, lat2, lng2) {
+  if (lat1 === null || lng1 === null || lat2 === null || lng2 === null)
+    return Infinity;
+
+  const R = Math.PI / 180;
   lat1 *= R;
   lng1 *= R;
   lat2 *= R;
@@ -112,75 +58,118 @@ function distance(lat1, lng1, lat2, lng2) {
   );
 }
 
-// 直接worksを参照してない。
-const linkData = PlayedWith.flatMap((work) =>
+const enhancedPlayedWithData = PlayedWithData.map((item) => {
+  const baseWork = Works.find((work) => work.id === item.workId);
+  const baseComposer = Composer.find((c) => c.name === baseWork.composer);
+
+  const enhancedPlayedWith = item.playedWith.map((pw) => {
+    const relatedWork = Works.find((work) => work.id === pw.workId);
+    const relatedComposer = Composer.find(
+      (c) => c.name === relatedWork.composer
+    );
+    return {
+      ...pw,
+      lat: relatedComposer ? relatedComposer.latitude : null,
+      lon: relatedComposer ? relatedComposer.longitude : null,
+      year: relatedWork ? relatedWork.year : null,
+    };
+  });
+
+  return {
+    ...item,
+    playedWith: enhancedPlayedWith,
+    lat: baseComposer ? baseComposer.latitude : null,
+    lon: baseComposer ? baseComposer.longitude : null,
+    year: baseWork ? baseWork.year : null,
+  };
+});
+
+const linkData = enhancedPlayedWithData.flatMap((work) =>
   work.playedWith
-    .filter(
-      (playedWith) =>
-        playedWith.workId > work.workId &&
-        Math.pow(
-          1 -
-            Math.pow(
-              distance(
-                getComposerFromId(work.workId).latitude,
-                getComposerFromId(work.workId).longitude,
-                getComposerFromId(playedWith.workId).latitude,
-                getComposerFromId(playedWith.workId).longitude
-              ),
-              1 / 2
-            ),
-          2
-        ) > 0.6
-    )
+    .filter((playedWith) => playedWith.workId > work.workId)
     .map((playedWith) => ({
       source: work.workId,
       target: playedWith.workId,
       distance: (100 * 1.0) / (1.0 * playedWith.amount),
       sourceData: getComposerFromId(work.workId),
       targetData: getComposerFromId(playedWith.workId),
-      // test: distance(
-      //   getComposerFromId(work.workId).latitude,
-      //   getComposerFromId(work.workId).longitude,
-      //   getComposerFromId(playedWith.workId).latitude,
-      //   getComposerFromId(playedWith.workId).longitude
-      // ),
     }))
 );
 
+const allPlayedWithWorkIds = new Set(
+  PlayedWithData.flatMap((item) => [
+    item.workId,
+    ...item.playedWith.map((pw) => pw.workId),
+  ])
+);
+
 const NodeLinkDiagram = () => {
+  const [clicknode, setClicknode] = useState(null);
   const fgRef = useRef();
 
-  const data = {
-    nodes: getMatchedDataByIds(),
-    links: linkData.filter((link) => {
-      // console.log(Math.abs(link.sourceData.year - link.targetData.year));
-      return (
-        Math.pow(
-          1.1,
-          -1 * Math.abs(link.sourceData.year - link.targetData.year)
-        ) > 0.1
-      );
+  const filteredWorks = useMemo(
+    () => matchedDataByIds.filter((work) => allPlayedWithWorkIds.has(work.id)),
+    []
+  );
+
+  const data = useMemo(
+    () => ({
+      nodes: filteredWorks,
+      links: linkData.filter((link) => {
+        const sourceData = getComposerFromId(link.source);
+        const targetData = getComposerFromId(link.target);
+
+        return (
+          sourceData.lat !== null &&
+          sourceData.lon !== null &&
+          targetData.lat !== null &&
+          targetData.lon !== null &&
+          Math.pow(1.1, -1 * Math.abs(sourceData.year - targetData.year)) *
+            Math.pow(
+              1 -
+                Math.pow(
+                  distance(
+                    sourceData.lat,
+                    sourceData.lon,
+                    targetData.lat,
+                    targetData.lon
+                  ),
+                  1 / 2
+                ),
+              2
+            ) >
+            0.1
+        );
+      }),
     }),
-  };
+    [filteredWorks]
+  );
 
   useEffect(() => {
-    fgRef.current.d3Force("link").distance((link) => link.distance);
+    if (fgRef.current) {
+      fgRef.current.d3Force("link").distance((link) => link.distance);
+      fgRef.current.d3Force("x", d3.forceX(0).strength(0.05));
+      fgRef.current.d3Force("y", d3.forceY(0).strength(0.05));
+      fgRef.current.d3Force("charge").strength(-100);
+    }
   }, []);
 
-  return (
-    <ForceGraph2D
-      ref={fgRef}
-      graphData={data}
-      nodeCanvasObject={(node, ctx, globalScale) => {
-        const size = 10 / globalScale;
+  console.log("clicknode", clicknode);
 
-        if (node.group === 0) {
+  return (
+    <div>
+      <ForceGraph2D
+        ref={fgRef}
+        graphData={data}
+        nodeCanvasObject={(node, ctx, globalScale) => {
+          const size = 5 / globalScale;
           drawCircle(ctx, node.x, node.y, size, "blue");
-        } else if (node.group === 1) {
-          drawStar(ctx, node.x, node.y, size * 2, "gold");
-        }
-      }}
-    />
+        }}
+        onNodeClick={(node) => {
+          setClicknode(node);
+        }}
+      />
+    </div>
   );
 };
 
