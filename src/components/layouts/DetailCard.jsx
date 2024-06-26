@@ -11,12 +11,13 @@ import Works from "../../assets/works_v02.json";
 
 const DetailCard = ({ clicknode }) => {
   let Data = null;
-  if (clicknode) {
-    Data = Works.find((item) => item.id === clicknode.id);
+  if (clicknode) Data = Works.find((item) => item.id === clicknode.id);
+  else return <div></div>;
+
+  const handleButtonClick = (event) => {
+    event.stopPropagation();
     console.log(Data);
-  } else {
-    return <div></div>;
-  }
+  };
 
   return (
     <div style={{ margin: "20px" }}>
@@ -37,6 +38,7 @@ const DetailCard = ({ clicknode }) => {
               未対応 Vn.I: 14, Vn.II: 12, Va.: 10, Vc.: 8, Cb: 6, Fl.: 2, Ob.:
               2, Cl.: 2, Bsn.:3[1.2.cbn], Hrn.: 4, Trp.: 2, Trb.: 3, Tub.: 0
             </Typography>
+            <button onClick={handleButtonClick}>登録ボタン実装予定</button>
           </Grid>
         </AccordionSummary>
         <AccordionDetails sx={{ backgroundColor: "#f0f0f0" }}>
