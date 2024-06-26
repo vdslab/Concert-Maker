@@ -1,8 +1,8 @@
+import React, { useEffect, useRef, useState, useMemo } from "react";
 import ForceGraph2D from "react-force-graph-2d";
 import Works from "../../assets/works_v02.json";
 import PlayedWithData from "../../assets/playedWith.json";
 import Composer from "../../assets/composers_v02.json";
-import { useEffect, useRef, useState, useMemo } from "react";
 import * as d3 from "d3";
 
 const drawCircle = (ctx, x, y, radius, color) => {
@@ -157,19 +157,18 @@ const NodeLinkDiagram = () => {
   console.log("clicknode", clicknode);
 
   return (
-    <div>
-      <ForceGraph2D
-        ref={fgRef}
-        graphData={data}
-        nodeCanvasObject={(node, ctx, globalScale) => {
-          const size = 5 / globalScale;
-          drawCircle(ctx, node.x, node.y, size, "blue");
-        }}
-        onNodeClick={(node) => {
-          setClicknode(node);
-        }}
-      />
-    </div>
+    <ForceGraph2D
+      ref={fgRef}
+      graphData={data}
+      width={window.innerWidth * 0.6}
+      nodeCanvasObject={(node, ctx, globalScale) => {
+        const size = 5 / globalScale;
+        drawCircle(ctx, node.x, node.y, size, "blue");
+      }}
+      onNodeClick={(node) => {
+        setClicknode(node);
+      }}
+    />
   );
 };
 
