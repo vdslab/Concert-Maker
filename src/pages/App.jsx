@@ -4,18 +4,15 @@ import NodeLinkDiagram from "../components/vis/NodeLinkDiagram";
 import DetailCard from "../components/layouts/DetailCard";
 
 function App() {
+  const [clicknode, setClicknode] = useState(null);
   return (
     <>
       <div className="container">
         <div className="left-half">
-          <NodeLinkDiagram />
+          <NodeLinkDiagram setClicknode={setClicknode} />
         </div>
         <div className="right-half">
-          <DetailCard />
-          <DetailCard />
-          <DetailCard />
-          <DetailCard />
-          <DetailCard />
+          <DetailCard clicknode={clicknode} />
         </div>
       </div>
     </>

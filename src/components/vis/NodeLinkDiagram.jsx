@@ -103,8 +103,8 @@ const allPlayedWithWorkIds = new Set(
   ])
 );
 
-const NodeLinkDiagram = () => {
-  const [clicknode, setClicknode] = useState(null);
+const NodeLinkDiagram = ({ setClicknode }) => {
+  // const [clicknode, setClicknode] = useState(null);
   const fgRef = useRef();
 
   const filteredWorks = useMemo(
@@ -154,7 +154,7 @@ const NodeLinkDiagram = () => {
     }
   }, []);
 
-  console.log("clicknode", clicknode);
+  // console.log("clicknode", clicknode);
 
   return (
     <ForceGraph2D
