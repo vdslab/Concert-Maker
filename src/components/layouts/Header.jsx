@@ -87,7 +87,7 @@ function ResponsiveAppBar() {
               {navItems.map(({ item, link, target }) => (
                 <MenuItem key={item} onClick={handleCloseNavMenu}>
                   <Button
-                    textAlign="center"
+                    style={{ textAlign: "center" }}
                     key={item}
                     component="a"
                     href={link}
