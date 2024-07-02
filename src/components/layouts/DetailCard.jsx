@@ -6,6 +6,7 @@ import {
   Typography,
   Grid,
   Button,
+  ButtonGroup,
 } from "@mui/material";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import Works from "../../assets/works_v03.json";
@@ -13,6 +14,87 @@ import AppleMusic from "../../assets/Apple_Music_Icon.svg";
 import Spotify from "../../assets/Spotify_Icon.png";
 import YouTube from "../../assets/YouTube_Music.png";
 import AmazonMusic from "../../assets/Amazon_Music.png";
+
+import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
+import ClickAwayListener from "@mui/material/ClickAwayListener";
+import Grow from "@mui/material/Grow";
+import Paper from "@mui/material/Paper";
+import Popper from "@mui/material/Popper";
+import MenuItem from "@mui/material/MenuItem";
+import MenuList from "@mui/material/MenuList";
+
+function SplitButton() {
+  const [open, setOpen] = React.useState(false);
+  const anchorRef = React.useRef(null);
+
+  const handleToggle = (event) => {
+    event.preventDefault();
+    event.stopPropagation();
+    setOpen((prevOpen) => !prevOpen);
+  };
+
+  const handleClose = (event) => {
+    if (anchorRef.current && anchorRef.current.contains(event.target)) {
+      return;
+    }
+    setOpen(false);
+  };
+
+  const handleMenuItemClick = (event) => {
+    event.preventDefault();
+    event.stopPropagation();
+    handleClose(event);
+  };
+
+  return (
+    <React.Fragment>
+      <ButtonGroup
+        variant="contained"
+        ref={anchorRef}
+        aria-label="split button"
+        onClick={(e) => e.stopPropagation()}
+      >
+        <Button onClick={(e) => e.stopPropagation()}>追加</Button>
+        <Button
+          size="small"
+          aria-controls={open ? "split-button-menu" : undefined}
+          aria-expanded={open ? "true" : undefined}
+          aria-label="select merge strategy"
+          aria-haspopup="menu"
+          onClick={handleToggle}
+        >
+          <ArrowDropDownIcon />
+        </Button>
+      </ButtonGroup>
+      <Popper
+        open={open}
+        anchorEl={anchorRef.current}
+        role={undefined}
+        transition
+        disablePortal
+      >
+        {({ TransitionProps, placement }) => (
+          <Grow
+            {...TransitionProps}
+            style={{
+              transformOrigin:
+                placement === "bottom" ? "center top" : "center bottom",
+            }}
+          >
+            <Paper>
+              <ClickAwayListener onClickAway={handleClose}>
+                <MenuList id="split-button-menu">
+                  <MenuItem onClick={handleMenuItemClick}>Option 1</MenuItem>
+                  <MenuItem onClick={handleMenuItemClick}>Option 2</MenuItem>
+                </MenuList>
+              </ClickAwayListener>
+            </Paper>
+          </Grow>
+        )}
+      </Popper>
+    </React.Fragment>
+  );
+}
 
 const DetailCard = ({ clicknode }) => {
   let Data = null;
@@ -64,6 +146,7 @@ const DetailCard = ({ clicknode }) => {
               {Data.workFormulaStr}
             </Typography>
             <button onClick={handleButtonClick}>登録ボタン実装予定</button>
+            <SplitButton />
           </Grid>
         </AccordionSummary>
         <AccordionDetails sx={{ backgroundColor: "#f0f0f0" }}>
