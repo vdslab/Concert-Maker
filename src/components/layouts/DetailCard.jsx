@@ -54,7 +54,8 @@ function SplitButton() {
         aria-label="split button"
         onClick={(e) => e.stopPropagation()}
       >
-        <Button onClick={(e) => e.stopPropagation()}>追加</Button>
+        {/* Amazonといっしょにしました。 */}
+        <Button onClick={(e) => e.stopPropagation()}>My演奏会に追加</Button>
         <Button
           size="small"
           aria-controls={open ? "split-button-menu" : undefined}
