@@ -9,9 +9,17 @@ import MenuIcon from "@mui/icons-material/Menu";
 import Container from "@mui/material/Container";
 import Button from "@mui/material/Button";
 import MenuItem from "@mui/material/MenuItem";
-import AdbIcon from "@mui/icons-material/Adb";
+import MusicNoteIcon from "@mui/icons-material/MusicNote";
 
-const pages = ["Products", "Pricing", "Blog"];
+const navItems = [
+  { item: "Search", link: "/", target: "_self" },
+  { item: "MyConcert", link: "/my-concert", target: "_self" },
+  {
+    item: "Shirashoji",
+    link: "https://github.com/Shirashoji/",
+    target: "_blank",
+  },
+];
 
 function ResponsiveAppBar() {
   const [anchorElNav, setAnchorElNav] = React.useState(null);
@@ -25,10 +33,10 @@ function ResponsiveAppBar() {
   };
 
   return (
-    <AppBar position="static">
+    <AppBar>
       <Container maxWidth="xl">
         <Toolbar disableGutters>
-          <AdbIcon sx={{ display: { xs: "none", md: "flex" }, mr: 1 }} />
+          <MusicNoteIcon sx={{ display: { xs: "none", md: "flex" }, mr: 1 }} />
           <Typography
             variant="h6"
             noWrap
@@ -44,7 +52,7 @@ function ResponsiveAppBar() {
               textDecoration: "none",
             }}
           >
-            LOGO
+            Aramackie Orchestra Music Networks
           </Typography>
 
           <Box sx={{ flexGrow: 1, display: { xs: "flex", md: "none" } }}>
@@ -76,14 +84,22 @@ function ResponsiveAppBar() {
                 display: { xs: "block", md: "none" },
               }}
             >
-              {pages.map((page) => (
-                <MenuItem key={page} onClick={handleCloseNavMenu}>
-                  <Typography textAlign="center">{page}</Typography>
+              {navItems.map(({ item, link, target }) => (
+                <MenuItem key={item} onClick={handleCloseNavMenu}>
+                  <Button
+                    style={{ textAlign: "center" }}
+                    key={item}
+                    component="a"
+                    href={link}
+                    target={target}
+                  >
+                    {item}
+                  </Button>
                 </MenuItem>
               ))}
             </Menu>
           </Box>
-          <AdbIcon sx={{ display: { xs: "flex", md: "none" }, mr: 1 }} />
+          <MusicNoteIcon sx={{ display: { xs: "flex", md: "none" }, mr: 1 }} />
           <Typography
             variant="h5"
             noWrap
@@ -100,7 +116,7 @@ function ResponsiveAppBar() {
               textDecoration: "none",
             }}
           >
-            LOGO
+            Aramackie Orchestra Music Networks
           </Typography>
           <Box
             sx={{
@@ -108,13 +124,16 @@ function ResponsiveAppBar() {
               display: { xs: "none", md: "flex", justifyContent: "flex-end" },
             }}
           >
-            {pages.map((page) => (
+            {navItems.map(({ item, link, target }) => (
               <Button
-                key={page}
+                key={item}
+                component="a"
+                href={link}
+                target={target}
                 onClick={handleCloseNavMenu}
                 sx={{ my: 2, color: "white", display: "block" }}
               >
-                {page}
+                {item}
               </Button>
             ))}
           </Box>
