@@ -36,8 +36,8 @@ const router = createBrowserRouter([
     element: (
       <Box
         sx={{
-          width: "100%",
-          height: "100%",
+          width: 100,
+          height: 100,
           margin: 0,
           bgcolor: "lightpink",
           border: "6px solid yellow",
@@ -72,15 +72,22 @@ ReactDOM.createRoot(document.getElementById("root")).render(
     <Box
       display="flex"
       flexDirection="column"
-      height="100%"
+      height="100vh"
       sx={{
         border: "6px solid red",
+        overflow: "auto", // Add this line to enable scrolling
       }}
     >
       <ThemeProvider theme={themeOptions}>
         <CssBaseline />
         <ResponsiveAppBar />
-        <Box flexGrow="1" border="6px solid green" sx={{ overflow: "auto" }}>
+        <Box
+          border="6px solid green"
+          height="100%"
+          overflow="auto"
+          sx={{ flex: 1 }}
+        >
+          {/* Add this Box to create a scrollable area */}
           <RouterProvider router={router} />
         </Box>
       </ThemeProvider>
