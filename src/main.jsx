@@ -74,14 +74,13 @@ ReactDOM.createRoot(document.getElementById("root")).render(
       flexDirection="column"
       height="100vh"
       sx={{
-        border: "6px solid red",
         overflow: "auto", // Add this line to enable scrolling
       }}
     >
       <ThemeProvider theme={themeOptions}>
         <CssBaseline />
         <ResponsiveAppBar />
-        <Box border="6px solid green" height="100%" overflow="auto">
+        <Box height="100%" overflow="auto">
           <RouterProvider router={router} />
         </Box>
       </ThemeProvider>
