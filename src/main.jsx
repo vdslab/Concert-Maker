@@ -81,13 +81,7 @@ ReactDOM.createRoot(document.getElementById("root")).render(
       <ThemeProvider theme={themeOptions}>
         <CssBaseline />
         <ResponsiveAppBar />
-        <Box
-          border="6px solid green"
-          height="100%"
-          overflow="auto"
-          sx={{ flex: 1 }}
-        >
-          {/* Add this Box to create a scrollable area */}
+        <Box border="6px solid green" height="100%" overflow="auto">
           <RouterProvider router={router} />
         </Box>
       </ThemeProvider>
