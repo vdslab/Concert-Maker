@@ -37,6 +37,18 @@ class MyConcert {
   }
 
   /**
+   * Deletes a work from a concert.
+   * @param {number} workId - The ID of the work to be deleted.
+   * @param {string} concertName - The name of the concert from which the work is to be deleted.
+   */
+  static deleteWork(workId, concertName) {
+    const myConcerts = JSON.parse(localStorage.getItem("MyConcerts")) || [];
+    const concert = myConcerts.find((concert) => concert.name === concertName);
+    concert.works = concert.works.filter((work) => work !== workId);
+    localStorage.setItem("MyConcerts", JSON.stringify(myConcerts));
+  }
+
+  /**
    * Gets all concerts from localStorage.
    *
    * @returns {Array} - An array of concerts.
@@ -54,16 +66,6 @@ class MyConcert {
   static getConcert(name) {
     const myConcerts = JSON.parse(localStorage.getItem("MyConcerts")) || [];
     return myConcerts.find((concert) => concert.name === name);
-  }
-
-  /**
-   * Gets the names of all concerts.
-   *
-   * @returns {Array} - An array of strings containing the names of all concerts.
-   */
-  static getConcertNames() {
-    const myConcerts = JSON.parse(localStorage.getItem("MyConcerts")) || [];
-    return myConcerts.map((concert) => concert.name);
   }
 }
 
