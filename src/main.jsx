@@ -47,7 +47,7 @@ export const themeOptions = responsiveFontSizes(
         paper: "#ffffff",
       },
     },
-  })
+  }),
 );
 
 ReactDOM.createRoot(document.getElementById("root")).render(
@@ -58,5 +58,5 @@ ReactDOM.createRoot(document.getElementById("root")).render(
       <Toolbar />
       <RouterProvider router={router} />
     </ThemeProvider>
-  </React.StrictMode>
+  </React.StrictMode>,
 );
