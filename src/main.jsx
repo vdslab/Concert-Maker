@@ -4,6 +4,7 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import { CssBaseline, ThemeProvider } from "@mui/material";
 import { createTheme, responsiveFontSizes } from "@mui/material/styles";
 import Toolbar from "@mui/material/Toolbar";
+import Box from "@mui/material/Box";
 import "@fontsource/roboto/300.css";
 import "@fontsource/roboto/400.css";
 import "@fontsource/roboto/500.css";
@@ -30,6 +31,22 @@ const router = createBrowserRouter([
     path: "/my-concert",
     element: <MyConcert />,
   },
+  {
+    path: "/box",
+    element: (
+      <Box
+        sx={{
+          width: "100%",
+          height: "100%",
+          margin: 0,
+          bgcolor: "lightpink",
+          border: "6px solid yellow",
+        }}
+      >
+        Box
+      </Box>
+    ),
+  },
 ]);
 
 export const themeOptions = responsiveFontSizes(
@@ -52,11 +69,21 @@ export const themeOptions = responsiveFontSizes(
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
-    <ThemeProvider theme={themeOptions}>
-      <CssBaseline />
-      <ResponsiveAppBar />
-      <Toolbar />
-      <RouterProvider router={router} />
-    </ThemeProvider>
+    <Box
+      display="flex"
+      flexDirection="column"
+      height="100%"
+      sx={{
+        border: "6px solid red",
+      }}
+    >
+      <ThemeProvider theme={themeOptions}>
+        <CssBaseline />
+        <ResponsiveAppBar />
+        <Box flexGrow="1" border="6px solid green" sx={{ overflow: "auto" }}>
+          <RouterProvider router={router} />
+        </Box>
+      </ThemeProvider>
+    </Box>
   </React.StrictMode>,
 );

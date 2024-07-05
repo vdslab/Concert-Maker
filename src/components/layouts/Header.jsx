@@ -33,7 +33,7 @@ function ResponsiveAppBar() {
   };
 
   return (
-    <AppBar position="fixed">
+    <AppBar position="sticky">
       <Container maxWidth="xl">
         <Toolbar disableGutters>
           <MusicNoteIcon sx={{ display: { xs: "none", md: "flex" }, mr: 1 }} />
