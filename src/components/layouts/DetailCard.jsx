@@ -23,7 +23,18 @@ import Popper from "@mui/material/Popper";
 import MenuItem from "@mui/material/MenuItem";
 import MenuList from "@mui/material/MenuList";
 
-function SplitButton() {
+import MyConcert from "@/utils/myConcert";
+
+function SplitButton({ songId }) {
+  console.log(songId);
+
+  const concertNames = MyConcert.getConcerts().map((concert) => concert.name);
+  if (concertNames.length === 0) {
+    MyConcert.createConcert("My演奏会");
+    concertNames.push("My演奏会");
+  }
+  console.log(concertNames);
+
   const [open, setOpen] = React.useState(false);
   const anchorRef = React.useRef(null);
 
@@ -55,7 +66,14 @@ function SplitButton() {
         onClick={(e) => e.stopPropagation()}
       >
         {/* Amazonといっしょにしました。 */}
-        <Button onClick={(e) => e.stopPropagation()}>My演奏会に追加</Button>
+        <Button
+          onClick={(e) => {
+            MyConcert.saveWork(songId, concertNames[0]);
+            e.stopPropagation();
+          }}
+        >
+          {concertNames[0]}に追加
+        </Button>
         <Button
           size="small"
           aria-controls={open ? "split-button-menu" : undefined}
@@ -85,8 +103,17 @@ function SplitButton() {
             <Paper>
               <ClickAwayListener onClickAway={handleClose}>
                 <MenuList id="split-button-menu">
-                  <MenuItem onClick={handleMenuItemClick}>Option 1</MenuItem>
-                  <MenuItem onClick={handleMenuItemClick}>Option 2</MenuItem>
+                  {concertNames.map((concertName) => (
+                    <MenuItem
+                      key={concertName}
+                      onClick={
+                        (MyConcert.saveWork(songId, concertName),
+                        handleMenuItemClick)
+                      }
+                    >
+                      {concertName}
+                    </MenuItem>
+                  ))}
                 </MenuList>
               </ClickAwayListener>
             </Paper>
@@ -147,7 +174,7 @@ const DetailCard = ({ clicknode }) => {
               {Data.workFormulaStr}
             </Typography>
             <button onClick={handleButtonClick}>登録ボタン実装予定</button>
-            <SplitButton />
+            <SplitButton songId={Data.id} />
           </Grid>
         </AccordionSummary>
         <AccordionDetails sx={{ backgroundColor: "#f0f0f0" }}>
