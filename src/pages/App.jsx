@@ -78,9 +78,7 @@ function SearchTabs({ setClicknode }) {
         </Tabs>
       </Box>
       <CustomTabPanel value={value} index={0}>
-        {/* <div className="left-half"> */}
         <NodeLinkDiagram setClicknode={setClicknode} />
-        {/* </div> */}
       </CustomTabPanel>
       <CustomTabPanel value={value} index={1}>
         一覧
