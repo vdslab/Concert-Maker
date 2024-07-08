@@ -1,7 +1,7 @@
 import { useState } from "react";
 import "./App.css";
 import NodeLinkDiagram from "../components/vis/NodeLinkDiagram";
-import DetailCard from "../components/layouts/DetailCard";
+import DetailCardList from "../components/layouts/DetailCardList";
 
 function App() {
   const [clicknode, setClicknode] = useState(null);
@@ -14,7 +14,7 @@ function App() {
           <NodeLinkDiagram setClicknode={setClicknode} setData={setData} />
         </div>
         <div className="right-half">
-          <DetailCard clicknode={clicknode} />
+          <DetailCardList clicknode={clicknode} Data={Data} />
         </div>
       </div>
     </>
