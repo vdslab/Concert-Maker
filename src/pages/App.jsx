@@ -5,11 +5,13 @@ import DetailCard from "../components/layouts/DetailCard";
 
 function App() {
   const [clicknode, setClicknode] = useState(null);
+  const [Data, setData] = useState([]);
+
   return (
     <>
       <div className="container">
         <div className="left-half">
-          <NodeLinkDiagram setClicknode={setClicknode} />
+          <NodeLinkDiagram setClicknode={setClicknode} setData={setData} />
         </div>
         <div className="right-half">
           <DetailCard clicknode={clicknode} />

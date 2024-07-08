@@ -103,7 +103,7 @@ const allPlayedWithWorkIds = new Set(
   ])
 );
 
-const NodeLinkDiagram = ({ setClicknode }) => {
+const NodeLinkDiagram = ({ setClicknode, setData }) => {
   // const [clicknode, setClicknode] = useState(null);
   const fgRef = useRef();
 
@@ -154,7 +154,9 @@ const NodeLinkDiagram = ({ setClicknode }) => {
     }
   }, []);
 
-  // console.log("clicknode", clicknode);
+  useEffect(() => {
+    setData(data);
+  }, []);
 
   return (
     <ForceGraph2D
