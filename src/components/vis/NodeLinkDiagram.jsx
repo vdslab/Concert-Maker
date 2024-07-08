@@ -5,12 +5,12 @@ import PlayedWithData from "../../assets/playedWith.json";
 import Composer from "../../assets/composers_v02.json";
 import * as d3 from "d3";
 
-const drawCircle = (ctx, x, y, radius, color) => {
+const drawCircle = (ctx, x, y, radius, color, strokeColor) => {
   ctx.beginPath();
   ctx.arc(x, y, radius, 0, 2 * Math.PI, false);
   ctx.fillStyle = color;
   ctx.fill();
-  ctx.strokeStyle = color;
+  ctx.strokeStyle = strokeColor;
   ctx.stroke();
 };
 
@@ -104,7 +104,7 @@ const allPlayedWithWorkIds = new Set(
 );
 
 const NodeLinkDiagram = ({ setClicknode, setData }) => {
-  // const [clicknode, setClicknode] = useState(null);
+  const [clickedNode, setClickedNode] = useState(null);
   const fgRef = useRef();
 
   const filteredWorks = useMemo(
@@ -156,7 +156,7 @@ const NodeLinkDiagram = ({ setClicknode, setData }) => {
 
   useEffect(() => {
     setData(data);
-  }, []);
+  }, [data, setData]);
 
   return (
     <ForceGraph2D
@@ -165,9 +165,11 @@ const NodeLinkDiagram = ({ setClicknode, setData }) => {
       width={window.innerWidth * 0.6}
       nodeCanvasObject={(node, ctx, globalScale) => {
         const size = 5 / globalScale;
-        drawCircle(ctx, node.x, node.y, size, "blue");
+        const color = node.id === clickedNode?.id ? "red" : "blue";
+        drawCircle(ctx, node.x, node.y, size, "blue", color);
       }}
       onNodeClick={(node) => {
+        setClickedNode(node);
         setClicknode(node);
       }}
     />
