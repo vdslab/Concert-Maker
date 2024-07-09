@@ -29,7 +29,7 @@ export default function PinnedSubheaderList() {
         bgcolor: "background.paper",
         position: "relative",
         overflow: "auto",
-        maxHeight: "85vh",
+        maxHeight: "80vh",
         "& ul": { padding: 0 },
       }}
       subheader={<li />}
