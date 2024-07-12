@@ -175,24 +175,6 @@ const NodeLinkDiagram = ({ setClicknode, setData }) => {
     [setClicknode]
   );
 
-  // return (
-  //   <ForceGraph2D
-  //     ref={fgRef}
-  //     graphData={data}
-  //     width={window.innerWidth * 0.6}
-  //     nodeCanvasObject={(node, ctx, globalScale) => {
-  //       const size = 5 / globalScale;
-  //       const color = node.id === clickedNode?.id ? "red" : "blue";
-  //       drawCircle(ctx, node.x, node.y, size, color, color);
-  //     }}
-  //     // onNodeClick={(node) => {
-  //     //   setClickedNode(node);
-  //     //   setClicknode(node);
-  //     // }}
-  //     onNodeClick={handleNodeClick}
-  //   />
-  // );
-
   const handleCloseInfo = useCallback(() => {
     setClickedNode(null);
     setClicknode(null);
