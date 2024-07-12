@@ -15,7 +15,7 @@ function App() {
           <NodeLinkDiagram setClicknode={setClicknode} setData={setData} />
           {/* <DetailCardList clicknode={clicknode} Data={Data} /> */}
         </Box>
-        <Box width={1 / 3} className="right-half">
+        <Box width={1 / 3} className="right-half" sx={{ overflow: "auto" }}>
           <MyConcertCardList />
         </Box>
       </div>

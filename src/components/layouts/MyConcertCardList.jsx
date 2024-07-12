@@ -9,14 +9,12 @@ export default function MyConcertCardList() {
   return (
     <Box
       sx={{ display: "flex", flexDirection: "column", gap: 2 }}
-      width="100%"
-      height="100%"
       border="4px solid orange"
     >
       {concerts.map((concert) => (
         <MyConcertCard key={concert.name} concert={concert} />
       ))}
-      <Box border="4px dashed blue" sx={{ flexGrow: 1 }}>
+      <Box border="4px dashed blue" minHeight="300px" sx={{ flexGrow: 1 }}>
         この部分に新しいコンサートを追加するボタンを配置する
       </Box>
     </Box>
