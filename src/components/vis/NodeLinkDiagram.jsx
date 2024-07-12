@@ -1,15 +1,10 @@
-import React, {
-  useEffect,
-  useRef,
-  useState,
-  useMemo,
-  useCallback,
-} from "react";
+import { useEffect, useRef, useState, useMemo, useCallback } from "react";
 import ForceGraph2D from "react-force-graph-2d";
 import Works from "../../assets/works_v02.json";
 import PlayedWithData from "../../assets/playedWith.json";
 import Composer from "../../assets/composers_v02.json";
 import * as d3 from "d3";
+import PropTypes from "prop-types";
 
 const drawCircle = (ctx, x, y, radius, color, strokeColor) => {
   ctx.beginPath();
@@ -109,6 +104,11 @@ const allPlayedWithWorkIds = new Set(
   ]),
 );
 
+NodeLinkDiagram.propTypes = {
+  setClicknode: PropTypes.func.isRequired,
+  setData: PropTypes.func.isRequired,
+};
+
 const NodeLinkDiagram = ({ setClicknode, setData }) => {
   const [clickedNode, setClickedNode] = useState(null);
   const fgRef = useRef();
@@ -199,6 +199,11 @@ const NodeLinkDiagram = ({ setClicknode, setData }) => {
   }, [setClicknode]);
 
   const NodeInfo = ({ node, onClose }) => {
+    // Prop type validation
+    NodeInfo.propTypes = {
+      node: PropTypes.object.isRequired,
+      onClose: PropTypes.func.isRequired,
+    };
     if (!node) return null;
 
     return (
