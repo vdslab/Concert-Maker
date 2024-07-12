@@ -17,6 +17,7 @@ function App() {
         <Box width={1 / 3} className="right-half">
           {/* <DetailCardList clicknode={clicknode} Data={Data} /> */}
           <MyConcertCardList />
+        </Box>
       </div>
     </>
   );

@@ -104,11 +104,6 @@ const allPlayedWithWorkIds = new Set(
   ]),
 );
 
-NodeLinkDiagram.propTypes = {
-  setClicknode: PropTypes.func.isRequired,
-  setData: PropTypes.func.isRequired,
-};
-
 const NodeLinkDiagram = ({ setClicknode, setData }) => {
   const [clickedNode, setClickedNode] = useState(null);
   const fgRef = useRef();
