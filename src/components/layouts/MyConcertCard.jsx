@@ -7,7 +7,39 @@ import Stack from "@mui/material/Stack";
 import Divider from "@mui/material/Divider";
 import Typography from "@mui/material/Typography";
 
-export default function MyConcertCard() {
+import { sumDurationFormat, durationFormat } from "@/utils/calcTime";
+
+import PropTypes from "prop-types";
+
+MyConcertCard.propTypes = {
+  concert: PropTypes.shape({
+    name: PropTypes.string.isRequired,
+    works: PropTypes.arrayOf(
+      PropTypes.shape({
+        composer: PropTypes.string.isRequired,
+        id: PropTypes.number.isRequired,
+        title: PropTypes.string.isRequired,
+        duration: PropTypes.number.isRequired,
+        workFormulaStr: PropTypes.string.isRequired,
+        workFormula: PropTypes.arrayOf(PropTypes.string).isRequired,
+        workFormula_perc: PropTypes.string,
+        workMovements: PropTypes.arrayOf(PropTypes.string).isRequired,
+        workMovementDuration: PropTypes.arrayOf(PropTypes.string),
+        workSources: PropTypes.arrayOf(PropTypes.string).isRequired,
+        playedWith: PropTypes.array,
+        strYear: PropTypes.string,
+        year: PropTypes.number.isRequired,
+      }),
+    ).isRequired,
+  }).isRequired,
+};
+
+export default function MyConcertCard(props) {
+  const { concert } = props;
+  const { name, works } = concert;
+
+  const sum_duration = sumDurationFormat(works.map((work) => work.duration));
+
   return (
     <Card elevation={3}>
       <Box sx={{ p: 2 }}>
@@ -28,28 +60,53 @@ export default function MyConcertCard() {
                 Main
               </Button>
               <Typography gutterBottom variant="h5" component="div">
-                My Concert 1
+                {name}
               </Typography>
             </Stack>
           </Grid>
 
           <Grid item>
             <Typography gutterBottom variant="h6" component="div">
-              1h 30m
+              {sum_duration}
             </Typography>
           </Grid>
         </Grid>
       </Box>
       <Divider />
       <Box sx={{ p: 2 }}>
-        <Typography gutterBottom variant="body2">
-          Select type
-        </Typography>
-        <Stack direction="row" spacing={1}>
-          <Chip color="primary" label="Soft" size="small" />
-          <Chip label="Medium" size="small" />
-          <Chip label="Hard" size="small" />
-        </Stack>
+        {works.map((work, index) => {
+          const duration_time = durationFormat(work.duration);
+          return (
+            <div key={work.id}>
+              {index !== 0 && <Divider />}
+              <Box sx={{ mb: 2 }}>
+                <Typography variant="h6" component="div">
+                  {work.title}
+                </Typography>
+                <Stack
+                  direction="row"
+                  justifyContent="space-between"
+                  alignItems="center"
+                  spacing={2}
+                >
+                  <Typography variant="body1" component="div">
+                    {work.composer}
+                  </Typography>
+                  <Typography variant="body2" component="div">
+                    {duration_time}
+                  </Typography>
+                </Stack>
+                <Stack direction="row" spacing={1}>
+                  <Typography variant="body2" component="div">
+                    {work.workFormulaStr.split("\n").map((line, index) => (
+                      <div key={index}>{line}</div>
+                    ))}
+                  </Typography>
+                </Stack>
+              </Box>
+            </div>
+          );
+        })}
       </Box>
     </Card>
   );

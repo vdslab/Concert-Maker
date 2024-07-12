@@ -1,3 +1,7 @@
+import workData from "@/assets/works_v03.json";
+
+
+
 class MyConcert {
   /**
    * Creates a new concert with the given name and stores it in the local storage.
@@ -54,7 +58,13 @@ class MyConcert {
    * @returns {Array} - An array of concerts.
    */
   static getConcerts() {
-    return JSON.parse(localStorage.getItem("MyConcerts")) || [];
+    const concerts = JSON.parse(localStorage.getItem("MyConcerts")) || [];
+    return concerts.map((concert) => ({
+      name: concert.name,
+      works: concert.works.map((workId) =>
+        workData.find((work) => work.id === workId),
+      ),
+    }));
   }
 
   /**
