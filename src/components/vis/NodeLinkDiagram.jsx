@@ -166,9 +166,6 @@ const NodeLinkDiagram = ({ setClicknode, setData }) => {
 
   const handleNodeClick = useCallback(
     (node) => {
-      const distance = 40;
-      const distRatio = 1 + distance / Math.hypot(node.x, node.y);
-
       fgRef.current.centerAt(node.x, node.y, 1000);
       fgRef.current.zoom(2, 1000);
 
@@ -178,22 +175,82 @@ const NodeLinkDiagram = ({ setClicknode, setData }) => {
     [setClicknode]
   );
 
+  // return (
+  //   <ForceGraph2D
+  //     ref={fgRef}
+  //     graphData={data}
+  //     width={window.innerWidth * 0.6}
+  //     nodeCanvasObject={(node, ctx, globalScale) => {
+  //       const size = 5 / globalScale;
+  //       const color = node.id === clickedNode?.id ? "red" : "blue";
+  //       drawCircle(ctx, node.x, node.y, size, color, color);
+  //     }}
+  //     // onNodeClick={(node) => {
+  //     //   setClickedNode(node);
+  //     //   setClicknode(node);
+  //     // }}
+  //     onNodeClick={handleNodeClick}
+  //   />
+  // );
+
+  const handleCloseInfo = useCallback(() => {
+    setClickedNode(null);
+    setClicknode(null);
+  }, [setClicknode]);
+
+  const NodeInfo = ({ node, onClose }) => {
+    if (!node) return null;
+
+    return (
+      <div
+        style={{
+          position: "absolute",
+          top: "10px",
+          left: "10px",
+          background: "white",
+          padding: "10px",
+          borderRadius: "5px",
+          boxShadow: "0 0 10px rgba(0,0,0,0.1)",
+          maxWidth: "300px",
+        }}
+      >
+        <button
+          onClick={onClose}
+          style={{
+            position: "absolute",
+            top: "5px",
+            right: "5px",
+            background: "none",
+            border: "none",
+            fontSize: "16px",
+            cursor: "pointer",
+          }}
+        >
+          ×
+        </button>
+        <h3>{node.title}</h3>
+        <p>Composer: {node.composer}</p>
+        <p>Year: {node.year}</p>
+        <p>Nationality: {node.nationality}</p>
+      </div>
+    );
+  };
+
   return (
-    <ForceGraph2D
-      ref={fgRef}
-      graphData={data}
-      width={window.innerWidth * 0.6}
-      nodeCanvasObject={(node, ctx, globalScale) => {
-        const size = 5 / globalScale;
-        const color = node.id === clickedNode?.id ? "red" : "blue";
-        drawCircle(ctx, node.x, node.y, size, color, color);
-      }}
-      // onNodeClick={(node) => {
-      //   setClickedNode(node);
-      //   setClicknode(node);
-      // }}
-      onNodeClick={handleNodeClick}
-    />
+    <div style={{ position: "relative" }}>
+      <ForceGraph2D
+        ref={fgRef}
+        graphData={data}
+        width={window.innerWidth * 0.6}
+        nodeCanvasObject={(node, ctx, globalScale) => {
+          const size = 5 / globalScale;
+          const color = node.id === clickedNode?.id ? "red" : "blue";
+          drawCircle(ctx, node.x, node.y, size, color, color);
+        }}
+        onNodeClick={handleNodeClick}
+      />
+      <NodeInfo node={clickedNode} onClose={handleCloseInfo} />
+    </div>
   );
 };
 
