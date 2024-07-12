@@ -1,4 +1,10 @@
-import React, { useEffect, useRef, useState, useMemo } from "react";
+import React, {
+  useEffect,
+  useRef,
+  useState,
+  useMemo,
+  useCallback,
+} from "react";
 import ForceGraph2D from "react-force-graph-2d";
 import Works from "../../assets/works_v02.json";
 import PlayedWithData from "../../assets/playedWith.json";
@@ -158,6 +164,20 @@ const NodeLinkDiagram = ({ setClicknode, setData }) => {
     setData(data);
   }, [data, setData]);
 
+  const handleNodeClick = useCallback(
+    (node) => {
+      const distance = 40;
+      const distRatio = 1 + distance / Math.hypot(node.x, node.y);
+
+      fgRef.current.centerAt(node.x, node.y, 1000);
+      fgRef.current.zoom(2, 1000);
+
+      setClickedNode(node);
+      setClicknode(node);
+    },
+    [setClicknode]
+  );
+
   return (
     <ForceGraph2D
       ref={fgRef}
@@ -166,12 +186,13 @@ const NodeLinkDiagram = ({ setClicknode, setData }) => {
       nodeCanvasObject={(node, ctx, globalScale) => {
         const size = 5 / globalScale;
         const color = node.id === clickedNode?.id ? "red" : "blue";
-        drawCircle(ctx, node.x, node.y, size, "blue", color);
+        drawCircle(ctx, node.x, node.y, size, color, color);
       }}
-      onNodeClick={(node) => {
-        setClickedNode(node);
-        setClicknode(node);
-      }}
+      // onNodeClick={(node) => {
+      //   setClickedNode(node);
+      //   setClicknode(node);
+      // }}
+      onNodeClick={handleNodeClick}
     />
   );
 };
