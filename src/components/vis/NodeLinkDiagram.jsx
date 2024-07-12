@@ -166,7 +166,7 @@ const NodeLinkDiagram = ({ setClicknode, setData }) => {
 
   const handleNodeClick = useCallback(
     (node) => {
-      fgRef.current.centerAt(node.x, node.y, 1000);
+      fgRef.current.centerAt(node.x - 100, node.y, 1000);
       fgRef.current.zoom(2, 1000);
 
       setClickedNode(node);
@@ -187,7 +187,7 @@ const NodeLinkDiagram = ({ setClicknode, setData }) => {
       <div
         style={{
           position: "absolute",
-          top: "10px",
+          top: "30px",
           left: "10px",
           background: "white",
           padding: "10px",

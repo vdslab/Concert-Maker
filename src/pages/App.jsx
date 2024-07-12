@@ -14,7 +14,8 @@ function App() {
           <NodeLinkDiagram setClicknode={setClicknode} setData={setData} />
         </div>
         <div className="right-half">
-          <DetailCardList clicknode={clicknode} Data={Data} />
+          {/* <DetailCardList clicknode={clicknode} Data={Data} /> */}
+          <p>hello</p>
         </div>
       </div>
     </>
