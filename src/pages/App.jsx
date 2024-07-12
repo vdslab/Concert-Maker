@@ -3,6 +3,7 @@ import "./App.css";
 import Box from "@mui/material/Box";
 import NodeLinkDiagram from "../components/vis/NodeLinkDiagram";
 import DetailCardList from "../components/layouts/DetailCardList";
+import MyConcertCardList from "@/components/layouts/MyConcertCardList";
 
 function App() {
   const [clicknode, setClicknode] = useState(null);
@@ -15,8 +16,7 @@ function App() {
         </Box>
         <Box width={1 / 3} className="right-half">
           {/* <DetailCardList clicknode={clicknode} Data={Data} /> */}
-          <p>hello</p>
-        </Box>
+          <MyConcertCardList />
       </div>
     </>
   );
