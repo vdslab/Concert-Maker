@@ -54,7 +54,7 @@ function distance(lat1, lng1, lat2, lng2) {
   return (
     Math.acos(
       Math.cos(lat1) * Math.cos(lat2) * Math.cos(lng2 - lng1) +
-        Math.sin(lat1) * Math.sin(lat2),
+        Math.sin(lat1) * Math.sin(lat2)
     ) / Math.PI
   );
 }
@@ -66,7 +66,7 @@ const enhancedPlayedWithData = PlayedWithData.map((item) => {
   const enhancedPlayedWith = item.playedWith.map((pw) => {
     const relatedWork = Works.find((work) => work.id === pw.workId);
     const relatedComposer = Composer.find(
-      (c) => c.name === relatedWork.composer,
+      (c) => c.name === relatedWork.composer
     );
     return {
       ...pw,
@@ -94,14 +94,14 @@ const linkData = enhancedPlayedWithData.flatMap((work) =>
       distance: (100 * 1.0) / (1.0 * playedWith.amount),
       sourceData: getComposerFromId(work.workId),
       targetData: getComposerFromId(playedWith.workId),
-    })),
+    }))
 );
 
 const allPlayedWithWorkIds = new Set(
   PlayedWithData.flatMap((item) => [
     item.workId,
     ...item.playedWith.map((pw) => pw.workId),
-  ]),
+  ])
 );
 
 const NodeLinkDiagram = ({ setClicknode, setData }) => {
@@ -110,7 +110,7 @@ const NodeLinkDiagram = ({ setClicknode, setData }) => {
 
   const filteredWorks = useMemo(
     () => matchedDataByIds.filter((work) => allPlayedWithWorkIds.has(work.id)),
-    [],
+    []
   );
 
   const data = useMemo(
@@ -133,17 +133,17 @@ const NodeLinkDiagram = ({ setClicknode, setData }) => {
                     sourceData.lat,
                     sourceData.lon,
                     targetData.lat,
-                    targetData.lon,
+                    targetData.lon
                   ),
-                  1 / 2,
+                  1 / 2
                 ),
-              2,
+              2
             ) >
             0.1
         );
       }),
     }),
-    [filteredWorks],
+    [filteredWorks]
   );
 
   useEffect(() => {
@@ -159,23 +159,22 @@ const NodeLinkDiagram = ({ setClicknode, setData }) => {
     setData(data);
   }, [data, setData]);
 
-  const parentDivRef = useRef(null); // Step 1: Create a ref
-  const [height, setHeight] = useState(0); // Initial height state
+  const parentDivRef = useRef(null);
+  const [height, setHeight] = useState(0);
 
   useEffect(() => {
-    // Function to update height
     const updateHeight = () => {
       if (parentDivRef.current) {
-        setHeight(parentDivRef.current.offsetHeight); // Set height based on parent div
+        setHeight(parentDivRef.current.offsetHeight);
       }
     };
 
-    updateHeight(); // Update height on mount
+    updateHeight();
 
-    window.addEventListener("resize", updateHeight); // Update height on window resize
+    window.addEventListener("resize", updateHeight);
 
-    return () => window.removeEventListener("resize", updateHeight); // Cleanup on unmount
-  }, []); // Empty dependency array means this effect runs once on mount
+    return () => window.removeEventListener("resize", updateHeight);
+  }, []);
 
   const handleNodeClick = useCallback(
     (node) => {
@@ -185,7 +184,7 @@ const NodeLinkDiagram = ({ setClicknode, setData }) => {
       setClickedNode(node);
       setClicknode(node);
     },
-    [setClicknode],
+    [setClicknode]
   );
 
   const handleCloseInfo = useCallback(() => {
@@ -194,7 +193,6 @@ const NodeLinkDiagram = ({ setClicknode, setData }) => {
   }, [setClicknode]);
 
   const NodeInfo = ({ node, onClose }) => {
-    // Prop type validation
     NodeInfo.propTypes = {
       node: PropTypes.object.isRequired,
       onClose: PropTypes.func.isRequired,
