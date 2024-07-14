@@ -1,4 +1,10 @@
-import { useEffect, useRef, useState, useMemo, useCallback } from "react";
+import React, {
+  useEffect,
+  useRef,
+  useState,
+  useMemo,
+  useCallback,
+} from "react";
 import ForceGraph2D from "react-force-graph-2d";
 import Works from "../../assets/works_v03.json";
 import PlayedWithData from "../../assets/playedWith.json";
@@ -7,7 +13,116 @@ import SpotifyIcon from "../../assets/Spotify_Icon.png";
 import YoutubeIcon from "../../assets/YouTube_Music.png";
 import AmazonIcon from "../../assets/Amazon_Music.png";
 import AppleIcon from "../../assets/Apple_Music_Icon.svg";
+import { Button, ButtonGroup } from "@mui/material";
 import * as d3 from "d3";
+import MyConcert from "@/utils/myConcert";
+
+import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
+import ClickAwayListener from "@mui/material/ClickAwayListener";
+import Grow from "@mui/material/Grow";
+import Paper from "@mui/material/Paper";
+import Popper from "@mui/material/Popper";
+import MenuItem from "@mui/material/MenuItem";
+import MenuList from "@mui/material/MenuList";
+
+function SplitButton({ songId }) {
+  console.log(songId);
+
+  const concertNames = MyConcert.getConcerts().map((concert) => concert.name);
+  if (concertNames.length === 0) {
+    MyConcert.createConcert("My演奏会");
+    concertNames.push("My演奏会");
+  }
+  console.log(concertNames);
+
+  const [open, setOpen] = React.useState(false);
+  const anchorRef = React.useRef(null);
+
+  const handleToggle = (event) => {
+    event.preventDefault();
+    event.stopPropagation();
+    setOpen((prevOpen) => !prevOpen);
+  };
+
+  const handleClose = (event) => {
+    if (anchorRef.current && anchorRef.current.contains(event.target)) {
+      return;
+    }
+    setOpen(false);
+  };
+
+  const handleMenuItemClick = (event) => {
+    event.preventDefault();
+    event.stopPropagation();
+    handleClose(event);
+  };
+
+  return (
+    <React.Fragment>
+      <ButtonGroup
+        variant="contained"
+        ref={anchorRef}
+        aria-label="split button"
+        onClick={(e) => e.stopPropagation()}
+      >
+        {/* Amazonといっしょにしました。 */}
+        <Button
+          onClick={(e) => {
+            MyConcert.saveWork(songId, concertNames[0]);
+            e.stopPropagation();
+          }}
+        >
+          {concertNames[0]}に追加
+        </Button>
+        <Button
+          size="small"
+          aria-controls={open ? "split-button-menu" : undefined}
+          aria-expanded={open ? "true" : undefined}
+          aria-label="select merge strategy"
+          aria-haspopup="menu"
+          onClick={handleToggle}
+        >
+          <ArrowDropDownIcon />
+        </Button>
+      </ButtonGroup>
+      <Popper
+        open={open}
+        anchorEl={anchorRef.current}
+        role={undefined}
+        transition
+        disablePortal
+      >
+        {({ TransitionProps, placement }) => (
+          <Grow
+            {...TransitionProps}
+            style={{
+              transformOrigin:
+                placement === "bottom" ? "center top" : "center bottom",
+            }}
+          >
+            <Paper>
+              <ClickAwayListener onClickAway={handleClose}>
+                <MenuList id="split-button-menu">
+                  {concertNames.map((concertName) => (
+                    <MenuItem
+                      key={concertName}
+                      onClick={
+                        (MyConcert.saveWork(songId, concertName),
+                        handleMenuItemClick)
+                      }
+                    >
+                      {concertName}
+                    </MenuItem>
+                  ))}
+                </MenuList>
+              </ClickAwayListener>
+            </Paper>
+          </Grow>
+        )}
+      </Popper>
+    </React.Fragment>
+  );
+}
 
 const drawCircle = (ctx, x, y, radius, color, strokeColor) => {
   ctx.beginPath();
@@ -264,7 +379,7 @@ const NodeLinkDiagram = ({ setClicknode, setData }) => {
           <p style={{ margin: "0 0 15px 0", color: "#666" }}>
             {node.workFormulaStr}
           </p>
-          <button
+          {/* <button
             style={{
               background: "#4285F4",
               color: "white",
@@ -275,7 +390,8 @@ const NodeLinkDiagram = ({ setClicknode, setData }) => {
             }}
           >
             演奏会に追加 ▼
-          </button>
+          </button> */}
+          <SplitButton songId={node.id} />
         </div>
         <div style={{ borderTop: "1px solid #eee", padding: "20px" }}>
           <h3 style={{ margin: "0 0 10px 0" }}>詳細情報</h3>
