@@ -28,6 +28,7 @@ import {
 import { styled } from "@mui/system";
 import CloseIcon from "@mui/icons-material/Close";
 import SplitButton from "./SplitButton";
+import { musicServices } from "./musicServices";
 
 const StyledPaper = styled(Paper)(({ theme }) => ({
   position: "absolute",
@@ -145,29 +146,6 @@ const allPlayedWithWorkIds = new Set(
 
 const NodeInfo = ({ node, onClose }) => {
   if (!node) return null;
-
-  const musicServices = [
-    {
-      name: "Spotify",
-      icon: SpotifyIcon,
-      url: "https://open.spotify.com/search/",
-    },
-    {
-      name: "YouTube Music",
-      icon: YoutubeIcon,
-      url: "https://music.youtube.com/search?q=",
-    },
-    {
-      name: "Apple Music",
-      icon: AppleIcon,
-      url: "https://music.apple.com/search?term=",
-    },
-    {
-      name: "Amazon Music",
-      icon: AmazonIcon,
-      url: "https://music.amazon.com/search/",
-    },
-  ];
 
   const relatedWorks = [
     {
