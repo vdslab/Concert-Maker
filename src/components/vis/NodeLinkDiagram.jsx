@@ -13,11 +13,8 @@ import SpotifyIcon from "../../assets/Spotify_Icon.png";
 import YoutubeIcon from "../../assets/YouTube_Music.png";
 import AmazonIcon from "../../assets/Amazon_Music.png";
 import AppleIcon from "../../assets/Apple_Music_Icon.svg";
-import MyConcert from "@/utils/myConcert";
 import * as d3 from "d3";
 import {
-  Button,
-  ButtonGroup,
   Paper,
   Typography,
   List,
@@ -26,13 +23,11 @@ import {
   Divider,
   Box,
   IconButton,
-  Menu,
-  MenuItem,
   Grid,
 } from "@mui/material";
 import { styled } from "@mui/system";
 import CloseIcon from "@mui/icons-material/Close";
-import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
+import SplitButton from "./SplitButton";
 
 const StyledPaper = styled(Paper)(({ theme }) => ({
   position: "absolute",
@@ -49,80 +44,6 @@ const StyledIconButton = styled(IconButton)(({ theme }) => ({
   top: "10px",
   right: "10px",
 }));
-
-function SplitButton({ songId }) {
-  const concertNames = MyConcert.getConcerts().map((concert) => concert.name);
-  if (concertNames.length === 0) {
-    MyConcert.createConcert("My演奏会");
-    concertNames.push("My演奏会");
-  }
-
-  const [open, setOpen] = React.useState(false);
-  const anchorRef = React.useRef(null);
-
-  const handleToggle = (event) => {
-    event.preventDefault();
-    event.stopPropagation();
-    setOpen((prevOpen) => !prevOpen);
-  };
-
-  const handleClose = (event) => {
-    if (anchorRef.current && anchorRef.current.contains(event.target)) {
-      return;
-    }
-    setOpen(false);
-  };
-
-  const handleMenuItemClick = (event, concertName) => {
-    event.preventDefault();
-    event.stopPropagation();
-    MyConcert.saveWork(songId, concertName);
-    handleClose(event);
-  };
-
-  return (
-    <React.Fragment>
-      <ButtonGroup
-        variant="contained"
-        ref={anchorRef}
-        aria-label="split button"
-      >
-        <Button
-          onClick={(e) => {
-            MyConcert.saveWork(songId, concertNames[0]);
-            e.stopPropagation();
-          }}
-        >
-          {concertNames[0]}に追加
-        </Button>
-        <Button
-          size="small"
-          aria-controls={open ? "split-button-menu" : undefined}
-          aria-expanded={open ? "true" : undefined}
-          aria-haspopup="menu"
-          onClick={handleToggle}
-        >
-          <ArrowDropDownIcon />
-        </Button>
-      </ButtonGroup>
-      <Menu
-        id="split-button-menu"
-        anchorEl={anchorRef.current}
-        open={open}
-        onClose={handleClose}
-      >
-        {concertNames.map((concertName) => (
-          <MenuItem
-            key={concertName}
-            onClick={(event) => handleMenuItemClick(event, concertName)}
-          >
-            {concertName}
-          </MenuItem>
-        ))}
-      </Menu>
-    </React.Fragment>
-  );
-}
 
 const drawCircle = (ctx, x, y, radius, color, strokeColor) => {
   ctx.beginPath();
