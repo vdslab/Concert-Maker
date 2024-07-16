@@ -21,7 +21,7 @@ const StyledPaper = styled(Paper)(({ theme }) => ({
   left: "10px",
   width: "400px",
   height: "calc(100vh - 100px)",
-  maxHeight: "calc(100vh - 100px)",
+  // maxHeight: "calc(100vh - 100px)",
   overflowY: "auto",
 }));
 
@@ -70,24 +70,11 @@ const NodeInfo = ({ node, onClose }) => {
           詳細情報
         </Typography>
         <List>
-          {[
-            "I. Un poco sostenuto; Allegro",
-            "II. Andante sostenuto",
-            "III. Un poco allegretto e grazioso",
-            "IV. Adagio; Più andante; Allegro non troppo, ma con brio",
-          ].map((movement, index) => (
+          {node.workMovements.map((movement, index) => (
             <ListItem key={index} dense>
               <ListItemText
                 primary={movement}
-                secondary={
-                  index === 0
-                    ? "13分"
-                    : index === 1
-                    ? "10分"
-                    : index === 2
-                    ? "5分"
-                    : "17分"
-                }
+                secondary={node.workMovementDuration[index]}
               />
             </ListItem>
           ))}

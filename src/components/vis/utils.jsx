@@ -10,6 +10,8 @@ export const matchedDataByIds = Works.map((work) => {
     duration: work.duration,
     title: work.title,
     workFormulaStr: work.workFormulaStr,
+    workMovements: work.workMovements,
+    workMovementDuration: work.workMovementDuration,
     year: work.year,
     lat: composerInfo ? composerInfo.latitude : null,
     lon: composerInfo ? composerInfo.longitude : null,
