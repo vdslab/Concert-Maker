@@ -205,7 +205,7 @@ const NodeLinkDiagram = ({ setClicknode, setData }) => {
       <div
         style={{
           position: "absolute",
-          top: "30px",
+          top: "70px",
           left: "10px",
           background: "white",
           padding: "10px",
