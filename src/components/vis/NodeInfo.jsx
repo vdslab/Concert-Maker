@@ -34,24 +34,14 @@ const StyledIconButton = styled(IconButton)(({ theme }) => ({
 const NodeInfo = ({ node, onClose }) => {
   if (!node) return null;
 
+  console.log(node);
+
   const relatedWorks = [
     {
       title: node.title,
       composer: node.composer,
-      duration: "33分",
-      id: "2022-2200-tmp-str",
-    },
-    {
-      title: node.title,
-      composer: node.composer,
-      duration: "33分",
-      id: "2022-2200-tmp-str",
-    },
-    {
-      title: node.title,
-      composer: node.composer,
-      duration: "33分",
-      id: "2022-2200-tmp-str",
+      duration: `${node.duration}分`,
+      workFormulaStr: node.workFormulaStr,
     },
   ];
 
@@ -66,14 +56,13 @@ const NodeInfo = ({ node, onClose }) => {
             {node.title}
           </Typography>
           <Typography variant="body2" gutterBottom>
-            演奏時間: 33分
+            演奏時間: {node.duration}分
           </Typography>
           <Typography variant="body2" color="textSecondary" gutterBottom>
-            2022-2200-tmp-str
-            {/* {node.workFormulaStr} */}
+            {node.workFormulaStr}
           </Typography>
         </Box>
-        <SplitButton songId={node.id} />
+        <SplitButton songId={node.workFormulaStr} />
       </Box>
       <Divider />
       <Box p={2}>
@@ -134,7 +123,7 @@ const NodeInfo = ({ node, onClose }) => {
             <Typography variant="subtitle1">{work.title}</Typography>
             <Typography variant="body2">{work.composer}</Typography>
             <Typography variant="body2" color="textSecondary">
-              演奏時間: {work.duration} | {work.id}
+              演奏時間: {work.duration} | {work.workFormulaStr}
             </Typography>
           </Box>
         ))}

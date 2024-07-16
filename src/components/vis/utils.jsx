@@ -5,9 +5,11 @@ export const matchedDataByIds = Works.map((work) => {
   const composerInfo = Composer.find((c) => c.name === work.composer);
 
   return {
-    composer: work.composer,
     id: work.id,
+    composer: work.composer,
+    duration: work.duration,
     title: work.title,
+    workFormulaStr: work.workFormulaStr,
     year: work.year,
     lat: composerInfo ? composerInfo.latitude : null,
     lon: composerInfo ? composerInfo.longitude : null,
@@ -27,5 +29,3 @@ export const getComposerFromId = (composerId) => {
   const work = matchedDataByIds.find((item) => item.id === composerId);
   return work ? work : { lat: null, lon: null };
 };
-
-
