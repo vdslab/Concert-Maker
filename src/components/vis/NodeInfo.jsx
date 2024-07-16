@@ -49,7 +49,8 @@ const NodeInfo = ({ node, onClose }) => {
           <CloseIcon />
         </StyledIconButton>
         <Box mt={5}>
-          <Typography variant="h5" gutterBottom>
+          <Typography variant="body">{node.composer}</Typography>
+          <Typography variant="h6" gutterBottom>
             {node.title}
           </Typography>
           <Typography variant="body2" gutterBottom>
