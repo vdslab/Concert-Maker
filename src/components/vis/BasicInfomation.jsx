@@ -28,7 +28,7 @@ const BasicInfomation = ({ node, onClose }) => {
             {node.workFormulaStr}
           </Typography>
         </Box>
-        <SplitButton songId={node.workFormulaStr} />
+        <SplitButton songId={node.id} />
       </Box>
     </>
   );
