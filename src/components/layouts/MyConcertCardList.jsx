@@ -9,7 +9,6 @@ export default function MyConcertCardList() {
   return (
     <Box
       sx={{ display: "flex", flexDirection: "column", gap: 2 }}
-      border="4px solid orange"
     >
       {concerts.map((concert) => (
         <MyConcertCard key={concert.name} concert={concert} />
