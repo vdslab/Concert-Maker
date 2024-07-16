@@ -2,9 +2,6 @@ import React from "react";
 import {
   Paper,
   Typography,
-  List,
-  ListItem,
-  ListItemText,
   Divider,
   Box,
   IconButton,
@@ -69,16 +66,22 @@ const NodeInfo = ({ node, onClose }) => {
         <Typography variant="h6" gutterBottom>
           詳細情報
         </Typography>
-        <List>
+        <Grid container spacing={2}>
           {node.workMovements.map((movement, index) => (
-            <ListItem key={index} dense>
-              <ListItemText
-                primary={movement}
-                secondary={node.workMovementDuration[index]}
-              />
-            </ListItem>
+            <>
+              <Grid item xs={12} container>
+                <Grid item xs={10}>
+                  <Typography>{movement}</Typography>
+                </Grid>
+                <Grid item xs={2}>
+                  <Typography align="right">
+                    {node.workMovementDuration[index]}
+                  </Typography>
+                </Grid>
+              </Grid>
+            </>
           ))}
-        </List>
+        </Grid>
       </Box>
       <Divider />
       <Box p={2}>
