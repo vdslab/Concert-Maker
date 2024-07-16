@@ -8,9 +8,9 @@ import {
   Grid,
 } from "@mui/material";
 import { styled } from "@mui/system";
-import CloseIcon from "@mui/icons-material/Close";
-import SplitButton from "./SplitButton";
 import { musicServices } from "./musicServices";
+import BasicInfomation from "./BasicInfomation";
+import DetailInfomation from "./DetailInfomation";
 
 const StyledPaper = styled(Paper)(({ theme }) => ({
   position: "absolute",
@@ -20,12 +20,6 @@ const StyledPaper = styled(Paper)(({ theme }) => ({
   height: "calc(100vh - 100px)",
   // maxHeight: "calc(100vh - 100px)",
   overflowY: "auto",
-}));
-
-const StyledIconButton = styled(IconButton)(({ theme }) => ({
-  position: "absolute",
-  top: "10px",
-  right: "10px",
 }));
 
 const NodeInfo = ({ node, onClose }) => {
@@ -44,46 +38,9 @@ const NodeInfo = ({ node, onClose }) => {
 
   return (
     <StyledPaper>
-      <Box p={2} position="relative">
-        <StyledIconButton onClick={onClose}>
-          <CloseIcon />
-        </StyledIconButton>
-        <Box mt={5}>
-          <Typography variant="body">{node.composer}</Typography>
-          <Typography variant="h6" gutterBottom>
-            {node.title}
-          </Typography>
-          <Typography variant="body2" gutterBottom>
-            演奏時間: {node.duration}分
-          </Typography>
-          <Typography variant="body2" color="textSecondary" gutterBottom>
-            {node.workFormulaStr}
-          </Typography>
-        </Box>
-        <SplitButton songId={node.workFormulaStr} />
-      </Box>
+      <BasicInfomation node={node} onClose={onClose} />
       <Divider />
-      <Box p={2}>
-        <Typography variant="h6" gutterBottom>
-          詳細情報
-        </Typography>
-        <Grid container spacing={2}>
-          {node.workMovements.map((movement, index) => (
-            <>
-              <Grid item xs={12} container>
-                <Grid item xs={10}>
-                  <Typography>{movement}</Typography>
-                </Grid>
-                <Grid item xs={2}>
-                  <Typography align="right">
-                    {node.workMovementDuration[index]}
-                  </Typography>
-                </Grid>
-              </Grid>
-            </>
-          ))}
-        </Grid>
-      </Box>
+      <DetailInfomation node={node} />
       <Divider />
       <Box p={2}>
         <Typography variant="h6" gutterBottom>
@@ -105,6 +62,7 @@ const NodeInfo = ({ node, onClose }) => {
         </Grid>
       </Box>
       <Divider />
+      {/* クリックされたノードと関連する曲を取り出す作業を行う予定 */}
       <Box p={2}>
         <Typography variant="h6" gutterBottom>
           よく一緒に演奏されている曲
