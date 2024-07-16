@@ -1,16 +1,10 @@
 import React from "react";
-import {
-  Paper,
-  Typography,
-  Divider,
-  Box,
-  IconButton,
-  Grid,
-} from "@mui/material";
+import { Paper, Typography, Divider, Box, Grid } from "@mui/material";
 import { styled } from "@mui/system";
 import { musicServices } from "./musicServices";
 import BasicInfomation from "./BasicInfomation";
 import DetailInfomation from "./DetailInfomation";
+import SongPlayedTogether from "./SongsPlayedTogether";
 
 const StyledPaper = styled(Paper)(({ theme }) => ({
   position: "absolute",
@@ -26,15 +20,6 @@ const NodeInfo = ({ node, onClose }) => {
   if (!node) return null;
 
   console.log(node);
-
-  const relatedWorks = [
-    {
-      title: node.title,
-      composer: node.composer,
-      duration: `${node.duration}分`,
-      workFormulaStr: node.workFormulaStr,
-    },
-  ];
 
   return (
     <StyledPaper>
@@ -63,20 +48,7 @@ const NodeInfo = ({ node, onClose }) => {
       </Box>
       <Divider />
       {/* クリックされたノードと関連する曲を取り出す作業を行う予定 */}
-      <Box p={2}>
-        <Typography variant="h6" gutterBottom>
-          よく一緒に演奏されている曲
-        </Typography>
-        {relatedWorks.map((work, index) => (
-          <Box key={index} mb={2}>
-            <Typography variant="subtitle1">{work.title}</Typography>
-            <Typography variant="body2">{work.composer}</Typography>
-            <Typography variant="body2" color="textSecondary">
-              演奏時間: {work.duration} | {work.workFormulaStr}
-            </Typography>
-          </Box>
-        ))}
-      </Box>
+      <SongPlayedTogether node={node} />
     </StyledPaper>
   );
 };
