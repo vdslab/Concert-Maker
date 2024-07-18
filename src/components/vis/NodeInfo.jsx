@@ -1,10 +1,10 @@
 import React from "react";
-import { Paper, Typography, Divider, Box, Grid } from "@mui/material";
+import { Paper, Divider } from "@mui/material";
 import { styled } from "@mui/system";
-import { musicServices } from "./musicServices";
 import BasicInfomation from "./BasicInfomation";
 import DetailInfomation from "./DetailInfomation";
 import SongPlayedTogether from "./SongsPlayedTogether";
+import MusicButton from "./MusicButton";
 
 const StyledPaper = styled(Paper)(({ theme }) => ({
   position: "absolute",
@@ -27,25 +27,7 @@ const NodeInfo = ({ node, onClose, Data, setClicknode }) => {
       <Divider />
       <DetailInfomation node={node} />
       <Divider />
-      <Box p={2}>
-        <Typography variant="h6" gutterBottom>
-          聴く
-        </Typography>
-        <Grid container spacing={2} justifyContent="space-between">
-          {musicServices.map((service, index) => (
-            <Grid item key={index}>
-              <Box display="flex" flexDirection="column" alignItems="center">
-                <img
-                  src={service.icon}
-                  alt={service.name}
-                  style={{ width: 40, height: 40, marginBottom: 5 }}
-                />
-                <Typography variant="caption">{service.name}</Typography>
-              </Box>
-            </Grid>
-          ))}
-        </Grid>
-      </Box>
+      <MusicButton work={node} />
       <Divider />
       <SongPlayedTogether node={node} Data={Data} setClicknode={setClicknode} />
     </StyledPaper>
