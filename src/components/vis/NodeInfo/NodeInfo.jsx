@@ -19,8 +19,6 @@ const StyledPaper = styled(Paper)(({ theme }) => ({
 const NodeInfo = ({ node, onClose, Data, setClicknode }) => {
   if (!node) return null;
 
-  console.log(node);
-
   return (
     <StyledPaper>
       <BasicInfomation node={node} onClose={onClose} />
