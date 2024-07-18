@@ -16,7 +16,7 @@ const StyledPaper = styled(Paper)(({ theme }) => ({
   overflowY: "auto",
 }));
 
-const NodeInfo = ({ node, onClose }) => {
+const NodeInfo = ({ node, onClose, Data }) => {
   if (!node) return null;
 
   console.log(node);
@@ -47,8 +47,7 @@ const NodeInfo = ({ node, onClose }) => {
         </Grid>
       </Box>
       <Divider />
-      {/* クリックされたノードと関連する曲を取り出す作業を行う予定 */}
-      <SongPlayedTogether node={node} />
+      <SongPlayedTogether node={node} Data={Data} />
     </StyledPaper>
   );
 };

@@ -61,8 +61,12 @@ const allPlayedWithWorkIds = new Set(
   ])
 );
 
-const NodeLinkDiagram = ({ clicknode, setClicknode, setData }) => {
+const NodeLinkDiagram = () => {
   const fgRef = useRef();
+  const parentDivRef = useRef(null);
+  const [height, setHeight] = useState(0);
+  const [clicknode, setClicknode] = useState(null);
+  const [Data, setData] = useState([]);
 
   const filteredWorks = useMemo(
     () => matchedDataByIds.filter((work) => allPlayedWithWorkIds.has(work.id)),
@@ -115,9 +119,6 @@ const NodeLinkDiagram = ({ clicknode, setClicknode, setData }) => {
     setData(data);
   }, [data, setData]);
 
-  const parentDivRef = useRef(null);
-  const [height, setHeight] = useState(0);
-
   useEffect(() => {
     const updateHeight = () => {
       if (parentDivRef.current) {
@@ -160,7 +161,7 @@ const NodeLinkDiagram = ({ clicknode, setClicknode, setData }) => {
         }}
         onNodeClick={handleNodeClick}
       />
-      <NodeInfo node={clicknode} onClose={handleCloseInfo} />
+      <NodeInfo node={clicknode} onClose={handleCloseInfo} Data={Data} />
     </Box>
   );
 };
