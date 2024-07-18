@@ -16,7 +16,7 @@ const StyledPaper = styled(Paper)(({ theme }) => ({
   overflowY: "auto",
 }));
 
-const NodeInfo = ({ node, onClose, Data }) => {
+const NodeInfo = ({ node, onClose, Data, setClicknode }) => {
   if (!node) return null;
 
   console.log(node);
@@ -47,7 +47,7 @@ const NodeInfo = ({ node, onClose, Data }) => {
         </Grid>
       </Box>
       <Divider />
-      <SongPlayedTogether node={node} Data={Data} />
+      <SongPlayedTogether node={node} Data={Data} setClicknode={setClicknode} />
     </StyledPaper>
   );
 };

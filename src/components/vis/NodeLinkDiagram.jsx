@@ -133,15 +133,16 @@ const NodeLinkDiagram = () => {
     return () => window.removeEventListener("resize", updateHeight);
   }, []);
 
-  const handleNodeClick = useCallback(
-    (node) => {
-      fgRef.current.centerAt(node.x - 100, node.y, 1000);
+  useEffect(() => {
+    if (clicknode && fgRef.current) {
+      fgRef.current.centerAt(clicknode.x - 100, clicknode.y, 1000);
       fgRef.current.zoom(2, 1000);
+    }
+  }, [clicknode]);
 
-      setClicknode(node);
-    },
-    [setClicknode]
-  );
+  const handleNodeClick = useCallback((node) => {
+    setClicknode(node);
+  }, []);
 
   const handleCloseInfo = useCallback(() => {
     setClicknode(null);
@@ -161,7 +162,12 @@ const NodeLinkDiagram = () => {
         }}
         onNodeClick={handleNodeClick}
       />
-      <NodeInfo node={clicknode} onClose={handleCloseInfo} Data={Data} />
+      <NodeInfo
+        node={clicknode}
+        onClose={handleCloseInfo}
+        Data={Data}
+        setClicknode={setClicknode}
+      />
     </Box>
   );
 };

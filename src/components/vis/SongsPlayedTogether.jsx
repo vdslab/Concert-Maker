@@ -1,7 +1,7 @@
 import React from "react";
 import { Typography, Box, Button } from "@mui/material";
 
-const SongPlayedTogether = ({ node, Data, onSongClick }) => {
+const SongPlayedTogether = ({ node, Data, setClicknode }) => {
   const { links } = Data;
 
   const linkNodes = new Set();
@@ -24,7 +24,10 @@ const SongPlayedTogether = ({ node, Data, onSongClick }) => {
       {Array.from(linkNodes).map((work, index) => (
         <Button
           key={index}
-          onClick={() => console.log(work)}
+          onClick={() => {
+            console.log(work);
+            setClicknode(work);
+          }}
           sx={{
             display: "block",
             width: "100%",
@@ -54,7 +57,7 @@ const SongPlayedTogether = ({ node, Data, onSongClick }) => {
             {work.composer}
           </Typography>
           <Typography variant="body2" component="div" color="text.secondary">
-            演奏時間: {work.duration}
+            演奏時間: {work.duration}分
           </Typography>
           <Typography variant="body2" component="div" color="text.secondary">
             {work.workFormulaStr}
