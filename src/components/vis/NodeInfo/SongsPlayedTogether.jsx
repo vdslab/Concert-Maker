@@ -18,6 +18,8 @@ const SongPlayedTogether = ({ node, Data, setClicknode }) => {
 
   const linkNodesArray = Array.from(linkNodes);
 
+  if (linkNodesArray.length === 0) return;
+
   return (
     <Box p={2}>
       <Typography variant="h6" gutterBottom>
