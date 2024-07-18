@@ -1,15 +1,5 @@
 import React from "react";
-import {
-  Paper,
-  Typography,
-  Divider,
-  Box,
-  IconButton,
-  Grid,
-} from "@mui/material";
-import { styled } from "@mui/system";
-import { musicServices } from "./musicServices";
-import BasicInfomation from "./BasicInfomation";
+import { Typography, Box, Grid } from "@mui/material";
 
 const DetailInfomation = ({ node }) => {
   return (

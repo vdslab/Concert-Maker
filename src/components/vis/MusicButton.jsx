@@ -2,7 +2,7 @@ import SpotifyIcon from "../../assets/Spotify_Icon.png";
 import YoutubeIcon from "../../assets/YouTube_Music.png";
 import AmazonIcon from "../../assets/Amazon_Music.png";
 import AppleIcon from "../../assets/Apple_Music_Icon.svg";
-import { Typography, Box, Grid, IconButton } from "@mui/material";
+import { Typography, Box, Grid } from "@mui/material";
 
 const musicServices = [
   {
@@ -27,10 +27,9 @@ const musicServices = [
   },
 ];
 
-const MusicButton = () => {
-  const handleClick = (url) => {
-    window.open(url, "_blank");
-  };
+const MusicButton = ({ node }) => {
+  const { title, composer } = node;
+  const searchQuery = encodeURIComponent(`${title} ${composer}`);
 
   return (
     <Box p={2}>
@@ -40,16 +39,21 @@ const MusicButton = () => {
       <Grid container spacing={2} justifyContent="space-between">
         {musicServices.map((service, index) => (
           <Grid item key={index}>
-            <Box display="flex" flexDirection="column" alignItems="center">
-              <IconButton onClick={() => handleClick(service.url)}>
+            <a
+              href={`${service.url}${searchQuery}`}
+              target="_blank"
+              rel="noopener noreferrer"
+              style={{ textDecoration: "none", color: "inherit" }}
+            >
+              <Box display="flex" flexDirection="column" alignItems="center">
                 <img
                   src={service.icon}
                   alt={service.name}
-                  style={{ width: 40, height: 40 }}
+                  style={{ width: 40, height: 40, marginBottom: 5 }}
                 />
-              </IconButton>
-              <Typography variant="caption">{service.name}</Typography>
-            </Box>
+                <Typography variant="caption">{service.name}</Typography>
+              </Box>
+            </a>
           </Grid>
         ))}
       </Grid>

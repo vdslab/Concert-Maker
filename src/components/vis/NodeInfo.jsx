@@ -27,7 +27,7 @@ const NodeInfo = ({ node, onClose, Data, setClicknode }) => {
       <Divider />
       <DetailInfomation node={node} />
       <Divider />
-      <MusicButton work={node} />
+      <MusicButton node={node} />
       <Divider />
       <SongPlayedTogether node={node} Data={Data} setClicknode={setClicknode} />
     </StyledPaper>
