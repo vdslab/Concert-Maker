@@ -12,7 +12,11 @@ function App() {
     <>
       <div className="container">
         <Box width={2 / 3} className="left-half">
-          <NodeLinkDiagram setClicknode={setClicknode} setData={setData} />
+          <NodeLinkDiagram
+            clicknode={clicknode}
+            setClicknode={setClicknode}
+            setData={setData}
+          />
         </Box>
         <Box width={1 / 3} className="right-half">
           {/* <DetailCardList clicknode={clicknode} Data={Data} /> */}

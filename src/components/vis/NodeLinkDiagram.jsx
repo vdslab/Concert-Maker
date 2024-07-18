@@ -61,8 +61,7 @@ const allPlayedWithWorkIds = new Set(
   ])
 );
 
-const NodeLinkDiagram = ({ setClicknode, setData }) => {
-  const [clickedNode, setClickedNode] = useState(null);
+const NodeLinkDiagram = ({ clicknode, setClicknode, setData }) => {
   const fgRef = useRef();
 
   const filteredWorks = useMemo(
@@ -138,14 +137,12 @@ const NodeLinkDiagram = ({ setClicknode, setData }) => {
       fgRef.current.centerAt(node.x - 100, node.y, 1000);
       fgRef.current.zoom(2, 1000);
 
-      setClickedNode(node);
       setClicknode(node);
     },
     [setClicknode]
   );
 
   const handleCloseInfo = useCallback(() => {
-    setClickedNode(null);
     setClicknode(null);
   }, [setClicknode]);
 
@@ -158,12 +155,12 @@ const NodeLinkDiagram = ({ setClicknode, setData }) => {
         height={height}
         nodeCanvasObject={(node, ctx, globalScale) => {
           const size = 5 / globalScale;
-          const color = node.id === clickedNode?.id ? "red" : "blue";
+          const color = node.id === clicknode?.id ? "red" : "blue";
           DrawCircle(ctx, node.x, node.y, size, color, color);
         }}
         onNodeClick={handleNodeClick}
       />
-      <NodeInfo node={clickedNode} onClose={handleCloseInfo} />
+      <NodeInfo node={clicknode} onClose={handleCloseInfo} />
     </Box>
   );
 };
