@@ -2,7 +2,7 @@ import SpotifyIcon from "../../assets/Spotify_Icon.png";
 import YoutubeIcon from "../../assets/YouTube_Music.png";
 import AmazonIcon from "../../assets/Amazon_Music.png";
 import AppleIcon from "../../assets/Apple_Music_Icon.svg";
-import { Typography, Box, Grid } from "@mui/material";
+import { Typography, Box, Grid, IconButton } from "@mui/material";
 
 const musicServices = [
   {
@@ -28,6 +28,10 @@ const musicServices = [
 ];
 
 const MusicButton = () => {
+  const handleClick = (url) => {
+    window.open(url, "_blank");
+  };
+
   return (
     <Box p={2}>
       <Typography variant="h6" gutterBottom>
@@ -37,11 +41,13 @@ const MusicButton = () => {
         {musicServices.map((service, index) => (
           <Grid item key={index}>
             <Box display="flex" flexDirection="column" alignItems="center">
-              <img
-                src={service.icon}
-                alt={service.name}
-                style={{ width: 40, height: 40, marginBottom: 5 }}
-              />
+              <IconButton onClick={() => handleClick(service.url)}>
+                <img
+                  src={service.icon}
+                  alt={service.name}
+                  style={{ width: 40, height: 40 }}
+                />
+              </IconButton>
               <Typography variant="caption">{service.name}</Typography>
             </Box>
           </Grid>
