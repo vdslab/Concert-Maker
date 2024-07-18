@@ -1,6 +1,6 @@
 import { Typography, Box, IconButton } from "@mui/material";
 import CloseIcon from "@mui/icons-material/Close";
-import SplitButton from "./SplitButton";
+import SplitButton from "../SplitButton";
 import { styled } from "@mui/system";
 
 const StyledIconButton = styled(IconButton)(({ theme }) => ({

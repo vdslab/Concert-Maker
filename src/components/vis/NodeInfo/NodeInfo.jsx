@@ -4,7 +4,7 @@ import { styled } from "@mui/system";
 import BasicInfomation from "./BasicInfomation";
 import DetailInfomation from "./DetailInfomation";
 import SongPlayedTogether from "./SongsPlayedTogether";
-import MusicButton from "./MusicButton";
+import MusicButton from "../MusicButton";
 
 const StyledPaper = styled(Paper)(({ theme }) => ({
   position: "absolute",

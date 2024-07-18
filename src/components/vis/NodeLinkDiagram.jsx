@@ -14,7 +14,7 @@ import { Box } from "@mui/material";
 import { getComposerFromId, matchedDataByIds } from "./utils";
 import DrawCircle from "./DrawCircle";
 import Distance from "./Distance";
-import NodeInfo from "./NodeInfo";
+import NodeInfo from "./NodeInfo/NodeInfo";
 
 const enhancedPlayedWithData = PlayedWithData.map((item) => {
   const baseWork = Works.find((work) => work.id === item.workId);
