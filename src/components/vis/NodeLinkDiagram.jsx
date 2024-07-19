@@ -1,63 +1,20 @@
-import { useEffect, useRef, useState, useMemo, useCallback } from "react";
+import React, {
+  useEffect,
+  useRef,
+  useState,
+  useMemo,
+  useCallback,
+} from "react";
 import ForceGraph2D from "react-force-graph-2d";
-import Works from "../../assets/works_v02.json";
+import Works from "../../assets/works_v03.json";
 import PlayedWithData from "../../assets/playedWith.json";
 import Composer from "../../assets/composers_v02.json";
 import * as d3 from "d3";
-import PropTypes from "prop-types";
-
-const drawCircle = (ctx, x, y, radius, color, strokeColor) => {
-  ctx.beginPath();
-  ctx.arc(x, y, radius, 0, 2 * Math.PI, false);
-  ctx.fillStyle = color;
-  ctx.fill();
-  ctx.strokeStyle = strokeColor;
-  ctx.stroke();
-};
-
-const getComposerFromId = (composerId) => {
-  const work = matchedDataByIds.find((item) => item.id === composerId);
-  return work ? work : { lat: null, lon: null };
-};
-
-const matchedDataByIds = Works.map((work) => {
-  const composerInfo = Composer.find((c) => c.name === work.composer);
-
-  return {
-    composer: work.composer,
-    id: work.id,
-    title: work.title,
-    year: work.year,
-    lat: composerInfo ? composerInfo.latitude : null,
-    lon: composerInfo ? composerInfo.longitude : null,
-    nationality: composerInfo ? composerInfo.nationality : null,
-    name:
-      (composerInfo ? composerInfo.nationality : "Unknown") +
-      "/" +
-      work.year +
-      "/" +
-      work.composer +
-      "/" +
-      work.title,
-  };
-});
-
-function distance(lat1, lng1, lat2, lng2) {
-  if (lat1 === null || lng1 === null || lat2 === null || lng2 === null)
-    return Infinity;
-
-  const R = Math.PI / 180;
-  lat1 *= R;
-  lng1 *= R;
-  lat2 *= R;
-  lng2 *= R;
-  return (
-    Math.acos(
-      Math.cos(lat1) * Math.cos(lat2) * Math.cos(lng2 - lng1) +
-        Math.sin(lat1) * Math.sin(lat2),
-    ) / Math.PI
-  );
-}
+import { Box } from "@mui/material";
+import { getComposerFromId, matchedDataByIds } from "./utils";
+import DrawCircle from "./DrawCircle";
+import Distance from "./Distance";
+import NodeInfo from "./NodeInfo/NodeInfo";
 
 const enhancedPlayedWithData = PlayedWithData.map((item) => {
   const baseWork = Works.find((work) => work.id === item.workId);
@@ -66,7 +23,7 @@ const enhancedPlayedWithData = PlayedWithData.map((item) => {
   const enhancedPlayedWith = item.playedWith.map((pw) => {
     const relatedWork = Works.find((work) => work.id === pw.workId);
     const relatedComposer = Composer.find(
-      (c) => c.name === relatedWork.composer,
+      (c) => c.name === relatedWork.composer
     );
     return {
       ...pw,
@@ -94,23 +51,26 @@ const linkData = enhancedPlayedWithData.flatMap((work) =>
       distance: (100 * 1.0) / (1.0 * playedWith.amount),
       sourceData: getComposerFromId(work.workId),
       targetData: getComposerFromId(playedWith.workId),
-    })),
+    }))
 );
 
 const allPlayedWithWorkIds = new Set(
   PlayedWithData.flatMap((item) => [
     item.workId,
     ...item.playedWith.map((pw) => pw.workId),
-  ]),
+  ])
 );
 
-const NodeLinkDiagram = ({ setClicknode, setData }) => {
-  const [clickedNode, setClickedNode] = useState(null);
+const NodeLinkDiagram = () => {
   const fgRef = useRef();
+  const parentDivRef = useRef(null);
+  const [height, setHeight] = useState(0);
+  const [clicknode, setClicknode] = useState(null);
+  const [Data, setData] = useState([]);
 
   const filteredWorks = useMemo(
     () => matchedDataByIds.filter((work) => allPlayedWithWorkIds.has(work.id)),
-    [],
+    []
   );
 
   const data = useMemo(
@@ -129,21 +89,21 @@ const NodeLinkDiagram = ({ setClicknode, setData }) => {
             Math.pow(
               1 -
                 Math.pow(
-                  distance(
+                  Distance(
                     sourceData.lat,
                     sourceData.lon,
                     targetData.lat,
-                    targetData.lon,
+                    targetData.lon
                   ),
-                  1 / 2,
+                  1 / 2
                 ),
-              2,
+              2
             ) >
             0.1
         );
       }),
     }),
-    [filteredWorks],
+    [filteredWorks]
   );
 
   useEffect(() => {
@@ -159,85 +119,37 @@ const NodeLinkDiagram = ({ setClicknode, setData }) => {
     setData(data);
   }, [data, setData]);
 
-  const parentDivRef = useRef(null); // Step 1: Create a ref
-  const [height, setHeight] = useState(0); // Initial height state
-
   useEffect(() => {
-    // Function to update height
     const updateHeight = () => {
       if (parentDivRef.current) {
-        setHeight(parentDivRef.current.offsetHeight); // Set height based on parent div
+        setHeight(parentDivRef.current.offsetHeight);
       }
     };
 
-    updateHeight(); // Update height on mount
+    updateHeight();
 
-    window.addEventListener("resize", updateHeight); // Update height on window resize
+    window.addEventListener("resize", updateHeight);
 
-    return () => window.removeEventListener("resize", updateHeight); // Cleanup on unmount
-  }, []); // Empty dependency array means this effect runs once on mount
+    return () => window.removeEventListener("resize", updateHeight);
+  }, []);
 
-  const handleNodeClick = useCallback(
-    (node) => {
-      fgRef.current.centerAt(node.x - 100, node.y, 1000);
+  useEffect(() => {
+    if (clicknode && fgRef.current) {
+      fgRef.current.centerAt(clicknode.x - 100, clicknode.y, 1000);
       fgRef.current.zoom(2, 1000);
+    }
+  }, [clicknode]);
 
-      setClickedNode(node);
-      setClicknode(node);
-    },
-    [setClicknode],
-  );
+  const handleNodeClick = useCallback((node) => {
+    setClicknode(node);
+  }, []);
 
   const handleCloseInfo = useCallback(() => {
-    setClickedNode(null);
     setClicknode(null);
   }, [setClicknode]);
 
-  const NodeInfo = ({ node, onClose }) => {
-    // Prop type validation
-    NodeInfo.propTypes = {
-      node: PropTypes.object.isRequired,
-      onClose: PropTypes.func.isRequired,
-    };
-    if (!node) return null;
-
-    return (
-      <div
-        style={{
-          position: "absolute",
-          top: "30px",
-          left: "10px",
-          background: "white",
-          padding: "10px",
-          borderRadius: "5px",
-          boxShadow: "0 0 10px rgba(0,0,0,0.1)",
-          maxWidth: "300px",
-        }}
-      >
-        <button
-          onClick={onClose}
-          style={{
-            position: "absolute",
-            top: "5px",
-            right: "5px",
-            background: "none",
-            border: "none",
-            fontSize: "16px",
-            cursor: "pointer",
-          }}
-        >
-          ×
-        </button>
-        <h3>{node.title}</h3>
-        <p>Composer: {node.composer}</p>
-        <p>Year: {node.year}</p>
-        <p>Nationality: {node.nationality}</p>
-      </div>
-    );
-  };
-
   return (
-    <div ref={parentDivRef} style={{ position: "relative", height: "100%" }}>
+    <Box ref={parentDivRef} position="relative" height="100%">
       <ForceGraph2D
         ref={fgRef}
         graphData={data}
@@ -245,13 +157,18 @@ const NodeLinkDiagram = ({ setClicknode, setData }) => {
         height={height}
         nodeCanvasObject={(node, ctx, globalScale) => {
           const size = 5 / globalScale;
-          const color = node.id === clickedNode?.id ? "red" : "blue";
-          drawCircle(ctx, node.x, node.y, size, color, color);
+          const color = node.id === clicknode?.id ? "red" : "blue";
+          DrawCircle(ctx, node.x, node.y, size, color, color);
         }}
         onNodeClick={handleNodeClick}
       />
-      <NodeInfo node={clickedNode} onClose={handleCloseInfo} />
-    </div>
+      <NodeInfo
+        node={clicknode}
+        onClose={handleCloseInfo}
+        Data={Data}
+        setClicknode={setClicknode}
+      />
+    </Box>
   );
 };
 
