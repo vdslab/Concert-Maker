@@ -3,7 +3,6 @@ import ReactDOM from "react-dom/client";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import { CssBaseline, ThemeProvider } from "@mui/material";
 import { createTheme, responsiveFontSizes } from "@mui/material/styles";
-import Toolbar from "@mui/material/Toolbar";
 import Box from "@mui/material/Box";
 import "@fontsource/roboto/300.css";
 import "@fontsource/roboto/400.css";
@@ -11,7 +10,6 @@ import "@fontsource/roboto/500.css";
 import "@fontsource/roboto/700.css";
 
 import App from "./pages/App.jsx";
-import MyConcert from "./pages/MyConcert.jsx";
 import ResponsiveAppBar from "./components/layouts/Header.jsx";
 
 const router = createBrowserRouter([
@@ -26,10 +24,6 @@ const router = createBrowserRouter([
   {
     path: "/app",
     element: <App />,
-  },
-  {
-    path: "/my-concert",
-    element: <MyConcert />,
   },
   {
     path: "/box",
