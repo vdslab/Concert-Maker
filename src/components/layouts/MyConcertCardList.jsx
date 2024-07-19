@@ -1,15 +1,13 @@
 import Box from "@mui/material/Box";
 
-import MyConcertCard from "@/components/layouts/MyConcertCard";
+import MyConcertCard from "@/components/layouts/MyConcert/Card";
 import myConcert from "@/utils/myConcert";
 
 export default function MyConcertCardList() {
   const concerts = myConcert.getConcerts();
 
   return (
-    <Box
-      sx={{ display: "flex", flexDirection: "column", gap: 2 }}
-    >
+    <Box sx={{ display: "flex", flexDirection: "column", gap: 2 }}>
       {concerts.map((concert) => (
         <MyConcertCard key={concert.name} concert={concert} />
       ))}
