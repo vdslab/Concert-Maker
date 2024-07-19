@@ -8,11 +8,12 @@ import MyConcertCardList from "@/components/layouts/MyConcertCardList";
 function App() {
   const [clicknode, setClicknode] = useState(null);
   const [Data, setData] = useState([]);
+  console.log(Data.nodes);
   return (
     <>
       <div className="container">
         <Box width={2 / 3} className="left-half" sx={{ position: "relative" }}>
-          <SearchBox />
+          <SearchBox Data={Data.nodes} setClicknode={setClicknode} />
           <NodeLinkDiagram
             clicknode={clicknode}
             setClicknode={setClicknode}
