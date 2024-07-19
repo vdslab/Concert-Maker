@@ -1,19 +1,25 @@
+import { useState, useEffect } from "react";
 import Box from "@mui/material/Box";
 
 import MyConcertCard from "@/components/layouts/MyConcert/Card";
+import NewConcert from "@/components/layouts/MyConcert/NewConcert";
+
 import myConcert from "@/utils/myConcert";
 
 export default function MyConcertCardList() {
-  const concerts = myConcert.getConcerts();
+  const [concerts, updateConcerts] = useState(myConcert.getConcerts());
+
+  const createMyConcert = () => {
+    myConcert.createConcert("My Concert5");
+    updateConcerts(myConcert.getConcerts());
+  };
 
   return (
     <Box sx={{ display: "flex", flexDirection: "column", gap: 2 }}>
       {concerts.map((concert) => (
         <MyConcertCard key={concert.name} concert={concert} />
       ))}
-      <Box border="4px dashed blue" minHeight="300px" sx={{ flexGrow: 1 }}>
-        この部分に新しいコンサートを追加するボタンを配置する
-      </Box>
+      <NewConcert buttonAction={createMyConcert} />
     </Box>
   );
 }
