@@ -61,12 +61,10 @@ const allPlayedWithWorkIds = new Set(
   ])
 );
 
-const NodeLinkDiagram = () => {
+const NodeLinkDiagram = ({ Data, setData, clicknode, setClicknode }) => {
   const fgRef = useRef();
   const parentDivRef = useRef(null);
   const [height, setHeight] = useState(0);
-  const [clicknode, setClicknode] = useState(null);
-  const [Data, setData] = useState([]);
 
   const filteredWorks = useMemo(
     () => matchedDataByIds.filter((work) => allPlayedWithWorkIds.has(work.id)),
