@@ -16,14 +16,7 @@ export const matchedDataByIds = Works.map((work) => {
     lat: composerInfo ? composerInfo.latitude : null,
     lon: composerInfo ? composerInfo.longitude : null,
     nationality: composerInfo ? composerInfo.nationality : null,
-    name:
-      (composerInfo ? composerInfo.nationality : "Unknown") +
-      "/" +
-      work.year +
-      "/" +
-      work.composer +
-      "/" +
-      work.title,
+    name: work.composer + "/" + work.title,
   };
 });
 
