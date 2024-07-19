@@ -10,7 +10,11 @@ export default function MyConcertCardList() {
   const [concerts, updateConcerts] = useState(myConcert.getConcerts());
 
   const createMyConcert = () => {
-    myConcert.createConcert("My Concert5");
+    const existingConcertNames = concerts.map((concert) => concert.name);
+    const newConcertNumber = findUniqueNumber(existingConcertNames, "My演奏会");
+    const newConcertName = `My演奏会${newConcertNumber}`;
+
+    myConcert.createConcert(newConcertName);
     updateConcerts(myConcert.getConcerts());
   };
 
@@ -22,4 +26,12 @@ export default function MyConcertCardList() {
       <NewConcert buttonAction={createMyConcert} />
     </Box>
   );
+}
+
+function findUniqueNumber(existingNames, prefix) {
+  let number = 1;
+  while (existingNames.includes(`${prefix}${number}`)) {
+    number++;
+  }
+  return number;
 }
