@@ -60,7 +60,9 @@ const SongPlayedTogether = ({ node, Data, setClicknode }) => {
               {work.title}
             </Typography>
             <Typography variant="body2" component="div" color="text.secondary">
-              演奏時間: {work.duration}分
+              {work.duration === null
+                ? ""
+                : "演奏時間: " + work.duration + "分"}
             </Typography>
             <Typography variant="body2" component="div" color="text.secondary">
               {work.workFormulaStr}

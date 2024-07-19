@@ -22,7 +22,7 @@ const BasicInfomation = ({ node, onClose }) => {
             {node.title}
           </Typography>
           <Typography variant="body2" gutterBottom>
-            演奏時間: {node.duration}分
+            {node.duration === null ? "" : "演奏時間: " + node.duration + "分"}
           </Typography>
           <Typography variant="body2" color="textSecondary" gutterBottom>
             {node.workFormulaStr}
