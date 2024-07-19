@@ -26,7 +26,8 @@ const SongPlayedTogether = ({ node, Data, setClicknode }) => {
         よく一緒に演奏されている曲
       </Typography>
       {linkNodesArray.map((work, index) => (
-        <React.Fragment key={index}>
+        <>
+          {console.log(work)}
           <Button
             onClick={() => {
               console.log(work);
@@ -38,9 +39,7 @@ const SongPlayedTogether = ({ node, Data, setClicknode }) => {
               textAlign: "left",
               padding: "8px",
               mb: 2,
-              backgroundColor: "transparent",
-              border: "none",
-              borderRadius: 0,
+              textTransform: "none",
               "&:hover": {
                 backgroundColor: "rgba(0, 0, 0, 0.04)",
               },
@@ -50,15 +49,15 @@ const SongPlayedTogether = ({ node, Data, setClicknode }) => {
               },
             }}
           >
+            <Typography variant="body2" component="div">
+              {work.composer}
+            </Typography>
             <Typography
               variant="subtitle1"
               component="div"
               sx={{ fontWeight: "bold" }}
             >
               {work.title}
-            </Typography>
-            <Typography variant="body2" component="div">
-              {work.composer}
             </Typography>
             <Typography variant="body2" component="div" color="text.secondary">
               演奏時間: {work.duration}分
@@ -67,8 +66,7 @@ const SongPlayedTogether = ({ node, Data, setClicknode }) => {
               {work.workFormulaStr}
             </Typography>
           </Button>
-          {index < linkNodesArray.length - 1 && <Divider />}
-        </React.Fragment>
+        </>
       ))}
     </Box>
   );
