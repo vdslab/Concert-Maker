@@ -1,62 +1,20 @@
-import React, { useEffect, useRef, useState, useMemo } from "react";
+import React, {
+  useEffect,
+  useRef,
+  useState,
+  useMemo,
+  useCallback,
+} from "react";
 import ForceGraph2D from "react-force-graph-2d";
-import Works from "../../assets/works_v02.json";
+import Works from "../../assets/works_v03.json";
 import PlayedWithData from "../../assets/playedWith.json";
 import Composer from "../../assets/composers_v02.json";
 import * as d3 from "d3";
-
-const drawCircle = (ctx, x, y, radius, color) => {
-  ctx.beginPath();
-  ctx.arc(x, y, radius, 0, 2 * Math.PI, false);
-  ctx.fillStyle = color;
-  ctx.fill();
-  ctx.strokeStyle = color;
-  ctx.stroke();
-};
-
-const getComposerFromId = (composerId) => {
-  const work = matchedDataByIds.find((item) => item.id === composerId);
-  return work ? work : { lat: null, lon: null };
-};
-
-const matchedDataByIds = Works.map((work) => {
-  const composerInfo = Composer.find((c) => c.name === work.composer);
-
-  return {
-    composer: work.composer,
-    id: work.id,
-    title: work.title,
-    year: work.year,
-    lat: composerInfo ? composerInfo.latitude : null,
-    lon: composerInfo ? composerInfo.longitude : null,
-    nationality: composerInfo ? composerInfo.nationality : null,
-    name:
-      (composerInfo ? composerInfo.nationality : "Unknown") +
-      "/" +
-      work.year +
-      "/" +
-      work.composer +
-      "/" +
-      work.title,
-  };
-});
-
-function distance(lat1, lng1, lat2, lng2) {
-  if (lat1 === null || lng1 === null || lat2 === null || lng2 === null)
-    return Infinity;
-
-  const R = Math.PI / 180;
-  lat1 *= R;
-  lng1 *= R;
-  lat2 *= R;
-  lng2 *= R;
-  return (
-    Math.acos(
-      Math.cos(lat1) * Math.cos(lat2) * Math.cos(lng2 - lng1) +
-        Math.sin(lat1) * Math.sin(lat2)
-    ) / Math.PI
-  );
-}
+import { Box } from "@mui/material";
+import { getComposerFromId, matchedDataByIds } from "./utils";
+import DrawCircle from "./DrawCircle";
+import Distance from "./Distance";
+import NodeInfo from "./NodeInfo/NodeInfo";
 
 const enhancedPlayedWithData = PlayedWithData.map((item) => {
   const baseWork = Works.find((work) => work.id === item.workId);
@@ -103,9 +61,12 @@ const allPlayedWithWorkIds = new Set(
   ])
 );
 
-const NodeLinkDiagram = ({ setClicknode }) => {
-  // const [clicknode, setClicknode] = useState(null);
+const NodeLinkDiagram = () => {
   const fgRef = useRef();
+  const parentDivRef = useRef(null);
+  const [height, setHeight] = useState(0);
+  const [clicknode, setClicknode] = useState(null);
+  const [Data, setData] = useState([]);
 
   const filteredWorks = useMemo(
     () => matchedDataByIds.filter((work) => allPlayedWithWorkIds.has(work.id)),
@@ -128,7 +89,7 @@ const NodeLinkDiagram = ({ setClicknode }) => {
             Math.pow(
               1 -
                 Math.pow(
-                  distance(
+                  Distance(
                     sourceData.lat,
                     sourceData.lon,
                     targetData.lat,
@@ -154,21 +115,60 @@ const NodeLinkDiagram = ({ setClicknode }) => {
     }
   }, []);
 
-  // console.log("clicknode", clicknode);
+  useEffect(() => {
+    setData(data);
+  }, [data, setData]);
+
+  useEffect(() => {
+    const updateHeight = () => {
+      if (parentDivRef.current) {
+        setHeight(parentDivRef.current.offsetHeight);
+      }
+    };
+
+    updateHeight();
+
+    window.addEventListener("resize", updateHeight);
+
+    return () => window.removeEventListener("resize", updateHeight);
+  }, []);
+
+  useEffect(() => {
+    if (clicknode && fgRef.current) {
+      fgRef.current.centerAt(clicknode.x - 100, clicknode.y, 1000);
+      fgRef.current.zoom(2, 1000);
+    }
+  }, [clicknode]);
+
+  const handleNodeClick = useCallback((node) => {
+    setClicknode(node);
+  }, []);
+
+  const handleCloseInfo = useCallback(() => {
+    setClicknode(null);
+  }, [setClicknode]);
 
   return (
-    <ForceGraph2D
-      ref={fgRef}
-      graphData={data}
-      width={window.innerWidth * 0.6}
-      nodeCanvasObject={(node, ctx, globalScale) => {
-        const size = 5 / globalScale;
-        drawCircle(ctx, node.x, node.y, size, "blue");
-      }}
-      onNodeClick={(node) => {
-        setClicknode(node);
-      }}
-    />
+    <Box ref={parentDivRef} position="relative" height="100%">
+      <ForceGraph2D
+        ref={fgRef}
+        graphData={data}
+        width={window.innerWidth * 0.6}
+        height={height}
+        nodeCanvasObject={(node, ctx, globalScale) => {
+          const size = 5 / globalScale;
+          const color = node.id === clicknode?.id ? "red" : "blue";
+          DrawCircle(ctx, node.x, node.y, size, color, color);
+        }}
+        onNodeClick={handleNodeClick}
+      />
+      <NodeInfo
+        node={clicknode}
+        onClose={handleCloseInfo}
+        Data={Data}
+        setClicknode={setClicknode}
+      />
+    </Box>
   );
 };
 
