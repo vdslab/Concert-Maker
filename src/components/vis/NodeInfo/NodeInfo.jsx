@@ -8,10 +8,10 @@ import MusicButton from "../MusicButton";
 
 const StyledPaper = styled(Paper)(({ theme }) => ({
   position: "absolute",
-  top: "30px",
+  top: "70px",
   left: "10px",
   width: "400px",
-  height: "calc(100vh - 100px)",
+  height: "calc(100vh - 140px)",
   // maxHeight: "calc(100vh - 100px)",
   overflowY: "auto",
 }));

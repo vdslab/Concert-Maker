@@ -12,9 +12,6 @@ function App() {
           <SearchBox />
           <NodeLinkDiagram />
         </Box>
-        <Box width={1 / 3} className="right-half">
-          {/* <DetailCardList clicknode={clicknode} Data={Data} /> */}
-        </Box>
         <Box width={1 / 3} className="right-half" sx={{ overflow: "auto" }}>
           <MyConcertCardList />
         </Box>
