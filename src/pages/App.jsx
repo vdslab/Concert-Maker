@@ -8,6 +8,7 @@ import MyConcertCardList from "@/components/layouts/MyConcertCardList";
 function App() {
   const [clicknode, setClicknode] = useState(null);
   const [Data, setData] = useState([]);
+  console.log(Data.nodes);
   return (
     <>
       <div className="container">

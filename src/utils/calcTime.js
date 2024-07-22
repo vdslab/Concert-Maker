@@ -2,15 +2,15 @@ export function sumDurationFormat(mins) {
   const sum = mins.reduce((acc, curr) => acc + curr, 0);
   const timeObj = minTimeObject(sum);
   if (mins.includes(undefined)) {
-    return `${timeObj.hours}h ${timeObj.minutes}m 以上`;
+    return `${timeObj.hours}時間 ${timeObj.minutes}分 以上`;
   } else {
-    return `${timeObj.hours}h ${timeObj.minutes}m`;
+    return `${timeObj.hours}時間 ${timeObj.minutes}分`;
   }
 }
 
 export function durationFormat(mins) {
   const timeObj = minTimeObject(mins);
-  return `${timeObj.hours}h ${timeObj.minutes}m`;
+  return `${timeObj.hours}時間 ${timeObj.minutes}分`;
 }
 
 export function minTimeObject(minutes) {

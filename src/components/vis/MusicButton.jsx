@@ -18,7 +18,7 @@ const musicServices = [
   {
     name: "Apple Music",
     icon: AppleIcon,
-    url: "https://music.apple.com/search?term=",
+    url: "https://music.apple.com/jp/search?term=",
   },
   {
     name: "Amazon Music",
