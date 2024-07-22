@@ -10,25 +10,13 @@ import FilterDialog from "@/components/layouts/FilterDialog";
 
 /**
  * 検索ボックスのコンポーネントです。
- *
+ * 
+ * @param {Object} props - コンポーネントのpropsを格納するオブジェクトです。
+ * @param {Object} props.Data - ネットワークのノードリンクデータを保持するstate変数のオブジェクトです。
+ * @param {function} props.setData - state変数Dataを更新する関数です。
  * @returns {JSX.Element}
  */
-export default function SearchBox({ Data = [], setClicknode }) {
-  const [options, setOptions] = useState([]);
-
-  useEffect(() => {
-    setOptions(Data.map((item) => item.name));
-  }, [Data]);
-
-  const handleInputChange = (event, newInputValue) => {
-    const searchedObject = Data.find((item) => item.name === newInputValue);
-    if (searchedObject) setClicknode(searchedObject);
-  };
-
-  const handleSubmit = (event) => {
-    event.preventDefault();
-  };
-
+export default function SearchBox({ Data, setData }) {
   return (
     <Paper
       component="form"
@@ -68,7 +56,7 @@ export default function SearchBox({ Data = [], setClicknode }) {
         )}
       />
       <Divider sx={{ height: 28, m: 0.5 }} orientation="vertical" />
-      <FilterDialog />
+      <FilterDialog Data={Data} setData={setData} />
     </Paper>
   );
 }
