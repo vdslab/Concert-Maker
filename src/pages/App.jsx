@@ -12,7 +12,7 @@ function App() {
     <>
       <div className="container">
         <Box width={2 / 3} className="left-half" sx={{ position: "relative" }}>
-          <SearchBox />
+          <SearchBox Data={Data} setData={setData} />
           <NodeLinkDiagram
             clicknode={clicknode}
             setClicknode={setClicknode}
