@@ -36,12 +36,12 @@ function ResponsiveAppBar() {
     <AppBar position="sticky">
       <Container maxWidth="xl">
         <Toolbar disableGutters>
-          <MusicNoteIcon sx={{ display: { xs: "none", md: "flex" }, mr: 1 }} />
+          <img src="/logo.svg" alt="Logo" />
           <Typography
             variant="h6"
             noWrap
             component="a"
-            href="#app-bar-with-responsive-menu"
+            href="/"
             sx={{
               mr: 2,
               display: { xs: "none", md: "flex" },
