@@ -32,8 +32,8 @@ import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 
 const applyFilter = (filterValues, Data, setData) => {
   // ここでfilterValuesをDataに反映させる
-  console.table(filterValues);
-  console.log(Data.nodes);
+  // console.table(filterValues);
+  // console.log(Data.nodes);
 
   const updatedNodes = Data.nodes.map((node) => ({
     ...node,
@@ -47,7 +47,7 @@ const applyFilter = (filterValues, Data, setData) => {
 
   setData(updatedData);
 
-  console.log("Updated nodes:", updatedData.nodes);
+  // console.log("Updated nodes:", updatedData.nodes);
 };
 
 /**

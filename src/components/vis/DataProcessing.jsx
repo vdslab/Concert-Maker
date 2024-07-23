@@ -56,8 +56,10 @@ export const processData = () => {
   return { enhancedPlayedWithData, linkData, allPlayedWithWorkIds };
 };
 
-export const createGraphData = (allPlayedWithWorkIds, linkData) => ({
-  nodes: matchedDataByIds.filter((work) => allPlayedWithWorkIds.has(work.id)),
+export const createGraphData = (allPlayedWithWorkIds, linkData, data) => ({
+  nodes: matchedDataByIds(data).filter((work) =>
+    allPlayedWithWorkIds.has(work.id)
+  ),
   links: linkData.filter((link) => {
     const { sourceData, targetData } = link;
     const timeFactor = Math.pow(
