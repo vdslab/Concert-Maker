@@ -41,7 +41,7 @@ const NodeLinkDiagram = () => {
         clicknode={clicknode}
         setClicknode={setClicknode}
       />
-      <SearchBox Data={Data} setData={setData} />
+      <SearchBox Data={Data} setData={setData} setClicknode={setClicknode} />
       <NodeInfo node={clicknode} Data={Data} setClicknode={setClicknode} />
     </Box>
   );
