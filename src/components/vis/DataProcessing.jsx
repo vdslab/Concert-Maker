@@ -1,7 +1,7 @@
-import Works from "../../assets/works_v03.json";
-import PlayedWithData from "../../assets/playedWith.json";
-import Composer from "../../assets/composers_v02.json";
-import { getComposerFromId, matchedDataByIds } from "./utils";
+import Works from "@/assets/works_v03.json";
+import PlayedWithData from "@/assets/playedWith.json";
+import Composer from "@/assets/composers_v02.json";
+import { getComposerFromId, matchedDataByIds } from "./Utils";
 import Distance from "./Distance";
 
 const findItem = (array, key, value) =>

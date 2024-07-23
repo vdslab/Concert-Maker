@@ -1,6 +1,6 @@
 import "./App.css";
 import Box from "@mui/material/Box";
-import NodeLinkDiagram from "../components/vis/NodeLinkDiagram";
+import NodeLinkDiagram from "@/components/vis/NodeLinkDiagram";
 import MyConcertCardList from "@/components/layouts/MyConcertCardList";
 
 function App() {

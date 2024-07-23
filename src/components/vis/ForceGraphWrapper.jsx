@@ -1,10 +1,19 @@
 import React, { useRef, useEffect, useCallback } from "react";
+import * as d3 from "d3";
 import ForceGraph2D from "react-force-graph-2d";
 import DrawCircle from "./DrawCircle";
-import { configureGraph } from "./GraphConfig";
 
 const ForceGraphWrapper = ({ data, height, clicknode, setClicknode }) => {
   const fgRef = useRef();
+
+  const configureGraph = (fgRef) => {
+    if (fgRef.current) {
+      fgRef.current.d3Force("link").distance((link) => link.distance);
+      fgRef.current.d3Force("x", d3.forceX(0).strength(0.05));
+      fgRef.current.d3Force("y", d3.forceY(0).strength(0.05));
+      fgRef.current.d3Force("charge").strength(-100);
+    }
+  };
 
   useEffect(() => {
     configureGraph(fgRef);

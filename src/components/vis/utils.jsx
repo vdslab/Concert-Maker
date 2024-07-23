@@ -1,5 +1,5 @@
-import Works from "../../assets/works_v03.json";
-import Composer from "../../assets/composers_v02.json";
+import Works from "@/assets/works_v03.json";
+import Composer from "@/assets/composers_v02.json";
 
 export const matchedDataByIds = Works.map((work) => {
   const composerInfo = Composer.find((c) => c.name === work.composer);
