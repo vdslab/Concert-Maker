@@ -1,10 +1,10 @@
-import React from "react";
+import React, { useCallback } from "react";
 import { Paper, Divider } from "@mui/material";
 import { styled } from "@mui/system";
 import BasicInfomation from "./BasicInfomation";
 import DetailInfomation from "./DetailInfomation";
 import SongPlayedTogether from "./SongsPlayedTogether";
-import MusicButton from "../MusicButton";
+import MusicButton from "./MusicButton";
 
 const StyledPaper = styled(Paper)(({ theme }) => ({
   position: "absolute",
@@ -16,12 +16,16 @@ const StyledPaper = styled(Paper)(({ theme }) => ({
   overflowY: "auto",
 }));
 
-const NodeInfo = ({ node, onClose, Data, setClicknode }) => {
+const NodeInfo = ({ node, Data, setClicknode }) => {
+  const handleCloseInfo = useCallback(() => {
+    setClicknode(null);
+  }, [setClicknode]);
+
   if (!node) return null;
 
   return (
     <StyledPaper>
-      <BasicInfomation node={node} onClose={onClose} />
+      <BasicInfomation node={node} onClose={handleCloseInfo} />
       <Divider />
       <DetailInfomation node={node} />
       <Divider />
