@@ -2,12 +2,12 @@ import React from "react";
 import { Button, ButtonGroup, Menu, MenuItem } from "@mui/material";
 import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
 
-import { concertNamesState, concertsState } from "@/pages/App";
+import { concertsState, workConcertState } from "@/pages/App";
 import { useRecoilValue, useSetRecoilState } from "recoil";
 
 function SplitButton({ songId }) {
-  const concertNames = useRecoilValue(concertNamesState);
-  const setConcerts = useSetRecoilState(concertsState);
+  const concerts = useRecoilValue(concertsState);
+  const setConcerts = useSetRecoilState(workConcertState);
 
   const [open, setOpen] = React.useState(false);
   const anchorRef = React.useRef(null);
@@ -32,18 +32,13 @@ function SplitButton({ songId }) {
     handleClose(event);
   };
 
-  const addMyConcert = (concertName, songID) => {
-    setConcerts((concerts) => {
-      const newConcerts = concerts.map((concert) => {
-        if (concert.name === concertName) {
-          return {
-            ...concert,
-            works: new Set([...concert.works, songID]),
-          };
-        }
-        return concert;
-      });
-      return newConcerts;
+  const addMyConcert = (concertID, songID) => {
+    setConcerts((workConcerts) => {
+      if (workConcerts.includes({ concert: concertID, work: songID })) {
+        return workConcerts;
+      } else {
+        return [...workConcerts, { concert: concertID, work: songID }];
+      }
     });
   };
 
@@ -56,11 +51,11 @@ function SplitButton({ songId }) {
       >
         <Button
           onClick={(e) => {
-            addMyConcert(concertNames[0], songId);
+            addMyConcert(concerts[0].id, songId);
             e.stopPropagation();
           }}
         >
-          {concertNames[0]}に追加
+          {concerts[0].name}に追加
         </Button>
         <Button
           size="small"
@@ -78,12 +73,12 @@ function SplitButton({ songId }) {
         open={open}
         onClose={handleClose}
       >
-        {concertNames.map((concertName) => (
+        {concerts.map(({ id, name }) => (
           <MenuItem
-            key={concertName}
-            onClick={(event) => handleMenuItemClick(event, concertName)}
+            key={id}
+            onClick={(event) => handleMenuItemClick(event, id)}
           >
-            {concertName}
+            {name}
           </MenuItem>
         ))}
       </Menu>
