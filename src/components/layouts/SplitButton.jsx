@@ -34,7 +34,6 @@ function SplitButton({ songId }) {
 
   const addMyConcert = (concertID, songID) => {
     setConcerts((workConcerts) => {
-      console.log(workConcerts);
       if (
         workConcerts.some(
           (workConcert) =>
