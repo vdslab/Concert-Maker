@@ -34,7 +34,13 @@ function SplitButton({ songId }) {
 
   const addMyConcert = (concertID, songID) => {
     setConcerts((workConcerts) => {
-      if (workConcerts.includes({ concert: concertID, work: songID })) {
+      console.log(workConcerts);
+      if (
+        workConcerts.some(
+          (workConcert) =>
+            workConcert.concert === concertID && workConcert.work === songID,
+        )
+      ) {
         return workConcerts;
       } else {
         return [...workConcerts, { concert: concertID, work: songID }];
