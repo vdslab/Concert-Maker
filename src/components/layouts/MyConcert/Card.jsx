@@ -155,7 +155,7 @@ function WorkList(props) {
       {works.map((work, index) => {
         const duration_time = durationFormat(work.duration);
         return (
-          <div key={work.id}>
+          <div key={index}>
             {index !== 0 && <Divider />}
             <Box sx={{ mb: 2 }}>
               <Typography variant="h6" component="div">
