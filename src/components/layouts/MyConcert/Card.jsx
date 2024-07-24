@@ -8,6 +8,9 @@ import Typography from "@mui/material/Typography";
 
 import { sumDurationFormat, durationFormat } from "@/utils/calcTime";
 
+import { useSetRecoilState } from "recoil";
+import { selectedConcertState } from "@/pages/App";
+
 import PropTypes from "prop-types";
 
 MyConcertCard.propTypes = {
@@ -30,12 +33,14 @@ MyConcertCard.propTypes = {
         year: PropTypes.number.isRequired,
       }),
     ).isRequired,
+    main: PropTypes.bool.isRequired,
   }).isRequired,
 };
 
 export default function MyConcertCard(props) {
   const { concert } = props;
   const { name, works } = concert;
+  const selectConcert = useSetRecoilState(selectedConcertState);
 
   const sum_duration = sumDurationFormat(works.map((work) => work.duration));
 
@@ -55,7 +60,14 @@ export default function MyConcertCard(props) {
               alignItems="center"
               spacing={2}
             >
-              <Button variant="contained" color="secondary" size="small">
+              <Button
+                variant="contained"
+                color={concert.main ? "secondary" : "inherit"}
+                size="small"
+                onClick={() => {
+                  selectConcert(name);
+                }}
+              >
                 Main
               </Button>
               <Typography gutterBottom variant="h5" component="div">
