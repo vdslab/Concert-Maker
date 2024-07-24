@@ -44,14 +44,6 @@ const applyFilter = (filterValues, Data, setData) => {
       }
     );
 
-    // アクティブなフィルターがdurationIncludeNoDataのみの場合は false を返す
-    if (
-      activeFilters.length === 1 &&
-      activeFilters[0][0] === "durationIncludeNoData"
-    ) {
-      return false;
-    }
-
     // すべてのアクティブなフィルターに対してチェックを行う
     return activeFilters.every(([key, value]) => {
       switch (key) {

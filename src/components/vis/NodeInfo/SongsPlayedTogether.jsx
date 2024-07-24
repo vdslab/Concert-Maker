@@ -27,10 +27,8 @@ const SongPlayedTogether = ({ node, Data, setClicknode }) => {
       </Typography>
       {linkNodesArray.map((work, index) => (
         <>
-          {console.log(work)}
           <Button
             onClick={() => {
-              console.log(work);
               setClicknode(work);
             }}
             sx={{

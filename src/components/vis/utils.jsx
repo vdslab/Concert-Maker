@@ -21,12 +21,10 @@ export const matchedDataByIds = (test = []) =>
       death: composerInfo ? composerInfo.deathYear : null,
       nationality: composerInfo ? composerInfo.nationality : null,
       name: work.composer + "/" + work.title,
-      filter: testItem ? testItem.filter : 0,
+      filter: testItem ? testItem.filter : 1,
     };
 
     const result = { ...result1, ...work.workFormula };
-
-    // console.log(result);
 
     return result;
   });
