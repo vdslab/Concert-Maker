@@ -6,9 +6,10 @@ import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
 
 import Stack from "@mui/material/Stack";
 
-import { useSetRecoilState } from "recoil";
+import { v4 as randomUUID } from "uuid";
+
+import { useSetRecoilState, useRecoilValue } from "recoil";
 import { concertsState, concertNamesState } from "@/pages/App";
-import { useRecoilValue } from "recoil";
 
 const BoxButton = styled(ButtonBase)(({ theme }) => ({
   position: "relative",
@@ -51,7 +52,7 @@ export default function NewConcert() {
 
           setConcerts((concerts) => [
             ...concerts,
-            { name: newConcertName, works: [] },
+            { id: randomUUID(), name: newConcertName },
           ]);
         }}
       >
