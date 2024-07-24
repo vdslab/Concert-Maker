@@ -38,7 +38,7 @@ function SplitButton({ songId }) {
         if (concert.name === concertName) {
           return {
             ...concert,
-            works: new Set([...concert.works, songID]),
+            works: new Set([...Array.from(concert.works), songID]),
           };
         }
         return concert;

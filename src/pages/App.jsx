@@ -37,7 +37,6 @@ export const concertNamesState = selector({
   key: "concertNamesState", // unique ID (with respect to other atoms/selectors)
   get: ({ get }) => {
     const concerts = get(concertsState);
-
     return concerts.map((concert) => concert.name);
   },
 });
