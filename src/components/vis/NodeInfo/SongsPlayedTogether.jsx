@@ -26,7 +26,7 @@ const SongPlayedTogether = ({ node, Data, setClicknode }) => {
         よく一緒に演奏されている曲
       </Typography>
       {linkNodesArray.map((work, index) => (
-        <>
+        <div key={index}>
           {console.log(work)}
           <Button
             onClick={() => {
@@ -68,7 +68,7 @@ const SongPlayedTogether = ({ node, Data, setClicknode }) => {
               {work.workFormulaStr}
             </Typography>
           </Button>
-        </>
+        </div>
       ))}
     </Box>
   );
