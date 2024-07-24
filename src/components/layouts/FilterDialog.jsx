@@ -433,7 +433,7 @@ export default function FilterDialog({ Data, setData }) {
               <NumberRangeInput
                 name="duration"
                 unit="分"
-                min={1000}
+                min={0}
                 max={null}
                 control={control}
               />
