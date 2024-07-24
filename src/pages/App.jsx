@@ -7,6 +7,21 @@ import { RecoilRoot, atom, selector } from "recoil";
 
 import workData from "@/assets/works_v03.json";
 
+const localStorageEffect =
+  (key) =>
+  ({ setSelf, onSet }) => {
+    const savedValue = localStorage.getItem(key);
+    if (savedValue != null) {
+      setSelf(JSON.parse(savedValue));
+    }
+
+    onSet((newValue, _, isReset) => {
+      isReset
+        ? localStorage.removeItem(key)
+        : localStorage.setItem(key, JSON.stringify(newValue));
+    });
+  };
+
 export const concertsState = atom({
   key: "concertsState", // unique ID (with respect to other atoms/selectors)
   default: [
@@ -15,6 +30,7 @@ export const concertsState = atom({
       works: new Set(),
     },
   ],
+  effects: [localStorageEffect("concerts")],
 });
 
 export const concertNamesState = selector({
@@ -29,6 +45,7 @@ export const concertNamesState = selector({
 export const selectedConcertState = atom({
   key: "selectedConcertState",
   default: "My演奏会",
+  effects: [localStorageEffect("selected_concert")],
 });
 
 export const concertListState = selector({
@@ -41,6 +58,7 @@ export const concertListState = selector({
       works: Array.from(concert.works).map((workId) =>
         workData.find((work) => work.id === workId),
       ),
+      main: concert.name === get(selectedConcertState),
     }));
   },
 });
