@@ -59,6 +59,7 @@ export const concertListState = selector({
   get: ({ get }) => {
     const concerts = get(concertsState);
     return concerts.map((concert) => ({
+      id: concert.id,
       name: concert.name,
       works: get(workConcertState)
         .filter((work) => work.concert === concert.id)
