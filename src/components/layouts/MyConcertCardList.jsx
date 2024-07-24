@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Box from "@mui/material/Box";
 
 import MyConcertCard from "@/components/layouts/MyConcert/Card";
@@ -8,6 +8,14 @@ import myConcert from "@/utils/myConcert";
 
 export default function MyConcertCardList() {
   const [concerts, updateConcerts] = useState(myConcert.getConcerts());
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      updateConcerts(myConcert.getConcerts());
+    }, 1000);
+
+    return () => clearInterval(interval);
+  }, []);
 
   const createMyConcert = () => {
     const existingConcertNames = concerts.map((concert) => concert.name);
