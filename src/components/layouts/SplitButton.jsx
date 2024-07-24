@@ -1,14 +1,13 @@
 import React from "react";
 import { Button, ButtonGroup, Menu, MenuItem } from "@mui/material";
 import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
-import MyConcert from "@/utils/myConcert";
+
+import { concertNamesState, concertsState } from "@/pages/App";
+import { useRecoilValue, useSetRecoilState } from "recoil";
 
 function SplitButton({ songId }) {
-  const concertNames = MyConcert.getConcerts().map((concert) => concert.name);
-  if (concertNames.length === 0) {
-    MyConcert.createConcert("My演奏会");
-    concertNames.push("My演奏会");
-  }
+  const concertNames = useRecoilValue(concertNamesState);
+  const setConcerts = useSetRecoilState(concertsState);
 
   const [open, setOpen] = React.useState(false);
   const anchorRef = React.useRef(null);
@@ -29,8 +28,23 @@ function SplitButton({ songId }) {
   const handleMenuItemClick = (event, concertName) => {
     event.preventDefault();
     event.stopPropagation();
-    MyConcert.saveWork(songId, concertName);
+    addMyConcert(concertName, songId);
     handleClose(event);
+  };
+
+  const addMyConcert = (concertName, songID) => {
+    setConcerts((concerts) => {
+      const newConcerts = concerts.map((concert) => {
+        if (concert.name === concertName) {
+          return {
+            ...concert,
+            works: new Set([...concert.works, songID]),
+          };
+        }
+        return concert;
+      });
+      return newConcerts;
+    });
   };
 
   return (
@@ -42,7 +56,7 @@ function SplitButton({ songId }) {
       >
         <Button
           onClick={(e) => {
-            MyConcert.saveWork(songId, concertNames[0]);
+            addMyConcert(concertNames[0], songId);
             e.stopPropagation();
           }}
         >

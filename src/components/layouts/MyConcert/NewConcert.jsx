@@ -3,11 +3,12 @@ import Box from "@mui/material/Box";
 import ButtonBase from "@mui/material/ButtonBase";
 import Typography from "@mui/material/Typography";
 import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
-import PropTypes from "prop-types"; // Import PropTypes
-
-import myConcert from "@/utils/myConcert";
 
 import Stack from "@mui/material/Stack";
+
+import { useSetRecoilState } from "recoil";
+import { concertsState, concertNamesState } from "@/pages/App";
+import { useRecoilValue } from "recoil";
 
 const BoxButton = styled(ButtonBase)(({ theme }) => ({
   position: "relative",
@@ -24,8 +25,10 @@ const BoxButton = styled(ButtonBase)(({ theme }) => ({
   },
 }));
 
-export default function NewConcert(props) {
-  const buttonAction = props.buttonAction;
+export default function NewConcert() {
+  const setConcerts = useSetRecoilState(concertsState);
+  const existingNames = useRecoilValue(concertNamesState);
+
   return (
     <Box
       border="4px dashed dimgray"
@@ -42,7 +45,15 @@ export default function NewConcert(props) {
         style={{
           width: "100%",
         }}
-        onClick={buttonAction}
+        onClick={() => {
+          const newConcertNumber = findUniqueNumber(existingNames, "My演奏会");
+          const newConcertName = `My演奏会${newConcertNumber}`;
+
+          setConcerts((concerts) => [
+            ...concerts,
+            { name: newConcertName, works: [] },
+          ]);
+        }}
       >
         <Stack
           direction="column"
@@ -68,6 +79,10 @@ export default function NewConcert(props) {
   );
 }
 
-NewConcert.propTypes = {
-  buttonAction: PropTypes.func.isRequired, // Add prop validation for buttonAction prop
-};
+function findUniqueNumber(existingNames, prefix) {
+  let number = 1;
+  while (existingNames.includes(`${prefix}${number}`)) {
+    number++;
+  }
+  return number;
+}
