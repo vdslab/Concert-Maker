@@ -167,8 +167,8 @@ function WorkList(props) {
               justifyContent="space-around"
               alignItems="center"
             >
-              <Grid item xs="auto">
-                <Box sx={{ mb: 2 }}>
+              <Grid item xs>
+                <Box sx={{ p: 1 }}>
                   <Typography variant="body1" component="div">
                     {work.composer}
                   </Typography>
@@ -192,7 +192,7 @@ function WorkList(props) {
                 </Box>
               </Grid>
               {/* <Divider orientation="vertical" flexItem /> */}
-              <Grid item xs>
+              <Grid item xs="auto">
                 <IconButton
                   aria-label="delete"
                   onClick={() => {
