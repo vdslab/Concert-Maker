@@ -25,7 +25,7 @@ export default function SearchBox({ Data, setData, setClicknode }) {
   const { nodes } = Data;
 
   useEffect(() => {
-    setOptions(nodes?.map((item) => item.name) || []);
+    setOptions(nodes?.map((item) => item.name).sort((a, b) => a.localeCompare(b)) || []);
   }, [nodes]);
 
   const handleInputChange = (event, newInputValue) => {
