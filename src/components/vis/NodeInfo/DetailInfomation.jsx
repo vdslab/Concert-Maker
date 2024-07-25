@@ -2,6 +2,7 @@ import React from "react";
 import { Typography, Box, Grid } from "@mui/material";
 
 const DetailInfomation = ({ node }) => {
+  if (node.workMovements[0] === "") return;
   return (
     <Box p={2}>
       <Typography variant="h6" gutterBottom>
@@ -15,9 +16,7 @@ const DetailInfomation = ({ node }) => {
                 <Typography>{movement}</Typography>
               </Grid>
               <Grid item xs={2}>
-                <Typography align="right">
-                  {node.workMovementDuration[index]}
-                </Typography>
+                <Typography align="right">{node.duration[index]}</Typography>
               </Grid>
             </Grid>
           </React.Fragment>

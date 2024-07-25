@@ -41,10 +41,9 @@ const ForceGraphWrapper = ({ data, height, clicknode, setClicknode }) => {
       height={height}
       nodeCanvasObject={(node, ctx, globalScale) => {
         const size = 5 / globalScale;
-        const color = node.filter === 0 ? "blue" : "rgb(0, 53, 103)";
-        // node.filter === 0 ? "rgb(0, 104, 183)" : "rgb(108, 155, 210)";
-        const test = node.id === clicknode?.id ? "red" : color;
-        DrawCircle(ctx, node.x, node.y, size, test, test);
+        const color = node.filter === 0 ? "hsl(240 50% 85%)" : "blue";
+        const nodeColor = node.id === clicknode?.id ? "red" : color;
+        DrawCircle(ctx, node.x, node.y, size, nodeColor, nodeColor);
       }}
       onNodeClick={handleNodeClick}
     />

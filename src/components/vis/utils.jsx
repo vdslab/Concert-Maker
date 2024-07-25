@@ -20,7 +20,7 @@ export const matchedDataByIds = (test = []) =>
       birth: composerInfo ? composerInfo.birthYear : null,
       death: composerInfo ? composerInfo.deathYear : null,
       nationality: composerInfo ? composerInfo.nationality : null,
-      name: work.composer + "/" + work.title,
+      name: work.composer + " / " + work.title,
       filter: testItem ? testItem.filter : 1,
     };
 

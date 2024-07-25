@@ -12,7 +12,6 @@ const StyledPaper = styled(Paper)(({ theme }) => ({
   left: "10px",
   width: "400px",
   height: "calc(100vh - 140px)",
-  // maxHeight: "calc(100vh - 100px)",
   overflowY: "auto",
 }));
 
@@ -24,7 +23,7 @@ const NodeInfo = ({ node, Data, setClicknode }) => {
   if (!node) return null;
 
   return (
-    <StyledPaper>
+    <StyledPaper key={node.id}>
       <BasicInfomation node={node} onClose={handleCloseInfo} />
       <Divider />
       <DetailInfomation node={node} />
