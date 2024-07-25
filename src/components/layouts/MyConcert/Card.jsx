@@ -161,56 +161,57 @@ function WorkList(props) {
         return (
           <div key={`${concertID}-${index}`}>
             {index !== 0 && <Divider />}
-            <Stack
+            <Grid
+              container
               direction="row"
-              justifyContent="space-between"
+              justifyContent="space-around"
               alignItems="center"
-              spacing={2}
             >
-              <Box sx={{ mb: 2 }}>
-                <Typography variant="h6" component="div">
-                  {work.title}
-                </Typography>
-                <Stack
-                  direction="row"
-                  justifyContent="space-between"
-                  alignItems="center"
-                  spacing={2}
-                >
+              <Grid item xs>
+                <Box sx={{ p: 1 }}>
                   <Typography variant="body1" component="div">
                     {work.composer}
+                  </Typography>
+                  <Typography variant="h6" component="div">
+                    {work.title}
                   </Typography>
                   <Typography variant="body2" component="div">
                     {duration_time}
                   </Typography>
-                </Stack>
-                <Stack direction="row" spacing={1}>
-                  <Typography variant="body2" component="div">
-                    {work.workFormulaStr.split("\n").map((line, index) => (
-                      <div key={index}>{line}</div>
-                    ))}
-                  </Typography>
-                </Stack>
-              </Box>
+                  <Stack direction="row" spacing={1}>
+                    <Typography
+                      variant="body2"
+                      component="div"
+                      color="textSecondary"
+                    >
+                      {work.workFormulaStr.split("\n").map((line, index) => (
+                        <div key={index}>{line}</div>
+                      ))}
+                    </Typography>
+                  </Stack>
+                </Box>
+              </Grid>
               {/* <Divider orientation="vertical" flexItem /> */}
-              <IconButton
-                aria-label="delete"
-                onClick={() => {
-                  console.log("delete");
-                  setWorkConcertState((works) =>
-                    works.filter(
-                      (workConcert) =>
-                        !(
-                          workConcert.concert === concertID &&
-                          workConcert.work === work.id
-                        ),
-                    ),
-                  );
-                }}
-              >
-                <DeleteIcon />
-              </IconButton>
-            </Stack>
+              <Grid item xs="auto">
+                <IconButton
+                  aria-label="delete"
+                  onClick={() => {
+                    console.log("delete");
+                    setWorkConcertState((works) =>
+                      works.filter(
+                        (workConcert) =>
+                          !(
+                            workConcert.concert === concertID &&
+                            workConcert.work === work.id
+                          ),
+                      ),
+                    );
+                  }}
+                >
+                  <DeleteIcon />
+                </IconButton>
+              </Grid>
+            </Grid>
           </div>
         );
       })}
