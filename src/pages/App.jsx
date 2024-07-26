@@ -4,9 +4,11 @@ import NodeLinkDiagram from "@/components/vis/NodeLinkDiagram";
 import MyConcertCardList from "@/components/layouts/MyConcertCardList";
 
 import { RecoilRoot, atom, selector } from "recoil";
-import { v4 as randomUUID } from "uuid"; // Import the randomUUID function from the 'uuid' library
+import { SnackbarProvider } from "notistack";
 
 import workData from "@/assets/works_v03.json";
+
+const firstUUID = "863c30b8-50ff-491c-a934-1e6c9cd7754e";
 
 const localStorageEffect =
   (key) =>
@@ -27,7 +29,7 @@ export const concertsState = atom({
   key: "concertsState", // unique ID (with respect to other atoms/selectors)
   default: [
     {
-      id: randomUUID(),
+      id: firstUUID,
       name: "My演奏会",
     },
   ],
@@ -50,7 +52,7 @@ export const concertNamesState = selector({
 
 export const selectedConcertState = atom({
   key: "selectedConcertState",
-  default: "My演奏会",
+  default: firstUUID,
   effects: [localStorageEffect("selected_concert")],
 });
 
@@ -66,7 +68,7 @@ export const concertListState = selector({
         .map((workConcert) =>
           workData.find((work) => work.id === workConcert.work),
         ),
-      main: concert.name === get(selectedConcertState),
+      main: concert.id === get(selectedConcertState),
     }));
   },
 });
@@ -74,14 +76,20 @@ export const concertListState = selector({
 function App() {
   return (
     <RecoilRoot>
-      <div className="container">
-        <Box width={2 / 3} className="left-half" sx={{ position: "relative" }}>
-          <NodeLinkDiagram />
-        </Box>
-        <Box width={1 / 3} className="right-half" sx={{ overflow: "auto" }}>
-          <MyConcertCardList />
-        </Box>
-      </div>
+      <SnackbarProvider maxSnack={3}>
+        <div className="container">
+          <Box
+            width={2 / 3}
+            className="left-half"
+            sx={{ position: "relative" }}
+          >
+            <NodeLinkDiagram />
+          </Box>
+          <Box width={1 / 3} className="right-half" sx={{ overflow: "auto" }}>
+            <MyConcertCardList />
+          </Box>
+        </div>
+      </SnackbarProvider>
     </RecoilRoot>
   );
 }

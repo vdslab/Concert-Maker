@@ -29,7 +29,7 @@ const musicServices = [
 
 const MusicButton = ({ node }) => {
   const { title, composer } = node;
-  const searchQuery = encodeURIComponent(`${title} ${composer}`);
+  const searchQuery = encodeURIComponent(`${composer}: ${title}`);
 
   return (
     <Box p={2}>

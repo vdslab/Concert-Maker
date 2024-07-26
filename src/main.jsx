@@ -4,6 +4,7 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import { CssBaseline, ThemeProvider } from "@mui/material";
 import { createTheme, responsiveFontSizes } from "@mui/material/styles";
 import { grey } from "@mui/material/colors";
+import { jaJP } from '@mui/material/locale';
 import Box from "@mui/material/Box";
 import "@fontsource/roboto/300.css";
 import "@fontsource/roboto/400.css";
@@ -93,7 +94,9 @@ export const themeOptions = responsiveFontSizes(
         },
       },
     },
-  }),
+  },
+    jaJP
+  ),
 );
 
 ReactDOM.createRoot(document.getElementById("root")).render(

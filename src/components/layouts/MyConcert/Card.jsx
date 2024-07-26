@@ -9,6 +9,7 @@ import IconButton from "@mui/material/IconButton";
 import DeleteIcon from "@mui/icons-material/Delete";
 import EditIcon from "@mui/icons-material/Edit";
 import TextField from "@mui/material/TextField";
+import ConcertMenus from "./ConcertMenus";
 
 import { useState } from "react";
 
@@ -32,8 +33,8 @@ MyConcertCard.propTypes = {
         composer: PropTypes.string.isRequired,
         id: PropTypes.number.isRequired,
         title: PropTypes.string.isRequired,
-        duration: PropTypes.number.isRequired,
-        workFormulaStr: PropTypes.string.isRequired,
+        duration: PropTypes.oneOfType([PropTypes.number, () => null]),
+        workFormulaStr: PropTypes.oneOfType([PropTypes.string, () => null]),
         workFormula: PropTypes.shape({
           flute: PropTypes.number,
           oboe: PropTypes.number,
@@ -93,7 +94,7 @@ export default function MyConcertCard(props) {
                 color={concert.main ? "secondary" : "inherit"}
                 size="small"
                 onClick={() => {
-                  selectConcert(name);
+                  selectConcert(id);
                 }}
               >
                 Main
@@ -141,11 +142,18 @@ export default function MyConcertCard(props) {
               )}
             </Stack>
           </Grid>
-
-          <Grid item>
-            <Typography gutterBottom variant="h6" component="div">
-              {sum_duration}
-            </Typography>
+          <Grid item xs="auto">
+            <Stack
+              direction="row"
+              justifyContent="center"
+              alignItems="center"
+              spacing={1}
+            >
+              <ConcertMenus id={id} />
+              <Typography gutterBottom variant="h6" component="div">
+                {sum_duration}
+              </Typography>
+            </Stack>
           </Grid>
         </Grid>
       </Box>
@@ -163,8 +171,8 @@ WorkList.propTypes = {
       composer: PropTypes.string.isRequired,
       id: PropTypes.number.isRequired,
       title: PropTypes.string.isRequired,
-      duration: PropTypes.number.isRequired,
-      workFormulaStr: PropTypes.string.isRequired,
+      duration: PropTypes.oneOfType([PropTypes.number, () => null]),
+      workFormulaStr: PropTypes.oneOfType([PropTypes.string, () => null]),
       workFormula: PropTypes.shape({
         flute: PropTypes.number,
         oboe: PropTypes.number,
@@ -226,7 +234,7 @@ function WorkList(props) {
                     {work.title}
                   </Typography>
                   <Typography variant="body2" component="div">
-                    {duration_time}
+                    {(duration_time !== "") ? `演奏時間: ${duration_time}` : ""}
                   </Typography>
                   <Stack direction="row" spacing={1}>
                     <Typography
