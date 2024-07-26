@@ -168,9 +168,12 @@ export default function ConcertMenus(props) {
 }
 
 function generateCopyName(existingNames, prefix) {
+  if (!existingNames.includes(`${prefix}のコピー`)) {
+    return `${prefix}のコピー`;
+  }
   let number = 1;
-  while (existingNames.includes(`${prefix} ${number}`)) {
+  while (existingNames.includes(`${prefix}のコピー ${number}`)) {
     number++;
   }
-  return `${prefix} ${number}`;
+  return `${prefix}のコピー ${number}`;
 }
