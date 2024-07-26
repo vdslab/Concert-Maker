@@ -16,7 +16,7 @@ const DetailInfomation = ({ node }) => {
                 <Typography>{movement}</Typography>
               </Grid>
               <Grid item xs={2}>
-                <Typography align="right">{node.duration[index]}</Typography>
+                <Typography align="right">{node.workMovementDuration[index]}</Typography>
               </Grid>
             </Grid>
           </React.Fragment>
