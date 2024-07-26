@@ -4,9 +4,10 @@ import NodeLinkDiagram from "@/components/vis/NodeLinkDiagram";
 import MyConcertCardList from "@/components/layouts/MyConcertCardList";
 
 import { RecoilRoot, atom, selector } from "recoil";
-import { v4 as randomUUID } from "uuid"; // Import the randomUUID function from the 'uuid' library
 
 import workData from "@/assets/works_v03.json";
+
+const firstUUID = "863c30b8-50ff-491c-a934-1e6c9cd7754e";
 
 const localStorageEffect =
   (key) =>
@@ -22,8 +23,6 @@ const localStorageEffect =
         : localStorage.setItem(key, JSON.stringify(newValue));
     });
   };
-
-const firstUUID = randomUUID();
 
 export const concertsState = atom({
   key: "concertsState", // unique ID (with respect to other atoms/selectors)
