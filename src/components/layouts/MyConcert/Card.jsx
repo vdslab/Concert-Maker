@@ -7,10 +7,18 @@ import Divider from "@mui/material/Divider";
 import Typography from "@mui/material/Typography";
 import IconButton from "@mui/material/IconButton";
 import DeleteIcon from "@mui/icons-material/Delete";
+import EditIcon from "@mui/icons-material/Edit";
+import TextField from "@mui/material/TextField";
+
+import { useState } from "react";
 
 import { sumDurationFormat, durationFormat } from "@/utils/calcTime";
 
-import { workConcertState, selectedConcertState } from "@/pages/App";
+import {
+  workConcertState,
+  selectedConcertState,
+  concertsState,
+} from "@/pages/App";
 import { useSetRecoilState } from "recoil";
 
 import PropTypes from "prop-types";
@@ -57,7 +65,10 @@ MyConcertCard.propTypes = {
 export default function MyConcertCard(props) {
   const { concert } = props;
   const { id, name, works } = concert;
+  const [editMode, setEditMode] = useState(false);
   const selectConcert = useSetRecoilState(selectedConcertState);
+
+  const setConcerts = useSetRecoilState(concertsState);
 
   const sum_duration = sumDurationFormat(works.map((work) => work.duration));
 
@@ -87,9 +98,47 @@ export default function MyConcertCard(props) {
               >
                 Main
               </Button>
-              <Typography gutterBottom variant="h5" component="div">
-                {name}
-              </Typography>
+              {editMode ? (
+                <TextField
+                  id="my-concert-name"
+                  label="My演奏会名"
+                  variant="standard"
+                  defaultValue={name}
+                  onKeyDown={(e) => {
+                    if (e.keyCode === 13) {
+                      console.log(e.target.value);
+                      setConcerts((concerts) =>
+                        concerts.map((concert) =>
+                          concert.id === id
+                            ? { ...concert, name: e.target.value }
+                            : concert,
+                        ),
+                      );
+                      setEditMode(false);
+                    }
+                  }}
+                  helperText="決定するにはEnterキーを押してください"
+                />
+              ) : (
+                <Stack
+                  direction="row"
+                  justifyContent="center"
+                  alignItems="center"
+                  spacing={1}
+                >
+                  <Typography gutterBottom variant="h5" component="div">
+                    {name}
+                  </Typography>
+                  <IconButton
+                    aria-label="edit"
+                    onClick={() => {
+                      setEditMode(true);
+                    }}
+                  >
+                    <EditIcon />
+                  </IconButton>
+                </Stack>
+              )}
             </Stack>
           </Grid>
 
@@ -140,6 +189,7 @@ WorkList.propTypes = {
       year: PropTypes.number.isRequired,
     }),
   ).isRequired,
+  concertID: PropTypes.string.isRequired,
 };
 
 function WorkList(props) {
