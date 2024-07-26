@@ -56,9 +56,8 @@ const applyFilter = (filterValues, Data, setData) => {
         case "composed":
           return checkDateRange(node[key], value);
         case "duration":
-          if (!filterValues.durationIncludeNoData && node.duration === null) {
-            return false;
-          }
+          if (filterValues.durationIncludeNoData && node.duration === null)
+            return true;
           return checkNumberRange(node.duration, value);
         case "flute":
         case "oboe":
