@@ -50,7 +50,7 @@ const StyledMenu = styled((props) => (
       "&:active": {
         backgroundColor: alpha(
           theme.palette.primary.main,
-          theme.palette.action.selectedOpacity,
+          theme.palette.action.selectedOpacity
         ),
       },
     },
@@ -81,12 +81,11 @@ export default function ConcertMenus(props) {
     setConcerts((oldConcerts) => {
       const newConcerts = [...oldConcerts];
       const existingNames = oldConcerts.map((concert) => concert.name);
-      console.log(existingNames);
       const concert = {
         ...oldConcerts.find((concert) => concert.id === id),
         name: generateCopyName(
           existingNames,
-          oldConcerts.find((concert) => concert.id === id).name,
+          oldConcerts.find((concert) => concert.id === id).name
         ),
         id: newId,
       };

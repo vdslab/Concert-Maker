@@ -7,6 +7,8 @@ import { RecoilRoot, atom, selector } from "recoil";
 import { SnackbarProvider } from "notistack";
 
 import workData from "@/assets/works_v03.json";
+import { useState, useMemo } from "react";
+import { processData, createGraphData } from "@/components/vis/DataProcessing";
 
 const firstUUID = "863c30b8-50ff-491c-a934-1e6c9cd7754e";
 
@@ -66,7 +68,7 @@ export const concertListState = selector({
       works: get(workConcertState)
         .filter((work) => work.concert === concert.id)
         .map((workConcert) =>
-          workData.find((work) => work.id === workConcert.work),
+          workData.find((work) => work.id === workConcert.work)
         ),
       main: concert.id === get(selectedConcertState),
     }));
@@ -74,6 +76,11 @@ export const concertListState = selector({
 });
 
 function App() {
+  const [clicknode, setClicknode] = useState(null);
+  const { allPlayedWithWorkIds, linkData } = useMemo(() => processData(), []);
+  const [graphData, setGraphData] = useState(() =>
+    createGraphData(allPlayedWithWorkIds, linkData, [])
+  );
   return (
     <RecoilRoot>
       <SnackbarProvider maxSnack={3}>
@@ -83,10 +90,19 @@ function App() {
             className="left-half"
             sx={{ position: "relative" }}
           >
-            <NodeLinkDiagram />
+            <NodeLinkDiagram
+              clicknode={clicknode}
+              setClicknode={setClicknode}
+              graphData={graphData}
+              setGraphData={setGraphData}
+            />
           </Box>
           <Box width={1 / 3} className="right-half" sx={{ overflow: "auto" }}>
-            <MyConcertCardList />
+            <MyConcertCardList
+              Data={graphData}
+              clicknode={clicknode}
+              setClicknode={setClicknode}
+            />
           </Box>
         </div>
       </SnackbarProvider>
