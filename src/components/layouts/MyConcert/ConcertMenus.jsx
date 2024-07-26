@@ -90,7 +90,8 @@ export default function ConcertMenus(props) {
         ),
         id: newId,
       };
-      newConcerts.push(concert);
+      const oldIndex = oldConcerts.findIndex((concert) => concert.id === id);
+      newConcerts.splice(oldIndex + 1, 0, concert);
       return newConcerts;
     });
 
