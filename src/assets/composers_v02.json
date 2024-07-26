@@ -1,6 +1,6 @@
 [
   {
-    "name": "Rota, Nino",
+    "name": "ロータ",
     "birthYear": 1911,
     "deathYear": 1979,
     "details": "(b Milan, 3 Dec 1911; d Rome, 10 April 1979). Italian",
@@ -234,7 +234,7 @@
     "longitude": -0.0786264
   },
   {
-    "name": "Debussy, Claude",
+    "name": "ドビュッシー",
     "birthYear": 1862,
     "deathYear": 1918,
     "details": "(b St Germain-en-Laye, 22 Aug 1862; d Paris, 25 March 1918). French",
@@ -531,7 +531,7 @@
     "longitude": 4.3518717
   },
   {
-    "name": "Grieg, Edvard",
+    "name": "グリーグ",
     "birthYear": 1843,
     "deathYear": 1907,
     "details": "(b Bergen, 15 June 1843; d Bergen, 4 Sept 1907). Norwegian",
@@ -972,7 +972,7 @@
     "longitude": -3.16028
   },
   {
-    "name": "Mussorgsky, Modest",
+    "name": "ムソルグスキー",
     "birthYear": 1839,
     "deathYear": 1881,
     "details": "(b Karevo, Pskov district, 9/21 March 1839; d St Petersburg, 16/28 March 1881). Russian",
@@ -1224,7 +1224,7 @@
     "longitude": 13.4086443
   },
   {
-    "name": "Nielsen, Carl",
+    "name": "ニールセン",
     "birthYear": 1865,
     "deathYear": 1931,
     "details": "(b Sortelung, nr Nørre Lyndelse, Funen, 9 June 1865; d Copenhagen, 3 Oct 1931). Danish",
@@ -1323,7 +1323,7 @@
     "longitude": -77.0158701
   },
   {
-    "name": "Beethoven, Ludwig van",
+    "name": "ベートーヴェン",
     "birthYear": 1770,
     "deathYear": 1827,
     "details": "(b Bonn, bap. 17 Dec 1770; d Vienna, 26 March 1827). German",
@@ -1854,7 +1854,7 @@
     "longitude": 2.3524135
   },
   {
-    "name": "Mendelssohn, Felix",
+    "name": "メンデルスゾーン",
     "birthYear": 1809,
     "deathYear": 1847,
     "details": "(b Hamburg, 3 Feb 1809; d Leipzig, 4 Nov 1847). German",
@@ -2133,7 +2133,7 @@
     "longitude": -0.0786264
   },
   {
-    "name": "Milhaud, Darius",
+    "name": "ミヨー",
     "birthYear": 1892,
     "deathYear": 1974,
     "details": "(b Marseilles, 4 Sept 1892; d Geneva, 22 June 1974). French",
@@ -2142,7 +2142,7 @@
     "longitude": 2.3524135
   },
   {
-    "name": "Schoenberg, Arnold",
+    "name": "シェーンベルク",
     "birthYear": 1874,
     "deathYear": 1951,
     "details": "(b Vienna, 13 Sept 1874; d Los Angeles, 13 July 1951). Austro-Hungarian, American citizen from 1941.",
@@ -2196,7 +2196,7 @@
     "longitude": 16.3565084
   },
   {
-    "name": "Schubert, Franz",
+    "name": "シューベルト",
     "birthYear": 1797,
     "deathYear": 1828,
     "details": "(b Vienna, 31 Jan 1797; d Vienna, 19 Nov 1828). Austrian",
@@ -2241,7 +2241,7 @@
     "longitude": -3.183
   },
   {
-    "name": "Williams, John",
+    "name": "ジョン・ウィリアムズ",
     "birthYear": 1932,
     "deathYear": null,
     "details": "(b New York, 8 Feb 1932). American",
@@ -2583,7 +2583,7 @@
     "longitude": -77.0158701
   },
   {
-    "name": "Haydn, Franz Joseph",
+    "name": "ハイドン",
     "birthYear": 1732,
     "deathYear": 1809,
     "details": "(b Rohrau, Lower Austria, 31 March 1732; d Vienna, 31 May 1809). Austrian",
@@ -2826,7 +2826,7 @@
     "longitude": 13.4086443
   },
   {
-    "name": "Shostakovich, Dmitry",
+    "name": "ショスタコーヴィチ",
     "birthYear": 1906,
     "deathYear": 1975,
     "details": "(b St Petersburg, 12/25 Sept 1906; d Moscow, 9 Aug 1975). Russian",
@@ -2844,7 +2844,7 @@
     "longitude": -77.0158701
   },
   {
-    "name": "Sibelius, Jean",
+    "name": "シベリウス",
     "birthYear": 1865,
     "deathYear": 1957,
     "details": "(b Hämeenlinna, 8 Dec 1865; d Järvenpää, 20 Sept 1957). Finnish",
@@ -2880,7 +2880,7 @@
     "longitude": -66.0016
   },
   {
-    "name": "Bach, Carl Philipp Emanuel",
+    "name": "C.P.E.バッハ",
     "birthYear": 1714,
     "deathYear": 1788,
     "details": "(b Weimar, 8 March 1714; d Hamburg, 14 Dec 1788). German",
@@ -2934,7 +2934,7 @@
     "longitude": 13.4086443
   },
   {
-    "name": "Bach, Johann Sebastian",
+    "name": "J.S.バッハ",
     "birthYear": 1685,
     "deathYear": 1750,
     "details": "(b Eisenach, 21 March 1685; d Leipzig, 28 July 1750). German",
@@ -3114,7 +3114,7 @@
     "longitude": -77.0158701
   },
   {
-    "name": "Bruch, Max",
+    "name": "ブルッフ",
     "birthYear": 1838,
     "deathYear": 1920,
     "details": "(b Cologne, 6 Jan 1838; d Friedenau, Berlin, 2 Oct 1920). German",
@@ -3132,7 +3132,7 @@
     "longitude": 4.8995816
   },
   {
-    "name": "Bruckner, Anton",
+    "name": "ブルックナー",
     "birthYear": 1824,
     "deathYear": 1896,
     "details": "(b Ansfelden, nr Linz, 4 Sept 1824; d Vienna, 11 Oct 1896). Austrian",
@@ -3393,7 +3393,7 @@
     "longitude": 13.4086443
   },
   {
-    "name": "Holst, Gustav",
+    "name": "ホルスト",
     "birthYear": 1874,
     "deathYear": 1934,
     "details": "(b Cheltenham, 21 Sept 1874; d London, 25 May 1934). English",
@@ -3447,7 +3447,7 @@
     "longitude": -77.0158701
   },
   {
-    "name": "Honegger, Arthur",
+    "name": "オネゲル",
     "birthYear": 1892,
     "deathYear": 1955,
     "details": "(b Le Havre, 10 March 1892; d Paris, 27 Nov 1955). Swiss-French",
@@ -4158,7 +4158,7 @@
     "longitude": 18.0543456
   },
   {
-    "name": "Martinů, Bohuslav",
+    "name": "マルティヌー",
     "birthYear": 1890,
     "deathYear": 1959,
     "details": "(b Polička, Bohemia, 8 Dec 1890; d Liestal, Switzerland, 28 Aug 1959). Czech",
@@ -4221,7 +4221,7 @@
     "longitude": 13.4086443
   },
   {
-    "name": "Mascagni, Pietro",
+    "name": "マスカーニ",
     "birthYear": 1863,
     "deathYear": 1945,
     "details": "(b Livorno, 7 Dec 1863; d Rome, 2 Aug 1945). Italian",
@@ -4320,7 +4320,7 @@
     "longitude": 16.3565084
   },
   {
-    "name": "Humperdinck, Engelbert",
+    "name": "フンパーディンク",
     "birthYear": 1854,
     "deathYear": 1921,
     "details": "(b Siegburg, 1 Sept 1854; d Neustrelitz, 27 Sept 1921). German",
@@ -4455,7 +4455,7 @@
     "longitude": -99.1339996
   },
   {
-    "name": "Ibert, Jacques",
+    "name": "イベール",
     "birthYear": 1890,
     "deathYear": 1962,
     "details": "(b Paris, 15 Aug 1890; d Paris, 5 Feb 1962). French",
@@ -4635,7 +4635,7 @@
     "longitude": null
   },
   {
-    "name": "Brahms, Johannes",
+    "name": "ブラームス",
     "birthYear": 1833,
     "deathYear": 1897,
     "details": "(b Hamburg, 7 May 1833; d Vienna, 3 April 1897). German",
@@ -4878,7 +4878,7 @@
     "longitude": -77.0158701
   },
   {
-    "name": "Britain, Radie",
+    "name": "ブリテン",
     "birthYear": 1899,
     "deathYear": 1994,
     "details": "(b nr Silverton, TX, 17 March 1899; d Palm Springs, CA, 23 May 1994). American",
@@ -5184,7 +5184,7 @@
     "longitude": 21.0061014
   },
   {
-    "name": "Bach, Carl Philipp Emanuel",
+    "name": "C.P.E.バッハ",
     "birthYear": 1714,
     "deathYear": 1788,
     "details": "(b Weimar, 8 March 1714; d Hamburg, 14 Dec 1788). German",
@@ -5562,7 +5562,7 @@
     "longitude": 126.9779451
   },
   {
-    "name": "Shostakovich, Dmitry",
+    "name": "ショスタコーヴィチ",
     "birthYear": 1906,
     "deathYear": 1975,
     "details": "(b St Petersburg, 12/25 Sept 1906; d Moscow, 9 Aug 1975). Russian",
@@ -5724,7 +5724,7 @@
     "longitude": 139.6921007
   },
   {
-    "name": "Haydn, Franz Joseph",
+    "name": "ハイドン",
     "birthYear": 1732,
     "deathYear": 1809,
     "details": "(b Rohrau, Lower Austria, 31 March 1732; d Vienna, 31 May 1809). Austrian",
@@ -5796,7 +5796,7 @@
     "longitude": 13.4086443
   },
   {
-    "name": "Schumann, Robert",
+    "name": "シューマン",
     "birthYear": 1810,
     "deathYear": 1856,
     "details": "(b Zwickau, Saxony, 8 June 1810; d Endenich, nr Bonn, 29 July 1856). German",
@@ -6327,7 +6327,7 @@
     "longitude": -3.16028
   },
   {
-    "name": "Widmann, Jörg",
+    "name": "ヴィトマン",
     "birthYear": 1973,
     "deathYear": null,
     "details": "(b Munich, 19 June 1973). German",
@@ -6453,7 +6453,7 @@
     "longitude": 16.3565084
   },
   {
-    "name": "Milhaud, Darius",
+    "name": "ミヨー",
     "birthYear": 1892,
     "deathYear": 1974,
     "details": "(b Marseilles, 4 Sept 1892; d Geneva, 22 June 1974). French",
@@ -6867,7 +6867,7 @@
     "longitude": -77.0158701
   },
   {
-    "name": "Morricone, Ennio",
+    "name": "モリコーネ",
     "birthYear": 1928,
     "deathYear": 2020,
     "details": "(b Rome, 10 Nov 1928; d Rome, 6 July 2020). Italian",
@@ -7128,7 +7128,7 @@
     "longitude": -77.0158701
   },
   {
-    "name": "Cherubini, Luigi",
+    "name": "ケルビーニ",
     "birthYear": 1760,
     "deathYear": 1842,
     "details": "(b Florence, 8/14 Sept 1760; d Paris, 15 March 1842). Italian composer active in France.",
@@ -7209,7 +7209,7 @@
     "longitude": 44.5040456
   },
   {
-    "name": "Chopin, Fryderyk Franciszek",
+    "name": "ショパン",
     "birthYear": 1810,
     "deathYear": 1849,
     "details": "(b Żelazowa Wola, nr Warsaw, 1 March 1810; d Paris, 17 Oct 1849). Polish",
@@ -7254,7 +7254,7 @@
     "longitude": 17.1097025
   },
   {
-    "name": "Nielsen, Carl",
+    "name": "ニールセン",
     "birthYear": 1865,
     "deathYear": 1931,
     "details": "(b Sortelung, nr Nørre Lyndelse, Funen, 9 June 1865; d Copenhagen, 3 Oct 1931). Danish",
@@ -7587,7 +7587,7 @@
     "longitude": 13.4086443
   },
   {
-    "name": "Offenbach, Jacques",
+    "name": "オッフェンバック",
     "birthYear": 1819,
     "deathYear": 1880,
     "details": "(b Cologne, 20 June 1819; d Paris, 5 Oct 1880). French",
@@ -7596,7 +7596,7 @@
     "longitude": 2.3524135
   },
   {
-    "name": "Barber, Samuel",
+    "name": "バーバー",
     "birthYear": 1910,
     "deathYear": 1981,
     "details": "(b West Chester, PA, 9 March 1910; d New York, 23 Jan 1981). American",
@@ -7749,7 +7749,7 @@
     "longitude": 13.4086443
   },
   {
-    "name": "Bartók, Béla",
+    "name": "バルトーク",
     "birthYear": 1881,
     "deathYear": 1945,
     "details": "(b Nagyszentmiklós, Hungary [now Sînnicolau Mare, Romania], 25 March 1881; d New York, 26 Sept 1945). Hungarian",
@@ -8109,7 +8109,7 @@
     "longitude": -75.6904893
   },
   {
-    "name": "Gounod, Charles",
+    "name": "グノー",
     "birthYear": 1818,
     "deathYear": 1893,
     "details": "(b Paris, 17 June 1818; d Saint-Cloud, 18 Oct 1893). French",
@@ -8532,7 +8532,7 @@
     "longitude": 149.1166937
   },
   {
-    "name": "Debussy, Claude",
+    "name": "ドビュッシー",
     "birthYear": 1862,
     "deathYear": 1918,
     "details": "(b St Germain-en-Laye, 22 Aug 1862; d Paris, 25 March 1918). French",
@@ -8640,7 +8640,7 @@
     "longitude": 2.3524135
   },
   {
-    "name": "Saint-Saëns, Camille",
+    "name": "サン＝サーンス",
     "birthYear": 1835,
     "deathYear": 1921,
     "details": "(b Paris, 9 Oct 1835; d Algiers, 16 Dec 1921). French",
@@ -8964,7 +8964,7 @@
     "longitude": 24.1064499
   },
   {
-    "name": "Vaughan Williams, Ralph",
+    "name": "ヴォーン・ウィリアムズ",
     "birthYear": 1872,
     "deathYear": 1958,
     "details": "(b Down Ampney, Gloucestershire, 12 Oct 1872; d London, 26 Aug 1958). English",
@@ -9450,7 +9450,7 @@
     "longitude": 2.3524135
   },
   {
-    "name": "Prokofiev, Serge",
+    "name": "プロコフィエフ",
     "birthYear": 1891,
     "deathYear": 1953,
     "details": "(b Sontsovka [now Krasnoye, Selidovsky district, Donetsk region, Ukraine], 15/27 April 1891; d Moscow, 5 March 1953). Russian",
@@ -9513,7 +9513,7 @@
     "longitude": 21.0061014
   },
   {
-    "name": "Puccini, Giacomo",
+    "name": "プッチーニ",
     "birthYear": 1858,
     "deathYear": 1924,
     "details": "(b Lucca, 22 Dec 1858; d Brussels, 29 Nov 1924). Italian",
@@ -9675,7 +9675,7 @@
     "longitude": 19.045669
   },
   {
-    "name": "Szymanowski, Karol",
+    "name": "シマノフスキ",
     "birthYear": 1882,
     "deathYear": 1937,
     "details": "(b Tymoszówka, nr Kiev, 3 Oct 1882; d Lausanne, 29 March 1937). Polish",
@@ -9891,7 +9891,7 @@
     "longitude": -0.0786264
   },
   {
-    "name": "Anderson, Leroy",
+    "name": "アンダーソン",
     "birthYear": 1908,
     "deathYear": 1975,
     "details": "(b Cambridge, MA, 29 June 1908; d Woodbury, CT, 18 May 1975). American",
@@ -10413,7 +10413,7 @@
     "longitude": -77.0158701
   },
   {
-    "name": "Borodin, Alexander",
+    "name": "ボロディン",
     "birthYear": 1833,
     "deathYear": 1887,
     "details": "(b St Petersburg, 31 Oct/12 Nov 1833; d St Petersburg, 15/27 Feb 1887). Russian",
@@ -10998,7 +10998,7 @@
     "longitude": 2.3524135
   },
   {
-    "name": "Liszt, Franz",
+    "name": "リスト",
     "birthYear": 1811,
     "deathYear": 1886,
     "details": "(b Raiding (Doborján), 22 Oct 1811; d Bayreuth, 31 July 1886). Hungarian",
@@ -11484,7 +11484,7 @@
     "longitude": -77.0158701
   },
   {
-    "name": "Rimsky-Korsakov, Nikolai",
+    "name": "リムスキー＝コルサコフ",
     "birthYear": 1844,
     "deathYear": 1908,
     "details": "(b Tikhvin, 6/18 Mar 1844; d Lyubensk, nr Luga [now Pskov district], 8/21 June 1908). Russian",
@@ -11610,7 +11610,7 @@
     "longitude": -77.0158701
   },
   {
-    "name": "Rodrigo, Joaquín",
+    "name": "ロドリーゴ",
     "birthYear": 1901,
     "deathYear": 1999,
     "details": "(b Sagunto, 22 Nov 1901; d Madrid, 6 July 1999). Spanish",
@@ -11637,7 +11637,7 @@
     "longitude": -77.0158701
   },
   {
-    "name": "Donizetti, Gaetano",
+    "name": "ドニゼッティ",
     "birthYear": 1797,
     "deathYear": 1848,
     "details": "(b Bergamo, 29 Nov 1797; d Bergamo, 8 April 1848). Italian",
@@ -11916,7 +11916,7 @@
     "longitude": 2.3524135
   },
   {
-    "name": "Dukas, Paul",
+    "name": "デュカ",
     "birthYear": 1865,
     "deathYear": 1935,
     "details": "(b Paris, 1 Oct 1865; d Paris, 17 May 1935). French",
@@ -12033,7 +12033,7 @@
     "longitude": 19.045669
   },
   {
-    "name": "Glazunov, Alexander",
+    "name": "グラズノフ",
     "birthYear": 1865,
     "deathYear": 1936,
     "details": "(b St Petersburg, 29 July/10 Aug 1865; d Paris, 21 March 1936). Russian",
@@ -12060,7 +12060,7 @@
     "longitude": 37.6089367
   },
   {
-    "name": "Glinka, Mikhail",
+    "name": "グリンカ",
     "birthYear": 1804,
     "deathYear": 1857,
     "details": "(b Novospasskoye [now Glinka], nr Yelnya, Smolensk district, 20 May/1 June 1804; d Berlin, 3/15 Feb 1857). Russian",
@@ -12285,7 +12285,7 @@
     "longitude": -47.9079509
   },
   {
-    "name": "Offenbach, Jacques",
+    "name": "オッフェンバック",
     "birthYear": 1819,
     "deathYear": 1880,
     "details": "(b Cologne, 20 June 1819; d Paris, 5 Oct 1880). French",
@@ -12618,7 +12618,7 @@
     "longitude": -77.0158701
   },
   {
-    "name": "Pachelbel, Johann",
+    "name": "パッヘルベル",
     "birthYear": 1653,
     "deathYear": 1706,
     "details": "(b Nuremberg, bap. 1 Sept 1653; d Nuremberg, bur. 9 March 1706). German",
@@ -12852,7 +12852,7 @@
     "longitude": 37.6089367
   },
   {
-    "name": "Korngold, Erich Wolfgang",
+    "name": "コルンゴルト",
     "birthYear": 1897,
     "deathYear": 1957,
     "details": "(b Brno, 29 May 1897; d Hollywood, CA, 29 Nov 1957). Austrian",
@@ -13320,7 +13320,7 @@
     "longitude": 2.3524135
   },
   {
-    "name": "Lalo, Édouard",
+    "name": "ラロ",
     "birthYear": 1823,
     "deathYear": 1892,
     "details": "(b Lille, 27 Jan 1823; d Paris, 22 April 1892). French",
@@ -13878,7 +13878,7 @@
     "longitude": 13.4086443
   },
   {
-    "name": "Gershwin, George",
+    "name": "ガーシュイン",
     "birthYear": 1898,
     "deathYear": 1937,
     "details": "(b Brooklyn, NY, 26 Sept 1898; d Hollywood, CA, 11 July 1937). American",
@@ -14148,7 +14148,7 @@
     "longitude": -77.0158701
   },
   {
-    "name": "Glazunov, Alexander",
+    "name": "グラズノフ",
     "birthYear": 1865,
     "deathYear": 1936,
     "details": "(b St Petersburg, 29 July/10 Aug 1865; d Paris, 21 March 1936). Russian",
@@ -14193,7 +14193,7 @@
     "longitude": -77.0158701
   },
   {
-    "name": "Desyatnikov, Leonid",
+    "name": "デシャトニコフ",
     "birthYear": 1955,
     "deathYear": null,
     "details": "(b Kharkiv, 16 Oct 1955). Russian",
@@ -14544,7 +14544,7 @@
     "longitude": 2.3524135
   },
   {
-    "name": "Rogers, Bernard",
+    "name": "ロジャース",
     "birthYear": 1893,
     "deathYear": 1968,
     "details": "(b New York, 4 Feb 1893; d Rochester, NY, 24 May 1968). American",
@@ -14787,7 +14787,7 @@
     "longitude": 4.3518717
   },
   {
-    "name": "Rossini, Gioachino",
+    "name": "ロッシーニ",
     "birthYear": 1792,
     "deathYear": 1868,
     "details": "(b Pesaro, 29 Feb 1792; d Passy, 13 Nov 1868). Italian",
@@ -14796,7 +14796,7 @@
     "longitude": 12.4834738
   },
   {
-    "name": "Rota, Nino",
+    "name": "ロータ",
     "birthYear": 1911,
     "deathYear": 1979,
     "details": "(b Milan, 3 Dec 1911; d Rome, 10 April 1979). Italian",
@@ -15048,7 +15048,7 @@
     "longitude": 16.3565084
   },
   {
-    "name": "Mahler, Gustav",
+    "name": "マーラー",
     "birthYear": 1860,
     "deathYear": 1911,
     "details": "(b Kalischt, nr Iglau [now Kaliste, Jihlava], Bohemia, 7 July 1860; d Vienna, 18 May 1911). Austrian",
@@ -15201,7 +15201,7 @@
     "longitude": 14.4212465
   },
   {
-    "name": "Kabalevsky, Dmitri",
+    "name": "カバレフスキー",
     "birthYear": 1904,
     "deathYear": 1987,
     "details": "(b St Petersburg, 17/30 Dec 1904; d Moscow, 14 Feb 1987). Russian",
@@ -15804,7 +15804,7 @@
     "longitude": 18.0543456
   },
   {
-    "name": "Rachmaninoff, Sergei",
+    "name": "ラフマニノフ",
     "birthYear": 1873,
     "deathYear": 1943,
     "details": "(b Oneg, 20 March/1 April 1873; d Beverly Hills, CA, 28 March 1943). Russian",
@@ -16488,7 +16488,7 @@
     "longitude": -0.0786264
   },
   {
-    "name": "Stravinsky, Igor",
+    "name": "ストラヴィンスキー",
     "birthYear": 1882,
     "deathYear": 1971,
     "details": "(b Oranienbaum, nr St Petersburg, 5/17 June 1882; d New York, 6 April 1971). Russian composer, later of French (1934) and American (1945) nationality",
@@ -16659,7 +16659,7 @@
     "longitude": 24.952989
   },
   {
-    "name": "Suppé, Franz von",
+    "name": "スッペ",
     "birthYear": 1819,
     "deathYear": 1895,
     "details": "(b Spalato, Dalmatia [now Split, Croatia] 18 April 1819; d Vienna, 21 May 1895). Austrian composer of Belgian descent",
@@ -16911,7 +16911,7 @@
     "longitude": -77.0158701
   },
   {
-    "name": "Falla, Manuel de",
+    "name": "ファリャ",
     "birthYear": 1876,
     "deathYear": 1946,
     "details": "(b Cadiz, 23 Nov 1876; d Alta Gracia, Argentina, 14 Nov 1946). Spanish",
@@ -16983,7 +16983,7 @@
     "longitude": 13.4086443
   },
   {
-    "name": "Fauré, Gabriel",
+    "name": "フォーレ",
     "birthYear": 1845,
     "deathYear": 1924,
     "details": "(b Pamiers, Ariege, 12 May 1845; d Paris, 4 Nov 1924). French",
@@ -17190,7 +17190,7 @@
     "longitude": -6.2670798
   },
   {
-    "name": "Tomasi, Henri Frédien",
+    "name": "トマジ",
     "birthYear": 1901,
     "deathYear": 1971,
     "details": "(b Marseilles, 17 Aug 1901; d Paris, 13 Jan 1971). French",
@@ -17667,7 +17667,7 @@
     "longitude": 4.3518717
   },
   {
-    "name": "Lehár, Franz",
+    "name": "レハール",
     "birthYear": 1870,
     "deathYear": 1948,
     "details": "(b Komáron, Hungary, 30 April 1870; d Bad Ischl, 24 Oct 1948). Austro-Hungarian",
@@ -18270,7 +18270,7 @@
     "longitude": 4.8995816
   },
   {
-    "name": "Khachaturian, Aram",
+    "name": "ハチャトゥリアン",
     "birthYear": 1903,
     "deathYear": 1978,
     "details": "(b Tbilisi, 24 May/6 June 1903; d Moscow, 1 May 1978). Armenian",
@@ -18324,7 +18324,7 @@
     "longitude": 21.0061014
   },
   {
-    "name": "Berlioz, Hector",
+    "name": "ベルリオーズ",
     "birthYear": 1803,
     "deathYear": 1869,
     "details": "(b La Cote-Saint-Andre, Isere, 11 Dec 1803; d Paris, 8 March 1869). French",
@@ -18387,7 +18387,7 @@
     "longitude": -77.0158701
   },
   {
-    "name": "Bernstein, Leonard",
+    "name": "バーンスタイン",
     "birthYear": 1918,
     "deathYear": 1990,
     "details": "(b Lawrence, MA, 25 Aug 1918; d New York, 14 Oct 1990). American",
@@ -18567,7 +18567,7 @@
     "longitude": 2.3524135
   },
   {
-    "name": "Bizet, Georges",
+    "name": "ビゼー",
     "birthYear": 1838,
     "deathYear": 1875,
     "details": "(b Paris, 25 Oct 1838; d Bougival, nr Paris, 3 June 1875). French",
@@ -18855,7 +18855,7 @@
     "longitude": 24.952989
   },
   {
-    "name": "Strauss, Johann, Jr.",
+    "name": "J.シュトラウスⅡ世",
     "birthYear": 1825,
     "deathYear": 1899,
     "details": "(b Vienna, 25 Oct 1825; d Vienna, 3 June 1899). Austrian composer of Hungarian descent",
@@ -18864,7 +18864,7 @@
     "longitude": 16.3565084
   },
   {
-    "name": "Strauss, Johann, Sr.",
+    "name": "J.シュトラウスⅠ世",
     "birthYear": 1804,
     "deathYear": 1849,
     "details": "(b Vienna, 14 March 1804; d Vienna, 25 Sept 1849). Austrian composer of Hungarian descent",
@@ -18873,7 +18873,7 @@
     "longitude": 16.3565084
   },
   {
-    "name": "Strauss, Josef",
+    "name": "ヨーゼフ・シュトラウス",
     "birthYear": 1827,
     "deathYear": 1870,
     "details": "(b Vienna, 20 Aug 1827; d Vienna, 22 July 1870). Austrian composer of Hungarian descent",
@@ -18882,7 +18882,7 @@
     "longitude": 16.3565084
   },
   {
-    "name": "Strauss, Richard",
+    "name": "R.シュトラウス",
     "birthYear": 1864,
     "deathYear": 1949,
     "details": "(b Munich, 11 June 1864; d Garmisch-Partenkirchen, 8 Sept 1949). German",
@@ -18891,7 +18891,7 @@
     "longitude": 13.4086443
   },
   {
-    "name": "Stravinsky, Igor",
+    "name": "ストラヴィンスキー",
     "birthYear": 1882,
     "deathYear": 1971,
     "details": "(b Oranienbaum, nr St Petersburg, 5/17 June 1882; d New York, 6 April 1971). Russian composer, later of French (1934) and American (1945) nationality",
@@ -18900,7 +18900,7 @@
     "longitude": 37.6089367
   },
   {
-    "name": "Vivaldi, Antonio",
+    "name": "ヴィヴァルディ",
     "birthYear": 1678,
     "deathYear": 1741,
     "details": "(b Venice, 4 March 1678; d Vienna, 27/8 July 1741). Italian",
@@ -18972,7 +18972,7 @@
     "longitude": 13.4086443
   },
   {
-    "name": "Telemann, Georg Philipp",
+    "name": "テレマン",
     "birthYear": 1681,
     "deathYear": 1767,
     "details": "(b Magdeburg, 14 March 1681; d Hamburg, 25 June 1767). German",
@@ -19575,7 +19575,7 @@
     "longitude": -58.3737025
   },
   {
-    "name": "Piazzolla, Astor",
+    "name": "ピアソラ",
     "birthYear": 1921,
     "deathYear": 1992,
     "details": "(b Mar del Plata, 11 March 1921; d Buenos Aires, 5 July 1992). Argentine",
@@ -20070,7 +20070,7 @@
     "longitude": -77.0158701
   },
   {
-    "name": "Elgar, Edward",
+    "name": "エルガー",
     "birthYear": 1857,
     "deathYear": 1934,
     "details": "(b Broadheath, nr Worcester, 2 June 1857; d Worcester, 23 Feb 1934). English",
@@ -20430,7 +20430,7 @@
     "longitude": 12.4834738
   },
   {
-    "name": "Ravel, Maurice",
+    "name": "ラヴェル",
     "birthYear": 1875,
     "deathYear": 1937,
     "details": "(b Ciboure, Basses-Pyrenees, 7 March 1875; d Paris, 28 Dec 1937). French composer of Swiss-Basque parentage",
@@ -20637,7 +20637,7 @@
     "longitude": -0.0786264
   },
   {
-    "name": "Respighi, Ottorino",
+    "name": "レスピーギ",
     "birthYear": 1879,
     "deathYear": 1936,
     "details": "(b Bologna, 9 July 1879; d Rome, 18 April 1936). Italian",
@@ -20853,7 +20853,7 @@
     "longitude": 19.045669
   },
   {
-    "name": "Duruflé, Maurice",
+    "name": "デュリュフレ",
     "birthYear": 1902,
     "deathYear": 1986,
     "details": "(b Louviers, 11 Jan 1902; d Paris, 16 June 1986). French",
@@ -20907,7 +20907,7 @@
     "longitude": 14.4212465
   },
   {
-    "name": "Dvořák, Antonín",
+    "name": "ドヴォルザーク",
     "birthYear": 1841,
     "deathYear": 1904,
     "details": "(b Nelahozeves, nr Kralupy, Bohemia, 8 Sept 1841; d Prague, 1 May 1904). Czech",
@@ -21636,7 +21636,7 @@
     "longitude": 37.6089367
   },
   {
-    "name": "Tchaikovsky, Piotr Ilyich",
+    "name": "チャイコフスキー",
     "birthYear": 1840,
     "deathYear": 1893,
     "details": "(b nr Votkinsk, north-eastern Russia, 25 April/7 May 1840; d St Petersburg, 25 Oct/6 Nov 1893). Russian",
@@ -21690,7 +21690,7 @@
     "longitude": 12.4834738
   },
   {
-    "name": "Telemann, Georg Philipp",
+    "name": "テレマン",
     "birthYear": 1681,
     "deathYear": 1767,
     "details": "(b Magdeburg, 14 March 1681; d Hamburg, 25 June 1767). German",
@@ -22068,7 +22068,7 @@
     "longitude": -0.0786264
   },
   {
-    "name": "Poulenc, Francis",
+    "name": "プーランク",
     "birthYear": 1899,
     "deathYear": 1963,
     "details": "(b Paris, 7 Jan 1899; d Paris, 30 Jan 1963). French",
@@ -22158,7 +22158,7 @@
     "longitude": -77.0158701
   },
   {
-    "name": "Vaughan Williams, Ralph",
+    "name": "ヴォーン・ウィリアムズ",
     "birthYear": 1872,
     "deathYear": 1958,
     "details": "(b Down Ampney, Gloucestershire, 12 Oct 1872; d London, 26 Aug 1958). English",
@@ -22221,7 +22221,7 @@
     "longitude": 12.4834738
   },
   {
-    "name": "Verdi, Giuseppe",
+    "name": "ヴェルディ",
     "birthYear": 1813,
     "deathYear": 1901,
     "details": "(b Roncole, nr Busseto, 9 or 10 Oct 1813; d Milan, 27 Jan 1901). Italian",
@@ -22275,7 +22275,7 @@
     "longitude": 4.3518717
   },
   {
-    "name": "Villa-Lobos, Heitor",
+    "name": "ヴィラ＝ロボス",
     "birthYear": 1887,
     "deathYear": 1959,
     "details": "(b Rio de Janeiro, 5 March 1887; d Rio de Janeiro, 17 Nov 1959). Brazilian",
@@ -22392,7 +22392,7 @@
     "longitude": 12.4834738
   },
   {
-    "name": "Vivaldi, Antonio",
+    "name": "ヴィヴァルディ",
     "birthYear": 1678,
     "deathYear": 1741,
     "details": "(b Venice, 4 March 1678; d Vienna, 27/8 July 1741). Italian",
@@ -22752,7 +22752,7 @@
     "longitude": 13.4086443
   },
   {
-    "name": "Strauss, Johann, Jr.",
+    "name": "J.シュトラウスⅡ世",
     "birthYear": 1825,
     "deathYear": 1899,
     "details": "(b Vienna, 25 Oct 1825; d Vienna, 3 June 1899). Austrian composer of Hungarian descent",
@@ -22851,7 +22851,7 @@
     "longitude": -77.0158701
   },
   {
-    "name": "Berg, Alban",
+    "name": "ベルク",
     "birthYear": 1885,
     "deathYear": 1935,
     "details": "(b Vienna, 9 Feb 1885; d Vienna, 24 Dec 1935). Austrian",
@@ -22977,7 +22977,7 @@
     "longitude": -0.0786264
   },
   {
-    "name": "Berlioz, Hector",
+    "name": "ベルリオーズ",
     "birthYear": 1803,
     "deathYear": 1869,
     "details": "(b La Cote-Saint-Andre, Isere, 11 Dec 1803; d Paris, 8 March 1869). French",
@@ -23265,7 +23265,7 @@
     "longitude": 13.4086443
   },
   {
-    "name": "Kodály, Zoltán",
+    "name": "コダーイ",
     "birthYear": 1882,
     "deathYear": 1967,
     "details": "(b Kecskemet, 16 Dec 1882; d Budapest, 6 March 1967). Hungarian",
@@ -23535,7 +23535,7 @@
     "longitude": -77.0158701
   },
   {
-    "name": "Ligeti, György",
+    "name": "リゲティ",
     "birthYear": 1923,
     "deathYear": 2006,
     "details": "(b Dicsöszentmárton [Diciosânmartin, now Tîrnăveni], Transylvania, 28 May 1923; d Vienna, 12 June 2006). Hungarian-born; later took Austrian citizenship.",
@@ -23643,7 +23643,7 @@
     "longitude": -77.0158701
   },
   {
-    "name": "Liszt, Franz",
+    "name": "リスト",
     "birthYear": 1811,
     "deathYear": 1886,
     "details": "(b Raiding (Doborján), 22 Oct 1811; d Bayreuth, 31 July 1886). Hungarian",
@@ -23706,7 +23706,7 @@
     "longitude": 16.3565084
   },
   {
-    "name": "Mozart, Wolfgang Amadeus",
+    "name": "モーツァルト",
     "birthYear": 1756,
     "deathYear": 1791,
     "details": "(b Salzburg, 27 Jan 1756; d Vienna, 5 Dec 1791). Austrian",
@@ -23715,7 +23715,7 @@
     "longitude": 16.3565084
   },
   {
-    "name": "Handel, George Frideric",
+    "name": "ヘンデル",
     "birthYear": 1685,
     "deathYear": 1759,
     "details": "(b Halle, 23 Feb 1685; d London, 14 April 1759). German; naturalized English from 1726",
@@ -24498,7 +24498,7 @@
     "longitude": -77.0158701
   },
   {
-    "name": "Sarasate, Pablo de",
+    "name": "サラサーテ",
     "birthYear": 1844,
     "deathYear": 1908,
     "details": "(b Pamplona, 10 March 1844; d Biarritz, 20 Sept 1908). Spanish",
@@ -24759,7 +24759,7 @@
     "longitude": -77.0158701
   },
   {
-    "name": "Massenet, Jules",
+    "name": "マスネ",
     "birthYear": 1842,
     "deathYear": 1912,
     "details": "(b Montaud, St Etienne, 12 May 1842; d Paris, 13 Aug 1912). French",
@@ -25101,7 +25101,7 @@
     "longitude": -77.0158701
   },
   {
-    "name": "Hindemith, Paul",
+    "name": "ヒンデミット",
     "birthYear": 1895,
     "deathYear": 1963,
     "details": "(b Hanau, nr Frankfurt, 16 Nov 1895; d Frankfurt, 28 Dec 1963). German; US citizenship 1945.",
@@ -25416,7 +25416,7 @@
     "longitude": -77.0158701
   },
   {
-    "name": "Chabrier, Emmanuel",
+    "name": "シャブリエ",
     "birthYear": 1841,
     "deathYear": 1894,
     "details": "(b Ambert, Puy-de-Dome, 18 Jan 1841; d Paris, 13 Sept 1894). French",
@@ -25794,7 +25794,7 @@
     "longitude": -89.1891719
   },
   {
-    "name": "Barber, Samuel",
+    "name": "バーバー",
     "birthYear": 1910,
     "deathYear": 1981,
     "details": "(b West Chester, PA, 9 March 1910; d New York, 23 Jan 1981). American",
@@ -26154,7 +26154,7 @@
     "longitude": 16.3565084
   },
   {
-    "name": "Spohr, Ludwig (Louis)",
+    "name": "シュポア",
     "birthYear": 1784,
     "deathYear": 1859,
     "details": "(b Brunswick, 5 April 1784; d Kassel, 22 Oct 1859). German",
@@ -26379,7 +26379,7 @@
     "longitude": -77.0158701
   },
   {
-    "name": "Weber, Carl Maria von",
+    "name": "ウェーバー",
     "birthYear": 1786,
     "deathYear": 1826,
     "details": "(b Eutin, ?19 Nov 1786; d London, 5 June 1826). German",
@@ -26388,7 +26388,7 @@
     "longitude": 13.4086443
   },
   {
-    "name": "Webern, Anton",
+    "name": "ウェーベルン",
     "birthYear": 1883,
     "deathYear": 1945,
     "details": "(b Vienna, 3 Dec 1883; d Mittersill, 15 Sept 1945). Austrian",
@@ -26568,7 +26568,7 @@
     "longitude": -77.0158701
   },
   {
-    "name": "Wagner, Richard",
+    "name": "ワーグナー",
     "birthYear": 1813,
     "deathYear": 1883,
     "details": "(b Leipzig, 22 May 1813; d Venice, 13 Feb 1883). German",
@@ -26685,7 +26685,7 @@
     "longitude": -0.0786264
   },
   {
-    "name": "Walton, William",
+    "name": "ウォルトン",
     "birthYear": 1902,
     "deathYear": 1983,
     "details": "(b Oldham, 29 March 1902; d Ischia, nr Naples, 8 March 1983). English",
@@ -26937,7 +26937,7 @@
     "longitude": -77.0158701
   },
   {
-    "name": "Smetana, Bedřich",
+    "name": "スメタナ",
     "birthYear": 1824,
     "deathYear": 1884,
     "details": "(b Litomyšl, 2 March 1824; d Prague, 12 May 1884). Czech",
@@ -27000,7 +27000,7 @@
     "longitude": -77.0158701
   },
   {
-    "name": "Bach, Johann Sebastian",
+    "name": "J.S.バッハ",
     "birthYear": 1685,
     "deathYear": 1750,
     "details": "(b Eisenach, 21 March 1685; d Leipzig, 28 July 1750). German",
@@ -27180,7 +27180,7 @@
     "longitude": 12.4834738
   },
   {
-    "name": "Büsser, Henri",
+    "name": "ビュッセル",
     "birthYear": 1872,
     "deathYear": 1973,
     "details": "(b Toulouse, 16 Jan 1872; d Paris, 30 Dec 1973). French",
@@ -27585,7 +27585,7 @@
     "longitude": 174.7774235
   },
   {
-    "name": "Hindemith, Paul",
+    "name": "ヒンデミット",
     "birthYear": 1895,
     "deathYear": 1963,
     "details": "(b Hanau, nr Frankfurt, 16 Nov 1895; d Frankfurt, 28 Dec 1963). German; US citizenship 1945.",
@@ -27873,7 +27873,7 @@
     "longitude": 2.3524135
   },
   {
-    "name": "Holst, Gustav",
+    "name": "ホルスト",
     "birthYear": 1874,
     "deathYear": 1934,
     "details": "(b Cheltenham, 21 Sept 1874; d London, 25 May 1934). English",
@@ -28206,7 +28206,7 @@
     "longitude": 13.4086443
   },
   {
-    "name": "Mendelssohn, Felix",
+    "name": "メンデルスゾーン",
     "birthYear": 1809,
     "deathYear": 1847,
     "details": "(b Hamburg, 3 Feb 1809; d Leipzig, 4 Nov 1847). German",
@@ -28566,7 +28566,7 @@
     "longitude": 13.4086443
   },
   {
-    "name": "Zemlinsky, Alexander",
+    "name": "ツェムリンスキー",
     "birthYear": 1871,
     "deathYear": 1942,
     "details": "(b Vienna, 14 Oct 1871; d Larchmont, NY, 15 March 1942). Austrian",
@@ -28935,7 +28935,7 @@
     "longitude": -77.0158701
   },
   {
-    "name": "Schoenberg, Arnold",
+    "name": "シェーンベルク",
     "birthYear": 1874,
     "deathYear": 1951,
     "details": "(b Vienna, 13 Sept 1874; d Los Angeles, 13 July 1951). Austro-Hungarian, American citizen from 1941.",
@@ -29079,7 +29079,7 @@
     "longitude": -77.0158701
   },
   {
-    "name": "Copland, Aaron",
+    "name": "コープランド",
     "birthYear": 1900,
     "deathYear": 1990,
     "details": "(b Brooklyn, NY, 14 Nov 1900; d North Tarrytown, NY, 2 Dec 1990). American",
@@ -29538,7 +29538,7 @@
     "longitude": -0.0786264
   },
   {
-    "name": "Handel, George Frideric",
+    "name": "ヘンデル",
     "birthYear": 1685,
     "deathYear": 1759,
     "details": "(b Halle, 23 Feb 1685; d London, 14 April 1759). German; naturalized English from 1726",
@@ -29547,7 +29547,7 @@
     "longitude": 13.4086443
   },
   {
-    "name": "Mozart, Wolfgang Amadeus",
+    "name": "モーツァルト",
     "birthYear": 1756,
     "deathYear": 1791,
     "details": "(b Salzburg, 27 Jan 1756; d Vienna, 5 Dec 1791). Austrian",

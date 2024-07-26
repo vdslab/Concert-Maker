@@ -68,7 +68,7 @@ const SongPlayedTogether = ({ node, Data, setClicknode }) => {
                 : "楽器編成: " + work.workFormulaStr.replace(/\n/g, " / ")}
             </Typography>
           </Button>
-        </>
+        </div>
       ))}
     </Box>
   );
