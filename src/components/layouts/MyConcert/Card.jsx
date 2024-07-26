@@ -32,8 +32,8 @@ MyConcertCard.propTypes = {
         composer: PropTypes.string.isRequired,
         id: PropTypes.number.isRequired,
         title: PropTypes.string.isRequired,
-        duration: PropTypes.number.isRequired,
-        workFormulaStr: PropTypes.string.isRequired,
+        duration: PropTypes.oneOfType([PropTypes.number, () => null]),
+        workFormulaStr: PropTypes.oneOfType([PropTypes.string, () => null]),
         workFormula: PropTypes.shape({
           flute: PropTypes.number,
           oboe: PropTypes.number,
@@ -163,8 +163,8 @@ WorkList.propTypes = {
       composer: PropTypes.string.isRequired,
       id: PropTypes.number.isRequired,
       title: PropTypes.string.isRequired,
-      duration: PropTypes.number.isRequired,
-      workFormulaStr: PropTypes.string.isRequired,
+      duration: PropTypes.oneOfType([PropTypes.number, () => null]),
+      workFormulaStr: PropTypes.oneOfType([PropTypes.string, () => null]),
       workFormula: PropTypes.shape({
         flute: PropTypes.number,
         oboe: PropTypes.number,
@@ -226,7 +226,7 @@ function WorkList(props) {
                     {work.title}
                   </Typography>
                   <Typography variant="body2" component="div">
-                    {duration_time}
+                    {(duration_time !== "") ? `演奏時間: ${duration_time}` : ""}
                   </Typography>
                   <Stack direction="row" spacing={1}>
                     <Typography

@@ -13,13 +13,13 @@ import MenuItem from "@mui/material/MenuItem";
 import MusicNoteIcon from "@mui/icons-material/MusicNote";
 
 const navItems = [
-  { item: "Search", link: "/", target: "_self" },
-  { item: "MyConcert", link: "/my-concert", target: "_self" },
-  {
-    item: "Shirashoji",
-    link: "https://github.com/Shirashoji/",
-    target: "_blank",
-  },
+  // { item: "Search", link: "/", target: "_self" },
+  // { item: "MyConcert", link: "/my-concert", target: "_self" },
+  // {
+  //   item: "Shirashoji",
+  //   link: "https://github.com/Shirashoji/",
+  //   target: "_blank",
+  // },
 ];
 
 function ResponsiveAppBar() {

@@ -64,7 +64,7 @@ export default function NewConcert() {
         >
           <Stack>
             <Typography variant="body1" sx={{ fontSize: 20 }}>
-              新しく My演奏会を作成する？？
+              ここをクリックしてMy演奏会を作成
             </Typography>
           </Stack>
           <Stack>

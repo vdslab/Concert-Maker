@@ -1,5 +1,6 @@
 import React from "react";
 import { Typography, Box, Button, Divider } from "@mui/material";
+import { durationFormat } from "@/utils/calcTime";
 
 const SongPlayedTogether = ({ node, Data, setClicknode }) => {
   const { links } = Data;
@@ -60,7 +61,7 @@ const SongPlayedTogether = ({ node, Data, setClicknode }) => {
           <Typography variant="body2" component="div" color="text.secondary">
             {work.duration === null
               ? ""
-              : "演奏時間: " + work.duration + "分"}
+              : "演奏時間: " + durationFormat(work.duration)}
           </Typography>
           <Typography variant="body2" component="div" color="text.secondary">
             {work.workFormulaStr === null
