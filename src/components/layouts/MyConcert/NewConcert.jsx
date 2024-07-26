@@ -48,7 +48,7 @@ export default function NewConcert() {
         }}
         onClick={() => {
           const newConcertNumber = findUniqueNumber(existingNames, "My演奏会");
-          const newConcertName = `My演奏会${newConcertNumber}`;
+          const newConcertName = `My演奏会 ${newConcertNumber}`;
 
           setConcerts((concerts) => [
             ...concerts,
@@ -82,7 +82,7 @@ export default function NewConcert() {
 
 function findUniqueNumber(existingNames, prefix) {
   let number = 1;
-  while (existingNames.includes(`${prefix}${number}`)) {
+  while (existingNames.includes(`${prefix} ${number}`)) {
     number++;
   }
   return number;
