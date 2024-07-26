@@ -1,37 +1,20 @@
-import { useState } from "react";
 import Box from "@mui/material/Box";
 
 import MyConcertCard from "@/components/layouts/MyConcert/Card";
 import NewConcert from "@/components/layouts/MyConcert/NewConcert";
 
-import myConcert from "@/utils/myConcert";
+import { concertListState } from "@/pages/App";
+import { useRecoilValue } from "recoil";
 
 export default function MyConcertCardList() {
-  const [concerts, updateConcerts] = useState(myConcert.getConcerts());
-
-  const createMyConcert = () => {
-    const existingConcertNames = concerts.map((concert) => concert.name);
-    const newConcertNumber = findUniqueNumber(existingConcertNames, "My演奏会");
-    const newConcertName = `My演奏会${newConcertNumber}`;
-
-    myConcert.createConcert(newConcertName);
-    updateConcerts(myConcert.getConcerts());
-  };
+  const concerts = useRecoilValue(concertListState);
 
   return (
     <Box sx={{ display: "flex", flexDirection: "column", gap: 2 }}>
       {concerts.map((concert) => (
         <MyConcertCard key={concert.name} concert={concert} />
       ))}
-      <NewConcert buttonAction={createMyConcert} />
+      <NewConcert />
     </Box>
   );
-}
-
-function findUniqueNumber(existingNames, prefix) {
-  let number = 1;
-  while (existingNames.includes(`${prefix}${number}`)) {
-    number++;
-  }
-  return number;
 }

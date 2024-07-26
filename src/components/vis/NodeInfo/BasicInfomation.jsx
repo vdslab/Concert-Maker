@@ -1,6 +1,6 @@
 import { Typography, Box, IconButton } from "@mui/material";
 import CloseIcon from "@mui/icons-material/Close";
-import SplitButton from "../SplitButton";
+import SplitButton from "@/components/layouts/SplitButton";
 import { styled } from "@mui/system";
 
 const StyledIconButton = styled(IconButton)(({ theme }) => ({
@@ -21,11 +21,13 @@ const BasicInfomation = ({ node, onClose }) => {
           <Typography variant="h6" gutterBottom>
             {node.title}
           </Typography>
-          <Typography variant="body2" gutterBottom>
+          <Typography variant="body2" color="textSecondary" gutterBottom>
             {node.duration === null ? "" : "演奏時間: " + node.duration + "分"}
           </Typography>
           <Typography variant="body2" color="textSecondary" gutterBottom>
-            {node.workFormulaStr}
+            {node.workFormulaStr === null
+              ? ""
+              : "楽器編成: " + node.workFormulaStr.replace(/\n/g, " / ")}
           </Typography>
         </Box>
         <SplitButton songId={node.id} />
