@@ -16,7 +16,7 @@ const DetailInfomation = ({ node }) => {
                 <Typography>{movement}</Typography>
               </Grid>
               <Grid item xs={2}>
-                <Typography align="right">{node.workMovementDuration[index]}</Typography>
+                <Typography align="right">{node.workMovementDuration[index]?.replace("'", "分")}</Typography>
               </Grid>
             </Grid>
           </React.Fragment>
