@@ -73,11 +73,17 @@ const applyFilter = (filterValues, Data, setData) => {
         case "keyboard":
           return checkNumberRange(node[key], value);
         case "strings":
-          return value === null || node.strings === value;
+          return checkStr(node.str, value);
         default:
           return true;
       }
     });
+  };
+
+  const checkStr = (nodeValue, filterData) => {
+    if (filterData === null) return true;
+    if (nodeValue === null) return false;
+    return nodeValue === filterData;
   };
 
   // 日付範囲のチェック用関数

@@ -22,6 +22,7 @@ const NodeInfo = ({ node, Data, setClicknode }) => {
 
   if (!node) return null;
 
+  console.log(node);
   return (
     <StyledPaper key={node.id}>
       <BasicInfomation node={node} onClose={handleCloseInfo} />
