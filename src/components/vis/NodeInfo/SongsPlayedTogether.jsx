@@ -26,11 +26,9 @@ const SongPlayedTogether = ({ node, Data, setClicknode }) => {
         よく一緒に演奏されている曲
       </Typography>
       {linkNodesArray.map((work, index) => (
-        <div key={index}>
-          {console.log(work)}
+        <>
           <Button
             onClick={() => {
-              console.log(work);
               setClicknode(work);
             }}
             sx={{
@@ -65,10 +63,12 @@ const SongPlayedTogether = ({ node, Data, setClicknode }) => {
                 : "演奏時間: " + work.duration + "分"}
             </Typography>
             <Typography variant="body2" component="div" color="text.secondary">
-              {work.workFormulaStr}
+              {work.workFormulaStr === null
+                ? ""
+                : "楽器編成: " + work.workFormulaStr.replace(/\n/g, " / ")}
             </Typography>
           </Button>
-        </div>
+        </>
       ))}
     </Box>
   );

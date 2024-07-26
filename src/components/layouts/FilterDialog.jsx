@@ -32,12 +32,82 @@ import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 
 const applyFilter = (filterValues, Data, setData) => {
   // ここでfilterValuesをDataに反映させる
-  // console.table(filterValues);
-  // console.log(Data.nodes);
+
+  const checkFilters = (filterValues, node) => {
+    // 入力されたフィルター値のみを対象にする
+    const activeFilters = Object.entries(filterValues).filter(
+      ([key, value]) => {
+        if (typeof value === "object" && value !== null) {
+          return value.since !== null || value.until !== null;
+        }
+        return value !== "" && value !== null;
+      }
+    );
+
+    // すべてのアクティブなフィルターに対してチェックを行う
+    return activeFilters.every(([key, value]) => {
+      switch (key) {
+        case "composer":
+          return node.composer.toLowerCase().includes(value.toLowerCase());
+        case "title":
+          return node.title.toLowerCase().includes(value.toLowerCase());
+        case "birth":
+        case "death":
+        case "composed":
+          return checkDateRange(node[key], value);
+        case "duration":
+          if (filterValues.durationIncludeNoData && node.duration === null)
+            return true;
+          return checkNumberRange(node.duration, value);
+        case "flute":
+        case "oboe":
+        case "clarinet":
+        case "bassoon":
+        case "horn":
+        case "trumpet":
+        case "trombone":
+        case "tuba":
+        case "timpani":
+        case "percussion":
+        case "harp":
+        case "keyboard":
+          return checkNumberRange(node[key], value);
+        case "strings":
+          return checkStr(node.str, value);
+        default:
+          return true;
+      }
+    });
+  };
+
+  const checkStr = (nodeValue, filterData) => {
+    if (filterData === null) return true;
+    if (nodeValue === null) return false;
+    return nodeValue === filterData;
+  };
+
+  // 日付範囲のチェック用関数
+  const checkDateRange = (nodeDate, filterRange) => {
+    if (!nodeDate) return false;
+    const date = new Date(nodeDate);
+    if (filterRange.since && date < new Date(filterRange.since)) return false;
+    if (filterRange.until && date > new Date(filterRange.until)) return false;
+    return true;
+  };
+
+  // 数値範囲のチェック用関数
+  const checkNumberRange = (nodeValue, filterRange) => {
+    if (nodeValue === null) return false;
+    if (filterRange.since !== null && nodeValue < filterRange.since)
+      return false;
+    if (filterRange.until !== null && nodeValue > filterRange.until)
+      return false;
+    return true;
+  };
 
   const updatedNodes = Data.nodes.map((node) => ({
     ...node,
-    filter: 1,
+    filter: checkFilters(filterValues, node) ? 1 : 0,
   }));
 
   const updatedData = {
@@ -46,8 +116,6 @@ const applyFilter = (filterValues, Data, setData) => {
   };
 
   setData(updatedData);
-
-  // console.log("Updated nodes:", updatedData.nodes);
 };
 
 /**
@@ -362,7 +430,7 @@ export default function FilterDialog({ Data, setData }) {
               <NumberRangeInput
                 name="duration"
                 unit="分"
-                min={1000}
+                min={0}
                 max={null}
                 control={control}
               />
