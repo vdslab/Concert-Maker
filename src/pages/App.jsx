@@ -4,6 +4,7 @@ import NodeLinkDiagram from "@/components/vis/NodeLinkDiagram";
 import MyConcertCardList from "@/components/layouts/MyConcertCardList";
 
 import { RecoilRoot, atom, selector } from "recoil";
+import { SnackbarProvider } from "notistack";
 
 import workData from "@/assets/works_v03.json";
 
@@ -75,14 +76,20 @@ export const concertListState = selector({
 function App() {
   return (
     <RecoilRoot>
-      <div className="container">
-        <Box width={2 / 3} className="left-half" sx={{ position: "relative" }}>
-          <NodeLinkDiagram />
-        </Box>
-        <Box width={1 / 3} className="right-half" sx={{ overflow: "auto" }}>
-          <MyConcertCardList />
-        </Box>
-      </div>
+      <SnackbarProvider maxSnack={3}>
+        <div className="container">
+          <Box
+            width={2 / 3}
+            className="left-half"
+            sx={{ position: "relative" }}
+          >
+            <NodeLinkDiagram />
+          </Box>
+          <Box width={1 / 3} className="right-half" sx={{ overflow: "auto" }}>
+            <MyConcertCardList />
+          </Box>
+        </div>
+      </SnackbarProvider>
     </RecoilRoot>
   );
 }

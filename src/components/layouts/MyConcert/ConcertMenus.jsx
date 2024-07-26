@@ -1,9 +1,11 @@
-import { useState } from "react";
+import React, { useState } from "react";
 import PropTypes from "prop-types";
 import { styled, alpha } from "@mui/material/styles";
 import IconButton from "@mui/material/IconButton";
 import Menu from "@mui/material/Menu";
 import MenuItem from "@mui/material/MenuItem";
+import { useSnackbar } from "notistack";
+
 import FileCopyIcon from "@mui/icons-material/FileCopy";
 import MoreVertIcon from "@mui/icons-material/MoreVert";
 import DeleteForeverIcon from "@mui/icons-material/DeleteForever";
@@ -58,6 +60,8 @@ const StyledMenu = styled((props) => (
 export default function ConcertMenus(props) {
   const { id } = props;
   const [anchorEl, setAnchorEl] = useState(null);
+  const { enqueueSnackbar } = useSnackbar();
+
   const open = Boolean(anchorEl);
 
   const workList = useRecoilValue(concertListState);
@@ -95,9 +99,17 @@ export default function ConcertMenus(props) {
     });
 
     handleClose();
+    enqueueSnackbar("複製に成功しました！", { variant: "success" });
   };
 
   const deleteConcert = () => {
+    if (workList.find((work) => work.id === id).main) {
+      enqueueSnackbar("削除するにはMainの演奏会を変更してください", {
+        variant: "warning",
+      });
+      return;
+    }
+
     setConcerts((oldConcerts) => {
       const newConcerts = oldConcerts.filter((concert) => concert.id !== id);
       return newConcerts;

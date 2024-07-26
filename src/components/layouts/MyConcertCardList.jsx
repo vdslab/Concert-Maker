@@ -8,7 +8,6 @@ import { useRecoilValue } from "recoil";
 
 export default function MyConcertCardList() {
   const concerts = useRecoilValue(concertListState);
-  console.log(concerts);
 
   return (
     <Box sx={{ display: "flex", flexDirection: "column", gap: 2 }}>
