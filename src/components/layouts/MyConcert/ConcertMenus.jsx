@@ -80,8 +80,14 @@ export default function ConcertMenus(props) {
 
     setConcerts((oldConcerts) => {
       const newConcerts = [...oldConcerts];
+      const existingNames = oldConcerts.map((concert) => concert.name);
+      console.log(existingNames);
       const concert = {
         ...oldConcerts.find((concert) => concert.id === id),
+        name: generateCopyName(
+          existingNames,
+          oldConcerts.find((concert) => concert.id === id).name,
+        ),
         id: newId,
       };
       newConcerts.push(concert);
@@ -159,4 +165,12 @@ export default function ConcertMenus(props) {
       </StyledMenu>
     </div>
   );
+}
+
+function generateCopyName(existingNames, prefix) {
+  let number = 1;
+  while (existingNames.includes(`${prefix} ${number}`)) {
+    number++;
+  }
+  return `${prefix} ${number}`;
 }
