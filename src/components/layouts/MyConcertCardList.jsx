@@ -8,11 +8,12 @@ import { useRecoilValue } from "recoil";
 
 export default function MyConcertCardList() {
   const concerts = useRecoilValue(concertListState);
+  console.log(concerts);
 
   return (
     <Box sx={{ display: "flex", flexDirection: "column", gap: 2 }}>
       {concerts.map((concert) => (
-        <MyConcertCard key={concert.name} concert={concert} />
+        <MyConcertCard key={concert.id} concert={concert} />
       ))}
       <NewConcert />
     </Box>

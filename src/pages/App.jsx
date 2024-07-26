@@ -23,11 +23,13 @@ const localStorageEffect =
     });
   };
 
+const firstUUID = randomUUID();
+
 export const concertsState = atom({
   key: "concertsState", // unique ID (with respect to other atoms/selectors)
   default: [
     {
-      id: randomUUID(),
+      id: firstUUID,
       name: "My演奏会",
     },
   ],
@@ -50,7 +52,7 @@ export const concertNamesState = selector({
 
 export const selectedConcertState = atom({
   key: "selectedConcertState",
-  default: "My演奏会",
+  default: firstUUID,
   effects: [localStorageEffect("selected_concert")],
 });
 
@@ -66,7 +68,7 @@ export const concertListState = selector({
         .map((workConcert) =>
           workData.find((work) => work.id === workConcert.work),
         ),
-      main: concert.name === get(selectedConcertState),
+      main: concert.id === get(selectedConcertState),
     }));
   },
 });
