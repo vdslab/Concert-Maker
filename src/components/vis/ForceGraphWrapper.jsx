@@ -1,4 +1,4 @@
-import React, { useRef, useEffect, useCallback } from "react";
+import React, { useRef, useEffect, useCallback, useMemo } from "react";
 import * as d3 from "d3";
 import ForceGraph2D from "react-force-graph-2d";
 import DrawCircle from "./DrawCircle";
@@ -33,6 +33,19 @@ const ForceGraphWrapper = ({ data, height, clicknode, setClicknode }) => {
     [setClicknode]
   );
 
+  // クリックされたノードに直接つながっているノードのIDを保存するセット
+  const connectedNodeIds = useMemo(() => {
+    if (!clicknode) return new Set();
+    return new Set(
+      data.links
+        .filter(
+          (link) =>
+            link.source.id === clicknode.id || link.target.id === clicknode.id
+        )
+        .flatMap((link) => [link.source.id, link.target.id])
+    );
+  }, [clicknode, data.links]);
+
   return (
     <ForceGraph2D
       ref={fgRef}
@@ -40,12 +53,39 @@ const ForceGraphWrapper = ({ data, height, clicknode, setClicknode }) => {
       width={window.innerWidth * 0.6}
       height={height}
       nodeCanvasObject={(node, ctx, globalScale) => {
-        const size = 5 / globalScale;
+        const isConnected =
+          clicknode &&
+          (node.id === clicknode.id || connectedNodeIds.has(node.id));
+        const size = (isConnected ? 8 : 5) / globalScale;
+        // const size = isConnected ? 8 : 5;
         const color = node.filter === 0 ? "hsl(240 50% 85%)" : "blue";
         const nodeColor = node.id === clicknode?.id ? "red" : color;
-        DrawCircle(ctx, node.x, node.y, size, nodeColor, nodeColor);
+        DrawCircle(
+          ctx,
+          node.x,
+          node.y,
+          size,
+          nodeColor,
+          isConnected ? "black" : nodeColor
+        );
       }}
       onNodeClick={handleNodeClick}
+      linkWidth={(link) => {
+        if (
+          clicknode &&
+          (link.source.id === clicknode.id || link.target.id === clicknode.id)
+        )
+          return 5;
+        return 1;
+      }}
+      // linkColor={(link) => {
+      //   if (
+      //     clicknode &&
+      //     (link.source.id === clicknode.id || link.target.id === clicknode.id)
+      //   )
+      //     return "red";
+      //   return "rgba(200, 200, 200, 0.5)";
+      // }}
     />
   );
 };
