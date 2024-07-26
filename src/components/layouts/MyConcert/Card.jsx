@@ -9,6 +9,7 @@ import IconButton from "@mui/material/IconButton";
 import DeleteIcon from "@mui/icons-material/Delete";
 import EditIcon from "@mui/icons-material/Edit";
 import TextField from "@mui/material/TextField";
+import ConcertMenus from "./ConcertMenus";
 
 import { useState } from "react";
 
@@ -93,7 +94,7 @@ export default function MyConcertCard(props) {
                 color={concert.main ? "secondary" : "inherit"}
                 size="small"
                 onClick={() => {
-                  selectConcert(name);
+                  selectConcert(id);
                 }}
               >
                 Main
@@ -141,11 +142,18 @@ export default function MyConcertCard(props) {
               )}
             </Stack>
           </Grid>
-
-          <Grid item>
-            <Typography gutterBottom variant="h6" component="div">
-              {sum_duration}
-            </Typography>
+          <Grid item xs="auto">
+            <Stack
+              direction="row"
+              justifyContent="center"
+              alignItems="center"
+              spacing={1}
+            >
+              <ConcertMenus id={id} />
+              <Typography gutterBottom variant="h6" component="div">
+                {sum_duration}
+              </Typography>
+            </Stack>
           </Grid>
         </Grid>
       </Box>
