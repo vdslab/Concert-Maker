@@ -6,7 +6,7 @@ const DetailInfomation = ({ node }) => {
   return (
     <Box p={2}>
       <Typography variant="h6" gutterBottom>
-        詳細情報
+        楽章情報
       </Typography>
       <Grid container spacing={2}>
         {node.workMovements.map((movement, index) => (
@@ -16,7 +16,9 @@ const DetailInfomation = ({ node }) => {
                 <Typography>{movement}</Typography>
               </Grid>
               <Grid item xs={2}>
-                <Typography align="right">{node.workMovementDuration[index]?.replace("'", "分")}</Typography>
+                <Typography align="right">
+                  {node.workMovementDuration[index]?.replace("'", "分")}
+                </Typography>
               </Grid>
             </Grid>
           </React.Fragment>
