@@ -57,8 +57,8 @@ export const processData = () => {
 };
 
 export const createGraphData = (allPlayedWithWorkIds, linkData, data) => ({
-  nodes: matchedDataByIds(data).filter((work) =>
-    allPlayedWithWorkIds.has(work.id)
+  nodes: matchedDataByIds(data).filter(
+    (work) => allPlayedWithWorkIds.has(work.id) || work.id === 2697
   ),
   links: linkData.filter((link) => {
     const { sourceData, targetData } = link;
