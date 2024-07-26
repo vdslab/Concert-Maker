@@ -2,12 +2,19 @@ import React from "react";
 import { Button, ButtonGroup, Menu, MenuItem } from "@mui/material";
 import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
 
-import { concertsState, workConcertState } from "@/pages/App";
+import {
+  concertsState,
+  workConcertState,
+  selectedConcertState,
+} from "@/pages/App";
 import { useRecoilValue, useSetRecoilState } from "recoil";
 
 function SplitButton({ songId }) {
   const concerts = useRecoilValue(concertsState);
+  const mainConcertID = useRecoilValue(selectedConcertState);
   const setConcerts = useSetRecoilState(workConcertState);
+
+  const mainConcert = concerts.find((concert) => concert.id === mainConcertID);
 
   const [open, setOpen] = React.useState(false);
   const anchorRef = React.useRef(null);
@@ -56,11 +63,11 @@ function SplitButton({ songId }) {
       >
         <Button
           onClick={(e) => {
-            addMyConcert(concerts[0].id, songId);
+            addMyConcert(mainConcert.id, songId);
             e.stopPropagation();
           }}
         >
-          {concerts[0].name}に追加
+          {mainConcert.name}に追加
         </Button>
         <Button
           size="small"
@@ -78,14 +85,16 @@ function SplitButton({ songId }) {
         open={open}
         onClose={handleClose}
       >
-        {concerts.map(({ id, name }) => (
-          <MenuItem
-            key={id}
-            onClick={(event) => handleMenuItemClick(event, id)}
-          >
-            {name}
-          </MenuItem>
-        ))}
+        {concerts
+          .filter((concert) => concert.id !== mainConcertID)
+          .map(({ id, name }) => (
+            <MenuItem
+              key={id}
+              onClick={(event) => handleMenuItemClick(event, id)}
+            >
+              {name}
+            </MenuItem>
+          ))}
       </Menu>
     </React.Fragment>
   );
