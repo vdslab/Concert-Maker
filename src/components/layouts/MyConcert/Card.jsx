@@ -9,6 +9,7 @@ import IconButton from "@mui/material/IconButton";
 import DeleteIcon from "@mui/icons-material/Delete";
 import EditIcon from "@mui/icons-material/Edit";
 import TextField from "@mui/material/TextField";
+import Paper from "@mui/material/Paper";
 import ConcertMenus from "./ConcertMenus";
 
 import { useState } from "react";
@@ -23,6 +24,7 @@ import {
 import { useSetRecoilState } from "recoil";
 
 import PropTypes from "prop-types";
+import { getComposerFromId } from "@/components/vis/utils";
 
 MyConcertCard.propTypes = {
   concert: PropTypes.shape({
@@ -57,14 +59,14 @@ MyConcertCard.propTypes = {
         playedWith: PropTypes.array,
         strYear: PropTypes.string,
         year: PropTypes.number.isRequired,
-      }),
+      })
     ).isRequired,
     main: PropTypes.bool.isRequired,
   }).isRequired,
 };
 
 export default function MyConcertCard(props) {
-  const { concert } = props;
+  const { concert, setClicknode, Data } = props;
   const { id, name, works } = concert;
   const [editMode, setEditMode] = useState(false);
   const selectConcert = useSetRecoilState(selectedConcertState);
@@ -107,13 +109,12 @@ export default function MyConcertCard(props) {
                   defaultValue={name}
                   onKeyDown={(e) => {
                     if (e.keyCode === 13) {
-                      console.log(e.target.value);
                       setConcerts((concerts) =>
                         concerts.map((concert) =>
                           concert.id === id
                             ? { ...concert, name: e.target.value }
-                            : concert,
-                        ),
+                            : concert
+                        )
                       );
                       setEditMode(false);
                     }
@@ -159,7 +160,12 @@ export default function MyConcertCard(props) {
       </Box>
       <Divider />
       <Box sx={{ p: 2 }}>
-        <WorkList works={works} concertID={id} />
+        <WorkList
+          works={works}
+          concertID={id}
+          Data={Data}
+          setClicknode={setClicknode}
+        />
       </Box>
     </Card>
   );
@@ -195,13 +201,13 @@ WorkList.propTypes = {
       playedWith: PropTypes.array,
       strYear: PropTypes.string,
       year: PropTypes.number.isRequired,
-    }),
+    })
   ).isRequired,
   concertID: PropTypes.string.isRequired,
 };
 
 function WorkList(props) {
-  const { works, concertID } = props;
+  const { works, concertID, setClicknode, Data } = props;
   const setWorkConcertState = useSetRecoilState(workConcertState);
 
   if (works.length === 0) {
@@ -212,6 +218,22 @@ function WorkList(props) {
     );
   }
 
+  const handleItemClick = (work) => {
+    // const node = getComposerFromId(work.id);
+    const node = Data.nodes.find((node) => node.id === work.id);
+    setClicknode(node);
+  };
+
+  const handleDeleteClick = (e, work) => {
+    e.stopPropagation();
+    setWorkConcertState((works) =>
+      works.filter(
+        (workConcert) =>
+          !(workConcert.concert === concertID && workConcert.work === work.id)
+      )
+    );
+  };
+
   return (
     <Box>
       {works.map((work, index) => {
@@ -219,57 +241,57 @@ function WorkList(props) {
         return (
           <div key={`${concertID}-${index}`}>
             {index !== 0 && <Divider />}
-            <Grid
-              container
-              direction="row"
-              justifyContent="space-around"
-              alignItems="center"
+            <Paper
+              elevation={0}
+              sx={{
+                "&:hover": {
+                  backgroundColor: "action.hover",
+                },
+                cursor: "pointer",
+              }}
+              onClick={() => handleItemClick(work)}
             >
-              <Grid item xs>
-                <Box sx={{ p: 1 }}>
-                  <Typography variant="body1" component="div">
-                    {work.composer}
-                  </Typography>
-                  <Typography variant="h6" component="div">
-                    {work.title}
-                  </Typography>
-                  <Typography variant="body2" component="div">
-                    {(duration_time !== "") ? `演奏時間: ${duration_time}` : ""}
-                  </Typography>
-                  <Stack direction="row" spacing={1}>
-                    <Typography
-                      variant="body2"
-                      component="div"
-                      color="textSecondary"
-                    >
-                      {work.workFormulaStr.split("\n").map((line, index) => (
-                        <div key={index}>{line}</div>
-                      ))}
+              <Grid
+                container
+                direction="row"
+                justifyContent="space-between"
+                alignItems="center"
+                sx={{ width: "100%" }}
+              >
+                <Grid item xs>
+                  <Box sx={{ p: 1 }}>
+                    <Typography variant="body1" component="div">
+                      {work.composer}
                     </Typography>
-                  </Stack>
-                </Box>
+                    <Typography variant="h6" component="div">
+                      {work.title}
+                    </Typography>
+                    <Typography variant="body2" component="div">
+                      {duration_time !== "" ? `演奏時間: ${duration_time}` : ""}
+                    </Typography>
+                    <Stack direction="row" spacing={1}>
+                      <Typography
+                        variant="body2"
+                        component="div"
+                        color="textSecondary"
+                      >
+                        {work.workFormulaStr.split("\n").map((line, index) => (
+                          <div key={index}>{line}</div>
+                        ))}
+                      </Typography>
+                    </Stack>
+                  </Box>
+                </Grid>
+                <Grid item>
+                  <IconButton
+                    aria-label="delete"
+                    onClick={(e) => handleDeleteClick(e, work)}
+                  >
+                    <DeleteIcon />
+                  </IconButton>
+                </Grid>
               </Grid>
-              {/* <Divider orientation="vertical" flexItem /> */}
-              <Grid item xs="auto">
-                <IconButton
-                  aria-label="delete"
-                  onClick={() => {
-                    console.log("delete");
-                    setWorkConcertState((works) =>
-                      works.filter(
-                        (workConcert) =>
-                          !(
-                            workConcert.concert === concertID &&
-                            workConcert.work === work.id
-                          ),
-                      ),
-                    );
-                  }}
-                >
-                  <DeleteIcon />
-                </IconButton>
-              </Grid>
-            </Grid>
+            </Paper>
           </div>
         );
       })}

@@ -6,20 +6,19 @@ import React, {
   useCallback,
 } from "react";
 import { Box } from "@mui/material";
-import { processData, createGraphData } from "./DataProcessing";
 import ForceGraphWrapper from "./ForceGraphWrapper";
 import SearchBox from "../layouts/SearchBox";
 import NodeInfo from "./NodeInfo/NodeInfo";
 
-const NodeLinkDiagram = () => {
-  const [clicknode, setClicknode] = useState(null);
+const NodeLinkDiagram = ({
+  clicknode,
+  setClicknode,
+  graphData,
+  setGraphData,
+}) => {
   const [height, setHeight] = useState(0);
   const parentDivRef = useRef(null);
 
-  const { allPlayedWithWorkIds, linkData } = useMemo(() => processData(), []);
-  const [graphData, setGraphData] = useState(() =>
-    createGraphData(allPlayedWithWorkIds, linkData, [])
-  );
   useEffect(() => {
     const updateHeight = () => {
       if (parentDivRef.current) {

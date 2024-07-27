@@ -32,7 +32,7 @@ export const matchedDataByIds = (test = []) =>
 export const matchedDataByIds1 = Works.map((work) => {
   const composerInfo = Composer.find((c) => c.name === work.composer);
 
-  const result = {
+  const result1 = {
     id: work.id,
     composer: work.composer,
     duration: work.duration,
@@ -43,10 +43,13 @@ export const matchedDataByIds1 = Works.map((work) => {
     year: work.year,
     lat: composerInfo ? composerInfo.latitude : null,
     lon: composerInfo ? composerInfo.longitude : null,
+    birth: composerInfo ? composerInfo.birthYear : null,
+    death: composerInfo ? composerInfo.deathYear : null,
     nationality: composerInfo ? composerInfo.nationality : null,
-    name: work.composer + "/" + work.title,
-    workFormula: work.workFormula,
+    name: work.composer + " / " + work.title,
   };
+
+  const result = { ...result1, ...work.workFormula };
 
   return result;
 });
