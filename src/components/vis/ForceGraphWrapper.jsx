@@ -63,6 +63,7 @@ const ForceGraphWrapper = ({ data, height, clicknode, setClicknode }) => {
       width={window.innerWidth * 0.6}
       height={height}
       maxZoom={maxZoom}
+      enableNodeDrag={false}
       nodeCanvasObject={(node, ctx, globalScale) => {
         const isConnected =
           clicknode &&
