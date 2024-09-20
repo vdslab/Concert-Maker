@@ -1,6 +1,6 @@
-import Works from "@/assets/works_v03.json";
-import PlayedWithData from "@/assets/playedWith.json";
-import Composer from "@/assets/composers_v02.json";
+import Works from "@/assets/data/works.json";
+import PlayedWithData from "@/assets/data/playedWith.json";
+import Composer from "@/assets/data/composers.json";
 import { getComposerFromId, matchedDataByIds } from "./utils";
 import Distance from "./Distance";
 
