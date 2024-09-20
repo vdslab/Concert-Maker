@@ -6,7 +6,7 @@ import MyConcertCardList from "@/components/layouts/MyConcertCardList";
 import { RecoilRoot, atom, selector } from "recoil";
 import { SnackbarProvider } from "notistack";
 
-import workData from "@/assets/works_v03.json";
+import workData from "@/assets/data/works.json";
 import { useState, useMemo } from "react";
 import { processData, createGraphData } from "@/components/vis/DataProcessing";
 
