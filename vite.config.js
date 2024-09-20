@@ -7,7 +7,11 @@ export default defineConfig({
   optimizeDeps: {
     include: ["@mui/icons-material", "@mui/material", "@mui/styled-engine-sc"],
   },
-  plugins: [react()],
+  plugins: [
+    react({
+      jsxImportSource: "@emotion/react",
+    }),
+  ],
   resolve: {
     // ↓ 追記
     alias: {

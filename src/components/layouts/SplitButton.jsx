@@ -1,18 +1,27 @@
 import React from "react";
 import { Button, ButtonGroup, Menu, MenuItem } from "@mui/material";
 import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
+import AddMyConcert from "@/components/layouts/AddMyConcert";
+import { concertsState, selectedConcertState } from "@/pages/App";
 
-import {
-  concertsState,
-  workConcertState,
-  selectedConcertState,
-} from "@/pages/App";
-import { useRecoilValue, useSetRecoilState } from "recoil";
+import { atom, useRecoilValue, useSetRecoilState } from "recoil";
 
-function SplitButton({ songId }) {
+export const addModal = atom({
+  key: "addModal",
+  default: false,
+});
+
+export const modalConcertWork = atom({
+  key: "concertWork",
+  default: { concert: "", work: "" },
+});
+
+function SplitButton({ workId }) {
   const concerts = useRecoilValue(concertsState);
   const mainConcertID = useRecoilValue(selectedConcertState);
-  const setConcerts = useSetRecoilState(workConcertState);
+
+  const setAddModal = useSetRecoilState(addModal);
+  const setConcertWork = useSetRecoilState(modalConcertWork);
 
   const mainConcert = concerts.find((concert) => concert.id === mainConcertID);
 
@@ -35,27 +44,14 @@ function SplitButton({ songId }) {
   const handleMenuItemClick = (event, concertName) => {
     event.preventDefault();
     event.stopPropagation();
-    addMyConcert(concertName, songId);
+    setAddModal(true);
+    setConcertWork({ concert: concertName, work: workId });
     handleClose(event);
-  };
-
-  const addMyConcert = (concertID, songID) => {
-    setConcerts((workConcerts) => {
-      if (
-        workConcerts.some(
-          (workConcert) =>
-            workConcert.concert === concertID && workConcert.work === songID,
-        )
-      ) {
-        return workConcerts;
-      } else {
-        return [...workConcerts, { concert: concertID, work: songID }];
-      }
-    });
   };
 
   return (
     <React.Fragment>
+      <AddMyConcert />
       <ButtonGroup
         variant="contained"
         ref={anchorRef}
@@ -63,7 +59,8 @@ function SplitButton({ songId }) {
       >
         <Button
           onClick={(e) => {
-            addMyConcert(mainConcert.id, songId);
+            setAddModal(true);
+            setConcertWork({ concert: mainConcert.name, work: workId });
             e.stopPropagation();
           }}
         >
