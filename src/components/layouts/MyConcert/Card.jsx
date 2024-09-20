@@ -292,6 +292,15 @@ function WorkList(props) {
                   </IconButton>
                 </Grid>
               </Grid>
+              <Grid>
+                <Box sx={{ p: 1 }}>
+                  <Stack direction="row" spacing={1}>
+                    {work.selectedMovements.map((movement, index) => (
+                      <Chip key={index} label={work.workMovements[movement]} />
+                    ))}
+                  </Stack>
+                </Box>
+              </Grid>
             </Paper>
           </div>
         );
