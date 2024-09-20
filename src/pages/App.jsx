@@ -68,7 +68,7 @@ export const concertListState = selector({
       works: get(workConcertState)
         .filter((work) => work.concert === concert.id)
         .map((workConcert) =>
-          workData.find((work) => work.id === workConcert.work)
+          workData.find((work) => work.id === workConcert.work),
         ),
       main: concert.id === get(selectedConcertState),
     }));
@@ -79,7 +79,7 @@ function App() {
   const [clicknode, setClicknode] = useState(null);
   const { allPlayedWithWorkIds, linkData } = useMemo(() => processData(), []);
   const [graphData, setGraphData] = useState(() =>
-    createGraphData(allPlayedWithWorkIds, linkData, [])
+    createGraphData(allPlayedWithWorkIds, linkData, []),
   );
   return (
     <RecoilRoot>

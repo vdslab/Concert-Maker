@@ -1,7 +1,7 @@
 import React from "react";
 import { Button, ButtonGroup, Menu, MenuItem } from "@mui/material";
 import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
-import AddMyConcert from "@/components/layouts/AddMyConcert";
+
 import { concertsState, selectedConcertState } from "@/pages/App";
 
 import { atom, useRecoilValue, useSetRecoilState } from "recoil";
@@ -51,7 +51,6 @@ function SplitButton({ workId }) {
 
   return (
     <React.Fragment>
-      <AddMyConcert />
       <ButtonGroup
         variant="contained"
         ref={anchorRef}
