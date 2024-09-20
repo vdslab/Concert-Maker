@@ -4,6 +4,7 @@ import path from "path";
 
 // https://vitejs.dev/config/
 export default defineConfig({
+  optimizeDeps: { include: ['@mui'] },
   plugins: [react()],
   resolve: {
     // ↓ 追記
