@@ -12,7 +12,7 @@ const StyledPaper = styled(Paper)(({ theme }) => ({
   left: "10px",
   width: "400px",
   height: "calc(100vh - 140px)",
-  overflowY: "auto",
+  overflowY: "scroll",
 }));
 
 const NodeInfo = ({ node, Data, setClicknode }) => {
