@@ -1,16 +1,18 @@
-import Card from "@mui/material/Card";
+import * as React from "react";
 import Box from "@mui/material/Box";
-import Grid from "@mui/material/Grid";
 import Button from "@mui/material/Button";
-import Stack from "@mui/material/Stack";
-import Divider from "@mui/material/Divider";
-import Typography from "@mui/material/Typography";
-import IconButton from "@mui/material/IconButton";
-import DeleteIcon from "@mui/icons-material/Delete";
-import EditIcon from "@mui/icons-material/Edit";
-import TextField from "@mui/material/TextField";
-import Paper from "@mui/material/Paper";
+import Card from "@mui/material/Card";
+import Chip from "@mui/material/Chip";
 import ConcertMenus from "./ConcertMenus";
+import DeleteIcon from "@mui/icons-material/Delete";
+import Divider from "@mui/material/Divider";
+import EditIcon from "@mui/icons-material/Edit";
+import Grid from "@mui/material/Grid";
+import IconButton from "@mui/material/IconButton";
+import Paper from "@mui/material/Paper";
+import Stack from "@mui/material/Stack";
+import TextField from "@mui/material/TextField";
+import Typography from "@mui/material/Typography";
 
 import { useState } from "react";
 
@@ -24,7 +26,6 @@ import {
 import { useSetRecoilState } from "recoil";
 
 import PropTypes from "prop-types";
-import { getComposerFromId } from "@/components/vis/utils";
 
 MyConcertCard.propTypes = {
   concert: PropTypes.shape({
@@ -59,7 +60,7 @@ MyConcertCard.propTypes = {
         playedWith: PropTypes.array,
         strYear: PropTypes.string,
         year: PropTypes.number.isRequired,
-      })
+      }),
     ).isRequired,
     main: PropTypes.bool.isRequired,
   }).isRequired,
@@ -113,8 +114,8 @@ export default function MyConcertCard(props) {
                         concerts.map((concert) =>
                           concert.id === id
                             ? { ...concert, name: e.target.value }
-                            : concert
-                        )
+                            : concert,
+                        ),
                       );
                       setEditMode(false);
                     }
@@ -201,7 +202,7 @@ WorkList.propTypes = {
       playedWith: PropTypes.array,
       strYear: PropTypes.string,
       year: PropTypes.number.isRequired,
-    })
+    }),
   ).isRequired,
   concertID: PropTypes.string.isRequired,
 };
@@ -229,8 +230,8 @@ function WorkList(props) {
     setWorkConcertState((works) =>
       works.filter(
         (workConcert) =>
-          !(workConcert.concert === concertID && workConcert.work === work.id)
-      )
+          !(workConcert.concert === concertID && workConcert.work === work.id),
+      ),
     );
   };
 

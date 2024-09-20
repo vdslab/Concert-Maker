@@ -67,9 +67,13 @@ export const concertListState = selector({
       name: concert.name,
       works: get(workConcertState)
         .filter((work) => work.concert === concert.id)
-        .map((workConcert) =>
-          workData.find((work) => work.id === workConcert.work),
-        ),
+        .map((workConcert) => {
+          const work = workData.find((work) => work.id === workConcert.work);
+          return {
+            ...work,
+            selectedMovements: workConcert.movements,
+          };
+        }),
       main: concert.id === get(selectedConcertState),
     }));
   },

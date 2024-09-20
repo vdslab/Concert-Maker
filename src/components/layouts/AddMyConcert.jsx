@@ -14,7 +14,6 @@ import { addModal, modalConcertWork } from "@/components/layouts/SplitButton";
 
 export default function AddMyConcert(props) {
   const node = props.node;
-  console.log(node);
   const setConcerts = useSetRecoilState(workConcertState);
   const [open, setOpen] = useRecoilState(addModal);
   const concertWork = useRecoilValue(modalConcertWork);
@@ -24,9 +23,12 @@ export default function AddMyConcert(props) {
     [...Array(node.workMovements.length)].map((_, i) => i),
   );
 
+  useEffect(() => {
+    setMovementList([...Array(node.workMovements.length)].map((_, i) => i));
+  }, [node]);
+
   const Submit = () => {
     setConcerts((workConcerts) => {
-      console.log(workConcerts);
       return [
         ...workConcerts.filter(
           (workConcert) =>

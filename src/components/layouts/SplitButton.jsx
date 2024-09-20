@@ -41,11 +41,11 @@ function SplitButton({ workId }) {
     setOpen(false);
   };
 
-  const handleMenuItemClick = (event, concertName) => {
+  const handleMenuItemClick = (event, concertID) => {
     event.preventDefault();
     event.stopPropagation();
     setAddModal(true);
-    setConcertWork({ concert: concertName, work: workId });
+    setConcertWork({ concert: concertID, work: workId });
     handleClose(event);
   };
 
@@ -59,7 +59,7 @@ function SplitButton({ workId }) {
         <Button
           onClick={(e) => {
             setAddModal(true);
-            setConcertWork({ concert: mainConcert.name, work: workId });
+            setConcertWork({ concert: mainConcert.id, work: workId });
             e.stopPropagation();
           }}
         >
@@ -88,7 +88,9 @@ function SplitButton({ workId }) {
           .map(({ id, name }) => (
             <MenuItem
               key={id}
-              onClick={(event) => handleMenuItemClick(event, id)}
+              onClick={(event) => {
+                handleMenuItemClick(event, id);
+              }}
             >
               {name}
             </MenuItem>

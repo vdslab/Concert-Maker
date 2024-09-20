@@ -8,7 +8,6 @@ import { useRecoilValue } from "recoil";
 
 export default function MyConcertCardList({ Data, clicknode, setClicknode }) {
   const concerts = useRecoilValue(concertListState);
-
   return (
     <Box sx={{ display: "flex", flexDirection: "column", gap: 2 }}>
       {concerts.map((concert) => (
