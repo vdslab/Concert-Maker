@@ -14,6 +14,8 @@ import Stack from "@mui/material/Stack";
 import TextField from "@mui/material/TextField";
 import Typography from "@mui/material/Typography";
 
+import AddMyConcert from "@/components/layouts/AddMyConcert";
+
 import { useState } from "react";
 
 import { sumDurationFormat, durationFormat } from "@/utils/calcTime";
@@ -209,6 +211,10 @@ WorkList.propTypes = {
 
 function WorkList(props) {
   const { works, concertID, setClicknode, Data } = props;
+
+  const [openModal, setOpenModal] = React.useState(false);
+  const [editWork, setEditWork] = React.useState(null);
+
   const setWorkConcertState = useSetRecoilState(workConcertState);
 
   if (works.length === 0) {
@@ -224,6 +230,10 @@ function WorkList(props) {
     const node = Data.nodes.find((node) => node.id === work.id);
     setClicknode(node);
   };
+  const handleItemEditClick = (work) => {
+    setEditWork(work);
+    setOpenModal(true);
+  };
 
   const handleDeleteClick = (e, work) => {
     e.stopPropagation();
@@ -235,8 +245,16 @@ function WorkList(props) {
     );
   };
 
+  console.log("works", editWork);
+
   return (
     <Box>
+      <AddMyConcert
+        work={editWork}
+        open={openModal}
+        setOpen={setOpenModal}
+        concertID={concertID}
+      />
       {works.map((work, index) => {
         const duration_time = durationFormat(work.duration);
         return (
@@ -292,14 +310,14 @@ function WorkList(props) {
                   </IconButton>
                 </Grid>
               </Grid>
-              <Grid>
+              <Grid size="grow">
                 {work.selectedMovements.length <= 0 || (
                   <Stack
                     direction="row"
                     spacing={1}
                     sx={{
                       width: "100%",
-                      justifyContent: "center",
+                      justifyContent: "space-between",
                       alignItems: "center",
                     }}
                   >
@@ -314,7 +332,10 @@ function WorkList(props) {
                       </Stack>
                     </Box>
                     <Box>
-                      <IconButton aria-label="edit">
+                      <IconButton
+                        aria-label="edit"
+                        onClick={() => handleItemEditClick(work)}
+                      >
                         <EditIcon />
                       </IconButton>
                     </Box>

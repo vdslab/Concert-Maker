@@ -12,6 +12,7 @@ import {
 import { atom, useRecoilValue, useSetRecoilState } from "recoil";
 
 function SplitButton({ workId, node }) {
+  console.log("SplitButton", node);
   const existMovements = !(
     node.workMovements.length <= 0 ||
     (node.workMovements.length === 1 && node.workMovements[0] === "")
@@ -23,7 +24,6 @@ function SplitButton({ workId, node }) {
   const [openModal, setOpenModal] = React.useState(false);
 
   const [concertID, setConcertID] = React.useState("");
-  const [workID, setWorkID] = React.useState("");
 
   const mainConcertID = useRecoilValue(selectedConcertState);
   const mainConcert = concerts.find((concert) => concert.id === mainConcertID);
@@ -66,7 +66,6 @@ function SplitButton({ workId, node }) {
     if (existMovements) {
       setOpenModal(true);
       setConcertID(concertId);
-      setWorkID(workId);
     } else {
       addWorkToConcert(concertID, workId);
     }
@@ -76,11 +75,10 @@ function SplitButton({ workId, node }) {
   return (
     <React.Fragment>
       <AddMyConcert
-        node={node}
+        work={node}
         open={openModal}
         setOpen={setOpenModal}
         concertID={concertID}
-        workID={workID}
       />
       <ButtonGroup
         variant="contained"
@@ -92,7 +90,6 @@ function SplitButton({ workId, node }) {
             if (existMovements) {
               setOpenModal(true);
               setConcertID(mainConcert.id);
-              setWorkID(workId);
             } else {
               addWorkToConcert(mainConcert.id, workId);
             }

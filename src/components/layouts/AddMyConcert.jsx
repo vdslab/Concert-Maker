@@ -1,39 +1,38 @@
 import React, { useState, useEffect } from "react";
-
 import Modal from "@mui/material/Modal";
 import Box from "@mui/material/Box";
 import Checkbox from "@mui/material/Checkbox";
 import FormGroup from "@mui/material/FormGroup";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import Button from "@mui/material/Button";
-
-import { useRecoilState, useRecoilValue, useSetRecoilState } from "recoil";
-
+import { useSetRecoilState } from "recoil";
 import { workConcertState } from "@/pages/App";
 
 export default function AddMyConcert(props) {
-  const { node, openStates, concertID, workID, open, setOpen } = props;
+  const { work, concertID, open, setOpen } = props;
   const setConcerts = useSetRecoilState(workConcertState);
   const handleClose = () => setOpen(false);
 
-  const [movementList, setMovementList] = useState(
-    [...Array(node.workMovements.length)].map((_, i) => i),
-  );
+  const [movementList, setMovementList] = useState([]);
 
   useEffect(() => {
-    setMovementList([...Array(node.workMovements.length)].map((_, i) => i));
-  }, [node]);
+    if (work && work.workMovements) {
+      setMovementList([...Array(work.workMovements.length)].map((_, i) => i));
+    }
+  }, [work]);
 
   const Submit = () => {
     setConcerts((workConcerts) => {
       return [
         ...workConcerts.filter(
           (workConcert) =>
-            !(workConcert.concert === concertID && workConcert.work === workID),
+            !(
+              workConcert.concert === concertID && workConcert.work === work.id
+            ),
         ),
         {
           concert: concertID,
-          work: workID,
+          work: work.id,
           movements:
             movementList.length <= 1 ? movementList : movementList.sort(),
         },
@@ -41,6 +40,10 @@ export default function AddMyConcert(props) {
     });
     setOpen(false);
   };
+
+  if (!work || !work.workMovements) {
+    return null; // work が null または workMovements が存在しない場合は何も表示しない
+  }
 
   return (
     <Modal
@@ -64,16 +67,16 @@ export default function AddMyConcert(props) {
           p: 4,
         }}
       >
-        <Box key={node.id}>
-          <h2 key={node.id}>{node.title}</h2>
+        <Box key={work.id}>
+          <h2 key={work.id}>{work.title}</h2>
           <FormGroup>
-            {node.workMovements.map((movement, index) => {
+            {work.workMovements.map((movement, index) => {
               return (
                 <FormControlLabel
                   key={index}
                   control={
                     <Checkbox
-                      checked={true}
+                      checked={movementList.includes(index)}
                       onChange={(e) => {
                         if (e.target.checked) {
                           setMovementList((prev) => [...prev, index]);
