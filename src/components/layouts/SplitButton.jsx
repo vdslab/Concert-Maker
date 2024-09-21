@@ -12,7 +12,6 @@ import {
 import { atom, useRecoilValue, useSetRecoilState } from "recoil";
 
 function SplitButton({ workId, node }) {
-  console.log("SplitButton", node);
   const existMovements = !(
     node.workMovements.length <= 0 ||
     (node.workMovements.length === 1 && node.workMovements[0] === "")

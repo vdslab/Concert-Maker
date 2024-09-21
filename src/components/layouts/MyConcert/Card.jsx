@@ -245,8 +245,6 @@ function WorkList(props) {
     );
   };
 
-  console.log("works", editWork);
-
   return (
     <Box>
       <AddMyConcert
