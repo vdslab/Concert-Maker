@@ -45,20 +45,7 @@ function SplitButton({ workId, node }) {
   };
 
   const addWorkToConcert = (concertID, workID) => {
-    console.log(concertID, workID);
     setWorkConcerts((workConcerts) => {
-      console.log(workConcerts);
-      console.log([
-        ...workConcerts.filter(
-          (workConcert) =>
-            !(workConcert.concert === concertID && workConcert.work === workID),
-        ),
-        {
-          concert: concertID,
-          work: workID,
-          movements: [],
-        },
-      ]);
       return [
         ...workConcerts.filter(
           (workConcert) =>
