@@ -2,9 +2,18 @@ import React from "react";
 import { Button, ButtonGroup, Menu, MenuItem } from "@mui/material";
 import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
 
-import { concertsState, selectedConcertState } from "@/pages/App";
+import {
+  concertsState,
+  workConcertState,
+  selectedConcertState,
+} from "@/pages/App";
 
-import { atom, useRecoilValue, useSetRecoilState } from "recoil";
+import {
+  atom,
+  useRecoilValue,
+  useRecoilState,
+  useSetRecoilState,
+} from "recoil";
 
 export const addModal = atom({
   key: "addModal",
@@ -16,10 +25,12 @@ export const modalConcertWork = atom({
   default: { concert: "", work: "" },
 });
 
-function SplitButton({ workId }) {
+function SplitButton({ workId, existMovements }) {
   const concerts = useRecoilValue(concertsState);
+
   const mainConcertID = useRecoilValue(selectedConcertState);
 
+  const setWorkConcerts = useSetRecoilState(workConcertState);
   const setAddModal = useSetRecoilState(addModal);
   const setConcertWork = useSetRecoilState(modalConcertWork);
 
@@ -41,11 +52,44 @@ function SplitButton({ workId }) {
     setOpen(false);
   };
 
+  const addWorkToConcert = (concertID, workID) => {
+    console.log(concertID, workID);
+    setWorkConcerts((workConcerts) => {
+      console.log(workConcerts);
+      console.log([
+        ...workConcerts.filter(
+          (workConcert) =>
+            !(workConcert.concert === concertID && workConcert.work === workID),
+        ),
+        {
+          concert: concertID,
+          work: workID,
+          movements: [],
+        },
+      ]);
+      return [
+        ...workConcerts.filter(
+          (workConcert) =>
+            !(workConcert.concert === concertID && workConcert.work === workID),
+        ),
+        {
+          concert: concertID,
+          work: workID,
+          movements: [],
+        },
+      ];
+    });
+  };
+
   const handleMenuItemClick = (event, concertID) => {
     event.preventDefault();
     event.stopPropagation();
-    setAddModal(true);
-    setConcertWork({ concert: concertID, work: workId });
+    if (existMovements) {
+      setAddModal(true);
+      setConcertWork({ concert: concertID, work: workId });
+    } else {
+      addWorkToConcert(concertID, workId);
+    }
     handleClose(event);
   };
 
@@ -58,8 +102,12 @@ function SplitButton({ workId }) {
       >
         <Button
           onClick={(e) => {
-            setAddModal(true);
-            setConcertWork({ concert: mainConcert.id, work: workId });
+            if (existMovements) {
+              setAddModal(true);
+              setConcertWork({ concert: mainConcert.id, work: workId });
+            } else {
+              addWorkToConcert(mainConcert.id, workId);
+            }
             e.stopPropagation();
           }}
         >

@@ -25,7 +25,9 @@ const NodeInfo = ({ node, Data, setClicknode }) => {
 
   return (
     <div>
-      <AddMyConcert node={node} />
+      <AddMyConcert
+        node={node}
+      />
       <StyledPaper key={node.id}>
         <BasicInfomation node={node} onClose={handleCloseInfo} />
         <Divider />

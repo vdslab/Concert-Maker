@@ -33,7 +33,15 @@ const BasicInfomation = ({ node, onClose }) => {
               : "楽器編成: " + node.workFormulaStr.replace(/\n/g, " / ")}
           </Typography>
         </Box>
-        <SplitButton workId={node.id} />
+        <SplitButton
+          workId={node.id}
+          existMovements={
+            !(
+              node.workMovements.length <= 0 ||
+              (node.workMovements.length === 1 && node.workMovements[0] === "")
+            )
+          }
+        />
       </Box>
     </>
   );

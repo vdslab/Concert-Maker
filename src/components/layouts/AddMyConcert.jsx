@@ -13,7 +13,7 @@ import { workConcertState } from "@/pages/App";
 import { addModal, modalConcertWork } from "@/components/layouts/SplitButton";
 
 export default function AddMyConcert(props) {
-  const node = props.node;
+  const { node } = props;
   const setConcerts = useSetRecoilState(workConcertState);
   const [open, setOpen] = useRecoilState(addModal);
   const concertWork = useRecoilValue(modalConcertWork);
