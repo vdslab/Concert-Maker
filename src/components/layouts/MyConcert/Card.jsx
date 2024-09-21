@@ -7,7 +7,7 @@ import ConcertMenus from "./ConcertMenus";
 import DeleteIcon from "@mui/icons-material/Delete";
 import Divider from "@mui/material/Divider";
 import EditIcon from "@mui/icons-material/Edit";
-import Grid from "@mui/material/Grid";
+import Grid from "@mui/material/Grid2";
 import IconButton from "@mui/material/IconButton";
 import Paper from "@mui/material/Paper";
 import Stack from "@mui/material/Stack";
@@ -85,7 +85,7 @@ export default function MyConcertCard(props) {
           justifyContent="space-between"
           alignItems="center"
         >
-          <Grid item>
+          <Grid size="auto">
             <Stack
               direction="row"
               justifyContent="space-between"
@@ -144,7 +144,7 @@ export default function MyConcertCard(props) {
               )}
             </Stack>
           </Grid>
-          <Grid item xs="auto">
+          <Grid size="auto">
             <Stack
               direction="row"
               justifyContent="center"
@@ -259,7 +259,7 @@ function WorkList(props) {
                 alignItems="center"
                 sx={{ width: "100%" }}
               >
-                <Grid item xs>
+                <Grid size="grow">
                   <Box sx={{ p: 1 }}>
                     <Typography variant="body1" component="div">
                       {work.composer}
@@ -283,7 +283,7 @@ function WorkList(props) {
                     </Stack>
                   </Box>
                 </Grid>
-                <Grid item>
+                <Grid size="auto">
                   <IconButton
                     aria-label="delete"
                     onClick={(e) => handleDeleteClick(e, work)}
@@ -293,13 +293,33 @@ function WorkList(props) {
                 </Grid>
               </Grid>
               <Grid>
-                <Box sx={{ p: 1 }}>
-                  <Stack direction="row" spacing={1}>
-                    {work.selectedMovements.map((movement, index) => (
-                      <Chip key={index} label={work.workMovements[movement]} />
-                    ))}
+                {work.selectedMovements.length <= 0 || (
+                  <Stack
+                    direction="row"
+                    spacing={1}
+                    sx={{
+                      width: "100%",
+                      justifyContent: "center",
+                      alignItems: "center",
+                    }}
+                  >
+                    <Box sx={{ p: 1, overflowX: "auto" }}>
+                      <Stack direction="row" spacing={1}>
+                        {work.selectedMovements.map((movement, index) => (
+                          <Chip
+                            key={index}
+                            label={work.workMovements[movement]}
+                          />
+                        ))}
+                      </Stack>
+                    </Box>
+                    <Box>
+                      <IconButton aria-label="edit">
+                        <EditIcon />
+                      </IconButton>
+                    </Box>
                   </Stack>
-                </Box>
+                )}
               </Grid>
             </Paper>
           </div>
