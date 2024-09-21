@@ -10,13 +10,10 @@ import Button from "@mui/material/Button";
 import { useRecoilState, useRecoilValue, useSetRecoilState } from "recoil";
 
 import { workConcertState } from "@/pages/App";
-import { addModal, modalConcertWork } from "@/components/layouts/SplitButton";
 
 export default function AddMyConcert(props) {
-  const { node } = props;
+  const { node, openStates, concertID, workID, open, setOpen } = props;
   const setConcerts = useSetRecoilState(workConcertState);
-  const [open, setOpen] = useRecoilState(addModal);
-  const concertWork = useRecoilValue(modalConcertWork);
   const handleClose = () => setOpen(false);
 
   const [movementList, setMovementList] = useState(
@@ -32,14 +29,11 @@ export default function AddMyConcert(props) {
       return [
         ...workConcerts.filter(
           (workConcert) =>
-            !(
-              workConcert.concert === concertWork.concert &&
-              workConcert.work === concertWork.work
-            ),
+            !(workConcert.concert === concertID && workConcert.work === workID),
         ),
         {
-          concert: concertWork.concert,
-          work: concertWork.work,
+          concert: concertID,
+          work: workID,
           movements:
             movementList.length <= 1 ? movementList : movementList.sort(),
         },
@@ -47,8 +41,6 @@ export default function AddMyConcert(props) {
     });
     setOpen(false);
   };
-
-  const work = concertWork.work;
 
   return (
     <Modal
@@ -99,7 +91,7 @@ export default function AddMyConcert(props) {
             })}
           </FormGroup>
         </Box>
-        <Button onClick={Submit}>Submit</Button>
+        <Button onClick={Submit}>決定</Button>
       </Box>
     </Modal>
   );

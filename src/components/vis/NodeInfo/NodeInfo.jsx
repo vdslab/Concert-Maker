@@ -5,7 +5,6 @@ import BasicInfomation from "./BasicInfomation";
 import DetailInfomation from "./DetailInfomation";
 import SongPlayedTogether from "./SongsPlayedTogether";
 import MusicButton from "./MusicButton";
-import AddMyConcert from "@/components/layouts/AddMyConcert";
 
 const StyledPaper = styled(Paper)(({ theme }) => ({
   position: "absolute",
@@ -25,9 +24,6 @@ const NodeInfo = ({ node, Data, setClicknode }) => {
 
   return (
     <div>
-      <AddMyConcert
-        node={node}
-      />
       <StyledPaper key={node.id}>
         <BasicInfomation node={node} onClose={handleCloseInfo} />
         <Divider />

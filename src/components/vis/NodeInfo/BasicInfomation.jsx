@@ -35,12 +35,7 @@ const BasicInfomation = ({ node, onClose }) => {
         </Box>
         <SplitButton
           workId={node.id}
-          existMovements={
-            !(
-              node.workMovements.length <= 0 ||
-              (node.workMovements.length === 1 && node.workMovements[0] === "")
-            )
-          }
+          node={node}
         />
       </Box>
     </>
