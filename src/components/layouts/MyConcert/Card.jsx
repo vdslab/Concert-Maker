@@ -309,7 +309,7 @@ function WorkList(props) {
                 </Grid>
               </Grid>
               <Grid size="grow">
-                {work.selectedMovements.length <= 0 || (
+                {work.selectedMovements.length > 0 && (
                   <Stack
                     direction="row"
                     spacing={1}
