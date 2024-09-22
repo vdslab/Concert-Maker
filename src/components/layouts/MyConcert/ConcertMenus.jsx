@@ -50,7 +50,7 @@ const StyledMenu = styled((props) => (
       "&:active": {
         backgroundColor: alpha(
           theme.palette.primary.main,
-          theme.palette.action.selectedOpacity
+          theme.palette.action.selectedOpacity,
         ),
       },
     },
@@ -85,7 +85,7 @@ export default function ConcertMenus(props) {
         ...oldConcerts.find((concert) => concert.id === id),
         name: generateCopyName(
           existingNames,
-          oldConcerts.find((concert) => concert.id === id).name
+          oldConcerts.find((concert) => concert.id === id).name,
         ),
         id: newId,
       };
@@ -97,7 +97,12 @@ export default function ConcertMenus(props) {
     const addWorks = workList
       .find((work) => work.id === id)
       .works.map((work) => {
-        return { concert: newId, work: work.id };
+        console.log(work);
+        return {
+          concert: newId,
+          work: work.id,
+          movements: [...work.selectedMovements],
+        };
       });
 
     setWorkConcert((oldWorks) => {
