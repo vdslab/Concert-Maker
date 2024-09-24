@@ -23,7 +23,9 @@ const BasicInfomation = ({ node, onClose }) => {
             {node.title}
           </Typography>
           <Typography variant="body2" color="textSecondary" gutterBottom>
-            {node.duration === null ? "" : "演奏時間: " + durationFormat(node.duration)}
+            {node.duration === null
+              ? ""
+              : "演奏時間: " + durationFormat(node.duration)}
           </Typography>
           <Typography variant="body2" color="textSecondary" gutterBottom>
             {node.workFormulaStr === ""
@@ -31,7 +33,10 @@ const BasicInfomation = ({ node, onClose }) => {
               : "楽器編成: " + node.workFormulaStr.replace(/\n/g, " / ")}
           </Typography>
         </Box>
-        <SplitButton songId={node.id} />
+        <SplitButton
+          workId={node.id}
+          node={node}
+        />
       </Box>
     </>
   );

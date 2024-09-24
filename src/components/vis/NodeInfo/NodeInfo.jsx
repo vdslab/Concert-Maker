@@ -23,15 +23,21 @@ const NodeInfo = ({ node, Data, setClicknode }) => {
   if (!node) return null;
 
   return (
-    <StyledPaper key={node.id}>
-      <BasicInfomation node={node} onClose={handleCloseInfo} />
-      <Divider />
-      <DetailInfomation node={node} />
-      <Divider />
-      <MusicButton node={node} />
-      <Divider />
-      <SongPlayedTogether node={node} Data={Data} setClicknode={setClicknode} />
-    </StyledPaper>
+    <div>
+      <StyledPaper key={node.id}>
+        <BasicInfomation node={node} onClose={handleCloseInfo} />
+        <Divider />
+        <DetailInfomation node={node} />
+        <Divider />
+        <MusicButton node={node} />
+        <Divider />
+        <SongPlayedTogether
+          node={node}
+          Data={Data}
+          setClicknode={setClicknode}
+        />
+      </StyledPaper>
+    </div>
   );
 };
 

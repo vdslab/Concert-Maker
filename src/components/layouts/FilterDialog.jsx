@@ -41,7 +41,7 @@ const applyFilter = (filterValues, Data, setData) => {
           return value.since !== null || value.until !== null;
         }
         return value !== "" && value !== null;
-      }
+      },
     );
 
     // すべてのアクティブなフィルターに対してチェックを行う
