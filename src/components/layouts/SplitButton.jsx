@@ -9,13 +9,16 @@ import {
   selectedConcertState,
 } from "@/components/RecoilStates";
 
-import { atom, useRecoilValue, useSetRecoilState } from "recoil";
+import { useRecoilValue, useSetRecoilState } from "recoil";
+
+import { useSnackbar } from "notistack";
 
 function SplitButton({ workId, node }) {
   const existMovements = !(
     node.workMovements.length <= 0 ||
     (node.workMovements.length === 1 && node.workMovements[0] === "")
   );
+  const { enqueueSnackbar } = useSnackbar();
 
   const concerts = useRecoilValue(concertsState);
 
@@ -57,6 +60,7 @@ function SplitButton({ workId, node }) {
         },
       ];
     });
+    enqueueSnackbar("My演奏会に追加しました！", { variant: "success" });
   };
 
   const handleMenuItemClick = (event, concertId) => {
