@@ -41,7 +41,9 @@ export default function AddMyConcert(props) {
             concert: concertID,
             work: work.id,
             movements:
-              movementList.length <= 1 ? movementList : movementList.sort(),
+              movementList.length <= 1
+                ? movementList
+                : movementList.toSorted((a, b) => a - b),
           },
         ];
       });
