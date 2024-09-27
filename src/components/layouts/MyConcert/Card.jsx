@@ -78,11 +78,15 @@ export default function MyConcertCard(props) {
 
   const sum_duration = sumDurationFormat(
     works.map((work) =>
-      work.selectedMovements
-        .map((duration) =>
-          parseInt(work.workMovementDuration[duration].replace("'", "")),
-        )
-        .reduce((x, y) => x + y),
+      !work.selectedMovements ||
+      work.workMovementDuration.length <= 1 ||
+      work.workMovementDuration[0] === "'"
+        ? work.duration
+        : work.selectedMovements
+            .map((duration) =>
+              parseInt(work.workMovementDuration[duration].replace("'", "")),
+            )
+            .reduce((x, y) => x + y),
     ),
   );
 
@@ -263,11 +267,17 @@ function WorkList(props) {
       />
       {works.map((work, index) => {
         const duration_time = durationFormat(
-          work.selectedMovements
-            .map((duration) =>
-              parseInt(work.workMovementDuration[duration].replace("'", "")),
-            )
-            .reduce((x, y) => x + y),
+          !work.selectedMovements ||
+            work.workMovementDuration.length <= 1 ||
+            work.workMovementDuration[0] === "'"
+            ? work.duration
+            : work.selectedMovements
+                .map((duration) =>
+                  parseInt(
+                    work.workMovementDuration[duration].replace("'", ""),
+                  ),
+                )
+                .reduce((x, y) => x + y),
         );
         return (
           <div key={`${concertID}-${index}`}>
