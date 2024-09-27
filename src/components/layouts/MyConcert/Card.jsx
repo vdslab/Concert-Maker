@@ -76,7 +76,19 @@ export default function MyConcertCard(props) {
 
   const setConcerts = useSetRecoilState(concertsState);
 
-  const sum_duration = sumDurationFormat(works.map((work) => work.duration));
+  const sum_duration = sumDurationFormat(
+    works.map((work) =>
+      !work.selectedMovements ||
+      work.workMovementDuration.length <= 1 ||
+      work.workMovementDuration[0] === "'"
+        ? work.duration
+        : work.selectedMovements
+            .map((duration) =>
+              parseInt(work.workMovementDuration[duration].replace("'", "")),
+            )
+            .reduce((x, y) => x + y),
+    ),
+  );
 
   return (
     <Card elevation={3}>
@@ -254,7 +266,19 @@ function WorkList(props) {
         concertID={concertID}
       />
       {works.map((work, index) => {
-        const duration_time = durationFormat(work.duration);
+        const duration_time = durationFormat(
+          !work.selectedMovements ||
+            work.workMovementDuration.length <= 1 ||
+            work.workMovementDuration[0] === "'"
+            ? work.duration
+            : work.selectedMovements
+                .map((duration) =>
+                  parseInt(
+                    work.workMovementDuration[duration].replace("'", ""),
+                  ),
+                )
+                .reduce((x, y) => x + y),
+        );
         return (
           <div key={`${concertID}-${index}`}>
             {index !== 0 && <Divider />}
