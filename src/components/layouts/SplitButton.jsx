@@ -7,7 +7,7 @@ import {
   concertsState,
   workConcertState,
   selectedConcertState,
-} from "@/pages/App";
+} from "@/components/RecoilStates";
 
 import { atom, useRecoilValue, useSetRecoilState } from "recoil";
 
