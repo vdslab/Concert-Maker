@@ -101,7 +101,6 @@ export default function ConcertMenus(props) {
     const addWorks = workList
       .find((work) => work.id === id)
       .works.map((work) => {
-        console.log(work);
         return {
           concert: newId,
           work: work.id,

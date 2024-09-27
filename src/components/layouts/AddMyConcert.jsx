@@ -24,9 +24,7 @@ export default function AddMyConcert(props) {
   }, [work]);
 
   const Submit = () => {
-    console.log(movementList);
     if (movementList.length === 0) {
-      console.log("楽章が選択されていません");
       enqueueSnackbar("楽章が選択されていません", { variant: "error" });
       return;
     } else {
