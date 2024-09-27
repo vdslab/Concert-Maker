@@ -1,10 +1,12 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import Modal from "@mui/material/Modal";
 import Box from "@mui/material/Box";
 import Checkbox from "@mui/material/Checkbox";
 import FormGroup from "@mui/material/FormGroup";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import Button from "@mui/material/Button";
+import Typography from "@mui/material/Typography";
+import Grid from "@mui/material/Grid2";
 import { useSetRecoilState } from "recoil";
 import { workConcertState } from "@/components/RecoilStates";
 import { useSnackbar } from "notistack";
@@ -69,8 +71,7 @@ export default function AddMyConcert(props) {
           top: "50%",
           left: "50%",
           transform: "translate(-50%, -50%)",
-          width: "75%",
-          height: "60%",
+          width: "65%",
           overflow: "auto",
           bgcolor: "background.paper",
           border: "2px solid #000",
@@ -78,34 +79,105 @@ export default function AddMyConcert(props) {
           p: 4,
         }}
       >
-        <Box key={work.id}>
-          <h2 key={work.id}>{work.title}</h2>
-          <FormGroup>
-            {work.workMovements.map((movement, index) => {
-              return (
-                <FormControlLabel
-                  key={index}
-                  control={
-                    <Checkbox
-                      checked={movementList.includes(index)}
-                      onChange={(e) => {
-                        if (e.target.checked) {
-                          setMovementList((prev) => [...prev, index]);
-                        } else {
-                          setMovementList((prev) =>
-                            prev.filter((movement) => movement !== index),
-                          );
-                        }
-                      }}
+        <Grid container spacing={2}>
+          <Grid size={12}>
+            <Box key={work.id}>
+              <Typography variant="h5">{work.title}</Typography>
+              <FormGroup>
+                {work.workMovements.map((movement, index) => {
+                  return (
+                    <FormControlLabel
+                      key={index}
+                      control={
+                        <Checkbox
+                          checked={movementList.includes(index)}
+                          onChange={(e) => {
+                            if (e.target.checked) {
+                              setMovementList((prev) => [...prev, index]);
+                            } else {
+                              setMovementList((prev) =>
+                                prev.filter((movement) => movement !== index),
+                              );
+                            }
+                          }}
+                        />
+                      }
+                      label={movement}
                     />
-                  }
-                  label={movement}
-                />
-              );
-            })}
-          </FormGroup>
-        </Box>
-        <Button onClick={Submit}>決定</Button>
+                  );
+                })}
+              </FormGroup>
+            </Box>
+          </Grid>
+          <Grid
+            container
+            justifyContent="center"
+            alignItems="flex-end"
+            flexDirection="column"
+            size={12}
+          >
+            <Box>
+              <Grid
+                container
+                flexDirection="column"
+                justifyContent="center"
+                alignItems="flex-start"
+                columnSpacing={1}
+                sx={{ order: { xs: 1, sm: 2 } }}
+                size={12}
+              >
+                <Grid sx={{ order: { xs: 2, sm: 1 } }}>
+                  <FormControlLabel
+                    key="all"
+                    control={
+                      <Checkbox
+                        checked={
+                          movementList.length === work.workMovements.length
+                        }
+                        onChange={(e) => {
+                          if (e.target.checked) {
+                            setMovementList(
+                              [...Array(work.workMovements.length)].map(
+                                (_, i) => i,
+                              ),
+                            );
+                          } else {
+                            setMovementList([]);
+                          }
+                        }}
+                      />
+                    }
+                    label={
+                      movementList.length === work.workMovements.length
+                        ? "全て選択解除"
+                        : "全て選択"
+                    }
+                  />
+                </Grid>
+                <Grid
+                  container
+                  justifyContent="flex-end"
+                  alignItems="center"
+                  columnSpacing={1}
+                  flexDirection="row"
+                  sx={{ order: { xs: 1, sm: 2 } }}
+                  size={12}
+                >
+                  <Grid>
+                    <Button variant="outlined" onClick={handleClose}>
+                      Cancel
+                    </Button>
+                  </Grid>
+                  <Grid>
+                    <Button variant="contained" onClick={Submit}>
+                      決定
+                    </Button>
+                  </Grid>
+                </Grid>
+              </Grid>
+            </Box>
+          </Grid>
+        </Grid>
       </Box>
     </Modal>
   );
