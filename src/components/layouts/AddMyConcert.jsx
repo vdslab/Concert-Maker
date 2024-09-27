@@ -6,12 +6,14 @@ import FormGroup from "@mui/material/FormGroup";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import Button from "@mui/material/Button";
 import { useSetRecoilState } from "recoil";
-import { workConcertState } from "@/pages/App";
+import { workConcertState } from "@/components/RecoilStates";
+import { useSnackbar } from "notistack";
 
 export default function AddMyConcert(props) {
   const { work, concertID, open, setOpen } = props;
   const setConcerts = useSetRecoilState(workConcertState);
   const handleClose = () => setOpen(false);
+  const { enqueueSnackbar } = useSnackbar();
 
   const [movementList, setMovementList] = useState([]);
 
@@ -22,23 +24,32 @@ export default function AddMyConcert(props) {
   }, [work]);
 
   const Submit = () => {
-    setConcerts((workConcerts) => {
-      return [
-        ...workConcerts.filter(
-          (workConcert) =>
-            !(
-              workConcert.concert === concertID && workConcert.work === work.id
-            ),
-        ),
-        {
-          concert: concertID,
-          work: work.id,
-          movements:
-            movementList.length <= 1 ? movementList : movementList.sort(),
-        },
-      ];
-    });
-    setOpen(false);
+    console.log(movementList);
+    if (movementList.length === 0) {
+      console.log("楽章が選択されていません");
+      enqueueSnackbar("楽章が選択されていません", { variant: "error" });
+      return;
+    } else {
+      setConcerts((workConcerts) => {
+        return [
+          ...workConcerts.filter(
+            (workConcert) =>
+              !(
+                workConcert.concert === concertID &&
+                workConcert.work === work.id
+              ),
+          ),
+          {
+            concert: concertID,
+            work: work.id,
+            movements:
+              movementList.length <= 1 ? movementList : movementList.sort(),
+          },
+        ];
+      });
+      enqueueSnackbar("My演奏会に追加しました！", { variant: "success" });
+      setOpen(false);
+    }
   };
 
   if (!work || !work.workMovements) {
