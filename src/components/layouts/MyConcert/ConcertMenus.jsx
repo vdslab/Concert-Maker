@@ -10,7 +10,11 @@ import FileCopyIcon from "@mui/icons-material/FileCopy";
 import MoreVertIcon from "@mui/icons-material/MoreVert";
 import DeleteForeverIcon from "@mui/icons-material/DeleteForever";
 
-import { workConcertState, concertListState, concertsState } from "@/pages/App";
+import {
+  workConcertState,
+  concertListState,
+  concertsState,
+} from "@/components/RecoilStates";
 import { useRecoilValue, useSetRecoilState } from "recoil";
 import { v4 as randomUUID } from "uuid";
 
@@ -97,7 +101,6 @@ export default function ConcertMenus(props) {
     const addWorks = workList
       .find((work) => work.id === id)
       .works.map((work) => {
-        console.log(work);
         return {
           concert: newId,
           work: work.id,

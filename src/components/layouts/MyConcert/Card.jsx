@@ -24,7 +24,7 @@ import {
   workConcertState,
   selectedConcertState,
   concertsState,
-} from "@/pages/App";
+} from "@/components/RecoilStates";
 import { useSetRecoilState } from "recoil";
 
 import PropTypes from "prop-types";
