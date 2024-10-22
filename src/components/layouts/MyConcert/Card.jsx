@@ -62,14 +62,14 @@ MyConcertCard.propTypes = {
         playedWith: PropTypes.array,
         strYear: PropTypes.string,
         year: PropTypes.number.isRequired,
-      }),
+      })
     ).isRequired,
     main: PropTypes.bool.isRequired,
   }).isRequired,
 };
 
 export default function MyConcertCard(props) {
-  const { concert, setClicknode, Data } = props;
+  const { concert, setClickNodeId, Data } = props;
   const { id, name, works } = concert;
   const [editMode, setEditMode] = useState(false);
   const selectConcert = useSetRecoilState(selectedConcertState);
@@ -84,10 +84,10 @@ export default function MyConcertCard(props) {
         ? work.duration
         : work.selectedMovements
             .map((duration) =>
-              parseInt(work.workMovementDuration[duration].replace("'", "")),
+              parseInt(work.workMovementDuration[duration].replace("'", ""))
             )
-            .reduce((x, y) => x + y),
-    ),
+            .reduce((x, y) => x + y)
+    )
   );
 
   return (
@@ -128,8 +128,8 @@ export default function MyConcertCard(props) {
                         concerts.map((concert) =>
                           concert.id === id
                             ? { ...concert, name: e.target.value }
-                            : concert,
-                        ),
+                            : concert
+                        )
                       );
                       setEditMode(false);
                     }
@@ -179,7 +179,7 @@ export default function MyConcertCard(props) {
           works={works}
           concertID={id}
           Data={Data}
-          setClicknode={setClicknode}
+          setClickNodeId={setClickNodeId}
         />
       </Box>
     </Card>
@@ -216,13 +216,13 @@ WorkList.propTypes = {
       playedWith: PropTypes.array,
       strYear: PropTypes.string,
       year: PropTypes.number.isRequired,
-    }),
+    })
   ).isRequired,
   concertID: PropTypes.string.isRequired,
 };
 
 function WorkList(props) {
-  const { works, concertID, setClicknode, Data } = props;
+  const { works, concertID, setClickNodeId } = props;
 
   const [openModal, setOpenModal] = React.useState(false);
   const [editWork, setEditWork] = React.useState(null);
@@ -238,9 +238,7 @@ function WorkList(props) {
   }
 
   const handleItemClick = (work) => {
-    // const node = getComposerFromId(work.id);
-    const node = Data.nodes.find((node) => node.id === work.id);
-    setClicknode(node);
+    setClickNodeId(work.id);
   };
   const handleItemEditClick = (work) => {
     setEditWork(work);
@@ -252,8 +250,8 @@ function WorkList(props) {
     setWorkConcertState((works) =>
       works.filter(
         (workConcert) =>
-          !(workConcert.concert === concertID && workConcert.work === work.id),
-      ),
+          !(workConcert.concert === concertID && workConcert.work === work.id)
+      )
     );
   };
 
@@ -273,11 +271,9 @@ function WorkList(props) {
             ? work.duration
             : work.selectedMovements
                 .map((duration) =>
-                  parseInt(
-                    work.workMovementDuration[duration].replace("'", ""),
-                  ),
+                  parseInt(work.workMovementDuration[duration].replace("'", ""))
                 )
-                .reduce((x, y) => x + y),
+                .reduce((x, y) => x + y)
         );
         return (
           <div key={`${concertID}-${index}`}>

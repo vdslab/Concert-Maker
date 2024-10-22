@@ -2,7 +2,8 @@ import React from "react";
 import { Typography, Box, Button, Divider } from "@mui/material";
 import { durationFormat } from "@/utils/calcTime";
 
-const SongPlayedTogether = ({ node, Data, setClicknode }) => {
+const SongPlayedTogether = (props) => {
+  const { node, Data, setClickNodeId } = props;
   const { links } = Data;
 
   const linkNodes = new Set();
@@ -30,7 +31,7 @@ const SongPlayedTogether = ({ node, Data, setClicknode }) => {
         <Button
           key={index}
           onClick={() => {
-            setClicknode(work);
+            setClickNodeId(work.id);
           }}
           sx={{
             display: "block",
