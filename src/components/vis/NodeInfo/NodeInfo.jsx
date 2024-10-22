@@ -15,10 +15,11 @@ const StyledPaper = styled(Paper)(({ theme }) => ({
   overflowY: "scroll",
 }));
 
-const NodeInfo = ({ node, Data, setClicknode }) => {
+const NodeInfo = (props) => {
+  const { Data, node, setClickedNodeId } = props;
   const handleCloseInfo = useCallback(() => {
-    setClicknode(null);
-  }, [setClicknode]);
+    setClickedNodeId(null);
+  }, [setClickedNodeId]);
 
   if (!node) return null;
 
@@ -34,7 +35,7 @@ const NodeInfo = ({ node, Data, setClicknode }) => {
         <SongPlayedTogether
           node={node}
           Data={Data}
-          setClicknode={setClicknode}
+          setClickedNodeId={setClickedNodeId}
         />
       </StyledPaper>
     </div>
