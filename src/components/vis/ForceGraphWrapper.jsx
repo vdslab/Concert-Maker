@@ -4,7 +4,7 @@ import ForceGraph2D from "react-force-graph-2d";
 import DrawCircle from "./DrawCircle";
 
 const ForceGraphWrapper = (props) => {
-  const { data, height, clicknode, setClickNodeId } = props;
+  const { data, height, clicknode, setClickedNodeId } = props;
   const fgRef = useRef();
   const maxZoom = 3;
 
@@ -28,7 +28,7 @@ const ForceGraphWrapper = (props) => {
 
   useEffect(() => {
     if (clicknode) {
-      setClickNodeId(clicknode.id);
+      setClickedNodeId(clicknode.id);
     }
   }, [clicknode]);
 
@@ -46,9 +46,9 @@ const ForceGraphWrapper = (props) => {
 
   const handleNodeClick = useCallback(
     (node) => {
-      setClickNodeId(node.id);
+      setClickedNodeId(node.id);
     },
-    [setClickNodeId]
+    [setClickedNodeId]
   );
 
   const connectedNodeIds = useMemo(() => {

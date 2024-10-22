@@ -6,7 +6,7 @@ import NewConcert from "@/components/layouts/MyConcert/NewConcert";
 import { concertListState } from "@/components/RecoilStates";
 import { useRecoilValue } from "recoil";
 
-export default function MyConcertCardList({ Data, setClickNodeId }) {
+export default function MyConcertCardList({ Data, setClickedNodeId }) {
   const concerts = useRecoilValue(concertListState);
   return (
     <Box sx={{ display: "flex", flexDirection: "column", gap: 2 }}>
@@ -14,7 +14,7 @@ export default function MyConcertCardList({ Data, setClickNodeId }) {
         <MyConcertCard
           key={concert.id}
           concert={concert}
-          setClickNodeId={setClickNodeId}
+          setClickedNodeId={setClickedNodeId}
           Data={Data}
         />
       ))}

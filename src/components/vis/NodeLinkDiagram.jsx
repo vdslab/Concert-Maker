@@ -5,7 +5,7 @@ import SearchBox from "../layouts/SearchBox";
 import NodeInfo from "./NodeInfo/NodeInfo";
 
 const NodeLinkDiagram = (props) => {
-  const { clickNodeId, setClickNodeId, graphData, setGraphData } = props;
+  const { clickedNodeId, setClickedNodeId, graphData, setGraphData } = props;
   const [clickNode, setClickNode] = useState(null);
   const [height, setHeight] = useState(0);
   const parentDivRef = useRef(null);
@@ -35,11 +35,11 @@ const NodeLinkDiagram = (props) => {
   }, []);
 
   useEffect(() => {
-    if (clickNodeId) {
-      const node = graphData.nodes.find((node) => node.id === clickNodeId);
+    if (clickedNodeId) {
+      const node = graphData.nodes.find((node) => node.id === clickedNodeId);
       if (node) setClickNode(node);
     } else setClickNode(null);
-  }, [clickNodeId]);
+  }, [clickedNodeId]);
 
   return (
     <Box ref={parentDivRef} position="relative" height="100%">
@@ -47,17 +47,17 @@ const NodeLinkDiagram = (props) => {
         data={graphData}
         height={height}
         clicknode={clickNode}
-        setClickNodeId={setClickNodeId}
+        setClickedNodeId={setClickedNodeId}
       />
       <SearchBox
         Data={graphData}
         setData={updateGraphData}
-        setClickNodeId={setClickNodeId}
+        setClickedNodeId={setClickedNodeId}
       />
       <NodeInfo
         node={clickNode}
         Data={graphData}
-        setClickNodeId={setClickNodeId}
+        setClickedNodeId={setClickedNodeId}
       />
     </Box>
   );

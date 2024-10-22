@@ -15,7 +15,7 @@ import FilterDialog from "@/components/layouts/FilterDialog";
  *
  * @returns {JSX.Element}
  */
-export default function SearchBox({ Data, setData, setClickNodeId }) {
+export default function SearchBox({ Data, setData, setClickedNodeId }) {
   const inputRef = useRef(null);
   const [open, setOpen] = useState(false);
   const openPopper = () => setOpen(true);
@@ -34,7 +34,7 @@ export default function SearchBox({ Data, setData, setClickNodeId }) {
     newInputValue === "" ? closePopper() : openPopper();
     const searchedObject = nodes.find((item) => item.name === newInputValue);
     if (searchedObject) {
-      setClickNodeId(searchedObject.id);
+      setClickedNodeId(searchedObject.id);
     }
   };
 

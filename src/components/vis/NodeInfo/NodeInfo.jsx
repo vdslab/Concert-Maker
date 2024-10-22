@@ -16,10 +16,10 @@ const StyledPaper = styled(Paper)(({ theme }) => ({
 }));
 
 const NodeInfo = (props) => {
-  const { Data, node, setClickNodeId } = props;
+  const { Data, node, setClickedNodeId } = props;
   const handleCloseInfo = useCallback(() => {
-    setClickNodeId(null);
-  }, [setClickNodeId]);
+    setClickedNodeId(null);
+  }, [setClickedNodeId]);
 
   if (!node) return null;
 
@@ -35,7 +35,7 @@ const NodeInfo = (props) => {
         <SongPlayedTogether
           node={node}
           Data={Data}
-          setClickNodeId={setClickNodeId}
+          setClickedNodeId={setClickedNodeId}
         />
       </StyledPaper>
     </div>

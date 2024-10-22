@@ -7,7 +7,7 @@ import { useState, useMemo } from "react";
 import { processData, createGraphData } from "@/components/vis/DataProcessing";
 
 function App() {
-  const [clickNodeId, setClickNodeId] = useState(null);
+  const [clickedNodeId, setClickedNodeId] = useState(null);
   const { allPlayedWithWorkIds, linkData } = useMemo(() => processData(), []);
   const [graphData, setGraphData] = useState(() =>
     createGraphData(allPlayedWithWorkIds, linkData, [])
@@ -17,14 +17,17 @@ function App() {
     <div className="container">
       <Box width={2 / 3} className="left-half" sx={{ position: "relative" }}>
         <NodeLinkDiagram
-          clickNodeId={clickNodeId}
-          setClickNodeId={setClickNodeId}
+          clickedNodeId={clickedNodeId}
+          setClickedNodeId={setClickedNodeId}
           graphData={graphData}
           setGraphData={setGraphData}
         />
       </Box>
       <Box width={1 / 3} className="right-half" sx={{ overflow: "auto" }}>
-        <MyConcertCardList Data={graphData} setClickNodeId={setClickNodeId} />
+        <MyConcertCardList
+          Data={graphData}
+          setClickedNodeId={setClickedNodeId}
+        />
       </Box>
     </div>
   );

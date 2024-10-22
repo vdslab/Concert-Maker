@@ -69,7 +69,7 @@ MyConcertCard.propTypes = {
 };
 
 export default function MyConcertCard(props) {
-  const { concert, setClickNodeId, Data } = props;
+  const { concert, setClickedNodeId, Data } = props;
   const { id, name, works } = concert;
   const [editMode, setEditMode] = useState(false);
   const selectConcert = useSetRecoilState(selectedConcertState);
@@ -179,7 +179,7 @@ export default function MyConcertCard(props) {
           works={works}
           concertID={id}
           Data={Data}
-          setClickNodeId={setClickNodeId}
+          setClickedNodeId={setClickedNodeId}
         />
       </Box>
     </Card>
@@ -222,7 +222,7 @@ WorkList.propTypes = {
 };
 
 function WorkList(props) {
-  const { works, concertID, setClickNodeId } = props;
+  const { works, concertID, setClickedNodeId } = props;
 
   const [openModal, setOpenModal] = React.useState(false);
   const [editWork, setEditWork] = React.useState(null);
@@ -238,7 +238,7 @@ function WorkList(props) {
   }
 
   const handleItemClick = (work) => {
-    setClickNodeId(work.id);
+    setClickedNodeId(work.id);
   };
   const handleItemEditClick = (work) => {
     setEditWork(work);
