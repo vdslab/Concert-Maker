@@ -1,5 +1,5 @@
-import React, { useCallback } from "react";
-import { Paper, Divider } from "@mui/material";
+import React, { useCallback, useState } from "react";
+import { Paper, Divider, Box } from "@mui/material";
 import { styled } from "@mui/system";
 import BasicInfomation from "./BasicInfomation";
 import DetailInfomation from "./DetailInfomation";
@@ -17,16 +17,26 @@ const StyledPaper = styled(Paper)(({ theme }) => ({
 
 const NodeInfo = (props) => {
   const { Data, node, setClickedNodeId } = props;
+  const [isScrolled, setIsScrolled] = useState(false);
+
   const handleCloseInfo = useCallback(() => {
     setClickedNodeId(null);
   }, [setClickedNodeId]);
+
+  const handleScroll = (e) => {
+    setIsScrolled(e.target.scrollTop > 10);
+  };
 
   if (!node) return null;
 
   return (
     <div>
-      <StyledPaper key={node.id}>
-        <BasicInfomation node={node} onClose={handleCloseInfo} />
+      <StyledPaper key={node.id} onScroll={handleScroll}>
+        <BasicInfomation
+          node={node}
+          onClose={handleCloseInfo}
+          showBorder={isScrolled}
+        />
         <Divider />
         <DetailInfomation node={node} />
         <Divider />
