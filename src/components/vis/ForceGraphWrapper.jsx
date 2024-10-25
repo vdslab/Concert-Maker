@@ -8,8 +8,37 @@ const ForceGraphWrapper = (props) => {
   const fgRef = useRef();
   const maxZoom = 3;
 
+  const calculateInitialPositions = (data) => {
+    const simulation = d3
+      .forceSimulation(data.nodes)
+      .force(
+        "link",
+        d3
+          .forceLink(data.links)
+          .id((d) => d.id)
+          .distance((link) => link.distance)
+      )
+      .force("x", d3.forceX(0).strength(0.05))
+      .force("y", d3.forceY(0).strength(0.05))
+      .force("charge", d3.forceManyBody().strength(-100));
+
+    for (let i = 0; i < 300; ++i) simulation.tick();
+    simulation.stop();
+
+    data.nodes.forEach((node) => {
+      node.fx = node.x;
+      node.fy = node.y;
+    });
+
+    return data;
+  };
+
+  const processedData = useMemo(() => calculateInitialPositions(data), [data]);
+
   const configureGraph = (fgRef) => {
     if (fgRef.current) {
+      fgRef.current.d3Force("drag", null);
+
       fgRef.current.d3Force("link").distance((link) => link.distance);
       fgRef.current.d3Force("x", d3.forceX(0).strength(0.05));
       fgRef.current.d3Force("y", d3.forceY(0).strength(0.05));
@@ -54,22 +83,25 @@ const ForceGraphWrapper = (props) => {
   const connectedNodeIds = useMemo(() => {
     if (!clicknode) return new Set();
     return new Set(
-      data.links
+      processedData.links
         .filter(
           (link) =>
             link.source.id === clicknode.id || link.target.id === clicknode.id
         )
         .flatMap((link) => [link.source.id, link.target.id])
     );
-  }, [clicknode, data.links]);
+  }, [clicknode, processedData.links]);
 
   return (
     <ForceGraph2D
       ref={fgRef}
-      graphData={data}
+      graphData={processedData}
       width={window.innerWidth * 0.6}
       height={height}
       maxZoom={maxZoom}
+      cooldownTicks={0}
+      enableNodeDrag={false}
+      enablePanInteraction={true}
       nodeCanvasObject={(node, ctx, globalScale) => {
         const isConnected =
           clicknode &&
