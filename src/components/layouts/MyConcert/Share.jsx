@@ -11,19 +11,6 @@ import Stack from "@mui/material/Stack";
 import Divider from "@mui/material/Divider";
 import Button from "@mui/material/Button";
 
-import styled from "@mui/material/styles/styled";
-
-const Item = styled(Paper)(({ theme }) => ({
-  backgroundColor: "#fff",
-  ...theme.typography.body2,
-  padding: theme.spacing(1),
-  textAlign: "center",
-  color: theme.palette.text.secondary,
-  ...theme.applyStyles("dark", {
-    backgroundColor: "#1A2027",
-  }),
-}));
-
 export default function Share() {
   const [open, setOpen] = React.useState(true);
   const handleClose = () => setOpen(false);
@@ -203,15 +190,14 @@ export default function Share() {
               sx={{
                 width: "100%",
                 height: "100%",
-                border: "1px solid #000",
               }}
             >
-              <Grid size="glow">
+              <Grid size="grow">
                 <Box
                   sx={{
                     width: "100%",
                     height: "100%",
-                    border: "1px solid #000",
+                    border: "1px solid #f00",
                   }}
                 >
                   <Typography variant="body2" component="div">
@@ -222,13 +208,10 @@ export default function Share() {
               <Grid
                 container
                 size="auto"
-                justifyContent="flex-end"
-                alignItems="center"
                 flexDirection="row"
+                alignItems="center"
+                justifyContent="flex-end"
                 spacing={2}
-                sx={{
-                  border: "1px solid #000",
-                }}
               >
                 <Grid>
                   <Button variant="contained">コンサートを共有</Button>
