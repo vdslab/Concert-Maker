@@ -52,10 +52,6 @@ const ForceGraphWrapper = (props) => {
             event.preventDefault();
           }
         });
-
-      d3.select(fgRef.current.canvas)
-        .on("mousedown.drag", null)
-        .on("touchstart.drag", null);
     }
   };
 
@@ -105,7 +101,7 @@ const ForceGraphWrapper = (props) => {
       maxZoom={maxZoom}
       cooldownTicks={0}
       enableNodeDrag={false}
-      enablePanInteraction={false}
+      enablePanInteraction={true}
       nodeCanvasObject={(node, ctx, globalScale) => {
         const isConnected =
           clicknode &&
