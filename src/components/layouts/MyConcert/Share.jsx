@@ -11,9 +11,20 @@ import Stack from "@mui/material/Stack";
 import Divider from "@mui/material/Divider";
 import Button from "@mui/material/Button";
 
+import { v4 as randomUUID } from "uuid";
+
+import { useSnackbar } from "notistack";
+
+import { concertsState, workConcertState } from "@/components/RecoilStates";
+import { useSetRecoilState, useRecoilState } from "recoil";
+
 export default function Share() {
   const [open, setOpen] = React.useState(true);
   const handleClose = () => setOpen(false);
+
+  const [concertValues, setConcerts] = useRecoilState(concertsState);
+  const setWorkConcert = useSetRecoilState(workConcertState);
+  const { enqueueSnackbar } = useSnackbar();
 
   //   const myConcert = props.myConcert;
   const myConcert = {
@@ -36,6 +47,38 @@ export default function Share() {
       selectedMovements: workConcert.movements,
     };
   });
+
+  const duplicateConcert = () => {
+    const newId = randomUUID();
+
+    setConcerts((oldConcerts) => {
+      const newConcerts = [...oldConcerts];
+      newConcerts.push({
+        id: newId,
+        name: generateCopyName(
+          oldConcerts.map((concert) => concert.name),
+          myConcert.title,
+        ),
+      });
+      return newConcerts;
+    });
+
+    const addWorks = works.map((work) => {
+      return {
+        concert: newId,
+        work: work.id,
+        movements: [...work.selectedMovements],
+      };
+    });
+
+    setWorkConcert((oldWorks) => {
+      return [...oldWorks, ...addWorks];
+    });
+
+    enqueueSnackbar("My演奏会に保存しました！", { variant: "success" });
+
+    handleClose();
+  };
 
   return (
     <Modal
@@ -214,10 +257,12 @@ export default function Share() {
                 spacing={2}
               >
                 <Grid>
-                  <Button variant="contained">コンサートを共有</Button>
+                  <Button variant="outlined">閉じる</Button>
                 </Grid>
                 <Grid>
-                  <Button variant="contained">コンサートを保存</Button>
+                  <Button variant="contained" onClick={duplicateConcert}>
+                    My演奏会に保存
+                  </Button>
                 </Grid>
               </Grid>
             </Grid>
@@ -226,4 +271,15 @@ export default function Share() {
       </Box>
     </Modal>
   );
+}
+
+function generateCopyName(existingNames, prefix) {
+  if (!existingNames.includes(`${prefix}のコピー`)) {
+    return `${prefix}のコピー`;
+  }
+  let number = 1;
+  while (existingNames.includes(`${prefix}のコピー ${number}`)) {
+    number++;
+  }
+  return `${prefix}のコピー ${number}`;
 }
