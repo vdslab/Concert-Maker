@@ -21,10 +21,10 @@ const localStorageEffect =
 export const concertsState = atom({
   key: "concertsState", // unique ID (with respect to other atoms/selectors)
   default: [
-    {
-      id: firstUUID,
-      name: "My演奏会",
-    },
+    // {
+    //   id: firstUUID,
+    //   name: "My演奏会",
+    // },
   ],
   effects: [localStorageEffect("concerts")],
 });
