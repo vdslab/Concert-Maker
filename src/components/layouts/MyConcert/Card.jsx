@@ -6,6 +6,7 @@ import Chip from "@mui/material/Chip";
 import ConcertMenus from "./ConcertMenus";
 import DeleteIcon from "@mui/icons-material/Delete";
 import Divider from "@mui/material/Divider";
+import DragIndicatorIcon from '@mui/icons-material/DragIndicator';
 import EditIcon from "@mui/icons-material/Edit";
 import Grid from "@mui/material/Grid2";
 import IconButton from "@mui/material/IconButton";
@@ -16,7 +17,11 @@ import Typography from "@mui/material/Typography";
 
 import AddMyConcert from "@/components/layouts/AddMyConcert";
 
-import { useState } from "react";
+import { useState, Fragment } from "react";
+import { closestCenter, DndContext, DragOverlay } from "@dnd-kit/core";
+import { arrayMove, SortableContext, useSortable, verticalListSortingStrategy } from "@dnd-kit/sortable";
+import { restrictToVerticalAxis, restrictToParentElement } from "@dnd-kit/modifiers";
+import { CSS } from "@dnd-kit/utilities";
 
 import { sumDurationFormat, durationFormat } from "@/utils/calcTime";
 
@@ -79,14 +84,14 @@ export default function MyConcertCard(props) {
   const sum_duration = sumDurationFormat(
     works.map((work) =>
       !work.selectedMovements ||
-      work.workMovementDuration.length <= 1 ||
-      work.workMovementDuration[0] === "'"
+        work.workMovementDuration.length <= 1 ||
+        work.workMovementDuration[0] === "'"
         ? work.duration
         : work.selectedMovements
-            .map((duration) =>
-              parseInt(work.workMovementDuration[duration].replace("'", "")),
-            )
-            .reduce((x, y) => x + y),
+          .map((duration) =>
+            parseInt(work.workMovementDuration[duration].replace("'", "")),
+          )
+          .reduce((x, y) => x + y),
     ),
   );
 
@@ -221,13 +226,11 @@ WorkList.propTypes = {
   concertID: PropTypes.string.isRequired,
 };
 
-function WorkList(props) {
-  const { works, concertID, setClicknode, Data } = props;
-
-  const [openModal, setOpenModal] = React.useState(false);
-  const [editWork, setEditWork] = React.useState(null);
-
+function WorkList({ works, concertID, setClicknode, Data }) {
   const setWorkConcertState = useSetRecoilState(workConcertState);
+  const [activeWorkId, setActiveWorkId] = useState(null);
+
+  const activeWork = works.find((work) => work.id === activeWorkId);
 
   if (works.length === 0) {
     return (
@@ -236,6 +239,69 @@ function WorkList(props) {
       </Typography>
     );
   }
+
+  const handleDragStart = (event) => {
+    const { active } = event;
+
+    setActiveWorkId(active.id);
+  };
+
+  const handleDragEnd = (event) => {
+    const { active, over } = event;
+
+    if (active.id !== over.id) {
+      setWorkConcertState((prevWorks) => {
+        const oldIndex = works.findIndex((work) => work.id === active.id);
+        const newIndex = works.findIndex((work) => work.id === over.id);
+
+        return arrayMove(prevWorks, oldIndex, newIndex);
+      });
+    }
+
+    setActiveWorkId(null);
+  }
+
+  return (
+    <Box>
+      <DndContext
+        collisionDetection={closestCenter}
+        modifiers={[restrictToVerticalAxis]}
+        onDragStart={handleDragStart}
+        onDragEnd={handleDragEnd}
+      >
+        <SortableContext items={works} strategy={verticalListSortingStrategy}>
+          {works.map((work, index) =>
+            <Fragment key={work.id}>
+              {index !== 0 && <Divider />}
+              <SortableWorkListItem
+                work={work}
+                concertID={concertID}
+                Data={Data}
+                setClicknode={setClicknode}
+                setWorkConcertState={setWorkConcertState}
+              />
+            </Fragment>
+          )}
+        </SortableContext>
+        <DragOverlay modifiers={[restrictToParentElement]}>
+          {activeWorkId && (
+            <WorkListItem
+              work={activeWork}
+              concertID={concertID}
+              Data={Data}
+              setClicknode={setClicknode}
+              setWorkConcertState={setWorkConcertState}
+            />
+          )}
+        </DragOverlay>
+      </DndContext>
+    </Box>
+  );
+}
+
+function WorkListItem({ work, concertID, Data, setClicknode, setWorkConcertState, sortableItemProps }) { // sortableItemProps は、このコンポーネントが SortableWorkListItem として使用される場合にのみ用いる
+  const [openModal, setOpenModal] = useState(false);
+  const [editWork, setEditWork] = useState(null);
 
   const handleItemClick = (work) => {
     // const node = getComposerFromId(work.id);
@@ -257,117 +323,153 @@ function WorkList(props) {
     );
   };
 
+  const duration_time = durationFormat(
+    !work.selectedMovements
+      || work.workMovementDuration.length <= 1
+      || work.workMovementDuration[0] === "'"
+      ? work.duration
+      : work.selectedMovements
+        .map((duration) =>
+          parseInt(
+            work.workMovementDuration[duration].replace("'", ""),
+          ),
+        )
+        .reduce((x, y) => x + y),
+  );
+
   return (
-    <Box>
-      <AddMyConcert
-        work={editWork}
-        open={openModal}
-        setOpen={setOpenModal}
-        concertID={concertID}
-      />
-      {works.map((work, index) => {
-        const duration_time = durationFormat(
-          !work.selectedMovements ||
-            work.workMovementDuration.length <= 1 ||
-            work.workMovementDuration[0] === "'"
-            ? work.duration
-            : work.selectedMovements
-                .map((duration) =>
-                  parseInt(
-                    work.workMovementDuration[duration].replace("'", ""),
-                  ),
-                )
-                .reduce((x, y) => x + y),
-        );
-        return (
-          <div key={`${concertID}-${index}`}>
-            {index !== 0 && <Divider />}
-            <Paper
-              elevation={0}
-              sx={{
-                "&:hover": {
-                  backgroundColor: "action.hover",
-                },
-                cursor: "pointer",
-              }}
-              onClick={() => handleItemClick(work)}
-            >
-              <Grid
-                container
-                direction="row"
-                justifyContent="space-between"
-                alignItems="center"
-                sx={{ width: "100%" }}
+    <Paper
+      ref={sortableItemProps?.setNodeRef}
+      elevation={0}
+      sx={{
+        "&:hover": {
+          backgroundColor: "#f5f5f5",
+        },
+        cursor: "pointer",
+      }}
+      style={sortableItemProps?.style}
+      onClick={() => handleItemClick(work)}
+    >
+      <Grid
+        container
+        direction="row"
+        justifyContent="space-between"
+        alignItems="center"
+        sx={{ width: "100%" }}
+      >
+        <Grid size="grow">
+          <Box sx={{ p: 1 }}>
+            <Typography variant="body1" component="div">
+              {work.composer}
+            </Typography>
+            <Typography variant="h6" component="div">
+              {work.title}
+            </Typography>
+            <Typography variant="body2" component="div">
+              {duration_time !== "" ? `演奏時間: ${duration_time}` : ""}
+            </Typography>
+            <Stack direction="row" spacing={1}>
+              <Typography
+                variant="body2"
+                component="div"
+                color="textSecondary"
               >
-                <Grid size="grow">
-                  <Box sx={{ p: 1 }}>
-                    <Typography variant="body1" component="div">
-                      {work.composer}
-                    </Typography>
-                    <Typography variant="h6" component="div">
-                      {work.title}
-                    </Typography>
-                    <Typography variant="body2" component="div">
-                      {duration_time !== "" ? `演奏時間: ${duration_time}` : ""}
-                    </Typography>
-                    <Stack direction="row" spacing={1}>
-                      <Typography
-                        variant="body2"
-                        component="div"
-                        color="textSecondary"
-                      >
-                        {work.workFormulaStr.split("\n").map((line, index) => (
-                          <div key={index}>{line}</div>
-                        ))}
-                      </Typography>
-                    </Stack>
-                  </Box>
-                </Grid>
-                <Grid size="auto">
-                  <IconButton
-                    aria-label="delete"
-                    onClick={(e) => handleDeleteClick(e, work)}
-                  >
-                    <DeleteIcon />
-                  </IconButton>
-                </Grid>
-              </Grid>
-              <Grid size="grow">
-                {work.selectedMovements.length > 0 && (
-                  <Stack
-                    direction="row"
-                    spacing={1}
-                    sx={{
-                      width: "100%",
-                      justifyContent: "space-between",
-                      alignItems: "center",
-                    }}
-                  >
-                    <Box sx={{ p: 1, overflowX: "auto" }}>
-                      <Stack direction="row" spacing={1}>
-                        {work.selectedMovements.map((movement, index) => (
-                          <Chip
-                            key={index}
-                            label={work.workMovements[movement]}
-                          />
-                        ))}
-                      </Stack>
-                    </Box>
-                    <Box>
-                      <IconButton
-                        aria-label="edit"
-                        onClick={() => handleItemEditClick(work)}
-                      >
-                        <EditIcon />
-                      </IconButton>
-                    </Box>
-                  </Stack>
-                )}
-              </Grid>
-            </Paper>
-          </div>
-        );
-      })}
-    </Box>
+                {work.workFormulaStr.split("\n").map((line, index) => (
+                  <div key={index}>{line}</div>
+                ))}
+              </Typography>
+            </Stack>
+          </Box>
+        </Grid>
+        <Grid size="auto">
+          <IconButton
+            aria-label="delete"
+            onClick={(e) => handleDeleteClick(e, work)}
+          >
+            <DeleteIcon />
+          </IconButton>
+          <IconButton
+            ref={sortableItemProps?.setActivatorNodeRef}
+            style={{ cursor: sortableItemProps ? "grab" : "grabbing" }}
+            disableRipple={true} // ドラッグアイコンのリップルエフェクトは無効にする
+            tabIndex={-1} // ドラッグハンドルへのキーボードフォーカスは無効にする
+            {...sortableItemProps?.listeners}
+          >
+            <DragIndicatorIcon />
+          </IconButton>
+        </Grid>
+      </Grid>
+      <Grid size="grow">
+        {work.selectedMovements.length > 0 && (
+          <Stack
+            direction="row"
+            spacing={1}
+            sx={{
+              width: "100%",
+              justifyContent: "space-between",
+              alignItems: "center",
+            }}
+          >
+            <Box sx={{ p: 1, overflowX: "auto" }}>
+              <Stack direction="row" spacing={1}>
+                {work.selectedMovements.map((movement, index) => (
+                  <Chip
+                    key={index}
+                    label={work.workMovements[movement]}
+                  />
+                ))}
+              </Stack>
+            </Box>
+            <Box>
+              <IconButton
+                aria-label="edit"
+                onClick={() => handleItemEditClick(work)}
+              >
+                <EditIcon />
+              </IconButton>
+              <AddMyConcert
+                work={editWork}
+                open={openModal}
+                setOpen={setOpenModal}
+                concertID={concertID}
+              />
+            </Box>
+          </Stack>
+        )}
+      </Grid>
+    </Paper>
+  );
+}
+
+function SortableWorkListItem(props) {
+  const { work } = props;
+
+  const {
+    // attributes は、デフォルト値を考慮した上で今回は使用しない
+    isDragging,
+    listeners,
+    setNodeRef,
+    setActivatorNodeRef,
+    transform,
+    transition
+  } = useSortable({ id: work.id });
+
+  const style = {
+    opacity: isDragging ? 0 : undefined,
+    transform: CSS.Translate.toString(transform),
+    transition
+  };
+
+  return (
+    <WorkListItem
+      {...props}
+      sortableItemProps={{
+        isDragging,
+        listeners,
+        setNodeRef,
+        setActivatorNodeRef,
+        style
+      }}
+    />
   );
 }
