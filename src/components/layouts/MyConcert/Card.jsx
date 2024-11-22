@@ -23,7 +23,7 @@ import {
 import { useSetRecoilState } from "recoil";
 
 export default function MyConcertCard(props) {
-  const { concert, setClicknode, Data } = props;
+  const { concert, setClickedNodeId, Data } = props;
   const { id, name, works } = concert;
   const [editMode, setEditMode] = useState(false);
   const selectConcert = useSetRecoilState(selectedConcertState);
@@ -37,11 +37,11 @@ export default function MyConcertCard(props) {
         work.workMovementDuration[0] === "'"
         ? work.duration
         : work.selectedMovements
-          .map((duration) =>
-            parseInt(work.workMovementDuration[duration].replace("'", "")),
-          )
-          .reduce((x, y) => x + y),
-    ),
+            .map((duration) =>
+              parseInt(work.workMovementDuration[duration].replace("'", ""))
+            )
+            .reduce((x, y) => x + y)
+    )
   );
 
   return (
@@ -82,8 +82,8 @@ export default function MyConcertCard(props) {
                         concerts.map((concert) =>
                           concert.id === id
                             ? { ...concert, name: e.target.value }
-                            : concert,
-                        ),
+                            : concert
+                        )
                       );
                       setEditMode(false);
                     }
@@ -133,7 +133,7 @@ export default function MyConcertCard(props) {
           works={works}
           concertID={id}
           Data={Data}
-          setClicknode={setClicknode}
+          setClickedNodeId={setClickedNodeId}
         />
       </Box>
     </Card>
