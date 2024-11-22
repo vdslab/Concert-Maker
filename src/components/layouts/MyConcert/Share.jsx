@@ -21,14 +21,31 @@ import { useSearchParams } from "react-router-dom";
 
 export default function Share() {
   const [open, setOpen] = React.useState(true);
-  const handleClose = () => setOpen(false);
+
   const [searchParams, setSearchParams] = useSearchParams();
 
   const [concertValues, setConcerts] = useRecoilState(concertsState);
   const setWorkConcert = useSetRecoilState(workConcertState);
   const { enqueueSnackbar } = useSnackbar();
 
-  const sharedJSON = searchParams.get("program");
+  if (!searchParams) {
+    return null;
+  }
+
+  const sharedJSON = searchParams.get("share");
+
+  if (!sharedJSON) {
+    return null;
+  }
+
+  const handleClose = () => {
+    setSearchParams((params) => {
+      params.delete("share");
+      return params;
+    });
+    setOpen(false);
+  };
+
   const myConcert = JSON.parse(sharedJSON);
 
   const works = myConcert.works.map((workConcert) => {
@@ -248,7 +265,9 @@ export default function Share() {
                 spacing={2}
               >
                 <Grid>
-                  <Button variant="outlined">閉じる</Button>
+                  <Button variant="outlined" onClick={handleClose}>
+                    閉じる
+                  </Button>
                 </Grid>
                 <Grid>
                   <Button variant="contained" onClick={duplicateConcert}>

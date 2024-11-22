@@ -156,11 +156,11 @@ export default function ConcertMenus(props) {
     const share = JSON.stringify(shareWorks);
 
     setSearchParams((prev) => {
-      prev.set("program", share);
+      prev.set("share", share);
       return prev;
     });
 
-    const shareURL = `${window.location.origin}/share?${searchParams.toString()}`;
+    const shareURL = `${window.location.origin}${window.location.pathname}?${searchParams.toString()}`;
 
     navigator.clipboard.writeText(shareURL).then(
       function () {
