@@ -15,14 +15,12 @@ import { useState } from "react";
 
 import { durationFormat } from "@/utils/calcTime";
 
-export default function WorkListItem({ work, concertID, Data, setClicknode, setWorkConcertState, sortableItemProps }) { // sortableItemProps は、このコンポーネントが WorkListSortableItem として使用される場合にのみ用いる
+export default function WorkListItem({ work, concertID, Data, setClickedNodeId, setWorkConcertState, sortableItemProps }) { // sortableItemProps は、このコンポーネントが WorkListSortableItem として使用される場合にのみ用いる
   const [openModal, setOpenModal] = useState(false);
   const [editWork, setEditWork] = useState(null);
 
   const handleItemClick = (work) => {
-    // const node = getComposerFromId(work.id);
-    const node = Data.nodes.find((node) => node.id === work.id);
-    setClicknode(node);
+    setClickedNodeId(work.id);
   };
   const handleItemEditClick = (work) => {
     setEditWork(work);

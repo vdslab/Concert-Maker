@@ -13,7 +13,7 @@ import { restrictToVerticalAxis, restrictToParentElement } from "@dnd-kit/modifi
 import { workConcertState } from "@/components/RecoilStates";
 import { useSetRecoilState } from "recoil";
 
-export default function WorkList({ works, concertID, setClicknode, Data }) {
+export default function WorkList({ works, concertID, setClickedNodeId, Data }) {
   const setWorkConcertState = useSetRecoilState(workConcertState);
   const [activeWorkId, setActiveWorkId] = useState(null);
 
@@ -64,7 +64,7 @@ export default function WorkList({ works, concertID, setClicknode, Data }) {
                 work={work}
                 concertID={concertID}
                 Data={Data}
-                setClicknode={setClicknode}
+                setClickedNodeId={setClickedNodeId}
                 setWorkConcertState={setWorkConcertState}
               />
             </Fragment>
@@ -76,7 +76,7 @@ export default function WorkList({ works, concertID, setClicknode, Data }) {
               work={activeWork}
               concertID={concertID}
               Data={Data}
-              setClicknode={setClicknode}
+              setClicknode={setClickedNodeId}
               setWorkConcertState={setWorkConcertState}
             />
           )}
