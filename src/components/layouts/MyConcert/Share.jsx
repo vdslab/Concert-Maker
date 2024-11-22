@@ -28,23 +28,8 @@ export default function Share() {
   const setWorkConcert = useSetRecoilState(workConcertState);
   const { enqueueSnackbar } = useSnackbar();
 
-
-  // const sharedJSON = searchParams.get("keyword");
-
-
-  //   const myConcert = props.myConcert;
-  const myConcert = {
-    title: "My Concert", // タイトルはシェアした側にない
-    concert: "863c30b8-50ff-491c-a934-1e6c9cd7754e",
-    works: [
-      { work: 4259, movements: [0, 1, 2] },
-      { work: 12458, movements: [] },
-      { work: 5512, movements: [] },
-      { work: 1768, movements: [] },
-      { work: 5546, movements: [0, 1, 2, 3] },
-      { work: 4512, movements: [0, 1, 2] },
-    ],
-  };
+  const sharedJSON = searchParams.get("program");
+  const myConcert = JSON.parse(sharedJSON);
 
   const works = myConcert.works.map((workConcert) => {
     const work = workData.find((work) => work.id === workConcert.work);

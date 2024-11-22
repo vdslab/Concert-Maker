@@ -156,11 +156,13 @@ export default function ConcertMenus(props) {
     const share = JSON.stringify(shareWorks);
 
     setSearchParams((prev) => {
-      prev.set("share", share);
+      prev.set("program", share);
       return prev;
     });
 
-    navigator.clipboard.writeText(share).then(
+    const shareURL = `${window.location.origin}/share?${searchParams.toString()}`;
+
+    navigator.clipboard.writeText(shareURL).then(
       function () {
         enqueueSnackbar("クリップボードにコピーしました", {
           variant: "success",
