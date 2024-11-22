@@ -4,7 +4,7 @@ import { useSortable } from "@dnd-kit/sortable";
 import { CSS } from "@dnd-kit/utilities";
 
 export default function WorkListSortableItem(props) {
-  const { work } = props;
+  const { work, concertID } = props;
 
   const {
     // attributes は、デフォルト値を考慮した上で今回は使用しない
@@ -14,7 +14,7 @@ export default function WorkListSortableItem(props) {
     setActivatorNodeRef,
     transform,
     transition
-  } = useSortable({ id: work.id });
+  } = useSortable({ id: `${concertID}-${work.id}` });
 
   const style = {
     opacity: isDragging ? 0 : undefined,

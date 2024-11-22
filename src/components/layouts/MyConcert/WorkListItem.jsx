@@ -15,7 +15,7 @@ import { useState } from "react";
 
 import { durationFormat } from "@/utils/calcTime";
 
-export default function WorkListItem({ work, concertID, Data, setClickedNodeId, setWorkConcertState, sortableItemProps }) { // sortableItemProps は、このコンポーネントが WorkListSortableItem として使用される場合にのみ用いる
+export default function WorkListItem({ work, concertID, setClickedNodeId, setWorkConcertState, sortableItemProps }) { // sortableItemProps は、このコンポーネントが WorkListSortableItem として使用される場合にのみ用いる
   const [openModal, setOpenModal] = useState(false);
   const [editWork, setEditWork] = useState(null);
 

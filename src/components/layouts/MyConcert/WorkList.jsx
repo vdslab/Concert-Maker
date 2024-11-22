@@ -13,11 +13,11 @@ import { restrictToVerticalAxis, restrictToParentElement } from "@dnd-kit/modifi
 import { workConcertState } from "@/components/RecoilStates";
 import { useSetRecoilState } from "recoil";
 
-export default function WorkList({ works, concertID, setClickedNodeId, Data }) {
+export default function WorkList({ works, concertID, setClickedNodeId }) {
   const setWorkConcertState = useSetRecoilState(workConcertState);
-  const [activeWorkId, setActiveWorkId] = useState(null);
+  const [activeMyConcertWorkId, setActiveMyConcertWorkId] = useState(null);
 
-  const activeWork = works.find((work) => work.id === activeWorkId);
+  const activeMyConcertWork = works.find((work) => `${concertID}-${work.id}` === activeMyConcertWorkId);
 
   if (works.length === 0) {
     return (
@@ -30,7 +30,7 @@ export default function WorkList({ works, concertID, setClickedNodeId, Data }) {
   const handleDragStart = (event) => {
     const { active } = event;
 
-    setActiveWorkId(active.id);
+    setActiveMyConcertWorkId(active.id);
   };
 
   const handleDragEnd = (event) => {
@@ -38,14 +38,14 @@ export default function WorkList({ works, concertID, setClickedNodeId, Data }) {
 
     if (active.id !== over.id) {
       setWorkConcertState((prevWorks) => {
-        const oldIndex = works.findIndex((work) => work.id === active.id);
-        const newIndex = works.findIndex((work) => work.id === over.id);
+        const oldIndex = prevWorks.findIndex((work) => `${work.concert}-${work.work}` === active.id);
+        const newIndex = prevWorks.findIndex((work) => `${work.concert}-${work.work}` === over.id);
 
         return arrayMove(prevWorks, oldIndex, newIndex);
       });
     }
 
-    setActiveWorkId(null);
+    setActiveMyConcertWorkId(null);
   }
 
   return (
@@ -63,7 +63,6 @@ export default function WorkList({ works, concertID, setClickedNodeId, Data }) {
               <WorkListSortableItem
                 work={work}
                 concertID={concertID}
-                Data={Data}
                 setClickedNodeId={setClickedNodeId}
                 setWorkConcertState={setWorkConcertState}
               />
@@ -71,11 +70,10 @@ export default function WorkList({ works, concertID, setClickedNodeId, Data }) {
           )}
         </SortableContext>
         <DragOverlay modifiers={[restrictToParentElement]}>
-          {activeWorkId && (
+          {activeMyConcertWorkId && (
             <WorkListItem
-              work={activeWork}
+              work={activeMyConcertWork}
               concertID={concertID}
-              Data={Data}
               setClicknode={setClickedNodeId}
               setWorkConcertState={setWorkConcertState}
             />

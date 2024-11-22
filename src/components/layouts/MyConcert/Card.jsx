@@ -132,7 +132,6 @@ export default function MyConcertCard(props) {
         <WorkList
           works={works}
           concertID={id}
-          Data={Data}
           setClickedNodeId={setClickedNodeId}
         />
       </Box>
