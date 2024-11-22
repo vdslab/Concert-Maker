@@ -20,7 +20,7 @@ import { useSetRecoilState, useRecoilState } from "recoil";
 import { useSearchParams } from "react-router-dom";
 
 export default function Share() {
-  const [open, setOpen] = React.useState(true);
+  // const [open, setOpen] = React.useState(true);
 
   const [searchParams, setSearchParams] = useSearchParams();
 
@@ -43,7 +43,6 @@ export default function Share() {
       params.delete("share");
       return params;
     });
-    setOpen(false);
   };
 
   const myConcert = JSON.parse(sharedJSON);
@@ -90,7 +89,7 @@ export default function Share() {
 
   return (
     <Modal
-      open={open}
+      open={true}
       onClose={handleClose}
       aria-labelledby="modal-modal-title"
       aria-describedby="modal-modal-description"
