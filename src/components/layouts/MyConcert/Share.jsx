@@ -17,14 +17,20 @@ import { useSnackbar } from "notistack";
 
 import { concertsState, workConcertState } from "@/components/RecoilStates";
 import { useSetRecoilState, useRecoilState } from "recoil";
+import { useSearchParams } from "react-router-dom";
 
 export default function Share() {
   const [open, setOpen] = React.useState(true);
   const handleClose = () => setOpen(false);
+  const [searchParams, setSearchParams] = useSearchParams();
 
   const [concertValues, setConcerts] = useRecoilState(concertsState);
   const setWorkConcert = useSetRecoilState(workConcertState);
   const { enqueueSnackbar } = useSnackbar();
+
+
+  // const sharedJSON = searchParams.get("keyword");
+
 
   //   const myConcert = props.myConcert;
   const myConcert = {
