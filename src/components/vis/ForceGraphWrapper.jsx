@@ -1,4 +1,10 @@
-import React, { useRef, useEffect, useCallback, useMemo } from "react";
+import React, {
+  useRef,
+  useEffect,
+  useCallback,
+  useMemo,
+  useState,
+} from "react";
 import * as d3 from "d3";
 import ForceGraph2D from "react-force-graph-2d";
 import DrawCircle from "./DrawCircle";
@@ -7,6 +13,13 @@ const ForceGraphWrapper = (props) => {
   const { data, height, clicknode, setClickedNodeId } = props;
   const fgRef = useRef();
   const maxZoom = 3;
+
+  const [tooltip, setTooltip] = useState({
+    visible: false,
+    x: 0,
+    y: 0,
+    content: "",
+  });
 
   const calculateInitialPositions = (data) => {
     const simulation = d3
@@ -59,7 +72,7 @@ const ForceGraphWrapper = (props) => {
     if (clicknode) {
       setClickedNodeId(clicknode.id);
     }
-  }, [clicknode]);
+  }, [clicknode, setClickedNodeId]);
 
   useEffect(() => {
     configureGraph(fgRef);
@@ -92,44 +105,81 @@ const ForceGraphWrapper = (props) => {
     );
   }, [clicknode, processedData.links]);
 
+  const handleNodeHover = useCallback((node) => {
+    if (node) {
+      const { x, y } = fgRef.current.graph2ScreenCoords(node.x, node.y);
+      setTooltip({
+        visible: true,
+        x: x + 10,
+        y: y + 10,
+        content: node.name,
+      });
+    } else {
+      setTooltip((prev) => ({ ...prev, visible: false }));
+    }
+  }, []);
+
   return (
-    <ForceGraph2D
-      ref={fgRef}
-      graphData={processedData}
-      width={window.innerWidth * 0.6}
-      height={height}
-      maxZoom={maxZoom}
-      cooldownTicks={0}
-      enableNodeDrag={false}
-      enablePanInteraction={true}
-      nodeCanvasObject={(node, ctx, globalScale) => {
-        const isConnected =
-          clicknode &&
-          (node.id === clicknode.id || connectedNodeIds.has(node.id));
+    <div style={{ position: "relative", width: "100%", height }}>
+      <ForceGraph2D
+        ref={fgRef}
+        graphData={processedData}
+        width={window.innerWidth * 0.6}
+        height={height}
+        maxZoom={maxZoom}
+        cooldownTicks={0}
+        enableNodeDrag={false}
+        enablePanInteraction={true}
+        nodeCanvasObject={(node, ctx, globalScale) => {
+          const isConnected =
+            clicknode &&
+            (node.id === clicknode.id || connectedNodeIds.has(node.id));
 
-        const size = (isConnected ? 8 : 5) / globalScale;
+          const size = (isConnected ? 8 : 5) / globalScale;
 
-        const color = node.filter === 0 ? "hsl(240 50% 85%)" : "blue";
-        const nodeColor = node.id === clicknode?.id ? "red" : color;
-        DrawCircle(
-          ctx,
-          node.x,
-          node.y,
-          size,
-          nodeColor,
-          isConnected ? "black" : nodeColor
-        );
-      }}
-      onNodeClick={handleNodeClick}
-      linkWidth={(link) => {
-        if (
-          clicknode &&
-          (link.source.id === clicknode.id || link.target.id === clicknode.id)
-        )
-          return 5;
-        return 1;
-      }}
-    />
+          const color = node.filter === 0 ? "hsl(240, 50%, 85%)" : "blue";
+          const nodeColor = node.id === clicknode?.id ? "red" : color;
+          DrawCircle(
+            ctx,
+            node.x,
+            node.y,
+            size,
+            nodeColor,
+            isConnected ? "black" : nodeColor
+          );
+        }}
+        onNodeClick={handleNodeClick}
+        onNodeHover={handleNodeHover}
+        linkWidth={(link) => {
+          if (
+            clicknode &&
+            (link.source.id === clicknode.id || link.target.id === clicknode.id)
+          )
+            return 5;
+          return 1;
+        }}
+        nodeLabel={() => null}
+        linkLabel={() => null}
+      />
+      {tooltip.visible && (
+        <div
+          style={{
+            position: "absolute",
+            top: tooltip.y,
+            left: tooltip.x,
+            background: "rgba(0, 0, 0, 0.7)",
+            color: "white",
+            padding: "5px 10px",
+            borderRadius: "4px",
+            pointerEvents: "none",
+            whiteSpace: "nowrap",
+            zIndex: 10,
+          }}
+        >
+          {tooltip.content}
+        </div>
+      )}
+    </div>
   );
 };
 
