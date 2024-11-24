@@ -110,7 +110,7 @@ const ForceGraphWrapper = (props) => {
       const { x, y } = fgRef.current.graph2ScreenCoords(node.x, node.y);
       setTooltip({
         visible: true,
-        x: x + 10,
+        x: window.innerWidth / 2 - x < 0 ? x - 150 : x + 10,
         y: window.innerHeight - y < 200 ? y - 30 : y + 10,
         content: node.name,
       });
