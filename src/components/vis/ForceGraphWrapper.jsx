@@ -111,7 +111,7 @@ const ForceGraphWrapper = (props) => {
       setTooltip({
         visible: true,
         x: x + 10,
-        y: y + 10,
+        y: window.innerHeight - y < 200 ? y - 30 : y + 10,
         content: node.name,
       });
     } else {
