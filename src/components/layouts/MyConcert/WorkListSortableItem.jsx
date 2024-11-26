@@ -14,7 +14,7 @@ export default function WorkListSortableItem(props) {
     setActivatorNodeRef,
     transform,
     transition
-  } = useSortable({ id: `${concertID}-${work.id}` });
+  } = useSortable({ id: work.id });
 
   const style = {
     opacity: isDragging ? 0 : undefined,

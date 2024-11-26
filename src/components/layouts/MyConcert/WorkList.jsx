@@ -17,7 +17,7 @@ export default function WorkList({ works, concertID, setClickedNodeId }) {
   const setWorkConcertState = useSetRecoilState(workConcertState);
   const [activeMyConcertWorkId, setActiveMyConcertWorkId] = useState(null);
 
-  const activeMyConcertWork = works.find((work) => `${concertID}-${work.id}` === activeMyConcertWorkId);
+  const activeMyConcertWork = works.find((work) => work.id === activeMyConcertWorkId);
 
   if (works.length === 0) {
     return (
@@ -37,9 +37,9 @@ export default function WorkList({ works, concertID, setClickedNodeId }) {
     const { active, over } = event;
 
     if (active.id !== over.id) {
-      setWorkConcertState((prevWorks) => {
-        const oldIndex = prevWorks.findIndex((work) => `${work.concert}-${work.work}` === active.id);
-        const newIndex = prevWorks.findIndex((work) => `${work.concert}-${work.work}` === over.id);
+      setWorkConcertState((prevWorks) => {console.log(prevWorks);
+        const oldIndex = prevWorks.findIndex((work) => work.concert === concertID && work.work === active.id);
+        const newIndex = prevWorks.findIndex((work) => work.concert === concertID && work.work === over.id);
 
         return arrayMove(prevWorks, oldIndex, newIndex);
       });
