@@ -37,7 +37,7 @@ export default function WorkList({ works, concertID, setClickedNodeId }) {
     const { active, over } = event;
 
     if (active.id !== over.id) {
-      setWorkConcertState((prevWorks) => {console.log(prevWorks);
+      setWorkConcertState((prevWorks) => {
         const oldIndex = prevWorks.findIndex((work) => work.concert === concertID && work.work === active.id);
         const newIndex = prevWorks.findIndex((work) => work.concert === concertID && work.work === over.id);
 
