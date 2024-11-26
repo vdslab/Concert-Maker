@@ -172,7 +172,9 @@ const ForceGraphWrapper = (props) => {
             padding: "5px 10px",
             borderRadius: "4px",
             pointerEvents: "none",
-            whiteSpace: "nowrap",
+            whiteSpace: "normal",
+            maxWidth: "300px",
+            wordBreak: "break-word",
             zIndex: 10,
           }}
         >
