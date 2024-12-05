@@ -89,7 +89,6 @@ const ConnectTicksLayer = ({
 
 const RectangularGraph = (props) => {
   const { works } = props;
-  console.log(works);
 
   const keys = works.map((work) => work.title);
 
