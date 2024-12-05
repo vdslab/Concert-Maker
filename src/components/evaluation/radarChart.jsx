@@ -8,32 +8,63 @@ import { ResponsiveRadar } from "@nivo/radar";
 // website examples showcase many properties,
 // you'll often use just a few of them.
 
-const data = [
-  {
-    taste: "国籍の近さ",
-    value: 3,
-  },
-  {
-    taste: "作曲年の近さ",
-    value: 1,
-  },
-  {
-    taste: "一緒に演奏されている度合い",
-    value: 3,
-  },
-  {
-    taste: "平均有名度",
-    value: 4,
-  },
-];
+import {
+  avgDistEval,
+  avgYearEval,
+  avgPlayedWithEval,
+} from "@/utils/Evaluation.js";
 
-export function Radar() {
+// const data = [
+//   {
+//     category: "国籍の近さ",
+//     value: 3,
+//   },
+//   {
+//     category: "作曲年の近さ",
+//     value: 1,
+//   },
+//   {
+//     category: "一緒に演奏されている度合い",
+//     value: 3,
+//   },
+//   {
+//     category: "平均有名度",
+//     value: 4,
+//   },
+// ];
+
+export function Radar(props) {
+  const { works } = props;
+
+  console.log(works);
+
+  const data = [
+    {
+      category: "国籍の近さ",
+      value: avgDistEval(works),
+    },
+    {
+      category: "作曲年の近さ",
+      value: avgYearEval(works),
+    },
+    {
+      category: "一緒に演奏されている度合い",
+      value: avgPlayedWithEval(works),
+    },
+    {
+      category: "平均有名度",
+      value: 0,
+    },
+  ];
+
+  console.log(data);
+
   return (
     // <div style={{ height: "90%" }}>
     <ResponsiveRadar
       data={data}
       keys={["value"]}
-      indexBy="taste"
+      indexBy="category"
       valueFormat=">-.2f"
       margin={{ top: 70, right: 80, bottom: 70, left: 80 }}
       borderColor={{ from: "color" }}

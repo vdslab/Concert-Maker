@@ -3,7 +3,8 @@ import Box from "@mui/material/Box";
 
 import Radar from "@/components/evaluation/radarChart.jsx";
 
-export default function Evaluation() {
+export default function Evaluation(props) {
+  const { works } = props;
   return (
     <Grid
       container
@@ -23,7 +24,7 @@ export default function Evaluation() {
             border: "1px solid #0f0",
           }}
         >
-          <Radar />
+          <Radar works={works} />
         </Box>
       </Grid>
       <Grid size="auto">
