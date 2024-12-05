@@ -18,6 +18,8 @@
     "@mui/icons-material": "^6.1.8",
     "@mui/material": "^6.1.8",
     "@mui/styled-engine-sc": "^6.1.8",
+    "@nivo/core": "^0.88.0",
+    "@nivo/radar": "^0.88.0",
     "d3": "^7.9.0",
     "d3-force": "^3.0.0",
     "notistack": "^3.0.1",
