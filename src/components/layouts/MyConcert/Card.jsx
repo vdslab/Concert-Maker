@@ -16,10 +16,7 @@ import { useState } from "react";
 
 import { sumDurationFormat } from "@/utils/calcTime";
 
-import {
-  selectedConcertState,
-  concertsState,
-} from "@/components/RecoilStates";
+import { selectedConcertState, concertsState } from "@/components/RecoilStates";
 import { useSetRecoilState } from "recoil";
 
 export default function MyConcertCard(props) {
@@ -33,15 +30,15 @@ export default function MyConcertCard(props) {
   const sum_duration = sumDurationFormat(
     works.map((work) =>
       !work.selectedMovements ||
-        work.workMovementDuration.length <= 1 ||
-        work.workMovementDuration[0] === "'"
+      work.workMovementDuration.length <= 1 ||
+      work.workMovementDuration[0] === "'"
         ? work.duration
         : work.selectedMovements
             .map((duration) =>
-              parseInt(work.workMovementDuration[duration].replace("'", ""))
+              parseInt(work.workMovementDuration[duration].replace("'", "")),
             )
-            .reduce((x, y) => x + y)
-    )
+            .reduce((x, y) => x + y),
+    ),
   );
 
   return (
@@ -52,65 +49,68 @@ export default function MyConcertCard(props) {
           direction="row"
           justifyContent="space-between"
           alignItems="center"
+          spacing={2}
         >
           <Grid size="auto">
-            <Stack
-              direction="row"
-              justifyContent="space-between"
-              alignItems="center"
-              spacing={2}
+            <Button
+              variant="contained"
+              color={concert.main ? "secondary" : "inherit"}
+              size="small"
+              onClick={() => {
+                selectConcert(id);
+              }}
             >
-              <Button
-                variant="contained"
-                color={concert.main ? "secondary" : "inherit"}
-                size="small"
-                onClick={() => {
-                  selectConcert(id);
+              Main
+            </Button>
+          </Grid>
+          <Grid size="grow">
+            {editMode ? (
+              <TextField
+                id="my-concert-name"
+                label="My演奏会名"
+                variant="standard"
+                defaultValue={name}
+                onKeyDown={(e) => {
+                  if (e.keyCode === 13) {
+                    setConcerts((concerts) =>
+                      concerts.map((concert) =>
+                        concert.id === id
+                          ? { ...concert, name: e.target.value }
+                          : concert,
+                      ),
+                    );
+                    setEditMode(false);
+                  }
                 }}
+                helperText="決定するにはEnterキーを押してください"
+              />
+            ) : (
+              <Stack
+                direction="row"
+                justifyContent="flex-start"
+                alignItems="center"
+                spacing={2}
               >
-                Main
-              </Button>
-              {editMode ? (
-                <TextField
-                  id="my-concert-name"
-                  label="My演奏会名"
-                  variant="standard"
-                  defaultValue={name}
-                  onKeyDown={(e) => {
-                    if (e.keyCode === 13) {
-                      setConcerts((concerts) =>
-                        concerts.map((concert) =>
-                          concert.id === id
-                            ? { ...concert, name: e.target.value }
-                            : concert
-                        )
-                      );
-                      setEditMode(false);
-                    }
-                  }}
-                  helperText="決定するにはEnterキーを押してください"
-                />
-              ) : (
-                <Stack
-                  direction="row"
-                  justifyContent="center"
-                  alignItems="center"
-                  spacing={1}
+                <Typography
+                  gutterBottom
+                  variant="h5"
+                  component="div"
+                  textOverflow="ellipsis"
+                  overflow="hidden"
+                  whiteSpace="nowrap"
                 >
-                  <Typography gutterBottom variant="h5" component="div">
-                    {name}
-                  </Typography>
-                  <IconButton
-                    aria-label="edit"
-                    onClick={() => {
-                      setEditMode(true);
-                    }}
-                  >
-                    <EditIcon />
-                  </IconButton>
-                </Stack>
-              )}
-            </Stack>
+                  {name}
+                </Typography>
+                <IconButton
+                  aria-label="edit"
+                  onClick={() => {
+                    setEditMode(true);
+                  }}
+                >
+                  <EditIcon />
+                </IconButton>
+              </Stack>
+            )}
           </Grid>
           <Grid size="auto">
             <Stack
@@ -119,10 +119,10 @@ export default function MyConcertCard(props) {
               alignItems="center"
               spacing={1}
             >
-              <ConcertMenus id={id} />
               <Typography gutterBottom variant="h6" component="div">
                 {sum_duration}
               </Typography>
+              <ConcertMenus id={id} />
             </Stack>
           </Grid>
         </Grid>
