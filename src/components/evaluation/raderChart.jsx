@@ -46,8 +46,6 @@ export function Radar() {
       dotSize={10}
       dotColor={{ theme: "background" }}
       dotBorderWidth={2}
-      enableDotLabel={true}
-      dotLabel={(e) => e.key + ": " + e.value}
       colors={{ scheme: "accent" }}
       blendMode="multiply"
       motionConfig="wobbly"
