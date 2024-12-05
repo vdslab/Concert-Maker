@@ -1,4 +1,4 @@
-import workData from "@/assets/works_v03.json";
+import workData from "@/assets/data/works.json";
 
 
 

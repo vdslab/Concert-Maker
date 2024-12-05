@@ -1,5 +1,5 @@
-import React, { useCallback } from "react";
-import { Paper, Divider } from "@mui/material";
+import React, { useCallback, useState } from "react";
+import { Paper, Divider, Box } from "@mui/material";
 import { styled } from "@mui/system";
 import BasicInfomation from "./BasicInfomation";
 import DetailInfomation from "./DetailInfomation";
@@ -12,26 +12,43 @@ const StyledPaper = styled(Paper)(({ theme }) => ({
   left: "10px",
   width: "400px",
   height: "calc(100vh - 140px)",
-  overflowY: "auto",
+  overflowY: "scroll",
 }));
 
-const NodeInfo = ({ node, Data, setClicknode }) => {
+const NodeInfo = (props) => {
+  const { Data, node, setClickedNodeId } = props;
+  const [isScrolled, setIsScrolled] = useState(false);
+
   const handleCloseInfo = useCallback(() => {
-    setClicknode(null);
-  }, [setClicknode]);
+    setClickedNodeId(null);
+  }, [setClickedNodeId]);
+
+  const handleScroll = (e) => {
+    setIsScrolled(e.target.scrollTop > 10);
+  };
 
   if (!node) return null;
 
   return (
-    <StyledPaper key={node.id}>
-      <BasicInfomation node={node} onClose={handleCloseInfo} />
-      <Divider />
-      <DetailInfomation node={node} />
-      <Divider />
-      <MusicButton node={node} />
-      <Divider />
-      <SongPlayedTogether node={node} Data={Data} setClicknode={setClicknode} />
-    </StyledPaper>
+    <div>
+      <StyledPaper key={node.id} onScroll={handleScroll}>
+        <BasicInfomation
+          node={node}
+          onClose={handleCloseInfo}
+          showBorder={isScrolled}
+        />
+        <Divider />
+        <DetailInfomation node={node} />
+        <Divider />
+        <MusicButton node={node} />
+        <Divider />
+        <SongPlayedTogether
+          node={node}
+          Data={Data}
+          setClickedNodeId={setClickedNodeId}
+        />
+      </StyledPaper>
+    </div>
   );
 };
 

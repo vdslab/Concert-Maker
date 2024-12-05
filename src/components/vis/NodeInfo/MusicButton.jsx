@@ -1,7 +1,7 @@
-import SpotifyIcon from "@/assets/Spotify_Icon.png";
-import YoutubeIcon from "@/assets/YouTube_Music.png";
-import AmazonIcon from "@/assets/Amazon_Music.png";
-import AppleIcon from "@/assets/Apple_Music_Icon.svg";
+import SpotifyIcon from "@/assets/img/Spotify_Icon.png";
+import YoutubeIcon from "@/assets/img/YouTube_Music.png";
+import AmazonIcon from "@/assets/img/Amazon_Music.png";
+import AppleIcon from "@/assets/img/Apple_Music_Icon.svg";
 import { Typography, Box, Grid } from "@mui/material";
 
 const musicServices = [

@@ -4,13 +4,19 @@ import { styled, alpha } from "@mui/material/styles";
 import IconButton from "@mui/material/IconButton";
 import Menu from "@mui/material/Menu";
 import MenuItem from "@mui/material/MenuItem";
+import ShareIcon from "@mui/icons-material/Share";
+import { useSearchParams } from "react-router-dom";
 import { useSnackbar } from "notistack";
 
 import FileCopyIcon from "@mui/icons-material/FileCopy";
 import MoreVertIcon from "@mui/icons-material/MoreVert";
 import DeleteForeverIcon from "@mui/icons-material/DeleteForever";
 
-import { workConcertState, concertListState, concertsState } from "@/pages/App";
+import {
+  workConcertState,
+  concertListState,
+  concertsState,
+} from "@/components/RecoilStates";
 import { useRecoilValue, useSetRecoilState } from "recoil";
 import { v4 as randomUUID } from "uuid";
 
@@ -50,7 +56,7 @@ const StyledMenu = styled((props) => (
       "&:active": {
         backgroundColor: alpha(
           theme.palette.primary.main,
-          theme.palette.action.selectedOpacity
+          theme.palette.action.selectedOpacity,
         ),
       },
     },
@@ -58,6 +64,7 @@ const StyledMenu = styled((props) => (
 }));
 
 export default function ConcertMenus(props) {
+  const [searchParams, setSearchParams] = useSearchParams();
   const { id } = props;
   const [anchorEl, setAnchorEl] = useState(null);
   const { enqueueSnackbar } = useSnackbar();
@@ -85,7 +92,7 @@ export default function ConcertMenus(props) {
         ...oldConcerts.find((concert) => concert.id === id),
         name: generateCopyName(
           existingNames,
-          oldConcerts.find((concert) => concert.id === id).name
+          oldConcerts.find((concert) => concert.id === id).name,
         ),
         id: newId,
       };
@@ -97,7 +104,11 @@ export default function ConcertMenus(props) {
     const addWorks = workList
       .find((work) => work.id === id)
       .works.map((work) => {
-        return { concert: newId, work: work.id };
+        return {
+          concert: newId,
+          work: work.id,
+          movements: [...work.selectedMovements],
+        };
       });
 
     setWorkConcert((oldWorks) => {
@@ -125,6 +136,44 @@ export default function ConcertMenus(props) {
       const newWorks = oldWorks.filter((work) => work.concert !== id);
       return newWorks;
     });
+
+    handleClose();
+  };
+
+  const shareConcert = () => {
+    const shareWorks = {
+      concert: id,
+      works: workList
+        .find((work) => work.id === id)
+        .works.map((work) => {
+          return {
+            work: work.id,
+            movements: [...work.selectedMovements],
+          };
+        }),
+    };
+
+    const share = JSON.stringify(shareWorks);
+
+    setSearchParams((prev) => {
+      prev.set("share", share);
+      return prev;
+    });
+
+    const shareURL = `${window.location.origin}${window.location.pathname}?${searchParams.toString()}`;
+
+    navigator.clipboard.writeText(shareURL).then(
+      function () {
+        enqueueSnackbar("クリップボードにコピーしました", {
+          variant: "success",
+        });
+      },
+      function (err) {
+        enqueueSnackbar("クリップボードのコピーに失敗しました", {
+          variant: "error",
+        });
+      },
+    );
 
     handleClose();
   };
@@ -161,6 +210,10 @@ export default function ConcertMenus(props) {
         <MenuItem onClick={deleteConcert} disableRipple>
           <DeleteForeverIcon />
           削除
+        </MenuItem>
+        <MenuItem onClick={shareConcert} disableRipple>
+          <ShareIcon />
+          共有
         </MenuItem>
       </StyledMenu>
     </div>

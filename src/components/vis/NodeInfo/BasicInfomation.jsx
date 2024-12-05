@@ -6,33 +6,64 @@ import { durationFormat } from "@/utils/calcTime";
 
 const StyledIconButton = styled(IconButton)(({ theme }) => ({
   position: "absolute",
-  top: "5px",
-  right: "5px",
+  top: "8px",
+  right: "12px",
+  color: "rgba(0, 0, 0, 0.3)",
+  transition: "color 0.2s ease",
+  "&:hover": {
+    color: "rgba(0, 0, 0, 0.87)",
+  },
 }));
 
-const BasicInfomation = ({ node, onClose }) => {
+const FixedHeader = styled(Box, {
+  shouldForwardProp: (prop) => prop !== "showBorder",
+})(({ showBorder }) => ({
+  position: "sticky",
+  top: 0,
+  backgroundColor: "white",
+  zIndex: 1,
+  padding: "12px 16px",
+  paddingBottom: "4px",
+  transition: "border-bottom 0.3s ease",
+  borderBottom: showBorder ? "1px solid rgba(0, 0, 0, 0.12)" : "none",
+}));
+
+const TitleBox = styled(Box)({
+  marginTop: 0,
+});
+
+const ScrollableContent = styled(Box)({
+  padding: "16px",
+  paddingTop: "4px",
+});
+
+const BasicInfomation = ({ node, onClose, showBorder }) => {
   return (
     <>
-      <Box p={2} position="relative">
+      <FixedHeader showBorder={showBorder}>
         <StyledIconButton onClick={onClose}>
           <CloseIcon />
         </StyledIconButton>
-        <Box mt={5}>
+        <TitleBox>
           <Typography variant="body">{node.composer}</Typography>
-          <Typography variant="h6" gutterBottom>
+          <Typography variant="h6" gutterBottom sx={{ marginBottom: 1 }}>
             {node.title}
           </Typography>
-          <Typography variant="body2" color="textSecondary" gutterBottom>
-            {node.duration === null ? "" : "演奏時間: " + durationFormat(node.duration)}
-          </Typography>
-          <Typography variant="body2" color="textSecondary" gutterBottom>
-            {node.workFormulaStr === ""
-              ? ""
-              : "楽器編成: " + node.workFormulaStr.replace(/\n/g, " / ")}
-          </Typography>
-        </Box>
-        <SplitButton songId={node.id} />
-      </Box>
+        </TitleBox>
+      </FixedHeader>
+      <ScrollableContent>
+        <Typography variant="body2" color="textSecondary" gutterBottom>
+          {node.duration === null
+            ? ""
+            : "演奏時間: " + durationFormat(node.duration)}
+        </Typography>
+        <Typography variant="body2" color="textSecondary" gutterBottom>
+          {node.workFormulaStr === ""
+            ? ""
+            : "楽器編成: " + node.workFormulaStr.replace(/\n/g, " / ")}
+        </Typography>
+        <SplitButton workId={node.id} node={node} />
+      </ScrollableContent>
     </>
   );
 };

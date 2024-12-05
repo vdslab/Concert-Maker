@@ -4,7 +4,14 @@ import path from "path";
 
 // https://vitejs.dev/config/
 export default defineConfig({
-  plugins: [react()],
+  optimizeDeps: {
+    include: ["@mui/icons-material", "@mui/material", "@mui/styled-engine-sc"],
+  },
+  plugins: [
+    react({
+      jsxImportSource: "@emotion/react",
+    }),
+  ],
   resolve: {
     // ↓ 追記
     alias: {
