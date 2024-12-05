@@ -122,12 +122,12 @@ export default function Share() {
             height="100%"
             spacing={2}
           >
-            <Grid item>
+            <Grid size="auto">
               <Typography id="modal-modal-title" variant="h5" component="h2">
                 {myConcert.title}
               </Typography>
             </Grid>
-            <Grid item width="100%" height="90%">
+            <Grid size="auto" width="100%" height="90%">
               <Box width="100%" height="100%" sx={{ overflowY: "auto" }}>
                 <Grid container spacing={2}>
                   <Grid size="grow">
