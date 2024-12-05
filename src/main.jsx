@@ -31,22 +31,6 @@ const router = createBrowserRouter([
     path: "/app",
     element: <App />,
   },
-  {
-    path: "/box",
-    element: (
-      <Box
-        sx={{
-          width: 100,
-          height: 100,
-          margin: 0,
-          bgcolor: "lightpink",
-          border: "6px solid yellow",
-        }}
-      >
-        Box
-      </Box>
-    ),
-  },
 ]);
 
 export const themeOptions = responsiveFontSizes(

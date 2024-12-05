@@ -3,6 +3,7 @@ import Modal from "@mui/material/Modal";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import workData from "@/assets/data/works.json";
+import composersData from "@/assets/data/composers.json";
 import { durationFormat } from "@/utils/calcTime";
 import Grid from "@mui/material/Grid2";
 import Paper from "@mui/material/Paper";
@@ -18,6 +19,8 @@ import { useSnackbar } from "notistack";
 import { concertsState, workConcertState } from "@/components/RecoilStates";
 import { useSetRecoilState, useRecoilState } from "recoil";
 import { useSearchParams } from "react-router-dom";
+
+import Evaluation from "@/components/evaluation/Evaluation.jsx";
 
 export default function Share() {
   const [searchParams, setSearchParams] = useSearchParams();
@@ -49,6 +52,9 @@ export default function Share() {
     const work = workData.find((work) => work.id === workConcert.work);
     return {
       ...work,
+      composerData: composersData.find(
+        (composer) => composer.name === work.composer,
+      ),
       selectedMovements: workConcert.movements,
     };
   });
@@ -248,9 +254,7 @@ export default function Share() {
                     border: "1px solid #f00",
                   }}
                 >
-                  <Typography variant="body2" component="div">
-                    評価画面作成予定地
-                  </Typography>
+                  <Evaluation works={works} />
                 </Box>
               </Grid>
               <Grid

@@ -2,7 +2,7 @@ import Works from "@/assets/data/works.json";
 import PlayedWithData from "@/assets/data/playedWith.json";
 import Composer from "@/assets/data/composers.json";
 import { getComposerFromId, matchedDataByIds } from "./utils";
-import Distance from "./Distance";
+import Distance from "@/utils/Distance";
 
 const findItem = (array, key, value) =>
   array.find((item) => item[key] === value);
@@ -19,7 +19,7 @@ export const processData = () => {
         const relatedComposer = findItem(
           Composer,
           "name",
-          relatedWork.composer
+          relatedWork.composer,
         );
         return {
           ...pw,
@@ -43,14 +43,14 @@ export const processData = () => {
         distance: 100 / playedWith.amount,
         sourceData: getComposerFromId(work.workId),
         targetData: getComposerFromId(playedWith.workId),
-      }))
+      })),
   );
 
   const allPlayedWithWorkIds = new Set(
     PlayedWithData.flatMap((item) => [
       item.workId,
       ...item.playedWith.map((pw) => pw.workId),
-    ])
+    ]),
   );
 
   return { enhancedPlayedWithData, linkData, allPlayedWithWorkIds };
@@ -58,13 +58,13 @@ export const processData = () => {
 
 export const createGraphData = (allPlayedWithWorkIds, linkData, data) => ({
   nodes: matchedDataByIds(data).filter(
-    (work) => allPlayedWithWorkIds.has(work.id) || work.id === 2697
+    (work) => allPlayedWithWorkIds.has(work.id) || work.id === 2697,
   ),
   links: linkData.filter((link) => {
     const { sourceData, targetData } = link;
     const timeFactor = Math.pow(
       1.1,
-      -Math.abs(sourceData.year - targetData.year)
+      -Math.abs(sourceData.year - targetData.year),
     );
     const distanceFactor = Math.pow(
       1 -
@@ -73,11 +73,11 @@ export const createGraphData = (allPlayedWithWorkIds, linkData, data) => ({
             sourceData.lat,
             sourceData.lon,
             targetData.lat,
-            targetData.lon
+            targetData.lon,
           ),
-          0.5
+          0.5,
         ),
-      2
+      2,
     );
     return (
       sourceData.lat &&
