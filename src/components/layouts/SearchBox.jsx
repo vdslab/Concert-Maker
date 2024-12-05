@@ -15,7 +15,7 @@ import FilterDialog from "@/components/layouts/FilterDialog";
  *
  * @returns {JSX.Element}
  */
-export default function SearchBox({ Data, setData, setClickedNodeId }) {
+export default function SearchBox({ Data, setData, setClicknode }) {
   const inputRef = useRef(null);
   const [open, setOpen] = useState(false);
   const openPopper = () => setOpen(true);
@@ -25,17 +25,13 @@ export default function SearchBox({ Data, setData, setClickedNodeId }) {
   const { nodes } = Data;
 
   useEffect(() => {
-    setOptions(
-      nodes?.map((item) => item.name).sort((a, b) => a.localeCompare(b)) || []
-    );
+    setOptions(nodes?.map((item) => item.name).sort((a, b) => a.localeCompare(b)) || []);
   }, [nodes]);
 
   const handleInputChange = (event, newInputValue) => {
-    newInputValue === "" ? closePopper() : openPopper();
+    (newInputValue === "") ? closePopper() : openPopper();
     const searchedObject = nodes.find((item) => item.name === newInputValue);
-    if (searchedObject) {
-      setClickedNodeId(searchedObject.id);
-    }
+    if (searchedObject) setClicknode(searchedObject);
   };
 
   const handleSubmit = (event) => {
@@ -63,23 +59,13 @@ export default function SearchBox({ Data, setData, setClickedNodeId }) {
           onInputChange={handleInputChange}
           fullWidth
           open={open}
-          onOpen={() => {
-            if (inputRef.current.value !== "") openPopper();
-          }}
+          onOpen={() => { if (inputRef.current.value !== "") openPopper() }}
           onClose={closePopper}
-          PopperComponent={(
-            { disablePortal: _1, anchorEl: _2, open: _3, ...other } // disablePortal, anchorEl, openは読み捨てる
-          ) => (
-            <Box
-              {...other}
-              style={{ width: "100%" }}
-              sx={{ borderTop: "1px solid #eaecef" }}
-            />
+          PopperComponent={({ disablePortal: _1, anchorEl: _2, open: _3, ...other }) => ( // disablePortal, anchorEl, openは読み捨てる
+            <Box {...other} style={{ width: "100%" }} sx={{ borderTop: "1px solid #eaecef" }} />
           )}
           PaperComponent={(props) => <Box {...props} />}
-          ListboxComponent={forwardRef((props, ref) => (
-            <Box {...props} ref={ref} component="ul" />
-          ))}
+          ListboxComponent={forwardRef((props, ref) => <Box {...props} ref={ref} component="ul" />)}
           renderInput={(params) => (
             <Box sx={{ p: "2px 4px", display: "flex", alignItems: "center" }}>
               <TextField
@@ -105,7 +91,9 @@ export default function SearchBox({ Data, setData, setClickedNodeId }) {
             const { key, ...optionProps } = props;
             return (
               <li key={key} {...optionProps} style={{ padding: "8px 16px" }}>
-                <Box>{option}</Box>
+                <Box>
+                  {option}
+                </Box>
               </li>
             );
           }}

@@ -1,12 +1,21 @@
-import React, { useEffect, useRef, useState, useCallback } from "react";
+import React, {
+  useEffect,
+  useRef,
+  useState,
+  useMemo,
+  useCallback,
+} from "react";
 import { Box } from "@mui/material";
 import ForceGraphWrapper from "./ForceGraphWrapper";
 import SearchBox from "../layouts/SearchBox";
 import NodeInfo from "./NodeInfo/NodeInfo";
 
-const NodeLinkDiagram = (props) => {
-  const { clickedNodeId, setClickedNodeId, graphData, setGraphData } = props;
-  const [clickNode, setClickNode] = useState(null);
+const NodeLinkDiagram = ({
+  clicknode,
+  setClicknode,
+  graphData,
+  setGraphData,
+}) => {
   const [height, setHeight] = useState(0);
   const parentDivRef = useRef(null);
 
@@ -34,31 +43,20 @@ const NodeLinkDiagram = (props) => {
     }));
   }, []);
 
-  useEffect(() => {
-    if (clickedNodeId) {
-      const node = graphData.nodes.find((node) => node.id === clickedNodeId);
-      if (node) setClickNode(node);
-    } else setClickNode(null);
-  }, [clickedNodeId]);
-
   return (
     <Box ref={parentDivRef} position="relative" height="100%">
       <ForceGraphWrapper
         data={graphData}
         height={height}
-        clicknode={clickNode}
-        setClickedNodeId={setClickedNodeId}
+        clicknode={clicknode}
+        setClicknode={setClicknode}
       />
       <SearchBox
         Data={graphData}
         setData={updateGraphData}
-        setClickedNodeId={setClickedNodeId}
+        setClicknode={setClicknode}
       />
-      <NodeInfo
-        node={clickNode}
-        Data={graphData}
-        setClickedNodeId={setClickedNodeId}
-      />
+      <NodeInfo node={clicknode} Data={graphData} setClicknode={setClicknode} />
     </Box>
   );
 };

@@ -1,20 +1,16 @@
-import * as React from "react";
-import Box from "@mui/material/Box";
-import Button from "@mui/material/Button";
 import Card from "@mui/material/Card";
-import Chip from "@mui/material/Chip";
-import ConcertMenus from "./ConcertMenus";
-import DeleteIcon from "@mui/icons-material/Delete";
-import Divider from "@mui/material/Divider";
-import EditIcon from "@mui/icons-material/Edit";
-import Grid from "@mui/material/Grid2";
-import IconButton from "@mui/material/IconButton";
-import Paper from "@mui/material/Paper";
+import Box from "@mui/material/Box";
+import Grid from "@mui/material/Grid";
+import Button from "@mui/material/Button";
 import Stack from "@mui/material/Stack";
-import TextField from "@mui/material/TextField";
+import Divider from "@mui/material/Divider";
 import Typography from "@mui/material/Typography";
-
-import AddMyConcert from "@/components/layouts/AddMyConcert";
+import IconButton from "@mui/material/IconButton";
+import DeleteIcon from "@mui/icons-material/Delete";
+import EditIcon from "@mui/icons-material/Edit";
+import TextField from "@mui/material/TextField";
+import Paper from "@mui/material/Paper";
+import ConcertMenus from "./ConcertMenus";
 
 import { useState } from "react";
 
@@ -24,10 +20,11 @@ import {
   workConcertState,
   selectedConcertState,
   concertsState,
-} from "@/components/RecoilStates";
+} from "@/pages/App";
 import { useSetRecoilState } from "recoil";
 
 import PropTypes from "prop-types";
+import { getComposerFromId } from "@/components/vis/utils";
 
 MyConcertCard.propTypes = {
   concert: PropTypes.shape({
@@ -69,26 +66,14 @@ MyConcertCard.propTypes = {
 };
 
 export default function MyConcertCard(props) {
-  const { concert, setClickedNodeId, Data } = props;
+  const { concert, setClicknode, Data } = props;
   const { id, name, works } = concert;
   const [editMode, setEditMode] = useState(false);
   const selectConcert = useSetRecoilState(selectedConcertState);
 
   const setConcerts = useSetRecoilState(concertsState);
 
-  const sum_duration = sumDurationFormat(
-    works.map((work) =>
-      !work.selectedMovements ||
-      work.workMovementDuration.length <= 1 ||
-      work.workMovementDuration[0] === "'"
-        ? work.duration
-        : work.selectedMovements
-            .map((duration) =>
-              parseInt(work.workMovementDuration[duration].replace("'", ""))
-            )
-            .reduce((x, y) => x + y)
-    )
-  );
+  const sum_duration = sumDurationFormat(works.map((work) => work.duration));
 
   return (
     <Card elevation={3}>
@@ -99,7 +84,7 @@ export default function MyConcertCard(props) {
           justifyContent="space-between"
           alignItems="center"
         >
-          <Grid size="auto">
+          <Grid item>
             <Stack
               direction="row"
               justifyContent="space-between"
@@ -158,7 +143,7 @@ export default function MyConcertCard(props) {
               )}
             </Stack>
           </Grid>
-          <Grid size="auto">
+          <Grid item xs="auto">
             <Stack
               direction="row"
               justifyContent="center"
@@ -179,7 +164,7 @@ export default function MyConcertCard(props) {
           works={works}
           concertID={id}
           Data={Data}
-          setClickedNodeId={setClickedNodeId}
+          setClicknode={setClicknode}
         />
       </Box>
     </Card>
@@ -222,11 +207,7 @@ WorkList.propTypes = {
 };
 
 function WorkList(props) {
-  const { works, concertID, setClickedNodeId } = props;
-
-  const [openModal, setOpenModal] = React.useState(false);
-  const [editWork, setEditWork] = React.useState(null);
-
+  const { works, concertID, setClicknode, Data } = props;
   const setWorkConcertState = useSetRecoilState(workConcertState);
 
   if (works.length === 0) {
@@ -238,11 +219,9 @@ function WorkList(props) {
   }
 
   const handleItemClick = (work) => {
-    setClickedNodeId(work.id);
-  };
-  const handleItemEditClick = (work) => {
-    setEditWork(work);
-    setOpenModal(true);
+    // const node = getComposerFromId(work.id);
+    const node = Data.nodes.find((node) => node.id === work.id);
+    setClicknode(node);
   };
 
   const handleDeleteClick = (e, work) => {
@@ -257,24 +236,8 @@ function WorkList(props) {
 
   return (
     <Box>
-      <AddMyConcert
-        work={editWork}
-        open={openModal}
-        setOpen={setOpenModal}
-        concertID={concertID}
-      />
       {works.map((work, index) => {
-        const duration_time = durationFormat(
-          !work.selectedMovements ||
-            work.workMovementDuration.length <= 1 ||
-            work.workMovementDuration[0] === "'"
-            ? work.duration
-            : work.selectedMovements
-                .map((duration) =>
-                  parseInt(work.workMovementDuration[duration].replace("'", ""))
-                )
-                .reduce((x, y) => x + y)
-        );
+        const duration_time = durationFormat(work.duration);
         return (
           <div key={`${concertID}-${index}`}>
             {index !== 0 && <Divider />}
@@ -295,7 +258,7 @@ function WorkList(props) {
                 alignItems="center"
                 sx={{ width: "100%" }}
               >
-                <Grid size="grow">
+                <Grid item xs>
                   <Box sx={{ p: 1 }}>
                     <Typography variant="body1" component="div">
                       {work.composer}
@@ -319,7 +282,7 @@ function WorkList(props) {
                     </Stack>
                   </Box>
                 </Grid>
-                <Grid size="auto">
+                <Grid item>
                   <IconButton
                     aria-label="delete"
                     onClick={(e) => handleDeleteClick(e, work)}
@@ -327,38 +290,6 @@ function WorkList(props) {
                     <DeleteIcon />
                   </IconButton>
                 </Grid>
-              </Grid>
-              <Grid size="grow">
-                {work.selectedMovements.length > 0 && (
-                  <Stack
-                    direction="row"
-                    spacing={1}
-                    sx={{
-                      width: "100%",
-                      justifyContent: "space-between",
-                      alignItems: "center",
-                    }}
-                  >
-                    <Box sx={{ p: 1, overflowX: "auto" }}>
-                      <Stack direction="row" spacing={1}>
-                        {work.selectedMovements.map((movement, index) => (
-                          <Chip
-                            key={index}
-                            label={work.workMovements[movement]}
-                          />
-                        ))}
-                      </Stack>
-                    </Box>
-                    <Box>
-                      <IconButton
-                        aria-label="edit"
-                        onClick={() => handleItemEditClick(work)}
-                      >
-                        <EditIcon />
-                      </IconButton>
-                    </Box>
-                  </Stack>
-                )}
               </Grid>
             </Paper>
           </div>

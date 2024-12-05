@@ -9,7 +9,7 @@ import Stack from "@mui/material/Stack";
 import { v4 as randomUUID } from "uuid";
 
 import { useSetRecoilState, useRecoilValue } from "recoil";
-import { concertsState, concertNamesState } from "@/components/RecoilStates";
+import { concertsState, concertNamesState } from "@/pages/App";
 
 const BoxButton = styled(ButtonBase)(({ theme }) => ({
   position: "relative",
