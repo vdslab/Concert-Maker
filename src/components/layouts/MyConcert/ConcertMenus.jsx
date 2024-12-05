@@ -4,6 +4,8 @@ import { styled, alpha } from "@mui/material/styles";
 import IconButton from "@mui/material/IconButton";
 import Menu from "@mui/material/Menu";
 import MenuItem from "@mui/material/MenuItem";
+import ShareIcon from "@mui/icons-material/Share";
+import { useSearchParams } from "react-router-dom";
 import { useSnackbar } from "notistack";
 
 import FileCopyIcon from "@mui/icons-material/FileCopy";
@@ -62,6 +64,7 @@ const StyledMenu = styled((props) => (
 }));
 
 export default function ConcertMenus(props) {
+  const [searchParams, setSearchParams] = useSearchParams();
   const { id } = props;
   const [anchorEl, setAnchorEl] = useState(null);
   const { enqueueSnackbar } = useSnackbar();
@@ -137,6 +140,44 @@ export default function ConcertMenus(props) {
     handleClose();
   };
 
+  const shareConcert = () => {
+    const shareWorks = {
+      concert: id,
+      works: workList
+        .find((work) => work.id === id)
+        .works.map((work) => {
+          return {
+            work: work.id,
+            movements: [...work.selectedMovements],
+          };
+        }),
+    };
+
+    const share = JSON.stringify(shareWorks);
+
+    setSearchParams((prev) => {
+      prev.set("share", share);
+      return prev;
+    });
+
+    const shareURL = `${window.location.origin}${window.location.pathname}?${searchParams.toString()}`;
+
+    navigator.clipboard.writeText(shareURL).then(
+      function () {
+        enqueueSnackbar("クリップボードにコピーしました", {
+          variant: "success",
+        });
+      },
+      function (err) {
+        enqueueSnackbar("クリップボードのコピーに失敗しました", {
+          variant: "error",
+        });
+      },
+    );
+
+    handleClose();
+  };
+
   ConcertMenus.propTypes = {
     id: PropTypes.string.isRequired,
   };
@@ -169,6 +210,10 @@ export default function ConcertMenus(props) {
         <MenuItem onClick={deleteConcert} disableRipple>
           <DeleteForeverIcon />
           削除
+        </MenuItem>
+        <MenuItem onClick={shareConcert} disableRipple>
+          <ShareIcon />
+          共有
         </MenuItem>
       </StyledMenu>
     </div>
