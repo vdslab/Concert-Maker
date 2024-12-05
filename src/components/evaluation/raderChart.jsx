@@ -41,7 +41,7 @@ const data = [
   },
 ];
 
-export function MyResponsiveRadar() {
+export function Radar() {
   <ResponsiveRadar
     data={data}
     keys={["chardonay", "carmenere", "syrah"]}
@@ -81,4 +81,4 @@ export function MyResponsiveRadar() {
   />;
 }
 
-export default MyResponsiveRadar;
+export default Radar;
