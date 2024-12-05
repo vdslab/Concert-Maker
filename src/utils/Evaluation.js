@@ -23,7 +23,8 @@ const avgDist = (works) => {
 
 export const avgDistEval = (works) => {
   const calcDist = avgDist(works);
-  return (1 - calcDist) * 5;
+  const k = 3;
+  return (1 - calcDist ** (2 / (1 + k))) ** ((1 + k) / 2) * 5;
 };
 
 const avgYear = (works) => {

@@ -60,7 +60,6 @@ export function Radar(props) {
   console.log(data);
 
   return (
-    // <div style={{ height: "90%" }}>
     <ResponsiveRadar
       data={data}
       keys={["value"]}
@@ -95,7 +94,6 @@ export function Radar(props) {
         );
       }}
     />
-    // </div>
   );
 }
 
