@@ -20,8 +20,6 @@ import { useSetRecoilState, useRecoilState } from "recoil";
 import { useSearchParams } from "react-router-dom";
 
 export default function Share() {
-  // const [open, setOpen] = React.useState(true);
-
   const [searchParams, setSearchParams] = useSearchParams();
 
   const [concertValues, setConcerts] = useRecoilState(concertsState);
