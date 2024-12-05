@@ -1,7 +1,7 @@
 import React from "react";
 import Box from "@mui/material/Box";
 import Radar from "@/components/evaluation/radarChart.jsx";
-import RectangularGraph from "./rectangularGraph";
+import RectangularGraph from "@//components/evaluation/RectangularGraph.jsx";
 
 export default function Evaluation(props) {
   const { works } = props;
