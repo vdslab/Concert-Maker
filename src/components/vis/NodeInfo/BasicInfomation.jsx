@@ -53,6 +53,9 @@ const BasicInfomation = ({ node, onClose, showBorder }) => {
       </FixedHeader>
       <ScrollableContent>
         <Typography variant="body2" color="textSecondary" gutterBottom>
+          {node.year === null ? "" : "作曲年: " + node.year + "年"}
+        </Typography>
+        <Typography variant="body2" color="textSecondary" gutterBottom>
           {node.duration === null
             ? ""
             : "演奏時間: " + durationFormat(node.duration)}

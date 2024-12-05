@@ -41,7 +41,7 @@ const applyFilter = (filterValues, Data, setData) => {
           return value.since !== null || value.until !== null;
         }
         return value !== "" && value !== null;
-      },
+      }
     );
 
     // すべてのアクティブなフィルターに対してチェックを行う
@@ -54,7 +54,7 @@ const applyFilter = (filterValues, Data, setData) => {
         case "birth":
         case "death":
         case "composed":
-          return checkDateRange(node[key], value);
+          return checkDateRange(node["year"], value);
         case "duration":
           if (filterValues.durationIncludeNoData && node.duration === null)
             return true;
