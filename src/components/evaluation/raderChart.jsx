@@ -10,24 +10,20 @@ import { ResponsiveRadar } from "@nivo/radar";
 
 const data = [
   {
-    taste: "fruity",
-    syrah: 39,
+    taste: "国籍の近さ",
+    value: 3,
   },
   {
-    taste: "bitter",
-    syrah: 50,
+    taste: "作曲年の近さ",
+    value: 1,
   },
   {
-    taste: "heavy",
-    syrah: 119,
+    taste: "一緒に演奏されている度合い",
+    value: 3,
   },
   {
-    taste: "strong",
-    syrah: 65,
-  },
-  {
-    taste: "sunny",
-    syrah: 82,
+    taste: "平均有名度",
+    value: 4,
   },
 ];
 
@@ -35,7 +31,7 @@ export function Radar() {
   return (
     <ResponsiveRadar
       data={data}
-      keys={["syrah"]}
+      keys={["value"]}
       indexBy="taste"
       valueFormat=">-.2f"
       margin={{ top: 70, right: 80, bottom: 40, left: 80 }}
@@ -49,6 +45,24 @@ export function Radar() {
       colors={{ scheme: "accent" }}
       blendMode="multiply"
       motionConfig="wobbly"
+      sliceTooltip={(slice) => {
+        return (
+          <div
+            style={{
+              background: "white",
+              padding: "9px 12px",
+              border: "1px solid #ccc",
+            }}
+          >
+            <div>
+              <strong>{slice.index}</strong>
+            </div>
+            <div>
+              {slice.data[0].value} 点
+            </div>
+          </div>
+        );
+      }}
       legends={[
         {
           anchor: "top-left",
