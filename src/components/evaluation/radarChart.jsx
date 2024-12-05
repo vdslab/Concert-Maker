@@ -8,11 +8,7 @@ import { ResponsiveRadar } from "@nivo/radar";
 // website examples showcase many properties,
 // you'll often use just a few of them.
 
-import {
-  avgDistEval,
-  avgYearEval,
-  avgPlayedWithEval,
-} from "@/utils/Evaluation.js";
+import * as Eval from "@/utils/Evaluation.js";
 
 // const data = [
 //   {
@@ -41,19 +37,19 @@ export function Radar(props) {
   const data = [
     {
       category: "国籍の近さ",
-      value: avgDistEval(works),
+      value: Eval.DistEval(works),
     },
     {
       category: "作曲年の近さ",
-      value: avgYearEval(works),
+      value: Eval.YearEval(works),
     },
     {
       category: "一緒に演奏されている度合い",
-      value: avgPlayedWithEval(works),
+      value: Eval.PlayedWithEval(works),
     },
     {
       category: "平均有名度",
-      value: 0,
+      value: Eval.OrchPopularityEval(works),
     },
   ];
 
