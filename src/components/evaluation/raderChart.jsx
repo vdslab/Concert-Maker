@@ -29,12 +29,13 @@ const data = [
 
 export function Radar() {
   return (
+    // <div style={{ height: "90%" }}>
     <ResponsiveRadar
       data={data}
       keys={["value"]}
       indexBy="taste"
       valueFormat=">-.2f"
-      margin={{ top: 70, right: 80, bottom: 40, left: 80 }}
+      margin={{ top: 70, right: 80, bottom: 70, left: 80 }}
       borderColor={{ from: "color" }}
       gridLabelOffset={36}
       layers={["grid", "layers", "slices", "dots"]}
@@ -44,6 +45,7 @@ export function Radar() {
       dotBorderWidth={2}
       colors={{ scheme: "accent" }}
       blendMode="multiply"
+      animate={false}
       motionConfig="wobbly"
       sliceTooltip={(slice) => {
         return (
@@ -57,13 +59,12 @@ export function Radar() {
             <div>
               <strong>{slice.index}</strong>
             </div>
-            <div>
-              {slice.data[0].value} 点
-            </div>
+            <div>{slice.data[0].value} 点</div>
           </div>
         );
       }}
     />
+    // </div>
   );
 }
 

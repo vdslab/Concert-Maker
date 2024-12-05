@@ -19,6 +19,8 @@ import { concertsState, workConcertState } from "@/components/RecoilStates";
 import { useSetRecoilState, useRecoilState } from "recoil";
 import { useSearchParams } from "react-router-dom";
 
+import Evaluation from "@/components/evaluation/Evaluation.jsx";
+
 export default function Share() {
   const [searchParams, setSearchParams] = useSearchParams();
 
@@ -248,9 +250,7 @@ export default function Share() {
                     border: "1px solid #f00",
                   }}
                 >
-                  <Typography variant="body2" component="div">
-                    評価画面作成予定地
-                  </Typography>
+                  <Evaluation />
                 </Box>
               </Grid>
               <Grid
