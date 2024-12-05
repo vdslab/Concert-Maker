@@ -87,7 +87,7 @@ const ConnectTicksLayer = ({
 
 const RectangularGraph = (props) => {
   const { works } = props;
-  // console.log(works);
+  console.log(works);
 
   const keys = works.map((work) => work.title);
 
@@ -101,8 +101,12 @@ const RectangularGraph = (props) => {
     },
   ];
 
-  const customLabel = ({ id, value }) => `${value}分`;
-  // const customLabel = ({ id, value }) => `${id}: ${value}分`;
+  const customLabel = ({ id, value }) => {
+    const maxLength = 10;
+    const truncatedId =
+      id.length > maxLength ? `${id.slice(0, maxLength)}...` : id;
+    return `${truncatedId}`;
+  };
 
   const tickValues = computeCumulativeTickValues(data, keys);
   const differences = calculateDifferences(tickValues);
@@ -112,7 +116,7 @@ const RectangularGraph = (props) => {
       className="no-axis-labels"
       data={data}
       keys={keys}
-      indexBy="country"
+      indexBy="group"
       layout="horizontal"
       margin={{ top: 0, right: 30, bottom: 60, left: 30 }}
       padding={0.3}
