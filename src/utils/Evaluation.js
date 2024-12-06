@@ -51,7 +51,6 @@ export const YearEval = (works) => {
 };
 
 const avgPlayedWith = (works) => {
-  console.log(playedWith);
   const length = works.length;
   if (length === 0) return 0;
 

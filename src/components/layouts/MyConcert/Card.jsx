@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 import Card from "@mui/material/Card";
@@ -9,6 +10,9 @@ import IconButton from "@mui/material/IconButton";
 import Stack from "@mui/material/Stack";
 import TextField from "@mui/material/TextField";
 import Typography from "@mui/material/Typography";
+import InsightsIcon from "@mui/icons-material/Insights";
+
+import InsightsModal from "@/components/layouts/MyConcert/InsightsModal.jsx";
 
 import WorkList from "@/components/layouts/MyConcert/WorkList";
 
@@ -23,6 +27,9 @@ export default function MyConcertCard(props) {
   const { concert, setClickedNodeId, Data } = props;
   const { id, name, works } = concert;
   const [editMode, setEditMode] = useState(false);
+
+  const [openInsight, setOpenInsight] = useState(false);
+
   const selectConcert = useSetRecoilState(selectedConcertState);
 
   const setConcerts = useSetRecoilState(concertsState);
@@ -41,8 +48,23 @@ export default function MyConcertCard(props) {
     ),
   );
 
+  const InsightsWorks = {
+    concert: id,
+    works: works.map((work) => {
+      return {
+        work: work.id,
+        movements: work.selectedMovements,
+      };
+    }),
+  };
+
   return (
     <Card elevation={3}>
+      <InsightsModal
+        myConcert={InsightsWorks}
+        open={openInsight}
+        setOpen={setOpenInsight}
+      />
       <Box sx={{ p: 2 }}>
         <Grid
           container
@@ -122,6 +144,17 @@ export default function MyConcertCard(props) {
               <Typography gutterBottom variant="h6" component="div">
                 {sum_duration}
               </Typography>
+              <Button
+                variant="contained"
+                color="info"
+                style={{ borderRadius: 20 }}
+                startIcon={<InsightsIcon />}
+                onClick={() => {
+                  setOpenInsight(true);
+                }}
+              >
+                分析
+              </Button>
               <ConcertMenus id={id} />
             </Stack>
           </Grid>
