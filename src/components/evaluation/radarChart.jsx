@@ -32,8 +32,6 @@ import * as Eval from "@/utils/Evaluation.js";
 export function Radar(props) {
   const { works } = props;
 
-  console.log(works);
-
   const data = [
     {
       category: "国籍の近さ",
@@ -52,8 +50,6 @@ export function Radar(props) {
       value: Eval.OrchPopularityEval(works),
     },
   ];
-
-  console.log(data);
 
   return (
     <ResponsiveRadar
