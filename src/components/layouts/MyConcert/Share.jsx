@@ -1,5 +1,9 @@
 import React from "react";
-import Modal from "@mui/material/Modal";
+import Dialog from '@mui/material/Dialog';
+import DialogActions from '@mui/material/DialogActions';
+import DialogContent from '@mui/material/DialogContent';
+import DialogContentText from '@mui/material/DialogContentText';
+import DialogTitle from '@mui/material/DialogTitle';
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import workData from "@/assets/data/works.json";
@@ -21,6 +25,8 @@ import { useSetRecoilState, useRecoilState } from "recoil";
 import { useSearchParams } from "react-router-dom";
 
 import Evaluation from "@/components/evaluation/Evaluation.jsx";
+import Radar from "@/components/evaluation/radarChart.jsx";
+import RectangularGraph from "@//components/evaluation/RectangularGraph.jsx";
 
 export default function Share() {
   const [searchParams, setSearchParams] = useSearchParams();
@@ -90,197 +96,155 @@ export default function Share() {
 
     handleClose();
   };
-
+  console.log("myConcert", myConcert);
   return (
-    <Modal
+    <Dialog
+      fullWidth
+      maxWidth="xl"
       open={true}
       onClose={handleClose}
-      aria-labelledby="modal-modal-title"
-      aria-describedby="modal-modal-description"
+      sx={{ height: "calc(100% - 64px)" }}
     >
-      <Box
-        sx={{
-          position: "absolute",
-          top: "50%",
-          left: "50%",
-          transform: "translate(-50%, -50%)",
-          width: "85%",
-          height: "85%",
-          border: "2px solid #000",
-          boxShadow: 24,
-          bgcolor: "background.paper",
-          p: 4,
-        }}
-      >
-        <Grid
-          container
-          justifyContent="row"
-          flexDirection="column"
-          width="100%"
-          height="100%"
-          spacing={2}
+      <DialogTitle>
+        My演奏会{myConcert.title}{/* ToDo */}
+      </DialogTitle>
+      <DialogContent sx={{ height: "90vh" }}>
+        <Box
+          sx={{
+            height: "100%",
+            overflowX: "hidden",
+            display: 'grid',
+            gridTemplateColumns: '1fr 1fr', // 左右2列
+            gridTemplateRows: '7fr 3fr', // 上下2行
+            gap: 1, // グリッド間のスペース
+          }}
         >
-          <Grid
-            container
-            justifyContent="center"
-            flexDirection="column"
-            width="50%"
-            height="100%"
-            spacing={2}
-          >
-            <Grid size="auto">
-              <Typography id="modal-modal-title" variant="h5" component="h2">
-                {myConcert.title}
-              </Typography>
-            </Grid>
-            <Grid size="auto" width="100%" height="90%">
-              <Box width="100%" height="100%" sx={{ overflowY: "auto" }}>
-                <Grid container spacing={2}>
-                  <Grid size="grow">
-                    {works.map((work, index) => {
-                      const duration_time = durationFormat(
-                        !work.selectedMovements ||
-                          work.workMovementDuration.length <= 1 ||
-                          work.workMovementDuration[0] === "'"
-                          ? work.duration
-                          : work.selectedMovements
-                              .map((duration) =>
-                                parseInt(
-                                  work.workMovementDuration[duration].replace(
-                                    "'",
-                                    "",
-                                  ),
-                                ),
-                              )
-                              .reduce((x, y) => x + y),
-                      );
-                      return (
-                        <div key={`${myConcert.concert}-${index}`}>
-                          {index !== 0 && <Divider />}
-                          <Paper
-                            elevation={0}
+          <Box sx={{ height: "100%", overflowY: "auto", gridRow: 'span 2' }}>
+            <Box>
+              {works.map((work, index) => {
+                const duration_time = durationFormat(
+                  !work.selectedMovements ||
+                    work.workMovementDuration.length <= 1 ||
+                    work.workMovementDuration[0] === "'"
+                    ? work.duration
+                    : work.selectedMovements
+                      .map((duration) =>
+                        parseInt(
+                          work.workMovementDuration[duration].replace(
+                            "'",
+                            "",
+                          ),
+                        ),
+                      )
+                      .reduce((x, y) => x + y),
+                );
+                return (
+                  <div key={`${myConcert.concert}-${index}`}>
+                    {index !== 0 && <Divider />}
+                    <Paper
+                      elevation={0}
+                      sx={{
+                        "&:hover": {
+                          backgroundColor: "action.hover",
+                        },
+                        cursor: "pointer",
+                      }}
+                    >
+                      <Grid
+                        container
+                        direction="row"
+                        justifyContent="space-between"
+                        alignItems="center"
+                        sx={{ width: "100%" }}
+                      >
+                        <Grid size="grow">
+                          <Box sx={{ p: 1 }}>
+                            <Typography variant="body1" component="div">
+                              {work.composer}
+                            </Typography>
+                            <Typography variant="h6" component="div">
+                              {work.title}
+                            </Typography>
+                            <Typography variant="body2" component="div">
+                              {duration_time !== ""
+                                ? `演奏時間: ${duration_time}`
+                                : ""}
+                            </Typography>
+                            <Stack direction="row" spacing={1}>
+                              <Typography
+                                variant="body2"
+                                component="div"
+                                color="textSecondary"
+                              >
+                                {work.workFormulaStr
+                                  .split("\n")
+                                  .map((line, index) => (
+                                    <div key={index}>{line}</div>
+                                  ))}
+                              </Typography>
+                            </Stack>
+                          </Box>
+                        </Grid>
+                      </Grid>
+                      <Grid size="grow">
+                        {work.selectedMovements.length > 0 && (
+                          <Stack
+                            direction="row"
+                            spacing={1}
                             sx={{
-                              "&:hover": {
-                                backgroundColor: "action.hover",
-                              },
-                              cursor: "pointer",
+                              width: "100%",
+                              justifyContent: "space-between",
+                              alignItems: "center",
                             }}
                           >
-                            <Grid
-                              container
-                              direction="row"
-                              justifyContent="space-between"
-                              alignItems="center"
-                              sx={{ width: "100%" }}
-                            >
-                              <Grid size="grow">
-                                <Box sx={{ p: 1 }}>
-                                  <Typography variant="body1" component="div">
-                                    {work.composer}
-                                  </Typography>
-                                  <Typography variant="h6" component="div">
-                                    {work.title}
-                                  </Typography>
-                                  <Typography variant="body2" component="div">
-                                    {duration_time !== ""
-                                      ? `演奏時間: ${duration_time}`
-                                      : ""}
-                                  </Typography>
-                                  <Stack direction="row" spacing={1}>
-                                    <Typography
-                                      variant="body2"
-                                      component="div"
-                                      color="textSecondary"
-                                    >
-                                      {work.workFormulaStr
-                                        .split("\n")
-                                        .map((line, index) => (
-                                          <div key={index}>{line}</div>
-                                        ))}
-                                    </Typography>
-                                  </Stack>
-                                </Box>
-                              </Grid>
-                            </Grid>
-                            <Grid size="grow">
-                              {work.selectedMovements.length > 0 && (
-                                <Stack
-                                  direction="row"
-                                  spacing={1}
-                                  sx={{
-                                    width: "100%",
-                                    justifyContent: "space-between",
-                                    alignItems: "center",
-                                  }}
-                                >
-                                  <Box sx={{ p: 1, overflowX: "auto" }}>
-                                    <Stack direction="row" spacing={1}>
-                                      {work.selectedMovements.map(
-                                        (movement, index) => (
-                                          <Chip
-                                            key={index}
-                                            label={work.workMovements[movement]}
-                                          />
-                                        ),
-                                      )}
-                                    </Stack>
-                                  </Box>
-                                </Stack>
-                              )}
-                            </Grid>
-                          </Paper>
-                        </div>
-                      );
-                    })}
-                  </Grid>
-                </Grid>
-              </Box>
-            </Grid>
-            <Grid
-              container
-              spacing={3}
-              direction="column"
-              justifyContent="space-between"
-              sx={{
-                width: "100%",
-                height: "100%",
-              }}
-            >
-              <Grid size="grow">
-                <Box
-                  sx={{
-                    width: "100%",
-                    height: "100%",
-                    border: "1px solid #f00",
-                  }}
-                >
-                  <Evaluation works={works} />
-                </Box>
-              </Grid>
-              <Grid
-                container
-                size="auto"
-                flexDirection="row"
-                alignItems="center"
-                justifyContent="flex-end"
-                spacing={2}
-              >
-                <Grid>
-                  <Button variant="outlined" onClick={handleClose}>
-                    閉じる
-                  </Button>
-                </Grid>
-                <Grid>
-                  <Button variant="contained" onClick={duplicateConcert}>
-                    My演奏会に保存
-                  </Button>
-                </Grid>
-              </Grid>
-            </Grid>
-          </Grid>
-        </Grid>
-      </Box>
-    </Modal>
+                            <Box sx={{ p: 1, overflowX: "auto" }}>
+                              <Stack direction="row" spacing={1}>
+                                {work.selectedMovements.map(
+                                  (movement, index) => (
+                                    <Chip
+                                      key={index}
+                                      label={work.workMovements[movement]}
+                                    />
+                                  ),
+                                )}
+                              </Stack>
+                            </Box>
+                          </Stack>
+                        )}
+                      </Grid>
+                    </Paper>
+                  </div>
+                );
+              })}
+            </Box>
+          </Box>
+          <Box sx={{
+            height: "80%",
+            gridColumn: '2',
+            gridRow: '1'
+          }}>
+            <Typography variant="h7" gutterBottom>曲目構成の分析結果</Typography>
+            <Radar works={works} />
+          </Box>
+          <Box sx={{
+            height: "80%",
+            gridColumn: '2',
+            gridRow: '2'
+          }}>
+            <Typography variant="h7" gutterBottom>演奏時間の分析結果</Typography>
+            <RectangularGraph works={works} />
+          </Box>
+        </Box>
+      </DialogContent>
+      <DialogActions>
+        <Button variant="outlined" onClick={handleClose}>
+          閉じる
+        </Button>
+        <Button variant="contained" onClick={duplicateConcert}>
+          My演奏会に保存
+        </Button>
+      </DialogActions>
+    </Dialog>
   );
 }
 
