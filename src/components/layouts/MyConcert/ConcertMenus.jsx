@@ -154,11 +154,7 @@ export default function ConcertMenus(props) {
 
     const share = JSON.stringify(shareWorks);
 
-<<<<<<< HEAD
-    const shareURL = `${window.location.origin}/myconcert?share=${encodeURIComponent(
-=======
     const shareURL = `${window.location.origin}${window.location.pathname}?share=${encodeURIComponent(
->>>>>>> 5fdd9d8 (Add InsightsModal component and integrate with MyConcertCard; remove console logs and improve share URL handling)
       share,
     )}`;
 
