@@ -16,8 +16,8 @@ const ForceGraphWrapper = (props) => {
 
   const [tooltip, setTooltip] = useState({
     visible: false,
-    x: 0,
-    y: 0,
+    x: null,
+    y: null,
     content: "",
   });
 
