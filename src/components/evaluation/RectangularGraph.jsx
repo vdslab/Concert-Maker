@@ -5,12 +5,14 @@ const CustomTooltip = ({ id, value, color }) => (
     style={{
       padding: "12px 16px",
       background: "#fff",
-      border: `1px solid ${color}`,
       borderRadius: "4px",
       boxShadow: "0 3px 9px rgba(0,0,0,0.25)",
     }}
   >
-    <strong>{id}</strong>: <strong>{value}分</strong>
+    <strong>
+      {id}
+      {value === 2.5 ? "" : `: ${value}分`}
+    </strong>
   </div>
 );
 
@@ -52,7 +54,7 @@ const DifferenceLayer = ({
         fill="#000"
         fontSize={12}
       >
-        {diff}分
+        {diff === 2.5 ? "不明" : `${diff}分`}
       </text>
     );
   });
@@ -87,7 +89,6 @@ const ConnectTicksLayer = ({
 
 const RectangularGraph = (props) => {
   const { works } = props;
-  console.log(works);
 
   const keys = works.map((work) => work.title);
 
@@ -95,14 +96,14 @@ const RectangularGraph = (props) => {
     {
       group: "Works",
       ...works.reduce((acc, work) => {
-        acc[work.title] = work.duration;
+        acc[work.title] = work.duration === null ? 2.5 : work.duration;
         return acc;
       }, {}),
     },
   ];
 
   const customLabel = ({ id, value }) => {
-    const maxLength = 10;
+    const maxLength = 15;
     const truncatedId =
       id.length > maxLength ? `${id.slice(0, maxLength)}...` : id;
     return `${truncatedId}`;
@@ -113,20 +114,12 @@ const RectangularGraph = (props) => {
 
   return (
     <ResponsiveBar
-      className="no-axis-labels"
       data={data}
       keys={keys}
       indexBy="group"
       layout="horizontal"
       margin={{ top: 0, right: 30, bottom: 60, left: 30 }}
       padding={0.3}
-      colors={{ scheme: "nivo" }}
-      borderColor={{
-        from: "color",
-        modifiers: [["darker", 1.6]],
-      }}
-      axisTop={null}
-      axisRight={null}
       axisBottom={{
         tickSize: 10,
         tickPadding: 5,
@@ -138,16 +131,9 @@ const RectangularGraph = (props) => {
       }}
       axisLeft={null}
       label={customLabel}
-      labelSkipWidth={12}
-      labelSkipHeight={12}
-      labelTextColor={{
-        from: "color",
-        modifiers: [["darker", 1.6]],
-      }}
+      labelSkipWidth={100}
       tooltip={CustomTooltip}
       animate={false}
-      motionStiffness={90}
-      motionDamping={15}
       layers={[
         "grid",
         "axes",
