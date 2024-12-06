@@ -64,6 +64,7 @@ const StyledMenu = styled((props) => (
 }));
 
 export default function ConcertMenus(props) {
+  const [searchParams, setSearchParams] = useSearchParams();
   const { id } = props;
   const [anchorEl, setAnchorEl] = useState(null);
   const { enqueueSnackbar } = useSnackbar();
