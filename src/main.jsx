@@ -16,36 +16,14 @@ import "@fontsource/roboto/700.css";
 import App from "@/pages/App.jsx";
 import ResponsiveAppBar from "./components/layouts/Header.jsx";
 
-import Share from "@/components/layouts/MyConcert/Share.jsx";
-
 const router = createBrowserRouter([
   {
     path: "/",
     element: <App />,
   },
   {
-    path: "/share",
-    element: <Share />,
-  },
-  {
     path: "/app",
     element: <App />,
-  },
-  {
-    path: "/box",
-    element: (
-      <Box
-        sx={{
-          width: 100,
-          height: 100,
-          margin: 0,
-          bgcolor: "lightpink",
-          border: "6px solid yellow",
-        }}
-      >
-        Box
-      </Box>
-    ),
   },
 ]);
 

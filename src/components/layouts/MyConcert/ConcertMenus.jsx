@@ -1,5 +1,5 @@
+/* eslint-disable react/prop-types */
 import { useState } from "react";
-import PropTypes from "prop-types";
 import { styled, alpha } from "@mui/material/styles";
 import IconButton from "@mui/material/IconButton";
 import Menu from "@mui/material/Menu";
@@ -155,31 +155,24 @@ export default function ConcertMenus(props) {
 
     const share = JSON.stringify(shareWorks);
 
-    setSearchParams((prev) => {
-      prev.set("share", share);
-      return prev;
-    });
-
-    const shareURL = `${window.location.origin}${window.location.pathname}?${searchParams.toString()}`;
+    const shareURL = `${window.location.origin}${window.location.pathname}?share=${encodeURIComponent(
+      share,
+    )}`;
 
     navigator.clipboard.writeText(shareURL).then(
       function () {
-        enqueueSnackbar("クリップボードにコピーしました", {
+        enqueueSnackbar("URLをコピーしました", {
           variant: "success",
         });
       },
       function (err) {
-        enqueueSnackbar("クリップボードのコピーに失敗しました", {
+        enqueueSnackbar("URLのコピーに失敗しました", {
           variant: "error",
         });
       },
     );
 
     handleClose();
-  };
-
-  ConcertMenus.propTypes = {
-    id: PropTypes.string.isRequired,
   };
 
   return (
