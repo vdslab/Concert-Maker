@@ -277,7 +277,6 @@ export default function FilterDialog({ Data, setData, setIsFiltering }) {
 
   const onReset = () => {
     reset();
-    setFilterValues(defaultFilterValues);
   };
 
   const countableInstrumentList = [
