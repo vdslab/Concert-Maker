@@ -1,29 +1,33 @@
 import SpotifyIcon from "@/assets/img/Spotify_Icon.png";
-import YoutubeIcon from "@/assets/img/YouTube_Music.png";
+import YoutubeIcon from "@/assets/img/YouTube.png";
 import AmazonIcon from "@/assets/img/Amazon_Music.png";
 import AppleIcon from "@/assets/img/Apple_Music_Icon.svg";
 import { Typography, Box, Grid } from "@mui/material";
 
 const musicServices = [
   {
-    name: "Spotify",
-    icon: SpotifyIcon,
-    url: "https://open.spotify.com/search/",
-  },
-  {
-    name: "YouTube Music",
+    name: "YouTube",
     icon: YoutubeIcon,
-    url: "https://music.youtube.com/search?q=",
+    url: "https://www.youtube.com/results?search_query=",
+    disabled: false,
   },
   {
     name: "Apple Music",
     icon: AppleIcon,
     url: "https://music.apple.com/jp/search?term=",
+    disabled: false,
+  },
+  {
+    name: "Spotify",
+    icon: SpotifyIcon,
+    url: "https://open.spotify.com/search/",
+    disabled: false,
   },
   {
     name: "Amazon Music",
     icon: AmazonIcon,
     url: "https://music.amazon.com/search/",
+    disabled: true,
   },
 ];
 
@@ -37,25 +41,48 @@ const MusicButton = ({ node }) => {
         聴く
       </Typography>
       <Grid container spacing={2} justifyContent="space-between">
-        {musicServices.map((service, index) => (
-          <Grid item key={index}>
-            <a
-              href={`${service.url}${searchQuery}`}
-              target="_blank"
-              rel="noopener noreferrer"
-              style={{ textDecoration: "none", color: "inherit" }}
+        {musicServices.map((service, index) => {
+          const buttonContent = (
+            <Box
+              display="flex"
+              flexDirection="column"
+              alignItems="center"
+              style={{
+                opacity: service.disabled ? 0.5 : 1,
+                cursor: service.disabled ? "not-allowed" : "pointer",
+              }}
             >
-              <Box display="flex" flexDirection="column" alignItems="center">
-                <img
-                  src={service.icon}
-                  alt={service.name}
-                  style={{ width: 40, height: 40, marginBottom: 5 }}
-                />
-                <Typography variant="caption">{service.name}</Typography>
-              </Box>
-            </a>
-          </Grid>
-        ))}
+              <img
+                src={service.icon}
+                alt={service.name}
+                style={{
+                  width: 40,
+                  height: 40,
+                  marginBottom: 5,
+                  objectFit: "contain",
+                }}
+              />
+              <Typography variant="caption">{service.name}</Typography>
+            </Box>
+          );
+
+          return (
+            <Grid item key={index}>
+              {service.disabled ? (
+                buttonContent
+              ) : (
+                <a
+                  href={`${service.url}${searchQuery}`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  style={{ textDecoration: "none", color: "inherit" }}
+                >
+                  {buttonContent}
+                </a>
+              )}
+            </Grid>
+          );
+        })}
       </Grid>
     </Box>
   );
