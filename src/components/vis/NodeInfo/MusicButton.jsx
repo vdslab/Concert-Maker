@@ -9,25 +9,25 @@ const musicServices = [
     name: "YouTube",
     icon: YoutubeIcon,
     url: "https://www.youtube.com/results?search_query=",
-    disabled: false,
+    enabled: true,
   },
   {
     name: "Apple Music",
     icon: AppleIcon,
     url: "https://music.apple.com/jp/search?term=",
-    disabled: false,
+    enabled: true,
   },
   {
     name: "Spotify",
     icon: SpotifyIcon,
     url: "https://open.spotify.com/search/",
-    disabled: false,
+    enabled: true,
   },
   {
     name: "Amazon Music",
     icon: AmazonIcon,
     url: "https://music.amazon.com/search/",
-    disabled: true,
+    enabled: false,
   },
 ];
 
@@ -48,8 +48,7 @@ const MusicButton = ({ node }) => {
               flexDirection="column"
               alignItems="center"
               sx={{
-                opacity: service.disabled ? 0.5 : 1,
-                cursor: service.disabled ? "not-allowed" : "pointer",
+                cursor: service.enabled ? "pointer" : "not-allowed",
               }}
             >
               <img
@@ -60,6 +59,7 @@ const MusicButton = ({ node }) => {
                   height: 40,
                   marginBottom: 5,
                   objectFit: "contain",
+                  filter: service.enabled ? null : "grayscale(100%)",
                 }}
               />
               <Typography variant="caption">{service.name}</Typography>
@@ -68,11 +68,7 @@ const MusicButton = ({ node }) => {
 
           return (
             <Grid item key={index}>
-              {service.disabled ? (
-                <Tooltip title="このサービスは現在利用できません">
-                  <Box>{buttonContent}</Box>
-                </Tooltip>
-              ) : (
+              {service.enabled ? (
                 <a
                   href={`${service.url}${searchQuery}`}
                   target="_blank"
@@ -81,6 +77,10 @@ const MusicButton = ({ node }) => {
                 >
                   {buttonContent}
                 </a>
+              ) : (
+                <Tooltip title="このサービスは現在利用できません">
+                  <Box>{buttonContent}</Box>
+                </Tooltip>
               )}
             </Grid>
           );
