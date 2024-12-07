@@ -10,7 +10,7 @@ import ForceGraph2D from "react-force-graph-2d";
 import DrawCircle from "./DrawCircle";
 
 const ForceGraphWrapper = (props) => {
-  const { data, height, clicknode, setClickedNodeId } = props;
+  const { data, height, clicknode, setClickedNodeId, isFiltering } = props;
   const fgRef = useRef();
   const maxZoom = 3;
 
@@ -137,7 +137,15 @@ const ForceGraphWrapper = (props) => {
 
           const size = (isConnected ? 8 : 5) / globalScale;
 
-          const color = node.filter === 0 ? "hsl(240, 50%, 85%)" : "blue";
+          /*
+           * 色どうする？
+           */
+          const color =
+            isFiltering == true
+              ? node.filter === 0
+                ? "hsl(240, 50%, 85%)"
+                : "blue"
+              : "black";
           const nodeColor = node.id === clicknode?.id ? "red" : color;
           DrawCircle(
             ctx,
