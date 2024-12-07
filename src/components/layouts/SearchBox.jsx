@@ -15,7 +15,12 @@ import FilterDialog from "@/components/layouts/FilterDialog";
  *
  * @returns {JSX.Element}
  */
-export default function SearchBox({ Data, setData, setClickedNodeId }) {
+export default function SearchBox({
+  Data,
+  setData,
+  setClickedNodeId,
+  setIsFiltering,
+}) {
   const inputRef = useRef(null);
   const [open, setOpen] = useState(false);
   const openPopper = () => setOpen(true);
@@ -98,7 +103,11 @@ export default function SearchBox({ Data, setData, setClickedNodeId }) {
                 }}
               />
               <Divider sx={{ height: 28, m: 0.5 }} orientation="vertical" />
-              <FilterDialog Data={Data} setData={setData} />
+              <FilterDialog
+                Data={Data}
+                setData={setData}
+                setIsFiltering={setIsFiltering}
+              />
             </Box>
           )}
           renderOption={(props, option) => {

@@ -8,6 +8,7 @@ const NodeLinkDiagram = (props) => {
   const { clickedNodeId, setClickedNodeId, graphData, setGraphData } = props;
   const [clickNode, setClickNode] = useState(null);
   const [height, setHeight] = useState(0);
+  const [isFiltering, setIsFiltering] = useState(false);
   const parentDivRef = useRef(null);
 
   useEffect(() => {
@@ -48,11 +49,13 @@ const NodeLinkDiagram = (props) => {
         height={height}
         clicknode={clickNode}
         setClickedNodeId={setClickedNodeId}
+        isFiltering={isFiltering}
       />
       <SearchBox
         Data={graphData}
         setData={updateGraphData}
         setClickedNodeId={setClickedNodeId}
+        setIsFiltering={setIsFiltering}
       />
       <NodeInfo
         node={clickNode}
