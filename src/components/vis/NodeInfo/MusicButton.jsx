@@ -2,7 +2,7 @@ import SpotifyIcon from "@/assets/img/Spotify_Icon.png";
 import YoutubeIcon from "@/assets/img/YouTube.png";
 import AmazonIcon from "@/assets/img/Amazon_Music.png";
 import AppleIcon from "@/assets/img/Apple_Music_Icon.svg";
-import { Typography, Box, Grid } from "@mui/material";
+import { Typography, Box, Grid, Tooltip } from "@mui/material";
 
 const musicServices = [
   {
@@ -47,7 +47,7 @@ const MusicButton = ({ node }) => {
               display="flex"
               flexDirection="column"
               alignItems="center"
-              style={{
+              sx={{
                 opacity: service.disabled ? 0.5 : 1,
                 cursor: service.disabled ? "not-allowed" : "pointer",
               }}
@@ -69,7 +69,9 @@ const MusicButton = ({ node }) => {
           return (
             <Grid item key={index}>
               {service.disabled ? (
-                buttonContent
+                <Tooltip title="このサービスは現在利用できません">
+                  <Box>{buttonContent}</Box>
+                </Tooltip>
               ) : (
                 <a
                   href={`${service.url}${searchQuery}`}
