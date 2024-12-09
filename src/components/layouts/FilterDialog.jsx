@@ -217,7 +217,7 @@ export default function FilterDialog({ Data, setData }) {
     title: "",
     birth: { since: null, until: null },
     death: { since: null, until: null },
-    lifetime: { since: null, until: null },
+    lifespan: { since: null, until: null },
     composed: { since: null, until: null },
     duration: { since: null, until: null },
     durationIncludeNoData: true,
@@ -258,14 +258,14 @@ export default function FilterDialog({ Data, setData }) {
     }
   };
 
-  const copyLifetimeDatesToBirth = (newFilterValues) => {
-    newFilterValues.birth.since = newFilterValues.lifetime.since;
-    newFilterValues.birth.until = newFilterValues.lifetime.until;
+  const copyLifespanDatesToBirth = (newFilterValues) => {
+    newFilterValues.birth.since = newFilterValues.lifespan.since;
+    newFilterValues.birth.until = newFilterValues.lifespan.until;
   };
 
   const onSubmit = handleSubmit((newFilterValues, event) => {
     event.preventDefault();
-    copyLifetimeDatesToBirth(newFilterValues);
+    copyLifespanDatesToBirth(newFilterValues);
     applyFilter(newFilterValues, Data, setData);
     setFilterValues(newFilterValues);
     setOpen(false);
@@ -350,7 +350,7 @@ export default function FilterDialog({ Data, setData }) {
             {/* 存命期間 */}
             <Grid item xs={3}>
               <InputLabel
-                htmlFor="death-input"
+                htmlFor="lifespan-input"
                 sx={{ fontWeight: 700, pt: "16.5px" }}
               >
                 存命期間
@@ -358,7 +358,7 @@ export default function FilterDialog({ Data, setData }) {
             </Grid>
             <Grid item xs={9}>
               <NumberRangeInput
-                name="lifetime"
+                name="lifespan"
                 unit="年"
                 min={1000}
                 max={null}
