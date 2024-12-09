@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Typography, Box, Grid, Button, Link } from "@mui/material";
+import { Typography, Box, Grid, Button } from "@mui/material";
 
 const DetailInfomation = ({ node }) => {
   if (!node.workMovements || node.workMovements[0] === "") return null;
@@ -42,19 +42,9 @@ const DetailInfomation = ({ node }) => {
       </Grid>
       {hasMore && (
         <Box mt={2} textAlign="center">
-          <Link
-            href="#"
-            onClick={handleToggle}
-            underline="hover"
-            // underline="none"
-            variant="body2"
-            sx={{ cursor: "pointer" }}
-          >
+          <Button onClick={handleToggle} variant="text" color="primary">
             {showAll ? "表示を折りたたむ" : "さらに表示"}
-          </Link>
-          {/* <Button onClick={handleToggle} variant="contained" color="primary">
-            {showAll ? "表示を折りたたむ" : "さらに表示"}
-          </Button> */}
+          </Button>
         </Box>
       )}
     </Box>
