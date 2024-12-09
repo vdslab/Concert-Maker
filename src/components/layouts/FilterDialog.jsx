@@ -217,6 +217,7 @@ export default function FilterDialog({ Data, setData }) {
     title: "",
     birth: { since: null, until: null },
     death: { since: null, until: null },
+    lifetime: { since: null, until: null },
     composed: { since: null, until: null },
     duration: { since: null, until: null },
     durationIncludeNoData: true,
@@ -257,8 +258,14 @@ export default function FilterDialog({ Data, setData }) {
     }
   };
 
+  const copyLifetimeDatesToBirth = (newFilterValues) => {
+    newFilterValues.birth.since = newFilterValues.lifetime.since;
+    newFilterValues.birth.until = newFilterValues.lifetime.until;
+  };
+
   const onSubmit = handleSubmit((newFilterValues, event) => {
     event.preventDefault();
+    copyLifetimeDatesToBirth(newFilterValues);
     applyFilter(newFilterValues, Data, setData);
     setFilterValues(newFilterValues);
     setOpen(false);
@@ -340,6 +347,24 @@ export default function FilterDialog({ Data, setData }) {
                 )}
               />
             </Grid>
+            {/* 存命期間 */}
+            <Grid item xs={3}>
+              <InputLabel
+                htmlFor="death-input"
+                sx={{ fontWeight: 700, pt: "16.5px" }}
+              >
+                存命期間
+              </InputLabel>
+            </Grid>
+            <Grid item xs={9}>
+              <NumberRangeInput
+                name="lifetime"
+                unit="年"
+                min={1000}
+                max={null}
+                control={control}
+              />
+            </Grid>
             {/* 曲名 */}
             <Grid item xs={3}>
               <InputLabel
@@ -361,42 +386,6 @@ export default function FilterDialog({ Data, setData }) {
                     fullWidth
                   />
                 )}
-              />
-            </Grid>
-            {/* 生年 */}
-            <Grid item xs={3}>
-              <InputLabel
-                htmlFor="birth-input"
-                sx={{ fontWeight: 700, pt: "16.5px" }}
-              >
-                作曲者の生年
-              </InputLabel>
-            </Grid>
-            <Grid item xs={9}>
-              <NumberRangeInput
-                name="birth"
-                unit="年"
-                min={1000}
-                max={null}
-                control={control}
-              />
-            </Grid>
-            {/* 没年 */}
-            <Grid item xs={3}>
-              <InputLabel
-                htmlFor="death-input"
-                sx={{ fontWeight: 700, pt: "16.5px" }}
-              >
-                作曲者の没年
-              </InputLabel>
-            </Grid>
-            <Grid item xs={9}>
-              <NumberRangeInput
-                name="death"
-                unit="年"
-                min={1000}
-                max={null}
-                control={control}
               />
             </Grid>
             {/* 作曲年 */}
