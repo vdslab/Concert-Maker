@@ -209,9 +209,10 @@ function NumberRangeInput({ name, unit, min, max, control }) {
  * @param {Object} props - コンポーネントのpropsを格納するオブジェクトです。
  * @param {Object} props.Data - ネットワークのノードリンクデータを保持するstate変数のオブジェクトです。
  * @param {function} props.setData - state変数Dataを更新する関数です。
+ * @param {function} props.setIsFiltering - フィルタリング状態を更新する関数です。
  * @returns {JSX.Element}
  */
-export default function FilterDialog({ Data, setData }) {
+export default function FilterDialog({ Data, setData, setIsFiltering }) {
   const defaultFilterValues = {
     composer: "",
     title: "",
@@ -268,6 +269,16 @@ export default function FilterDialog({ Data, setData }) {
     copyLifespanDatesToBirth(newFilterValues);
     applyFilter(newFilterValues, Data, setData);
     setFilterValues(newFilterValues);
+
+    // フィルターがデフォルトと異なるかどうかを比較
+    if (
+      JSON.stringify(defaultFilterValues) !== JSON.stringify(newFilterValues)
+    ) {
+      setIsFiltering(true);
+    } else {
+      setIsFiltering(false);
+    }
+
     setOpen(false);
   });
 
