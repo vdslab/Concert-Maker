@@ -1,17 +1,11 @@
 import Google from "@/assets/img/google.svg";
-import { Typography, Box, Grid, Tooltip } from "@mui/material";
+import { Typography, Box, Stack, Tooltip, IconButton } from "@mui/material";
 
 const musicServices = [
   {
-    name: "Google",
+    name: "Google 検索",
     icon: Google,
     url: "https://www.google.com/search?q=",
-    enabled: true,
-  },
-  {
-    name: "IMSLP",
-    icon: "https://upload.wikimedia.org/wikipedia/commons/9/98/IMSLP_logo_(2016).svg",
-    url: "https://www.google.com/search?q=site:imslp.org+",
     enabled: true,
   },
   {
@@ -20,64 +14,67 @@ const musicServices = [
     url: "https://ja.wikipedia.org/w/index.php?search=",
     enabled: true,
   },
+  {
+    name: "IMSLP（楽譜）",
+    icon: "https://upload.wikimedia.org/wikipedia/commons/9/98/IMSLP_logo_(2016).svg",
+    url: "https://www.google.com/search?q=site:imslp.org+",
+    enabled: true,
+  },
 ];
 
-const SiteButton = ({ node }) => {
+const MusicButton = ({ node }) => {
   const { title, composer } = node;
-  const searchQuery = encodeURIComponent(`${composer}: ${title}`);
+  const searchQuery = encodeURIComponent(`${title} (${composer})`);
 
   return (
     <Box p={2}>
-      <Typography variant="h6" gutterBottom>
-        調べる
-      </Typography>
-      <Grid container spacing={2} justifyContent="space-evenly">
+      <Typography variant="h6">調べる</Typography>
+      <Stack
+        direction={{ xs: "column", sm: "row" }}
+        spacing={2}
+        justifyContent="space-evenly"
+        alignItems="center"
+      >
         {musicServices.map((service, index) => {
-          const buttonContent = (
-            <Box
-              display="flex"
-              flexDirection="column"
-              alignItems="center"
-              sx={{
-                cursor: service.enabled ? "pointer" : "not-allowed",
-              }}
-            >
-              <img
-                src={service.icon}
-                alt={service.name}
-                style={{
-                  width: 80,
-                  height: 80,
-                  objectFit: "contain",
-                  filter: service.enabled ? "none" : "grayscale(100%)",
+          const button = (
+            <Box display="flex" flexDirection="column" alignItems="center">
+              <IconButton
+                href={`${service.url}${searchQuery}`}
+                target="_blank"
+                disabled={!service.enabled}
+                aria-label={service.name}
+                sx={{
+                  width: 60,
+                  height: 60,
+                  cursor: "pointer",
                 }}
-              />
+              >
+                <img
+                  src={service.icon}
+                  alt={service.name}
+                  style={{
+                    width: 40,
+                    height: 40,
+                    objectFit: "contain",
+                    filter: service.enabled ? "none" : "grayscale(100%)",
+                  }}
+                />
+              </IconButton>
               <Typography variant="caption">{service.name}</Typography>
             </Box>
           );
 
-          return (
-            <Grid item key={index} xs={4}>
-              {service.enabled ? (
-                <a
-                  href={`${service.url}${searchQuery}`}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  style={{ textDecoration: "none", color: "inherit" }}
-                >
-                  {buttonContent}
-                </a>
-              ) : (
-                <Tooltip title="このサービスは現在利用できません">
-                  <Box>{buttonContent}</Box>
-                </Tooltip>
-              )}
-            </Grid>
+          return service.enabled ? (
+            <Box key={index}>{button}</Box>
+          ) : (
+            <Tooltip key={index} title="このサービスは現在利用できません">
+              {button}
+            </Tooltip>
           );
         })}
-      </Grid>
+      </Stack>
     </Box>
   );
 };
 
-export default SiteButton;
+export default MusicButton;
