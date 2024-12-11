@@ -1,10 +1,11 @@
 import React, { useCallback, useState } from "react";
 import { Paper, Divider, Box } from "@mui/material";
 import { styled } from "@mui/system";
-import BasicInfomation from "./BasicInfomation";
-import DetailInfomation from "./DetailInfomation";
-import SongPlayedTogether from "./SongsPlayedTogether";
-import MusicButton from "./MusicButton";
+import BasicInfomation from "@/components/vis/NodeInfo/BasicInfomation";
+import DetailInfomation from "@/components/vis/NodeInfo/DetailInfomation";
+import SongPlayedTogether from "@/components/vis/NodeInfo/SongPlayedTogether";
+import MusicButton from "@/components/vis/NodeInfo/MusicButton";
+import SiteButton from "@/components/vis/NodeInfo/SiteButton";
 
 const StyledPaper = styled(Paper)(({ theme }) => ({
   position: "absolute",
@@ -30,25 +31,25 @@ const NodeInfo = (props) => {
   if (!node) return null;
 
   return (
-    <div>
-      <StyledPaper key={node.id} onScroll={handleScroll}>
-        <BasicInfomation
-          node={node}
-          onClose={handleCloseInfo}
-          showBorder={isScrolled}
-        />
-        <Divider />
-        <DetailInfomation node={node} />
-        <Divider />
-        <MusicButton node={node} />
-        <Divider />
-        <SongPlayedTogether
-          node={node}
-          Data={Data}
-          setClickedNodeId={setClickedNodeId}
-        />
-      </StyledPaper>
-    </div>
+    <StyledPaper key={node.id} onScroll={handleScroll}>
+      <BasicInfomation
+        node={node}
+        onClose={handleCloseInfo}
+        showBorder={isScrolled}
+      />
+      <Divider />
+      <DetailInfomation node={node} />
+      <Divider />
+      <MusicButton node={node} />
+      <Divider />
+      <SiteButton node={node} />
+      <Divider />
+      <SongPlayedTogether
+        node={node}
+        Data={Data}
+        setClickedNodeId={setClickedNodeId}
+      />
+    </StyledPaper>
   );
 };
 
