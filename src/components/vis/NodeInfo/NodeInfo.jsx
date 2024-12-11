@@ -1,11 +1,11 @@
 import React, { useCallback, useState } from "react";
 import { Paper, Divider, Box } from "@mui/material";
 import { styled } from "@mui/system";
-import BasicInfomation from "./BasicInfomation";
-import DetailInfomation from "./DetailInfomation";
-import SongPlayedTogether from "./SongsPlayedTogether";
-import MusicButton from "./MusicButton";
-import SiteButton from "./siteButton";
+import BasicInfomation from "@/components/vis/NodeInfo/BasicInfomation";
+import DetailInfomation from "@/components/vis/NodeInfo/DetailInfomation";
+import SongPlayedTogether from "@/components/vis/NodeInfo/SongPlayedTogether";
+import MusicButton from "@/components/vis/NodeInfo/MusicButton";
+import SiteButton from "@/components/vis/NodeInfo/SiteButton";
 
 const StyledPaper = styled(Paper)(({ theme }) => ({
   position: "absolute",
