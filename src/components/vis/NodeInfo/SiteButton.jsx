@@ -1,4 +1,5 @@
-import Google from "@/assets/img/google.svg";
+import Google from "@/assets/img/Google.svg";
+import Wiki from "@/assets/img/Wikipedia.svg";
 import { Typography, Box, Stack, Tooltip, IconButton } from "@mui/material";
 
 const musicServices = [
@@ -10,7 +11,7 @@ const musicServices = [
   },
   {
     name: "Wikipedia",
-    icon: "https://upload.wikimedia.org/wikipedia/commons/b/b3/Wikipedia-logo-v2-en.svg",
+    icon: Wiki,
     url: "https://ja.wikipedia.org/w/index.php?search=",
     enabled: true,
   },
