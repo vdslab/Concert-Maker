@@ -1,5 +1,5 @@
-import Google from "@/assets/img/Google.svg";
-import Wiki from "@/assets/img/Wikipedia.svg";
+import Google from "@/assets/img/google.svg";
+import Wiki from "@/assets/img/wikipedia.svg";
 import { Typography, Box, Stack, Tooltip, IconButton } from "@mui/material";
 
 const musicServices = [
