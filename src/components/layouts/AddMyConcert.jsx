@@ -7,23 +7,37 @@ import FormControlLabel from "@mui/material/FormControlLabel";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 import Grid from "@mui/material/Grid2";
-import { useSetRecoilState } from "recoil";
+import { useSetRecoilState, useRecoilValue } from "recoil";
 import { workConcertState } from "@/components/RecoilStates";
 import { useSnackbar } from "notistack";
 
 export default function AddMyConcert(props) {
   const { work, concertID, open, setOpen } = props;
+  const concerts = useRecoilValue(workConcertState);
   const setConcerts = useSetRecoilState(workConcertState);
   const handleClose = () => setOpen(false);
   const { enqueueSnackbar } = useSnackbar();
 
   const [movementList, setMovementList] = useState([]);
 
+  const checkedWorkMovements = (workID, concertID) => {
+    const concert = concerts.find(
+      (workConcert) =>
+        workConcert.concert === concertID && workConcert.work === workID
+    );
+    return concert ? concert.movements : [];
+  };
+
   useEffect(() => {
     if (work && work.workMovements) {
-      setMovementList([...Array(work.workMovements.length)].map((_, i) => i));
+      const checkedMovements = checkedWorkMovements(work.id, concertID);
+      if (checkedMovements.length > 0) {
+        setMovementList(checkedMovements);
+      } else {
+        setMovementList([...Array(work.workMovements.length)].map((_, i) => i));
+      }
     }
-  }, [work]);
+  }, [work, concertID, concerts]);
 
   const Submit = () => {
     if (movementList.length === 0) {
@@ -37,7 +51,7 @@ export default function AddMyConcert(props) {
               !(
                 workConcert.concert === concertID &&
                 workConcert.work === work.id
-              ),
+              )
           ),
           {
             concert: concertID,
@@ -97,7 +111,7 @@ export default function AddMyConcert(props) {
                               setMovementList((prev) => [...prev, index]);
                             } else {
                               setMovementList((prev) =>
-                                prev.filter((movement) => movement !== index),
+                                prev.filter((movement) => movement !== index)
                               );
                             }
                           }}
@@ -139,8 +153,8 @@ export default function AddMyConcert(props) {
                           if (e.target.checked) {
                             setMovementList(
                               [...Array(work.workMovements.length)].map(
-                                (_, i) => i,
-                              ),
+                                (_, i) => i
+                              )
                             );
                           } else {
                             setMovementList([]);
