@@ -31,8 +31,8 @@ const ForceGraphWrapper = (props) => {
           .id((d) => d.id)
           .distance((link) => link.distance)
       )
-      .force("x", d3.forceX(0).strength(0.05))
-      .force("y", d3.forceY(0).strength(0.05))
+      .force("x", d3.forceX(0).strength(0.02))
+      .force("y", d3.forceY(0).strength(0.02))
       .force("charge", d3.forceManyBody().strength(-100));
 
     for (let i = 0; i < 300; ++i) simulation.tick();

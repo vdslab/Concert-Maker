@@ -10,6 +10,7 @@ const NodeLinkDiagram = (props) => {
   const [height, setHeight] = useState(0);
   const parentDivRef = useRef(null);
 
+  console.log("clickNode", clickNode);
   useEffect(() => {
     const updateHeight = () => {
       if (parentDivRef.current) {

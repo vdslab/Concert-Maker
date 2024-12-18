@@ -1,10 +1,9 @@
 import Works from "@/assets/data/works.json";
 import Composer from "@/assets/data/composers.json";
 
-export const matchedDataByIds = (test = []) =>
+export const getWorksWithComposerDetails = () =>
   Works.map((work) => {
     const composerInfo = Composer.find((c) => c.name === work.composer);
-    const testItem = test.find((t) => t.id === work.id);
 
     const result1 = {
       id: work.id,
@@ -21,7 +20,7 @@ export const matchedDataByIds = (test = []) =>
       death: composerInfo ? composerInfo.deathYear : null,
       nationality: composerInfo ? composerInfo.nationality : null,
       name: work.composer + " / " + work.title,
-      filter: testItem ? testItem.filter : 1,
+      filter: 1,
     };
 
     const result = { ...result1, ...work.workFormula };

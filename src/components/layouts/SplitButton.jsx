@@ -47,14 +47,11 @@ function SplitButton({ workId, node }) {
   };
 
   const addWorkToConcert = (concertID, workID) => {
-    console.log("addWorkToConcert");
-    console.log(concertID);
-    console.log(workID);
     setWorkConcerts((workConcerts) => {
       return [
         ...workConcerts.filter(
           (workConcert) =>
-            !(workConcert.concert === concertID && workConcert.work === workID),
+            !(workConcert.concert === concertID && workConcert.work === workID)
         ),
         {
           concert: concertID,
@@ -128,15 +125,12 @@ function SplitButton({ workId, node }) {
             <MenuItem
               key={id}
               onClick={(event) => {
-                console.log("click");
-                console.log(id);
                 handleMenuItemClick(event, id);
               }}
             >
               {name}
             </MenuItem>
           ))}
-        {console.log(concerts)}
       </Menu>
     </React.Fragment>
   );

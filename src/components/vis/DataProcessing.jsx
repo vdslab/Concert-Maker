@@ -1,7 +1,7 @@
 import Works from "@/assets/data/works.json";
 import PlayedWithData from "@/assets/data/playedWith.json";
 import Composer from "@/assets/data/composers.json";
-import { getComposerFromId, matchedDataByIds } from "./utils";
+import { getComposerFromId, getWorksWithComposerDetails } from "./utils";
 import Distance from "@/utils/Distance";
 
 const findItem = (array, key, value) =>
@@ -19,7 +19,7 @@ export const processData = () => {
         const relatedComposer = findItem(
           Composer,
           "name",
-          relatedWork.composer,
+          relatedWork.composer
         );
         return {
           ...pw,
@@ -43,28 +43,41 @@ export const processData = () => {
         distance: 100 / playedWith.amount,
         sourceData: getComposerFromId(work.workId),
         targetData: getComposerFromId(playedWith.workId),
-      })),
+      }))
   );
 
-  const allPlayedWithWorkIds = new Set(
-    PlayedWithData.flatMap((item) => [
-      item.workId,
-      ...item.playedWith.map((pw) => pw.workId),
-    ]),
-  );
+  // const allPlayedWithWorkIds = new Set(
+  //   PlayedWithData.flatMap((item) => [
+  //     item.workId,
+  //     ...item.playedWith.map((pw) => pw.workId),
+  //   ])
+  // );
 
-  return { enhancedPlayedWithData, linkData, allPlayedWithWorkIds };
+  return { enhancedPlayedWithData, linkData };
 };
 
-export const createGraphData = (allPlayedWithWorkIds, linkData, data) => ({
-  nodes: matchedDataByIds(data).filter(
-    (work) => allPlayedWithWorkIds.has(work.id) || work.id === 2697,
-  ),
-  links: linkData.filter((link) => {
+const createGraphNodes = (linkData) => {
+  console.log(linkData);
+  const links = createGraphLinks(linkData);
+  console.log(links);
+  const uniqueNodes = Array.from(
+    new Set(links.flatMap((link) => [link.source, link.target]))
+  );
+  console.log(uniqueNodes);
+  return getWorksWithComposerDetails().filter(
+    (work) => uniqueNodes.includes(work.id)
+    // (allPlayedWithWorkIds.has(work.id) && uniqueNodes.includes(work.id)) ||
+    // work.id === 2697
+    // (work) => allPlayedWithWorkIds.has(work.id) || work.id === 2697 //惑星をしょうがなく追加している。
+  );
+};
+
+const createGraphLinks = (linkData) =>
+  linkData.filter((link) => {
     const { sourceData, targetData } = link;
     const timeFactor = Math.pow(
       1.1,
-      -Math.abs(sourceData.year - targetData.year),
+      -Math.abs(sourceData.year - targetData.year)
     );
     const distanceFactor = Math.pow(
       1 -
@@ -73,18 +86,29 @@ export const createGraphData = (allPlayedWithWorkIds, linkData, data) => ({
             sourceData.lat,
             sourceData.lon,
             targetData.lat,
-            targetData.lon,
+            targetData.lon
           ),
-          0.5,
+          0.5
         ),
-      2,
+      2
     );
     return (
       sourceData.lat &&
       sourceData.lon &&
       targetData.lat &&
       targetData.lon &&
-      timeFactor * distanceFactor > 0.1
+      timeFactor * distanceFactor > 0.2
     );
-  }),
+  });
+
+export const createGraphData = (linkData) => ({
+  nodes: createGraphNodes(linkData),
+  links: createGraphLinks(linkData),
+  // links: linkData,
 });
+
+// export const createGraphData = (allPlayedWithWorkIds, linkData) => ({
+//   nodes: createGraphNodes(allPlayedWithWorkIds, linkData),
+//   links: createGraphLinks(linkData),
+//   // links: linkData,
+// });
