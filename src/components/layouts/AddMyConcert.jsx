@@ -180,7 +180,7 @@ export default function AddMyConcert(props) {
                 >
                   <Grid>
                     <Button variant="outlined" onClick={handleClose}>
-                      Cancel
+                      キャンセル
                     </Button>
                   </Grid>
                   <Grid>
