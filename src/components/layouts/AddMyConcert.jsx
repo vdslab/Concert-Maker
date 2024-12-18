@@ -7,12 +7,13 @@ import FormControlLabel from "@mui/material/FormControlLabel";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 import Grid from "@mui/material/Grid2";
-import { useSetRecoilState } from "recoil";
-import { workConcertState } from "@/components/RecoilStates";
+import { useSetRecoilState, useRecoilValue } from "recoil";
+import { concertsState, workConcertState } from "@/components/RecoilStates";
 import { useSnackbar } from "notistack";
 
 export default function AddMyConcert(props) {
   const { work, concertID, open, setOpen } = props;
+  const concerts = useRecoilValue(concertsState);
   const setConcerts = useSetRecoilState(workConcertState);
   const handleClose = () => setOpen(false);
   const { enqueueSnackbar } = useSnackbar();
@@ -37,7 +38,7 @@ export default function AddMyConcert(props) {
               !(
                 workConcert.concert === concertID &&
                 workConcert.work === work.id
-              ),
+              )
           ),
           {
             concert: concertID,
@@ -49,7 +50,12 @@ export default function AddMyConcert(props) {
           },
         ];
       });
-      enqueueSnackbar("My演奏会に追加しました！", { variant: "success" });
+
+      const concerName = concerts.find(
+        (concert) => concert.id === concertID
+      ).name;
+
+      enqueueSnackbar(`${concerName}に追加しました！`, { variant: "success" });
       setOpen(false);
     }
   };
@@ -97,7 +103,7 @@ export default function AddMyConcert(props) {
                               setMovementList((prev) => [...prev, index]);
                             } else {
                               setMovementList((prev) =>
-                                prev.filter((movement) => movement !== index),
+                                prev.filter((movement) => movement !== index)
                               );
                             }
                           }}
@@ -139,8 +145,8 @@ export default function AddMyConcert(props) {
                           if (e.target.checked) {
                             setMovementList(
                               [...Array(work.workMovements.length)].map(
-                                (_, i) => i,
-                              ),
+                                (_, i) => i
+                              )
                             );
                           } else {
                             setMovementList([]);

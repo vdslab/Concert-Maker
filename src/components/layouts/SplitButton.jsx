@@ -46,15 +46,16 @@ function SplitButton({ workId, node }) {
     setOpen(false);
   };
 
-  const addWorkToConcert = (concertID, workID) => {
+  const addWorkToConcert = (concertID, workID, concertName) => {
     console.log("addWorkToConcert");
     console.log(concertID);
     console.log(workID);
+    console.log(concertName);
     setWorkConcerts((workConcerts) => {
       return [
         ...workConcerts.filter(
           (workConcert) =>
-            !(workConcert.concert === concertID && workConcert.work === workID),
+            !(workConcert.concert === concertID && workConcert.work === workID)
         ),
         {
           concert: concertID,
@@ -63,17 +64,18 @@ function SplitButton({ workId, node }) {
         },
       ];
     });
-    enqueueSnackbar("My演奏会に追加しました！", { variant: "success" });
+    enqueueSnackbar(`${concertName}に追加しました！`, { variant: "success" });
   };
 
-  const handleMenuItemClick = (event, concertId) => {
+  const handleMenuItemClick = (event, concertId, concertName) => {
+    console.log(concertName);
     event.preventDefault();
     event.stopPropagation();
     if (existMovements) {
       setOpenModal(true);
       setConcertID(concertId);
     } else {
-      addWorkToConcert(concertId, workId);
+      addWorkToConcert(concertId, workId, concertName);
     }
     handleClose(event);
   };
@@ -97,7 +99,7 @@ function SplitButton({ workId, node }) {
               setOpenModal(true);
               setConcertID(mainConcert.id);
             } else {
-              addWorkToConcert(mainConcert.id, workId);
+              addWorkToConcert(mainConcert.id, workId, mainConcert.name);
             }
             e.stopPropagation();
           }}
@@ -130,7 +132,7 @@ function SplitButton({ workId, node }) {
               onClick={(event) => {
                 console.log("click");
                 console.log(id);
-                handleMenuItemClick(event, id);
+                handleMenuItemClick(event, id, name);
               }}
             >
               {name}
