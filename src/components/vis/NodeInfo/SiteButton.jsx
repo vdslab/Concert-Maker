@@ -1,43 +1,35 @@
-import SpotifyIcon from "@/assets/img/Spotify_Icon.png";
-import YoutubeIcon from "@/assets/img/YouTube.png";
-import AmazonIcon from "@/assets/img/Amazon_Music.png";
-import AppleIcon from "@/assets/img/Apple_Music_Icon.svg";
+import Google from "@/assets/img/google.svg";
+import Wiki from "@/assets/img/wikipedia.svg";
 import { Typography, Box, Stack, Tooltip, IconButton } from "@mui/material";
 
 const musicServices = [
   {
-    name: "YouTube",
-    icon: YoutubeIcon,
-    url: "https://www.youtube.com/results?search_query=",
+    name: "Google 検索",
+    icon: Google,
+    url: "https://www.google.com/search?q=",
     enabled: true,
   },
   {
-    name: "Apple Music",
-    icon: AppleIcon,
-    url: "https://music.apple.com/jp/search?term=",
+    name: "Wikipedia",
+    icon: Wiki,
+    url: "https://ja.wikipedia.org/w/index.php?search=",
     enabled: true,
   },
   {
-    name: "Spotify",
-    icon: SpotifyIcon,
-    url: "https://open.spotify.com/search/",
+    name: "IMSLP（楽譜）",
+    icon: "https://upload.wikimedia.org/wikipedia/commons/9/98/IMSLP_logo_(2016).svg",
+    url: "https://www.google.com/search?q=site:imslp.org+",
     enabled: true,
-  },
-  {
-    name: "Amazon Music",
-    icon: AmazonIcon,
-    url: "https://music.amazon.com/search/",
-    enabled: false,
   },
 ];
 
 const MusicButton = ({ node }) => {
   const { title, composer } = node;
-  const searchQuery = encodeURIComponent(`${composer}: ${title}`);
+  const searchQuery = encodeURIComponent(`${title} (${composer})`);
 
   return (
     <Box p={2}>
-      <Typography variant="h6">聴く</Typography>
+      <Typography variant="h6">調べる</Typography>
       <Stack
         direction={{ xs: "column", sm: "row" }}
         spacing={2}
