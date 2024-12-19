@@ -14,6 +14,7 @@ import { useSnackbar } from "notistack";
 export default function AddMyConcert(props) {
   const { work, concertID, open, setOpen } = props;
   const concerts = useRecoilValue(concertsState);
+  const workConcerts = useRecoilValue(workConcertState);
   const setConcerts = useSetRecoilState(workConcertState);
   const handleClose = () => setOpen(false);
   const { enqueueSnackbar } = useSnackbar();
@@ -27,36 +28,54 @@ export default function AddMyConcert(props) {
   }, [work]);
 
   const Submit = () => {
+    const isAlreadyAdded = (concertId) => {
+      return workConcerts.some(
+        (workConcert) =>
+          workConcert.concert === concertId && workConcert.work === work.id
+      );
+    };
+
+    const notYetAdded = !isAlreadyAdded(concertID);
+
+    const concertName = concerts.find(
+      (concert) => concert.id === concertID
+    ).name;
+
+    // console.log(notYetAdded);
     if (movementList.length === 0) {
       enqueueSnackbar("楽章が選択されていません", { variant: "error" });
       return;
     } else {
-      setConcerts((workConcerts) => {
-        return [
-          ...workConcerts.filter(
-            (workConcert) =>
-              !(
-                workConcert.concert === concertID &&
-                workConcert.work === work.id
-              )
-          ),
-          {
-            concert: concertID,
-            work: work.id,
-            movements:
-              movementList.length <= 1
-                ? movementList
-                : movementList.toSorted((a, b) => a - b),
-          },
-        ];
-      });
+      if (notYetAdded) {
+        setConcerts((workConcerts) => {
+          return [
+            ...workConcerts.filter(
+              (workConcert) =>
+                !(
+                  workConcert.concert === concertID &&
+                  workConcert.work === work.id
+                )
+            ),
+            {
+              concert: concertID,
+              work: work.id,
+              movements:
+                movementList.length <= 1
+                  ? movementList
+                  : movementList.toSorted((a, b) => a - b),
+            },
+          ];
+        });
 
-      const concerName = concerts.find(
-        (concert) => concert.id === concertID
-      ).name;
-
-      enqueueSnackbar(`${concerName}に追加しました！`, { variant: "success" });
-      setOpen(false);
+        enqueueSnackbar(`${concertName}に追加しました！`, {
+          variant: "success",
+        });
+        setOpen(false);
+      } else {
+        enqueueSnackbar(`${concertName}には既に追加されています。`, {
+          variant: "error",
+        });
+      }
     }
   };
 
