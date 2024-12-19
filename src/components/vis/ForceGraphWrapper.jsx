@@ -55,8 +55,8 @@ const ForceGraphWrapper = (props) => {
       fgRef.current.d3Force("drag", null);
 
       fgRef.current.d3Force("link").distance((link) => link.distance);
-      fgRef.current.d3Force("x", d3.forceX(0).strength(0.05));
-      fgRef.current.d3Force("y", d3.forceY(0).strength(0.05));
+      fgRef.current.d3Force("x", d3.forceX(0).strength(0.02));
+      fgRef.current.d3Force("y", d3.forceY(0).strength(0.02));
       fgRef.current.d3Force("charge").strength(-100);
 
       const zoom = d3.zoom().scaleExtent([0.1, maxZoom]);

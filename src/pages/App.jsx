@@ -10,10 +10,8 @@ import Share from "@/components/layouts/MyConcert/Share.jsx";
 
 function App() {
   const [clickedNodeId, setClickedNodeId] = useState(null);
-  const { allPlayedWithWorkIds, linkData } = useMemo(() => processData(), []);
-  const [graphData, setGraphData] = useState(() =>
-    createGraphData(allPlayedWithWorkIds, linkData, []),
-  );
+  const { linkData } = useMemo(() => processData(), []);
+  const [graphData, setGraphData] = useState(() => createGraphData(linkData));
 
   return (
     <div className="container">
