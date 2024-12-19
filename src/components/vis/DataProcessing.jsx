@@ -50,13 +50,10 @@ export const processData = () => {
 };
 
 const createGraphNodes = (linkData) => {
-  console.log(linkData);
   const links = createGraphLinks(linkData);
-  console.log(links);
   const uniqueNodes = Array.from(
     new Set(links.flatMap((link) => [link.source, link.target]))
   );
-  console.log(uniqueNodes);
   return getWorksWithComposerDetails().filter((work) =>
     uniqueNodes.includes(work.id)
   );
