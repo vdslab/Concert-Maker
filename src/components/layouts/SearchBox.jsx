@@ -53,7 +53,7 @@ export default function SearchBox({ Data, setData, setClickedNodeId }) {
         position: "absolute",
         top: "10px",
         left: "10px",
-        zIndex: 1,
+        zIndex: 2,
       }}
     >
       <ClickAwayListener onClickAway={closePopper}>

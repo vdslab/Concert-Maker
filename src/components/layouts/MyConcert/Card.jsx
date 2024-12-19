@@ -42,10 +42,10 @@ export default function MyConcertCard(props) {
         ? work.duration
         : work.selectedMovements
             .map((duration) =>
-              parseInt(work.workMovementDuration[duration].replace("'", "")),
+              parseInt(work.workMovementDuration[duration].replace("'", ""))
             )
-            .reduce((x, y) => x + y),
-    ),
+            .reduce((x, y) => x + y)
+    )
   );
 
   const InsightsWorks = {
@@ -82,7 +82,7 @@ export default function MyConcertCard(props) {
                 selectConcert(id);
               }}
             >
-              Main
+              メイン
             </Button>
           </Grid>
           <Grid size="grow">
@@ -98,8 +98,8 @@ export default function MyConcertCard(props) {
                       concerts.map((concert) =>
                         concert.id === id
                           ? { ...concert, name: e.target.value }
-                          : concert,
-                      ),
+                          : concert
+                      )
                     );
                     setEditMode(false);
                   }

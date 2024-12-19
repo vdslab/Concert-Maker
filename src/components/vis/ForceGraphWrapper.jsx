@@ -9,6 +9,8 @@ import * as d3 from "d3";
 import ForceGraph2D from "react-force-graph-2d";
 import DrawCircle from "./DrawCircle";
 
+import Popularity from "@/assets/data/orchPopularity.json";
+
 const ForceGraphWrapper = (props) => {
   const { data, height, clicknode, setClickedNodeId } = props;
   const fgRef = useRef();
@@ -48,35 +50,11 @@ const ForceGraphWrapper = (props) => {
 
   const processedData = useMemo(() => calculateInitialPositions(data), [data]);
 
-  const configureGraph = (fgRef) => {
-    if (fgRef.current) {
-      fgRef.current.d3Force("drag", null);
-
-      fgRef.current.d3Force("link").distance((link) => link.distance);
-      fgRef.current.d3Force("x", d3.forceX(0).strength(0.05));
-      fgRef.current.d3Force("y", d3.forceY(0).strength(0.05));
-      fgRef.current.d3Force("charge").strength(-100);
-
-      const zoom = d3.zoom().scaleExtent([0.1, maxZoom]);
-      d3.select(fgRef.current.canvas)
-        .call(zoom)
-        .on("wheel", (event) => {
-          if (event.deltaY < 0 && fgRef.current.zoom() >= maxZoom) {
-            event.preventDefault();
-          }
-        });
-    }
-  };
-
   useEffect(() => {
     if (clicknode) {
       setClickedNodeId(clicknode.id);
     }
   }, [clicknode, setClickedNodeId]);
-
-  useEffect(() => {
-    configureGraph(fgRef);
-  }, []);
 
   useEffect(() => {
     if (clicknode && fgRef.current) {
@@ -119,6 +97,10 @@ const ForceGraphWrapper = (props) => {
     }
   }, []);
 
+  const getPopularity = (id) => {
+    return Popularity[id] || 0;
+  };
+
   return (
     <div style={{ position: "relative", width: "100%", height }}>
       <ForceGraph2D
@@ -135,10 +117,15 @@ const ForceGraphWrapper = (props) => {
             clicknode &&
             (node.id === clicknode.id || connectedNodeIds.has(node.id));
 
-          const size = (isConnected ? 8 : 5) / globalScale;
+          const popularity = getPopularity(node.id);
+
+          // nodeの基本サイズを8としている(nodeのサイズは2~10)
+          const size = 8 * popularity + 2 / globalScale;
 
           const color = node.filter === 0 ? "hsl(240, 50%, 85%)" : "blue";
-          const nodeColor = node.id === clicknode?.id ? "red" : color;
+          const connectedNodesColors = isConnected ? "#F0F" : color;
+          const nodeColor =
+            node.id === clicknode?.id ? "red" : connectedNodesColors;
           DrawCircle(
             ctx,
             node.x,
