@@ -5,7 +5,7 @@ export const getWorksWithComposerDetails = () =>
   Works.map((work) => {
     const composerInfo = Composer.find((c) => c.name === work.composer);
 
-    const result1 = {
+    const data = {
       id: work.id,
       composer: work.composer,
       duration: work.duration,
@@ -23,7 +23,7 @@ export const getWorksWithComposerDetails = () =>
       filter: 1,
     };
 
-    const result = { ...result1, ...work.workFormula };
+    const result = { ...data, ...work.workFormula };
 
     return result;
   });
@@ -31,7 +31,7 @@ export const getWorksWithComposerDetails = () =>
 export const matchedDataByIds = Works.map((work) => {
   const composerInfo = Composer.find((c) => c.name === work.composer);
 
-  const result1 = {
+  const data = {
     id: work.id,
     composer: work.composer,
     duration: work.duration,
@@ -48,7 +48,7 @@ export const matchedDataByIds = Works.map((work) => {
     name: work.composer + " / " + work.title,
   };
 
-  const result = { ...result1, ...work.workFormula };
+  const result = { ...data, ...work.workFormula };
 
   return result;
 });
