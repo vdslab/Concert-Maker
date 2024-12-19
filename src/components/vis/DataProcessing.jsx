@@ -36,7 +36,10 @@ export const processData = () => {
 
   const linkData = enhancedPlayedWithData.flatMap((work) =>
     work.playedWith
-      .filter((playedWith) => playedWith.workId > work.workId)
+      .filter(
+        (playedWith) =>
+          playedWith.workId > work.workId && playedWith.amount >= 2
+      )
       .map((playedWith) => ({
         source: work.workId,
         target: playedWith.workId,
@@ -84,7 +87,7 @@ const createGraphLinks = (linkData) =>
       sourceData.lon &&
       targetData.lat &&
       targetData.lon &&
-      timeFactor * distanceFactor > 0.2
+      timeFactor * distanceFactor > 0.1
     );
   });
 
