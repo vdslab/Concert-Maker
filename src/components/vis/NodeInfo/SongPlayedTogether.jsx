@@ -1,6 +1,7 @@
 import React from "react";
 import { Typography, Box, Button, Divider } from "@mui/material";
 import { durationFormat } from "@/utils/calcTime";
+import { getWorkFormulaText } from "@/utils/getWorkFormulaText";
 
 const SongPlayedTogether = (props) => {
   const { node, Data, setClickedNodeId } = props;
@@ -27,8 +28,10 @@ const SongPlayedTogether = (props) => {
       <Typography variant="h6" gutterBottom>
         よく一緒に演奏されている曲
       </Typography>
-      {linkNodesArray.map((work, index) => (
-        <Button
+      {linkNodesArray.map((work, index) => {
+        const workFormulaText = getWorkFormulaText(work.workFormula);
+
+        return <Button
           key={index}
           onClick={() => {
             setClickedNodeId(work.id);
@@ -59,18 +62,14 @@ const SongPlayedTogether = (props) => {
           >
             {work.title}
           </Typography>
-          <Typography variant="body2" component="div" color="text.secondary">
-            {work.duration === null
-              ? ""
-              : "演奏時間: " + durationFormat(work.duration)}
+          <Typography variant="body2" color="text.secondary" >
+            {work.duration === null ? "" : "演奏時間: " + durationFormat(work.duration)}
           </Typography>
-          <Typography variant="body2" component="div" color="text.secondary">
-            {work.workFormulaStr === null
-              ? ""
-              : "楽器編成: " + work.workFormulaStr.replace(/\n/g, " / ")}
+          <Typography variant="body2" color="text.secondary">
+            {workFormulaText ? "楽器編成: " + workFormulaText : ""}
           </Typography>
         </Button>
-      ))}
+      })}
     </Box>
   );
 };

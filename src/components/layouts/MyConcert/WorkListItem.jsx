@@ -14,6 +14,7 @@ import AddMyConcert from "@/components/layouts/AddMyConcert";
 import { useState } from "react";
 
 import { durationFormat } from "@/utils/calcTime";
+import { getWorkFormulaText } from "@/utils/getWorkFormulaText";
 
 export default function WorkListItem({ work, concertID, setClickedNodeId, setWorkConcertState, sortableItemProps }) { // sortableItemProps は、このコンポーネントが WorkListSortableItem として使用される場合にのみ用いる
   const [openModal, setOpenModal] = useState(false);
@@ -51,6 +52,8 @@ export default function WorkListItem({ work, concertID, setClickedNodeId, setWor
         .reduce((x, y) => x + y),
   );
 
+  const workFormulaText = getWorkFormulaText(work.workFormula);
+
   return (
     <Paper
       ref={sortableItemProps?.setNodeRef}
@@ -79,20 +82,12 @@ export default function WorkListItem({ work, concertID, setClickedNodeId, setWor
             <Typography variant="h6" component="div">
               {work.title}
             </Typography>
-            <Typography variant="body2" component="div">
+            <Typography variant="body2" color="text.secondary">
               {duration_time !== "" ? `演奏時間: ${duration_time}` : ""}
             </Typography>
-            <Stack direction="row" spacing={1}>
-              <Typography
-                variant="body2"
-                component="div"
-                color="textSecondary"
-              >
-                {work.workFormulaStr.split("\n").map((line, index) => (
-                  <div key={index}>{line}</div>
-                ))}
-              </Typography>
-            </Stack>
+            <Typography variant="body2" color="text.secondary">
+              {workFormulaText ? "楽器編成: " + workFormulaText : ""}
+            </Typography>
           </Box>
         </Grid>
         <Grid size="auto">
