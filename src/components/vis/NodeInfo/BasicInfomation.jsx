@@ -45,7 +45,13 @@ const BasicInfomation = ({ node, onClose, showBorder }) => {
           <CloseIcon />
         </StyledIconButton>
         <TitleBox>
-          <Typography variant="body">{node.composer}</Typography>
+          <Typography variant="body">
+            {`${node.composer} ${
+              node.birth || node.death
+                ? ` (${node.birth || ""} - ${node.death || ""})`
+                : ""
+            }`}
+          </Typography>
           <Typography variant="h6" gutterBottom sx={{ marginBottom: 1 }}>
             {node.title}
           </Typography>
