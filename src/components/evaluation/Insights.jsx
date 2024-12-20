@@ -18,7 +18,7 @@ import Button from "@mui/material/Button";
 
 import Radar from "@/components/evaluation/radarChart.jsx";
 import RectangularGraph from "@//components/evaluation/RectangularGraph.jsx";
-
+import { getWorkFormulaText } from "@/utils/getWorkFormulaText";
 
 export default function Insights(props) {
   const { myConcert, handleClose, submitAction } = props;
@@ -70,16 +70,19 @@ export default function Insights(props) {
                     work.workMovementDuration[0] === "'"
                     ? work.duration
                     : work.selectedMovements
-                        .map((duration) =>
-                          parseInt(
-                            work.workMovementDuration[duration].replace(
-                              "'",
-                              "",
-                            ),
+                      .map((duration) =>
+                        parseInt(
+                          work.workMovementDuration[duration].replace(
+                            "'",
+                            "",
                           ),
-                        )
-                        .reduce((x, y) => x + y),
+                        ),
+                      )
+                      .reduce((x, y) => x + y),
                 );
+
+                const workFormulaText = getWorkFormulaText(work.workFormula);
+                
                 return (
                   <div key={`${myConcert.concert}-${index}`}>
                     {index !== 0 && <Divider />}
@@ -118,11 +121,9 @@ export default function Insights(props) {
                                 component="div"
                                 color="textSecondary"
                               >
-                                {work.workFormulaStr
-                                  .split("\n")
-                                  .map((line, index) => (
-                                    <div key={index}>{line}</div>
-                                  ))}
+                                {workFormulaText === ""
+                                  ? ""
+                                  : "楽器編成: " + workFormulaText}
                               </Typography>
                             </Stack>
                           </Box>

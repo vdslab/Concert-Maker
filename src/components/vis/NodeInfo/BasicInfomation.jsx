@@ -3,6 +3,7 @@ import CloseIcon from "@mui/icons-material/Close";
 import SplitButton from "@/components/layouts/SplitButton";
 import { styled } from "@mui/system";
 import { durationFormat } from "@/utils/calcTime";
+import { getWorkFormulaText } from "@/utils/getWorkFormulaText";
 
 const StyledIconButton = styled(IconButton)(({ theme }) => ({
   position: "absolute",
@@ -38,6 +39,8 @@ const ScrollableContent = styled(Box)({
 });
 
 const BasicInfomation = ({ node, onClose, showBorder }) => {
+  const workFormulaText = getWorkFormulaText(node.workFormula);
+
   return (
     <>
       <FixedHeader showBorder={showBorder}>
@@ -61,9 +64,9 @@ const BasicInfomation = ({ node, onClose, showBorder }) => {
             : "演奏時間: " + durationFormat(node.duration)}
         </Typography>
         <Typography variant="body2" color="textSecondary" gutterBottom>
-          {node.workFormulaStr === ""
+          {workFormulaText === ""
             ? ""
-            : "楽器編成: " + node.workFormulaStr.replace(/\n/g, " / ")}
+            : "楽器編成: " + workFormulaText}
         </Typography>
         <SplitButton workId={node.id} node={node} />
       </ScrollableContent>
