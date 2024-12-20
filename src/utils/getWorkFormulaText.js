@@ -3,8 +3,8 @@
  * 
  * @param {Object} workFormula - 各楽器の演奏人数を表すオブジェクト。
  * 
- * @returns {string} 楽器の略称と演奏人数を組み合わせた文字列。複数のセクションは「 — 」で区切られ、各セクション内では楽器ごとのテキストがカンマで区切られます。
- * 例: "Fl. 2, Ob. 1 — Hrn. 4, Trp. 3 — Timp. 1"
+ * @returns {string|null} 楽器の略称と演奏人数を組み合わせた文字列。複数のセクションは「 — 」で区切られ、各セクション内では楽器ごとのテキストがカンマで区切られます。
+ * 例: "Fl. 2, Ob. 1 — Hrn. 4, Trp. 3 — Timp. 1"。もし入力が空の場合は `null` を返します。
  */
 export const getWorkFormulaText = (workFormula) => {
   const instrumentAbbreviations = [
@@ -46,5 +46,5 @@ export const getWorkFormulaText = (workFormula) => {
     .map(section => section.join(", "))
     .join(" — ");
 
-  return workFormulaText;
+  return workFormulaText !== "" ? workFormulaText : null;
 };

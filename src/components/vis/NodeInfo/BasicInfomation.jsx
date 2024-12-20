@@ -59,10 +59,10 @@ const BasicInfomation = ({ node, onClose, showBorder }) => {
           {node.year === null ? "" : "作曲年: " + node.year + "年"}
         </Typography>
         <Typography variant="body2" color="text.secondary" gutterBottom>
-          {node.duration === null ? "": "演奏時間: " + durationFormat(node.duration)}
+          {node.duration === null ? "" : "演奏時間: " + durationFormat(node.duration)}
         </Typography>
         <Typography variant="body2" color="text.secondary" gutterBottom>
-          {workFormulaText === "" ? "" : "楽器編成: " + workFormulaText}
+          {workFormulaText ? "楽器編成: " + workFormulaText : ""}
         </Typography>
         <SplitButton workId={node.id} node={node} />
       </ScrollableContent>

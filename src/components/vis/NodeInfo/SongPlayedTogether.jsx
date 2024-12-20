@@ -66,7 +66,7 @@ const SongPlayedTogether = (props) => {
             {work.duration === null ? "" : "演奏時間: " + durationFormat(work.duration)}
           </Typography>
           <Typography variant="body2" color="text.secondary">
-            {workFormulaText === "" ? "" : "楽器編成: " + workFormulaText}
+            {workFormulaText ? "楽器編成: " + workFormulaText : ""}
           </Typography>
         </Button>
       })}

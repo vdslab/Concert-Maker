@@ -111,10 +111,10 @@ export default function Insights(props) {
                               {work.title}
                             </Typography>
                             <Typography variant="body2" color="text.secondary">
-                              {duration_time !== "" ? `演奏時間: ${duration_time}`  : ""}
+                              {duration_time !== "" ? `演奏時間: ${duration_time}` : ""}
                             </Typography>
                             <Typography variant="body2" color="text.secondary">
-                              {workFormulaText === "" ? "" : "楽器編成: " + workFormulaText}
+                              {workFormulaText ? "楽器編成: " + workFormulaText : ""}
                             </Typography>
                           </Box>
                         </Grid>

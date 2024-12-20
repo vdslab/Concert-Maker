@@ -86,7 +86,7 @@ export default function WorkListItem({ work, concertID, setClickedNodeId, setWor
               {duration_time !== "" ? `演奏時間: ${duration_time}` : ""}
             </Typography>
             <Typography variant="body2" color="text.secondary">
-              {workFormulaText === "" ? "" : "楽器編成: " + workFormulaText}
+              {workFormulaText ? "楽器編成: " + workFormulaText : ""}
             </Typography>
           </Box>
         </Grid>
