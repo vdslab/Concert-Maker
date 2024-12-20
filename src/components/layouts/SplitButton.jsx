@@ -21,6 +21,7 @@ function SplitButton({ workId, node }) {
   const { enqueueSnackbar } = useSnackbar();
 
   const concerts = useRecoilValue(concertsState);
+  const workConcerts = useRecoilValue(workConcertState);
 
   const setWorkConcerts = useSetRecoilState(workConcertState);
   const [openModal, setOpenModal] = React.useState(false);
@@ -46,34 +47,47 @@ function SplitButton({ workId, node }) {
     setOpen(false);
   };
 
-  const addWorkToConcert = (concertID, workID) => {
-    console.log("addWorkToConcert");
-    console.log(concertID);
-    console.log(workID);
-    setWorkConcerts((workConcerts) => {
-      return [
-        ...workConcerts.filter(
-          (workConcert) =>
-            !(workConcert.concert === concertID && workConcert.work === workID),
-        ),
-        {
-          concert: concertID,
-          work: workID,
-          movements: [],
-        },
-      ];
-    });
-    enqueueSnackbar("My演奏会に追加しました！", { variant: "success" });
+  const addWorkToConcert = (concertID, concertName, workID) => {
+    const isAlreadyAdded = (concertId) => {
+      return workConcerts.some(
+        (workConcert) =>
+          workConcert.concert === concertId && workConcert.work === workID
+      );
+    };
+
+    const notYetAdded = !isAlreadyAdded(concertID);
+    if (notYetAdded) {
+      setWorkConcerts((workConcerts) => {
+        return [
+          ...workConcerts.filter(
+            (workConcert) =>
+              !(
+                workConcert.concert === concertID && workConcert.work === workID
+              )
+          ),
+          {
+            concert: concertID,
+            work: workID,
+            movements: [],
+          },
+        ];
+      });
+      enqueueSnackbar(`${concertName}に追加しました！`, { variant: "success" });
+    } else {
+      enqueueSnackbar(`${concertName}には既に追加されています`, {
+        variant: "error",
+      });
+    }
   };
 
-  const handleMenuItemClick = (event, concertId) => {
+  const handleMenuItemClick = (event, concertId, concertName) => {
     event.preventDefault();
     event.stopPropagation();
     if (existMovements) {
       setOpenModal(true);
       setConcertID(concertId);
     } else {
-      addWorkToConcert(concertId, workId);
+      addWorkToConcert(concertId, concertName, workId);
     }
     handleClose(event);
   };
@@ -97,7 +111,7 @@ function SplitButton({ workId, node }) {
               setOpenModal(true);
               setConcertID(mainConcert.id);
             } else {
-              addWorkToConcert(mainConcert.id, workId);
+              addWorkToConcert(mainConcert.id, mainConcert.name, workId);
             }
             e.stopPropagation();
           }}
@@ -128,15 +142,12 @@ function SplitButton({ workId, node }) {
             <MenuItem
               key={id}
               onClick={(event) => {
-                console.log("click");
-                console.log(id);
-                handleMenuItemClick(event, id);
+                handleMenuItemClick(event, id, name);
               }}
             >
               {name}
             </MenuItem>
           ))}
-        {console.log(concerts)}
       </Menu>
     </React.Fragment>
   );
