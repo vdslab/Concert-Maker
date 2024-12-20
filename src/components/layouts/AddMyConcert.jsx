@@ -54,7 +54,9 @@ export default function AddMyConcert(props) {
     ).name;
 
     if (isAlreadyRegistered) {
-      enqueueSnackbar(`${concertName}`, { variant: "error" });
+      enqueueSnackbar(`${concertName}には既に追加されています`, {
+        variant: "error",
+      });
       return;
     }
 
@@ -79,8 +81,14 @@ export default function AddMyConcert(props) {
                 ? movementList
                 : movementList.toSorted((a, b) => a - b),
           };
+          enqueueSnackbar(`楽章を変更しました`, {
+            variant: "success",
+          });
           return updatedWorkConcerts;
         } else {
+          enqueueSnackbar(`${concertName}に追加しました！`, {
+            variant: "success",
+          });
           // 新しい要素を追加
           return [
             ...workConcerts,
@@ -95,7 +103,7 @@ export default function AddMyConcert(props) {
           ];
         }
       });
-      enqueueSnackbar("My演奏会に追加しました！", { variant: "success" });
+
       setOpen(false);
     }
   };
