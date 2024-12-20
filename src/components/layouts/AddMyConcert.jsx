@@ -23,7 +23,7 @@ export default function AddMyConcert(props) {
   const checkedWorkMovements = (workID, concertID) => {
     const concert = concerts.find(
       (workConcert) =>
-        workConcert.concert === concertID && workConcert.work === workID
+        workConcert.concert === concertID && workConcert.work === workID,
     );
     return concert ? concert.movements : [];
   };
@@ -45,23 +45,37 @@ export default function AddMyConcert(props) {
       return;
     } else {
       setConcerts((workConcerts) => {
-        return [
-          ...workConcerts.filter(
-            (workConcert) =>
-              !(
-                workConcert.concert === concertID &&
-                workConcert.work === work.id
-              )
-          ),
-          {
+        const existingIndex = workConcerts.findIndex(
+          (workConcert) =>
+            workConcert.concert === concertID && workConcert.work === work.id,
+        );
+
+        if (existingIndex !== -1) {
+          // 既存の要素を更新
+          const updatedWorkConcerts = [...workConcerts];
+          updatedWorkConcerts[existingIndex] = {
             concert: concertID,
             work: work.id,
             movements:
               movementList.length <= 1
                 ? movementList
                 : movementList.toSorted((a, b) => a - b),
-          },
-        ];
+          };
+          return updatedWorkConcerts;
+        } else {
+          // 新しい要素を追加
+          return [
+            ...workConcerts,
+            {
+              concert: concertID,
+              work: work.id,
+              movements:
+                movementList.length <= 1
+                  ? movementList
+                  : movementList.toSorted((a, b) => a - b),
+            },
+          ];
+        }
       });
       enqueueSnackbar("My演奏会に追加しました！", { variant: "success" });
       setOpen(false);
@@ -111,7 +125,7 @@ export default function AddMyConcert(props) {
                               setMovementList((prev) => [...prev, index]);
                             } else {
                               setMovementList((prev) =>
-                                prev.filter((movement) => movement !== index)
+                                prev.filter((movement) => movement !== index),
                               );
                             }
                           }}
@@ -153,8 +167,8 @@ export default function AddMyConcert(props) {
                           if (e.target.checked) {
                             setMovementList(
                               [...Array(work.workMovements.length)].map(
-                                (_, i) => i
-                              )
+                                (_, i) => i,
+                              ),
                             );
                           } else {
                             setMovementList([]);
