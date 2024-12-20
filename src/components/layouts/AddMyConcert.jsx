@@ -21,11 +21,24 @@ export default function AddMyConcert(props) {
 
   const [movementList, setMovementList] = useState([]);
 
+  const checkedWorkMovements = (workID, concertID) => {
+    const concert = concerts.find(
+      (workConcert) =>
+        workConcert.concert === concertID && workConcert.work === workID
+    );
+    return concert ? concert.movements : [];
+  };
+
   useEffect(() => {
     if (work && work.workMovements) {
-      setMovementList([...Array(work.workMovements.length)].map((_, i) => i));
+      const checkedMovements = checkedWorkMovements(work.id, concertID);
+      if (checkedMovements.length > 0) {
+        setMovementList(checkedMovements);
+      } else {
+        setMovementList([...Array(work.workMovements.length)].map((_, i) => i));
+      }
     }
-  }, [work]);
+  }, [work, concertID, concerts]);
 
   const Submit = () => {
     const sortedCurrentMovements =
@@ -206,7 +219,7 @@ export default function AddMyConcert(props) {
                 >
                   <Grid>
                     <Button variant="outlined" onClick={handleClose}>
-                      Cancel
+                      キャンセル
                     </Button>
                   </Grid>
                   <Grid>
