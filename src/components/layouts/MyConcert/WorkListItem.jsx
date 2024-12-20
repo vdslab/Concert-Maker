@@ -1,7 +1,7 @@
 import Box from "@mui/material/Box";
 import Chip from "@mui/material/Chip";
 import DeleteIcon from "@mui/icons-material/Delete";
-import DragIndicatorIcon from '@mui/icons-material/DragIndicator';
+import DragIndicatorIcon from "@mui/icons-material/DragIndicator";
 import EditIcon from "@mui/icons-material/Edit";
 import Grid from "@mui/material/Grid2";
 import IconButton from "@mui/material/IconButton";
@@ -11,12 +11,21 @@ import Typography from "@mui/material/Typography";
 
 import AddMyConcert from "@/components/layouts/AddMyConcert";
 
+import composersData from "@/assets/data/composers.json";
+
 import { useState } from "react";
 
 import { durationFormat } from "@/utils/calcTime";
 import { getWorkFormulaText } from "@/utils/getWorkFormulaText";
 
-export default function WorkListItem({ work, concertID, setClickedNodeId, setWorkConcertState, sortableItemProps }) { // sortableItemProps は、このコンポーネントが WorkListSortableItem として使用される場合にのみ用いる
+export default function WorkListItem({
+  work,
+  concertID,
+  setClickedNodeId,
+  setWorkConcertState,
+  sortableItemProps,
+}) {
+  // sortableItemProps は、このコンポーネントが WorkListSortableItem として使用される場合にのみ用いる
   const [openModal, setOpenModal] = useState(false);
   const [editWork, setEditWork] = useState(null);
 
@@ -39,20 +48,22 @@ export default function WorkListItem({ work, concertID, setClickedNodeId, setWor
   };
 
   const duration_time = durationFormat(
-    !work.selectedMovements
-      || work.workMovementDuration.length <= 1
-      || work.workMovementDuration[0] === "'"
+    !work.selectedMovements ||
+      work.workMovementDuration.length <= 1 ||
+      work.workMovementDuration[0] === "'"
       ? work.duration
       : work.selectedMovements
-        .map((duration) =>
-          parseInt(
-            work.workMovementDuration[duration].replace("'", ""),
-          ),
-        )
-        .reduce((x, y) => x + y),
+          .map((duration) =>
+            parseInt(work.workMovementDuration[duration].replace("'", "")),
+          )
+          .reduce((x, y) => x + y),
   );
 
   const workFormulaText = getWorkFormulaText(work.workFormula);
+
+  const composer = composersData.find(
+    (composer) => composer.name === work.composer,
+  );
 
   return (
     <Paper
@@ -77,10 +88,17 @@ export default function WorkListItem({ work, concertID, setClickedNodeId, setWor
         <Grid size="grow">
           <Box sx={{ p: 1 }}>
             <Typography variant="body1" component="div">
-              {work.composer}
+              {`${work.composer} ${
+                composer.birthYear || composer.deathYear
+                  ? ` (${composer.birthYear || ""} - ${composer.deathYear || ""})`
+                  : ""
+              }`}
             </Typography>
             <Typography variant="h6" component="div">
               {work.title}
+            </Typography>
+            <Typography variant="body2" color="text.secondary">
+              {work.year === null ? "" : "作曲年: " + work.year + "年"}
             </Typography>
             <Typography variant="body2" color="text.secondary">
               {duration_time !== "" ? `演奏時間: ${duration_time}` : ""}
@@ -122,10 +140,7 @@ export default function WorkListItem({ work, concertID, setClickedNodeId, setWor
             <Box sx={{ p: 1, overflowX: "auto" }}>
               <Stack direction="row" spacing={1}>
                 {work.selectedMovements.map((movement, index) => (
-                  <Chip
-                    key={index}
-                    label={work.workMovements[movement]}
-                  />
+                  <Chip key={index} label={work.workMovements[movement]} />
                 ))}
               </Stack>
             </Box>

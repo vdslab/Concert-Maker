@@ -15,7 +15,6 @@ import Stack from "@mui/material/Stack";
 import Divider from "@mui/material/Divider";
 import Button from "@mui/material/Button";
 
-
 import Radar from "@/components/evaluation/radarChart.jsx";
 import RectangularGraph from "@//components/evaluation/RectangularGraph.jsx";
 import { getWorkFormulaText } from "@/utils/getWorkFormulaText";
@@ -70,15 +69,15 @@ export default function Insights(props) {
                     work.workMovementDuration[0] === "'"
                     ? work.duration
                     : work.selectedMovements
-                      .map((duration) =>
-                        parseInt(
-                          work.workMovementDuration[duration].replace(
-                            "'",
-                            "",
+                        .map((duration) =>
+                          parseInt(
+                            work.workMovementDuration[duration].replace(
+                              "'",
+                              "",
+                            ),
                           ),
-                        ),
-                      )
-                      .reduce((x, y) => x + y),
+                        )
+                        .reduce((x, y) => x + y),
                 );
 
                 const workFormulaText = getWorkFormulaText(work.workFormula);
@@ -105,16 +104,31 @@ export default function Insights(props) {
                         <Grid size="grow">
                           <Box sx={{ p: 1 }}>
                             <Typography variant="body1" component="div">
-                              {work.composer}
+                              {`${work.composer} ${
+                                work.composerData.birthYear ||
+                                work.composerData.deathYear
+                                  ? ` (${work.composerData.birthYear || ""} - ${work.composerData.deathYear || ""})`
+                                  : ""
+                              }`}
                             </Typography>
                             <Typography variant="h6" component="div">
                               {work.title}
                             </Typography>
+
                             <Typography variant="body2" color="text.secondary">
-                              {duration_time !== "" ? `演奏時間: ${duration_time}` : ""}
+                              {work.year === null
+                                ? ""
+                                : "作曲年: " + work.year + "年"}
                             </Typography>
                             <Typography variant="body2" color="text.secondary">
-                              {workFormulaText ? "楽器編成: " + workFormulaText : ""}
+                              {duration_time !== ""
+                                ? `演奏時間: ${duration_time}`
+                                : ""}
+                            </Typography>
+                            <Typography variant="body2" color="text.secondary">
+                              {workFormulaText
+                                ? "楽器編成: " + workFormulaText
+                                : ""}
                             </Typography>
                           </Box>
                         </Grid>
