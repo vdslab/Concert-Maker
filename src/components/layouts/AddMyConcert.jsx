@@ -28,54 +28,69 @@ export default function AddMyConcert(props) {
   }, [work]);
 
   const Submit = () => {
-    const isAlreadyAdded = (concertId) => {
-      return workConcerts.some(
-        (workConcert) =>
-          workConcert.concert === concertId && workConcert.work === work.id
-      );
-    };
-
-    const notYetAdded = !isAlreadyAdded(concertID);
+    const sortedCurrentMovements =
+      movementList.length <= 1
+        ? movementList
+        : [...movementList].sort((a, b) => a - b);
 
     const concertName = concerts.find(
       (concert) => concert.id === concertID
     ).name;
 
-    // console.log(notYetAdded);
     if (movementList.length === 0) {
       enqueueSnackbar("楽章が選択されていません", { variant: "error" });
       return;
     } else {
-      if (notYetAdded) {
-        setConcerts((workConcerts) => {
+      setConcerts((prevWorkConcerts) => {
+        const existingIndex = prevWorkConcerts.findIndex(
+          (wc) => wc.concert === concertID && wc.work === work.id
+        );
+
+        if (existingIndex === -1) {
+          enqueueSnackbar(`${concertName}に追加しました！`, {
+            variant: "success",
+          });
+          setOpen(false);
           return [
-            ...workConcerts.filter(
-              (workConcert) =>
-                !(
-                  workConcert.concert === concertID &&
-                  workConcert.work === work.id
-                )
-            ),
+            ...prevWorkConcerts,
             {
               concert: concertID,
               work: work.id,
-              movements:
-                movementList.length <= 1
-                  ? movementList
-                  : movementList.toSorted((a, b) => a - b),
+              movements: sortedCurrentMovements,
             },
           ];
-        });
+        } else {
+          const existingWorkConcert = prevWorkConcerts[existingIndex];
+          const sortedExistingMovements = [
+            ...existingWorkConcert.movements,
+          ].sort((a, b) => a - b);
 
-        enqueueSnackbar(`${concertName}に追加しました！`, {
-          variant: "success",
-        });
-        setOpen(false);
-      } else {
-        enqueueSnackbar(`${concertName}には既に追加されています。`, {
-          variant: "error",
-        });
-      }
+          const isSameMovements =
+            sortedExistingMovements.length === sortedCurrentMovements.length &&
+            sortedExistingMovements.every(
+              (mv, i) => mv === sortedCurrentMovements[i]
+            );
+
+          if (isSameMovements) {
+            enqueueSnackbar(`${concertName}には既に追加されています。`, {
+              variant: "error",
+            });
+            return prevWorkConcerts;
+          } else {
+            const updatedWorkConcerts = [...prevWorkConcerts];
+            updatedWorkConcerts[existingIndex] = {
+              ...existingWorkConcert,
+              movements: sortedCurrentMovements,
+            };
+
+            enqueueSnackbar(`${concertName}の楽章リストを更新しました！`, {
+              variant: "success",
+            });
+            setOpen(false);
+            return updatedWorkConcerts;
+          }
+        }
+      });
     }
   };
 
