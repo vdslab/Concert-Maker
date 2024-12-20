@@ -8,11 +8,12 @@ import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 import Grid from "@mui/material/Grid2";
 import { useSetRecoilState, useRecoilValue } from "recoil";
-import { workConcertState } from "@/components/RecoilStates";
+import { workConcertState, concertsState } from "@/components/RecoilStates";
 import { useSnackbar } from "notistack";
 
 export default function AddMyConcert(props) {
   const { work, concertID, open, setOpen } = props;
+  const concertList = useRecoilValue(concertsState);
   const concerts = useRecoilValue(workConcertState);
   const setConcerts = useSetRecoilState(workConcertState);
   const handleClose = () => setOpen(false);
@@ -23,7 +24,7 @@ export default function AddMyConcert(props) {
   const checkedWorkMovements = (workID, concertID) => {
     const concert = concerts.find(
       (workConcert) =>
-        workConcert.concert === concertID && workConcert.work === workID,
+        workConcert.concert === concertID && workConcert.work === workID
     );
     return concert ? concert.movements : [];
   };
@@ -40,6 +41,23 @@ export default function AddMyConcert(props) {
   }, [work, concertID, concerts]);
 
   const Submit = () => {
+    const isAlreadyRegistered = concerts.some(
+      (workConcert) =>
+        workConcert.concert === concertID &&
+        workConcert.work === work.id &&
+        JSON.stringify(workConcert.movements.slice().sort()) ===
+          JSON.stringify(movementList.slice().sort())
+    );
+
+    const concertName = concertList.find(
+      (concert) => concert.id === concertID
+    ).name;
+
+    if (isAlreadyRegistered) {
+      enqueueSnackbar(`${concertName}`, { variant: "error" });
+      return;
+    }
+
     if (movementList.length === 0) {
       enqueueSnackbar("楽章が選択されていません", { variant: "error" });
       return;
@@ -47,7 +65,7 @@ export default function AddMyConcert(props) {
       setConcerts((workConcerts) => {
         const existingIndex = workConcerts.findIndex(
           (workConcert) =>
-            workConcert.concert === concertID && workConcert.work === work.id,
+            workConcert.concert === concertID && workConcert.work === work.id
         );
 
         if (existingIndex !== -1) {
@@ -125,7 +143,7 @@ export default function AddMyConcert(props) {
                               setMovementList((prev) => [...prev, index]);
                             } else {
                               setMovementList((prev) =>
-                                prev.filter((movement) => movement !== index),
+                                prev.filter((movement) => movement !== index)
                               );
                             }
                           }}
@@ -167,8 +185,8 @@ export default function AddMyConcert(props) {
                           if (e.target.checked) {
                             setMovementList(
                               [...Array(work.workMovements.length)].map(
-                                (_, i) => i,
-                              ),
+                                (_, i) => i
+                              )
                             );
                           } else {
                             setMovementList([]);
