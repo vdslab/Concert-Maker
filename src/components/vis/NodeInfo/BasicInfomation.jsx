@@ -55,18 +55,14 @@ const BasicInfomation = ({ node, onClose, showBorder }) => {
         </TitleBox>
       </FixedHeader>
       <ScrollableContent>
-        <Typography variant="body2" color="textSecondary" gutterBottom>
+        <Typography variant="body2" color="text.secondary" gutterBottom>
           {node.year === null ? "" : "作曲年: " + node.year + "年"}
         </Typography>
-        <Typography variant="body2" color="textSecondary" gutterBottom>
-          {node.duration === null
-            ? ""
-            : "演奏時間: " + durationFormat(node.duration)}
+        <Typography variant="body2" color="text.secondary" gutterBottom>
+          {node.duration === null ? "": "演奏時間: " + durationFormat(node.duration)}
         </Typography>
-        <Typography variant="body2" color="textSecondary" gutterBottom>
-          {workFormulaText === ""
-            ? ""
-            : "楽器編成: " + workFormulaText}
+        <Typography variant="body2" color="text.secondary" gutterBottom>
+          {workFormulaText === "" ? "" : "楽器編成: " + workFormulaText}
         </Typography>
         <SplitButton workId={node.id} node={node} />
       </ScrollableContent>

@@ -82,7 +82,7 @@ export default function Insights(props) {
                 );
 
                 const workFormulaText = getWorkFormulaText(work.workFormula);
-                
+
                 return (
                   <div key={`${myConcert.concert}-${index}`}>
                     {index !== 0 && <Divider />}
@@ -110,22 +110,12 @@ export default function Insights(props) {
                             <Typography variant="h6" component="div">
                               {work.title}
                             </Typography>
-                            <Typography variant="body2" component="div">
-                              {duration_time !== ""
-                                ? `演奏時間: ${duration_time}`
-                                : ""}
+                            <Typography variant="body2" color="text.secondary">
+                              {duration_time !== "" ? `演奏時間: ${duration_time}`  : ""}
                             </Typography>
-                            <Stack direction="row" spacing={1}>
-                              <Typography
-                                variant="body2"
-                                component="div"
-                                color="textSecondary"
-                              >
-                                {workFormulaText === ""
-                                  ? ""
-                                  : "楽器編成: " + workFormulaText}
-                              </Typography>
-                            </Stack>
+                            <Typography variant="body2" color="text.secondary">
+                              {workFormulaText === "" ? "" : "楽器編成: " + workFormulaText}
+                            </Typography>
                           </Box>
                         </Grid>
                       </Grid>

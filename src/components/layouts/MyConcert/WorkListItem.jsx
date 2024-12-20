@@ -82,20 +82,12 @@ export default function WorkListItem({ work, concertID, setClickedNodeId, setWor
             <Typography variant="h6" component="div">
               {work.title}
             </Typography>
-            <Typography variant="body2" component="div">
+            <Typography variant="body2" color="text.secondary">
               {duration_time !== "" ? `演奏時間: ${duration_time}` : ""}
             </Typography>
-            <Stack direction="row" spacing={1}>
-              <Typography
-                variant="body2"
-                component="div"
-                color="textSecondary"
-              >
-                {workFormulaText === ""
-                  ? ""
-                  : "楽器編成: " + workFormulaText}
-              </Typography>
-            </Stack>
+            <Typography variant="body2" color="text.secondary">
+              {workFormulaText === "" ? "" : "楽器編成: " + workFormulaText}
+            </Typography>
           </Box>
         </Grid>
         <Grid size="auto">
