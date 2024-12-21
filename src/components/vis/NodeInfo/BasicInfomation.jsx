@@ -41,8 +41,6 @@ const ScrollableContent = styled(Box)({
 const BasicInfomation = ({ node, onClose, showBorder }) => {
   const workFormulaText = getWorkFormulaText(node.workFormula);
 
-  console.log(node);
-
   return (
     <>
       <FixedHeader showBorder={showBorder}>

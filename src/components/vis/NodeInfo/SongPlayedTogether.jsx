@@ -12,17 +12,28 @@ const SongPlayedTogether = (props) => {
   if (links != null && links.length !== 0) {
     links.forEach((link) => {
       if (link.source === node || link.target === node) {
-        linkNodes.add(link.source);
-        linkNodes.add(link.target);
+        linkNodes.add({
+          ...link.target,
+          amount: link.amount,
+        });
+        linkNodes.add({
+          ...link.source,
+          amount: link.amount,
+        });
       }
     });
-    linkNodes.delete(node);
+    for (const linkNode of linkNodes) {
+      if (linkNode.id === node.id) {
+        linkNodes.delete(linkNode);
+      }
+    }
   }
 
-  const linkNodesArray = Array.from(linkNodes);
+  const linkNodesArray = Array.from(linkNodes).sort((a, b) => {
+    return b.amount - a.amount;
+  });
 
   if (linkNodesArray.length === 0) return;
-
   return (
     <Box p={2}>
       <Typography variant="h6" gutterBottom>
@@ -30,7 +41,6 @@ const SongPlayedTogether = (props) => {
       </Typography>
       {linkNodesArray.map((work, index) => {
         const workFormulaText = getWorkFormulaText(work.workFormula);
-
         return (
           <Button
             key={index}
@@ -67,9 +77,18 @@ const SongPlayedTogether = (props) => {
             >
               {work.title}
             </Typography>
-            <Typography variant="body2" color="text.secondary" gutterBottom>
+            <Typography variant="body2" color="text.secondary">
+              {(() => {
+                if (work.amount == null) return "";
+                else if (work.amount <= 2) return "共演度: ★☆☆";
+                else if (work.amount <= 4) return "共演度: ★★☆";
+                else return "共演度: ★★★";
+              })()}
+            </Typography>
+            <Typography variant="body2" color="text.secondary">
               {work.year === null ? "" : "作曲年: " + work.year + "年"}
             </Typography>
+
             <Typography variant="body2" color="text.secondary">
               {work.duration === null
                 ? ""
