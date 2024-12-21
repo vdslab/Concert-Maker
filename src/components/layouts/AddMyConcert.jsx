@@ -24,7 +24,7 @@ export default function AddMyConcert(props) {
   const checkedWorkMovements = (workID, concertID) => {
     const concert = concerts.find(
       (workConcert) =>
-        workConcert.concert === concertID && workConcert.work === workID
+        workConcert.concert === concertID && workConcert.work === workID,
     );
     return concert ? concert.movements : [];
   };
@@ -46,11 +46,11 @@ export default function AddMyConcert(props) {
         workConcert.concert === concertID &&
         workConcert.work === work.id &&
         JSON.stringify(workConcert.movements.slice().sort()) ===
-          JSON.stringify(movementList.slice().sort())
+          JSON.stringify(movementList.slice().sort()),
     );
 
     const concertName = concertList.find(
-      (concert) => concert.id === concertID
+      (concert) => concert.id === concertID,
     ).name;
 
     if (isAlreadyRegistered) {
@@ -67,7 +67,7 @@ export default function AddMyConcert(props) {
       setConcerts((workConcerts) => {
         const existingIndex = workConcerts.findIndex(
           (workConcert) =>
-            workConcert.concert === concertID && workConcert.work === work.id
+            workConcert.concert === concertID && workConcert.work === work.id,
         );
 
         if (existingIndex !== -1) {
@@ -112,6 +112,8 @@ export default function AddMyConcert(props) {
     return null; // work が null または workMovements が存在しない場合は何も表示しない
   }
 
+  console.log(work);
+
   return (
     <Modal
       open={open}
@@ -151,13 +153,13 @@ export default function AddMyConcert(props) {
                               setMovementList((prev) => [...prev, index]);
                             } else {
                               setMovementList((prev) =>
-                                prev.filter((movement) => movement !== index)
+                                prev.filter((movement) => movement !== index),
                               );
                             }
                           }}
                         />
                       }
-                      label={movement}
+                      label={`${movement}（${work.workMovementDuration[index]}分）`}
                     />
                   );
                 })}
@@ -193,8 +195,8 @@ export default function AddMyConcert(props) {
                           if (e.target.checked) {
                             setMovementList(
                               [...Array(work.workMovements.length)].map(
-                                (_, i) => i
-                              )
+                                (_, i) => i,
+                              ),
                             );
                           } else {
                             setMovementList([]);
