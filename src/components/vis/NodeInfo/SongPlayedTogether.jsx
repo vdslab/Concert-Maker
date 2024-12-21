@@ -56,7 +56,7 @@ const SongPlayedTogether = (props) => {
             <Typography variant="body2" component="div">
               {`${work.composer} ${
                 work.birth || work.death
-                  ? ` (${work.birth || ""} 〜 ${work.death || ""})`
+                  ? ` (${work.birth || ""}〜${work.death || ""})`
                   : ""
               }`}
             </Typography>
