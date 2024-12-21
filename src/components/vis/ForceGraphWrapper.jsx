@@ -101,6 +101,22 @@ const ForceGraphWrapper = (props) => {
     return Popularity[id] || 0;
   };
 
+  const allFiltersAreOne = useMemo(() => {
+    return processedData.nodes.every((node) => node.filter === 1);
+  }, [processedData.nodes]);
+
+  const determineLinkColor = (link) => {
+    if (allFiltersAreOne) return "rgba(0, 0, 0, 0.2)";
+
+    const sourceFilter = link.source.filter;
+    const targetFilter = link.target.filter;
+
+    if (sourceFilter === 1 || targetFilter === 1) {
+      return "rgba(0, 0, 0, 0.3)";
+    }
+    return "rgba(0, 0, 0, 0.1)";
+  };
+
   return (
     <div style={{ position: "relative", width: "100%", height }}>
       <ForceGraph2D
@@ -145,6 +161,7 @@ const ForceGraphWrapper = (props) => {
             return 5;
           return 1;
         }}
+        linkColor={determineLinkColor}
         nodeLabel={() => null}
         linkLabel={() => null}
       />
