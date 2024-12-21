@@ -41,6 +41,8 @@ const ScrollableContent = styled(Box)({
 const BasicInfomation = ({ node, onClose, showBorder }) => {
   const workFormulaText = getWorkFormulaText(node.workFormula);
 
+  console.log(node);
+
   return (
     <>
       <FixedHeader showBorder={showBorder}>
@@ -51,7 +53,7 @@ const BasicInfomation = ({ node, onClose, showBorder }) => {
           <Typography variant="body">
             {`${node.composer} ${
               node.birth || node.death
-                ? ` (${node.birth || ""} - ${node.death || ""})`
+                ? ` (${node.birth || ""}〜${node.death || ""})`
                 : ""
             }`}
           </Typography>
@@ -65,7 +67,9 @@ const BasicInfomation = ({ node, onClose, showBorder }) => {
           {node.year === null ? "" : "作曲年: " + node.year + "年"}
         </Typography>
         <Typography variant="body2" color="text.secondary" gutterBottom>
-          {node.duration === null ? "" : "演奏時間: " + durationFormat(node.duration)}
+          {node.duration === null
+            ? ""
+            : "演奏時間: " + durationFormat(node.duration)}
         </Typography>
         <Typography variant="body2" color="text.secondary" gutterBottom>
           {workFormulaText ? "楽器編成: " + workFormulaText : ""}
