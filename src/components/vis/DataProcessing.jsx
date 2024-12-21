@@ -58,8 +58,7 @@ const createGraphNodes = (linkData) => {
   const uniqueNodes = Array.from(
     new Set(links.flatMap((link) => [link.source, link.target]))
   );
-
-  return getWorksWithComposerDetails().filter((work) =>
+  return getWorksWithComposerDetails.filter((work) =>
     uniqueNodes.includes(work.id)
   );
 };
