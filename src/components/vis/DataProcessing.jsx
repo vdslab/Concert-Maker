@@ -46,6 +46,7 @@ export const processData = () => {
         distance: 100 / playedWith.amount,
         sourceData: getComposerFromId(work.workId),
         targetData: getComposerFromId(playedWith.workId),
+        amount: playedWith.amount,
       }))
   );
 
@@ -57,6 +58,7 @@ const createGraphNodes = (linkData) => {
   const uniqueNodes = Array.from(
     new Set(links.flatMap((link) => [link.source, link.target]))
   );
+
   return getWorksWithComposerDetails().filter((work) =>
     uniqueNodes.includes(work.id)
   );
