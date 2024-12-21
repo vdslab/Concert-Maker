@@ -16,7 +16,7 @@ import Divider from "@mui/material/Divider";
 import Button from "@mui/material/Button";
 
 import Radar from "@/components/evaluation/radarChart.jsx";
-import RectangularGraph from "@//components/evaluation/RectangularGraph.jsx";
+import RectangularGraph from "@/components/evaluation/RectangularGraph.jsx";
 import { getWorkFormulaText } from "@/utils/getWorkFormulaText";
 
 export default function Insights(props) {
