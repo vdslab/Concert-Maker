@@ -90,7 +90,7 @@ export default function WorkListItem({
             <Typography variant="body1" component="div">
               {`${work.composer} ${
                 composer.birthYear || composer.deathYear
-                  ? ` (${composer.birthYear || ""} - ${composer.deathYear || ""})`
+                  ? ` (${composer.birthYear || ""} 〜 ${composer.deathYear || ""})`
                   : ""
               }`}
             </Typography>

@@ -53,7 +53,7 @@ const BasicInfomation = ({ node, onClose, showBorder }) => {
           <Typography variant="body">
             {`${node.composer} ${
               node.birth || node.death
-                ? ` (${node.birth || ""} - ${node.death || ""})`
+                ? ` (${node.birth || ""} 〜 ${node.death || ""})`
                 : ""
             }`}
           </Typography>

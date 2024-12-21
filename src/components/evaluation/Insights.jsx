@@ -107,7 +107,7 @@ export default function Insights(props) {
                               {`${work.composer} ${
                                 work.composerData.birthYear ||
                                 work.composerData.deathYear
-                                  ? ` (${work.composerData.birthYear || ""} - ${work.composerData.deathYear || ""})`
+                                  ? ` (${work.composerData.birthYear || ""} 〜 ${work.composerData.deathYear || ""})`
                                   : ""
                               }`}
                             </Typography>
