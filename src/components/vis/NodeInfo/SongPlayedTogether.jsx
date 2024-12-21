@@ -30,9 +30,7 @@ const SongPlayedTogether = (props) => {
   }
 
   const linkNodesArray = Array.from(linkNodes).sort((a, b) => {
-    const aAmount = a.amount ?? 0;
-    const bAmount = b.amount ?? 0;
-    return bAmount - aAmount;
+    return b.amount - a.amount;
   });
 
   if (linkNodesArray.length === 0) return;
@@ -80,18 +78,17 @@ const SongPlayedTogether = (props) => {
               {work.title}
             </Typography>
             <Typography variant="body2" color="text.secondary">
-              {work.year === null ? "" : "作曲年: " + work.year + "年"}
-            </Typography>
-            <Typography variant="body2" color="text.secondary">
               {(() => {
                 if (work.amount == null) return "";
-                else if (work.amount === 2) return "共演度: ★☆☆";
-                else if (work.amount >= 3 && work.amount <= 4)
-                  return "共演度: ★★☆";
-                else if (work.amount >= 5) return "共演度: ★★★";
-                else return "☆☆☆";
+                else if (work.amount <= 2) return "共演度: ★☆☆";
+                else if (work.amount <= 4) return "共演度: ★★☆";
+                else return "共演度: ★★★";
               })()}
             </Typography>
+            <Typography variant="body2" color="text.secondary">
+              {work.year === null ? "" : "作曲年: " + work.year + "年"}
+            </Typography>
+
             <Typography variant="body2" color="text.secondary">
               {work.duration === null
                 ? ""
