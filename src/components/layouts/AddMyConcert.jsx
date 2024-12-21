@@ -159,7 +159,7 @@ export default function AddMyConcert(props) {
                           }}
                         />
                       }
-                      label={`${movement}（${work.workMovementDuration[index].replace("'", "")}分）`}
+                      label={`${movement}${work.workMovementDuration[index] ? `（${work.workMovementDuration[index].replace("'", "")}分）` : ""}`}
                     />
                   );
                 })}
