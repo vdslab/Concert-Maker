@@ -23,15 +23,15 @@
    borderopacity="1.0"
    inkscape:showpageshadow="2"
    inkscape:pageopacity="0.0"
-   inkscape:pagecheckerboard="0"
+   inkscape:pagecheckerboard="true"
    inkscape:deskcolor="#d1d1d1"
-   inkscape:zoom="4.6902579"
-   inkscape:cx="55.540655"
-   inkscape:cy="38.697232"
+   inkscape:zoom="11.538461"
+   inkscape:cx="2.7733334"
+   inkscape:cy="25.436668"
    inkscape:window-width="1480"
    inkscape:window-height="888"
    inkscape:window-x="0"
-   inkscape:window-y="87"
+   inkscape:window-y="59"
    inkscape:window-maximized="0"
    inkscape:current-layer="グループ_23-1" />
 <style
@@ -90,7 +90,15 @@
 	
 	
 	
-<g
+<path
+   style="fill:#ffffff;fill-opacity:1;fill-rule:evenodd;stroke:#ff3232;stroke-width:0;stroke-linecap:round;stroke-linejoin:round;paint-order:markers stroke fill"
+   d="m 10.17189,19.262717 c -0.9547004,0.01712 -1.9802672,0.538071 -2.2775994,1.499137 -0.3338223,0.853189 -0.1422894,1.886041 0.5381083,2.515308 0.6684153,0.724311 1.7297911,1.080428 2.6870381,0.79066 0.343715,-0.0367 0.73549,-0.302737 0.616308,-0.696213 -0.06206,-0.303049 -0.208201,-0.579269 -0.304026,-0.871719 0.416372,0.04876 0.968008,0.306313 1.275627,-0.119348 0.196088,-0.486854 0.07196,-1.060475 -0.134738,-1.528285 -0.450016,-0.885456 -1.371139,-1.618516 -2.400718,-1.58954 z"
+   id="path2"
+   transform="translate(-1.3669638,-3.1828818)" /><path
+   style="fill:#ffffff;fill-opacity:1;fill-rule:evenodd;stroke:#ff3232;stroke-width:0;stroke-linecap:round;stroke-linejoin:round;paint-order:markers stroke fill"
+   d="m 52.792253,17.996467 c -1.03242,0.0028 -1.939936,0.749647 -2.363211,1.655278 -0.164574,0.454297 -0.314285,0.993874 -0.121081,1.458572 0.295134,0.42135 0.90393,0.136613 1.287144,0.131069 -0.09639,0.39314 -0.465063,0.801966 -0.267845,1.214781 0.448999,0.509055 1.219703,0.43965 1.82984,0.364082 0.929266,-0.181493 1.767328,-0.903832 2.04219,-1.816234 0.278013,-1.023473 -0.132684,-2.296627 -1.161578,-2.72788 -0.387077,-0.18426 -0.816211,-0.284652 -1.245459,-0.279668 z"
+   id="path3"
+   transform="translate(-1.3669638,-3.1828818)" /><g
    id="g99"
    transform="translate(0,-3.5202567)"><g
      id="g55"
