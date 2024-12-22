@@ -139,17 +139,24 @@ const ForceGraphWrapper = (props) => {
           const size = 8 * popularity + 2 / globalScale;
 
           const color = node.filter === 0 ? "hsl(240, 50%, 85%)" : "blue";
-          const connectedNodesColors = isConnected ? "#F0F" : color;
+          const connectedNodesColors =
+            isConnected && node.filter === 1
+              ? "#F80"
+              : isConnected && node.filter === 0
+              ? "#FFCF99"
+              : color;
           const nodeColor =
             node.id === clicknode?.id ? "red" : connectedNodesColors;
-          DrawCircle(
-            ctx,
-            node.x,
-            node.y,
-            size,
-            nodeColor,
-            isConnected ? "black" : nodeColor
-          );
+
+          const strokeColor =
+            nodeColor === "red"
+              ? "black"
+              : !isConnected
+              ? nodeColor
+              : node.filter === 0
+              ? "#444"
+              : "black";
+          DrawCircle(ctx, node.x, node.y, size, nodeColor, strokeColor);
         }}
         onNodeClick={handleNodeClick}
         onNodeHover={handleNodeHover}
