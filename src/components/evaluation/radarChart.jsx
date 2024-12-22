@@ -73,15 +73,16 @@ export function Radar(props) {
         return (
           <div
             style={{
-              background: "white",
-              padding: "9px 12px",
-              border: "1px solid #ccc",
+              padding: "12px 16px",
+              background: "#fff",
+              borderRadius: "4px",
+              boxShadow: "0 3px 9px rgba(0,0,0,0.25)",
             }}
           >
             <div>
               <strong>{slice.index}</strong>
             </div>
-            <div>{slice.data[0].value} 点</div>
+            <div>{slice.data[0].value.toFixed(1)} 点</div>
           </div>
         );
       }}
