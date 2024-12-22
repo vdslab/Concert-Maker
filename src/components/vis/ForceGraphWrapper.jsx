@@ -35,7 +35,8 @@ const ForceGraphWrapper = (props) => {
       )
       .force("x", d3.forceX(0).strength(0.05))
       .force("y", d3.forceY(0).strength(0.05))
-      .force("charge", d3.forceManyBody().strength(-100));
+      .force("charge", d3.forceManyBody().strength(-100))
+      .force("collide", d3.forceCollide().radius(13).iterations(1));
 
     for (let i = 0; i < 300; ++i) simulation.tick();
     simulation.stop();
