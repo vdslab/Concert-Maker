@@ -65,6 +65,7 @@ export default function MyConcertCard(props) {
         concertName={name}
         open={openInsight}
         setOpen={setOpenInsight}
+        duration={sum_duration}
       />
       <Box sx={{ p: 2 }}>
         <Grid

@@ -20,7 +20,7 @@ import RectangularGraph from "@//components/evaluation/RectangularGraph.jsx";
 import { getWorkFormulaText } from "@/utils/getWorkFormulaText";
 
 export default function Insights(props) {
-  const { myConcert, concertName, handleClose, submitAction } = props;
+  const { myConcert, concertName, handleClose, submitAction, duration } = props;
 
   if (!myConcert) {
     return <></>;
@@ -29,13 +29,13 @@ export default function Insights(props) {
   const hasWorks = myConcert.works && myConcert.works.length > 0;
 
   const works = hasWorks ? myConcert.works.map((workConcert) => {
-    const work = workData.find((work) => work.id === workConcert.work);
-      return {
-        ...work,
-        composerData: composersData.find(
-          (composer) => composer.name === work.composer,
-        ),
-        selectedMovements: workConcert.movements,
+        const work = workData.find((work) => work.id === workConcert.work);
+        return {
+          ...work,
+          composerData: composersData.find(
+            (composer) => composer.name === work.composer,
+          ),
+          selectedMovements: workConcert.movements,
         };
       })
     : [];
@@ -49,7 +49,10 @@ export default function Insights(props) {
       sx={{ height: "100%" }}
     >
       <DialogTitle>
-        {concertName}
+        {concertName}{" "}
+        <Typography variant="body1" component="span">
+          （合計演奏時間：{duration}）
+        </Typography>
         {/* ToDo */}
       </DialogTitle>
       <DialogContent sx={{ height: "90vh" }}>
