@@ -5,7 +5,7 @@ import { useState } from "react";
 import Insights from "@/components/evaluation/Insights.jsx";
 
 export default function InsightsModal(props) {
-  const { myConcert, concertName, open, setOpen } = props;
+  const { myConcert, concertName, open, setOpen, duration } = props;
 
   const { enqueueSnackbar } = useSnackbar();
 
@@ -37,6 +37,7 @@ export default function InsightsModal(props) {
       concertName={concertName}
       handleClose={handleClose}
       submitAction={submitAction}
+      duration={duration}
     />
   );
 }

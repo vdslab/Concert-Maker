@@ -20,7 +20,7 @@ import RectangularGraph from "@//components/evaluation/RectangularGraph.jsx";
 import { getWorkFormulaText } from "@/utils/getWorkFormulaText";
 
 export default function Insights(props) {
-  const { myConcert, concertName, handleClose, submitAction } = props;
+  const { myConcert, concertName, handleClose, submitAction, duration } = props;
 
   if (!myConcert) {
     return <></>;
@@ -28,14 +28,15 @@ export default function Insights(props) {
 
   const hasWorks = myConcert.works && myConcert.works.length > 0;
 
-  const works = hasWorks ? myConcert.works.map((workConcert) => {
-    const work = workData.find((work) => work.id === workConcert.work);
-      return {
-        ...work,
-        composerData: composersData.find(
-          (composer) => composer.name === work.composer,
-        ),
-        selectedMovements: workConcert.movements,
+  const works = hasWorks
+    ? myConcert.works.map((workConcert) => {
+        const work = workData.find((work) => work.id === workConcert.work);
+        return {
+          ...work,
+          composerData: composersData.find(
+            (composer) => composer.name === work.composer
+          ),
+          selectedMovements: workConcert.movements,
         };
       })
     : [];
@@ -50,6 +51,9 @@ export default function Insights(props) {
     >
       <DialogTitle>
         {concertName}
+        <Typography variant="body1" component="span">
+          {duration === "" ? "" : `（合計演奏時間：${duration}）`}
+        </Typography>
         {/* ToDo */}
       </DialogTitle>
       <DialogContent sx={{ height: "90vh" }}>
@@ -77,11 +81,11 @@ export default function Insights(props) {
                             parseInt(
                               work.workMovementDuration[duration].replace(
                                 "'",
-                                "",
-                              ),
-                            ),
+                                ""
+                              )
+                            )
                           )
-                          .reduce((x, y) => x + y),
+                          .reduce((x, y) => x + y)
                   );
 
                   const workFormulaText = getWorkFormulaText(work.workFormula);
@@ -111,7 +115,9 @@ export default function Insights(props) {
                                 {`${work.composer} ${
                                   work.composerData.birthYear ||
                                   work.composerData.deathYear
-                                    ? ` (${work.composerData.birthYear || ""}〜${work.composerData.deathYear || ""})`
+                                    ? ` (${
+                                        work.composerData.birthYear || ""
+                                      }〜${work.composerData.deathYear || ""})`
                                     : ""
                                 }`}
                               </Typography>
@@ -119,17 +125,26 @@ export default function Insights(props) {
                                 {work.title}
                               </Typography>
 
-                              <Typography variant="body2" color="text.secondary">
+                              <Typography
+                                variant="body2"
+                                color="text.secondary"
+                              >
                                 {work.year === null
                                   ? ""
                                   : "作曲年: " + work.year + "年"}
                               </Typography>
-                              <Typography variant="body2" color="text.secondary">
+                              <Typography
+                                variant="body2"
+                                color="text.secondary"
+                              >
                                 {duration_time !== ""
                                   ? `演奏時間: ${duration_time}`
                                   : ""}
                               </Typography>
-                              <Typography variant="body2" color="text.secondary">
+                              <Typography
+                                variant="body2"
+                                color="text.secondary"
+                              >
                                 {workFormulaText
                                   ? "楽器編成: " + workFormulaText
                                   : ""}
@@ -156,7 +171,7 @@ export default function Insights(props) {
                                         key={index}
                                         label={work.workMovements[movement]}
                                       />
-                                    ),
+                                    )
                                   )}
                                 </Stack>
                               </Box>
