@@ -62,6 +62,7 @@ export default function MyConcertCard(props) {
     <Card elevation={3}>
       <InsightsModal
         myConcert={InsightsWorks}
+        concertName={name}
         open={openInsight}
         setOpen={setOpenInsight}
       />

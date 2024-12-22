@@ -112,8 +112,6 @@ export default function AddMyConcert(props) {
     return null; // work が null または workMovements が存在しない場合は何も表示しない
   }
 
-  console.log(work);
-
   return (
     <Modal
       open={open}
