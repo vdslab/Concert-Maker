@@ -44,6 +44,7 @@ export default function SearchBox({ Data, setData, setClickedNodeId }) {
 
   return (
     <Paper
+      id="tour-01"
       component="form"
       onSubmit={handleSubmit}
       sx={{

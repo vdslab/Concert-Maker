@@ -3,8 +3,12 @@ import Box from "@mui/material/Box";
 import NodeLinkDiagram from "@/components/vis/NodeLinkDiagram";
 import MyConcertCardList from "@/components/layouts/MyConcertCardList";
 
-import { useState, useMemo } from "react";
+import { useState, useEffect, useMemo } from "react";
 import { processData, createGraphData } from "@/components/vis/DataProcessing";
+
+// driver.js 関連のインポート
+import { driver } from "driver.js";
+import "driver.js/dist/driver.css";
 
 import Share from "@/components/layouts/MyConcert/Share.jsx";
 
@@ -12,6 +16,21 @@ function App() {
   const [clickedNodeId, setClickedNodeId] = useState(null);
   const { linkData } = useMemo(() => processData(), []);
   const [graphData, setGraphData] = useState(() => createGraphData(linkData));
+
+  useEffect(() => {
+    const driverObj = driver({
+      nextBtnText: '次へ →',
+      prevBtnText: '← 前へ',
+      doneBtnText: '完了',
+      showProgress: true,
+      progressText: "{{current}} / {{total}}",
+      steps: [
+        { element: '#tour-01', popover: { title: '検索ボックス', description: 'ここから曲を検索できます' } },
+      ]
+    });
+
+    driverObj.drive();
+  }, []);
 
   return (
     <div className="container">
