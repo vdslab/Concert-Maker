@@ -18,13 +18,29 @@ import Button from "@mui/material/Button";
 import Radar from "@/components/evaluation/radarChart.jsx";
 import RectangularGraph from "@//components/evaluation/RectangularGraph.jsx";
 import { getWorkFormulaText } from "@/utils/getWorkFormulaText";
+import { sumDurationFormat } from "@/utils/calcTime";
 
 export default function Insights(props) {
-  const { myConcert, concertName, handleClose, submitAction, duration } = props;
+  const { myConcert, handleClose, submitAction } = props;
 
   if (!myConcert) {
     return <></>;
   }
+
+  const sum_duration = sumDurationFormat(
+    myConcert.works.map((workConcert) => {
+      const work = workData.find((work) => work.id === workConcert.work);
+      return !workConcert.movements ||
+        work.workMovementDuration.length <= 1 ||
+        work.workMovementDuration[0] === "'"
+        ? work.duration
+        : workConcert.movements
+            .map((duration) =>
+              parseInt(work.workMovementDuration[duration].replace("'", "")),
+            )
+            .reduce((x, y) => x + y);
+    }),
+  );
 
   const hasWorks = myConcert.works && myConcert.works.length > 0;
 
@@ -34,7 +50,7 @@ export default function Insights(props) {
         return {
           ...work,
           composerData: composersData.find(
-            (composer) => composer.name === work.composer
+            (composer) => composer.name === work.composer,
           ),
           selectedMovements: workConcert.movements,
         };
@@ -50,9 +66,9 @@ export default function Insights(props) {
       sx={{ height: "100%" }}
     >
       <DialogTitle>
-        {concertName}
+        {myConcert.name}
         <Typography variant="body1" component="span">
-          {duration === "" ? "" : `（合計演奏時間：${duration}）`}
+          {sum_duration === "" ? "" : `（合計演奏時間：${sum_duration}）`}
         </Typography>
         {/* ToDo */}
       </DialogTitle>
@@ -81,11 +97,11 @@ export default function Insights(props) {
                             parseInt(
                               work.workMovementDuration[duration].replace(
                                 "'",
-                                ""
-                              )
-                            )
+                                "",
+                              ),
+                            ),
                           )
-                          .reduce((x, y) => x + y)
+                          .reduce((x, y) => x + y),
                   );
 
                   const workFormulaText = getWorkFormulaText(work.workFormula);
@@ -171,7 +187,7 @@ export default function Insights(props) {
                                         key={index}
                                         label={work.workMovements[movement]}
                                       />
-                                    )
+                                    ),
                                   )}
                                 </Stack>
                               </Box>
