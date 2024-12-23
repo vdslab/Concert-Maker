@@ -42,10 +42,10 @@ export default function MyConcertCard(props) {
         ? work.duration
         : work.selectedMovements
             .map((duration) =>
-              parseInt(work.workMovementDuration[duration].replace("'", ""))
+              parseInt(work.workMovementDuration[duration].replace("'", "")),
             )
-            .reduce((x, y) => x + y)
-    )
+            .reduce((x, y) => x + y),
+    ),
   );
 
   const InsightsWorks = {
@@ -96,13 +96,19 @@ export default function MyConcertCard(props) {
                 defaultValue={name}
                 onKeyDown={(e) => {
                   if (e.keyCode === 13) {
-                    setConcerts((concerts) =>
-                      concerts.map((concert) =>
-                        concert.id === id
-                          ? { ...concert, name: e.target.value }
-                          : concert
-                      )
-                    );
+                    const newName = e.target.value.trim();
+                    if (newName === "") {
+                      // 空欄の場合は元の名前に戻す
+                      e.target.value = name;
+                    } else {
+                      setConcerts((concerts) =>
+                        concerts.map((concert) =>
+                          concert.id === id
+                            ? { ...concert, name: newName }
+                            : concert,
+                        ),
+                      );
+                    }
                     setEditMode(false);
                   }
                 }}
