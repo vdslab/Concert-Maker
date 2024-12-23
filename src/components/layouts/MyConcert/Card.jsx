@@ -20,8 +20,12 @@ import { useState } from "react";
 
 import { sumDurationFormat } from "@/utils/calcTime";
 
-import { selectedConcertState, concertsState } from "@/components/RecoilStates";
-import { useSetRecoilState } from "recoil";
+import {
+  selectedConcertState,
+  concertsState,
+  concertListState,
+} from "@/components/RecoilStates";
+import { useSetRecoilState, useRecoilValue } from "recoil";
 
 export default function MyConcertCard(props) {
   const { concert, setClickedNodeId, Data } = props;
@@ -29,6 +33,8 @@ export default function MyConcertCard(props) {
   const [editMode, setEditMode] = useState(false);
 
   const [openInsight, setOpenInsight] = useState(false);
+
+  const workList = useRecoilValue(concertListState);
 
   const selectConcert = useSetRecoilState(selectedConcertState);
 
@@ -50,6 +56,7 @@ export default function MyConcertCard(props) {
 
   const InsightsWorks = {
     concert: id,
+    name: workList.find((work) => work.id === id).name,
     works: works.map((work) => {
       return {
         work: work.id,
@@ -62,10 +69,8 @@ export default function MyConcertCard(props) {
     <Card elevation={3}>
       <InsightsModal
         myConcert={InsightsWorks}
-        concertName={name}
         open={openInsight}
         setOpen={setOpenInsight}
-        duration={sum_duration}
       />
       <Box sx={{ p: 2 }}>
         <Grid
