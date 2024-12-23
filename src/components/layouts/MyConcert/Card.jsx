@@ -62,8 +62,10 @@ export default function MyConcertCard(props) {
     <Card elevation={3}>
       <InsightsModal
         myConcert={InsightsWorks}
+        concertName={name}
         open={openInsight}
         setOpen={setOpenInsight}
+        duration={sum_duration}
       />
       <Box sx={{ p: 2 }}>
         <Grid

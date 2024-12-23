@@ -35,7 +35,8 @@ const ForceGraphWrapper = (props) => {
       )
       .force("x", d3.forceX(0).strength(0.05))
       .force("y", d3.forceY(0).strength(0.05))
-      .force("charge", d3.forceManyBody().strength(-100));
+      .force("charge", d3.forceManyBody().strength(-100))
+      .force("collide", d3.forceCollide().radius(13).iterations(1));
 
     for (let i = 0; i < 300; ++i) simulation.tick();
     simulation.stop();
@@ -101,6 +102,22 @@ const ForceGraphWrapper = (props) => {
     return Popularity[id] || 0;
   };
 
+  const allFiltersAreOne = useMemo(() => {
+    return processedData.nodes.every((node) => node.filter === 1);
+  }, [processedData.nodes]);
+
+  const determineLinkColor = (link) => {
+    if (allFiltersAreOne) return "rgba(0, 0, 0, 0.2)";
+
+    const sourceFilter = link.source.filter;
+    const targetFilter = link.target.filter;
+
+    if (sourceFilter === 1 || targetFilter === 1) {
+      return "rgba(0, 0, 0, 0.3)";
+    }
+    return "rgba(0, 0, 0, 0.1)";
+  };
+
   return (
     <div style={{ position: "relative", width: "100%", height }}>
       <ForceGraph2D
@@ -123,17 +140,24 @@ const ForceGraphWrapper = (props) => {
           const size = 8 * popularity + 2 / globalScale;
 
           const color = node.filter === 0 ? "hsl(240, 50%, 85%)" : "blue";
-          const connectedNodesColors = isConnected ? "#F0F" : color;
+          const connectedNodesColors =
+            isConnected && node.filter === 1
+              ? "#F80"
+              : isConnected && node.filter === 0
+              ? "#FFCF99"
+              : color;
           const nodeColor =
             node.id === clicknode?.id ? "red" : connectedNodesColors;
-          DrawCircle(
-            ctx,
-            node.x,
-            node.y,
-            size,
-            nodeColor,
-            isConnected ? "black" : nodeColor
-          );
+
+          const strokeColor =
+            nodeColor === "red"
+              ? "black"
+              : !isConnected
+              ? nodeColor
+              : node.filter === 0
+              ? "#444"
+              : "black";
+          DrawCircle(ctx, node.x, node.y, size, nodeColor, strokeColor);
         }}
         onNodeClick={handleNodeClick}
         onNodeHover={handleNodeHover}
@@ -145,6 +169,7 @@ const ForceGraphWrapper = (props) => {
             return 5;
           return 1;
         }}
+        linkColor={determineLinkColor}
         nodeLabel={() => null}
         linkLabel={() => null}
       />

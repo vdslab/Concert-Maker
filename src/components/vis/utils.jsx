@@ -1,59 +1,55 @@
 import Works from "@/assets/data/works.json";
 import Composer from "@/assets/data/composers.json";
 
-export const getWorksWithComposerDetails = () =>
-  Works.map((work) => {
-    const composerInfo = Composer.find((c) => c.name === work.composer);
+/**
+ * 指定した名前の作曲家情報を返すヘルパー関数
+ * 見つからなければ空オブジェクトを返す
+ */
+const getComposerInfo = (composerName) =>
+  Composer.find((c) => c.name === composerName) ?? {};
 
-    const data = {
-      id: work.id,
-      composer: work.composer,
-      duration: work.duration,
-      title: work.title,
-      workFormulaStr: work.workFormulaStr,
-      workMovements: work.workMovements,
-      workMovementDuration: work.workMovementDuration,
-      year: work.year,
-      lat: composerInfo ? composerInfo.latitude : null,
-      lon: composerInfo ? composerInfo.longitude : null,
-      birth: composerInfo ? composerInfo.birthYear : null,
-      death: composerInfo ? composerInfo.deathYear : null,
-      nationality: composerInfo ? composerInfo.nationality : null,
-      name: work.composer + " / " + work.title,
-      filter: 1,
-    };
+/**
+ * Work と Composer をマージしたデータを作成する共通関数
+ */
+function mapWorkToData(work) {
+  const composerInfo = getComposerInfo(work.composer);
 
-    const result = { ...data, ...work.workFormula };
-
-    return result;
-  });
-
-export const matchedDataByIds = Works.map((work) => {
-  const composerInfo = Composer.find((c) => c.name === work.composer);
-
-  const data = {
+  return {
     id: work.id,
     composer: work.composer,
     duration: work.duration,
     title: work.title,
-    workFormulaStr: work.workFormulaStr,
+    workFormula: work.workFormula,
     workMovements: work.workMovements,
     workMovementDuration: work.workMovementDuration,
     year: work.year,
-    lat: composerInfo ? composerInfo.latitude : null,
-    lon: composerInfo ? composerInfo.longitude : null,
-    birth: composerInfo ? composerInfo.birthYear : null,
-    death: composerInfo ? composerInfo.deathYear : null,
-    nationality: composerInfo ? composerInfo.nationality : null,
-    name: work.composer + " / " + work.title,
+    lat: composerInfo.latitude ?? null,
+    lon: composerInfo.longitude ?? null,
+    birth: composerInfo.birthYear ?? null,
+    death: composerInfo.deathYear ?? null,
+    nationality: composerInfo.nationality ?? null,
+    name: `${work.composer} / ${work.title}`,
+    filter: 1,
+    ...work.workFormula,
   };
+}
 
-  const result = { ...data, ...work.workFormula };
+const worksData = Works.map(mapWorkToData);
 
-  return result;
-});
+/**
+ * 全件取得 (作曲家詳細情報入りの works リスト)
+ */
+export const getWorksWithComposerDetails = worksData;
 
+/**
+ * ID から作曲家データを取得する
+ * 存在しない場合は lat, lon が null のオブジェクトを返す
+ */
 export const getComposerFromId = (composerId) => {
-  const work = matchedDataByIds.find((item) => item.id === composerId);
-  return work ? work : { lat: null, lon: null };
+  return (
+    worksData.find((item) => item.id === composerId) ?? {
+      lat: null,
+      lon: null,
+    }
+  );
 };
