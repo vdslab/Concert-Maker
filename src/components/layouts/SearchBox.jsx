@@ -44,7 +44,6 @@ export default function SearchBox({ Data, setData, setClickedNodeId }) {
 
   return (
     <Paper
-      id="tour-01"
       component="form"
       onSubmit={handleSubmit}
       sx={{
@@ -56,6 +55,7 @@ export default function SearchBox({ Data, setData, setClickedNodeId }) {
         left: "10px",
         zIndex: 2,
       }}
+      data-tour-id="a-02"
     >
       <ClickAwayListener onClickAway={closePopper}>
         <Autocomplete

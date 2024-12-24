@@ -25,7 +25,8 @@ function App() {
       showProgress: true,
       progressText: "{{current}} / {{total}}",
       steps: [
-        { element: '#tour-01', popover: { title: '検索ボックス', description: 'ここから曲を検索できます' } },
+        { element: '[data-tour-id="a-01"]', popover: { title: '共演度ネットワーク', description: 'ここに説明を入力' } },
+        { element: '[data-tour-id="a-02"]', popover: { title: '検索ボックス', description: 'ここから曲を検索できます' } },
       ]
     });
 

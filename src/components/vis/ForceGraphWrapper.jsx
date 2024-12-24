@@ -119,7 +119,7 @@ const ForceGraphWrapper = (props) => {
   };
 
   return (
-    <div style={{ position: "relative", width: "100%", height }}>
+    <div style={{ position: "relative", width: "100%", height }} data-tour-id="a-01">
       <ForceGraph2D
         ref={fgRef}
         graphData={processedData}
