@@ -20,8 +20,12 @@ import { useState } from "react";
 
 import { sumDurationFormat } from "@/utils/calcTime";
 
-import { selectedConcertState, concertsState } from "@/components/RecoilStates";
-import { useSetRecoilState } from "recoil";
+import {
+  selectedConcertState,
+  concertsState,
+  concertListState,
+} from "@/components/RecoilStates";
+import { useSetRecoilState, useRecoilValue } from "recoil";
 
 export default function MyConcertCard(props) {
   const { concert, setClickedNodeId, Data } = props;
@@ -29,6 +33,8 @@ export default function MyConcertCard(props) {
   const [editMode, setEditMode] = useState(false);
 
   const [openInsight, setOpenInsight] = useState(false);
+
+  const workList = useRecoilValue(concertListState);
 
   const selectConcert = useSetRecoilState(selectedConcertState);
 
@@ -42,14 +48,15 @@ export default function MyConcertCard(props) {
         ? work.duration
         : work.selectedMovements
             .map((duration) =>
-              parseInt(work.workMovementDuration[duration].replace("'", ""))
+              parseInt(work.workMovementDuration[duration].replace("'", "")),
             )
-            .reduce((x, y) => x + y)
-    )
+            .reduce((x, y) => x + y),
+    ),
   );
 
   const InsightsWorks = {
     concert: id,
+    name: workList.find((work) => work.id === id).name,
     works: works.map((work) => {
       return {
         work: work.id,
@@ -62,10 +69,8 @@ export default function MyConcertCard(props) {
     <Card elevation={3}>
       <InsightsModal
         myConcert={InsightsWorks}
-        concertName={name}
         open={openInsight}
         setOpen={setOpenInsight}
-        duration={sum_duration}
       />
       <Box sx={{ p: 2 }}>
         <Grid
@@ -96,13 +101,19 @@ export default function MyConcertCard(props) {
                 defaultValue={name}
                 onKeyDown={(e) => {
                   if (e.keyCode === 13) {
-                    setConcerts((concerts) =>
-                      concerts.map((concert) =>
-                        concert.id === id
-                          ? { ...concert, name: e.target.value }
-                          : concert
-                      )
-                    );
+                    const newName = e.target.value.trim();
+                    if (newName === "") {
+                      // 空欄の場合は元の名前に戻す
+                      e.target.value = name;
+                    } else {
+                      setConcerts((concerts) =>
+                        concerts.map((concert) =>
+                          concert.id === id
+                            ? { ...concert, name: newName }
+                            : concert,
+                        ),
+                      );
+                    }
                     setEditMode(false);
                   }
                 }}

@@ -57,7 +57,7 @@ export default function Share() {
         id: newId,
         name: generateCopyName(
           oldConcerts.map((concert) => concert.name),
-          myConcert.title,
+          myConcert.name,
         ),
       });
       return newConcerts;
@@ -95,6 +95,9 @@ export default function Share() {
 }
 
 function generateCopyName(existingNames, prefix) {
+  if (!existingNames.includes(`${prefix}`)) {
+    return `${prefix}`;
+  }
   if (!existingNames.includes(`${prefix}のコピー`)) {
     return `${prefix}のコピー`;
   }

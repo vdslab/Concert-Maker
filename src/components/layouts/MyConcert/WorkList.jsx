@@ -74,7 +74,7 @@ export default function WorkList({ works, concertID, setClickedNodeId }) {
             <WorkListItem
               work={activeMyConcertWork}
               concertID={concertID}
-              setClicknode={setClickedNodeId}
+              setClickedNodeId={setClickedNodeId}
               setWorkConcertState={setWorkConcertState}
             />
           )}

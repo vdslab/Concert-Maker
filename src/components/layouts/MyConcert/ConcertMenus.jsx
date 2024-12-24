@@ -143,6 +143,7 @@ export default function ConcertMenus(props) {
   const shareConcert = () => {
     const shareWorks = {
       concert: id,
+      name: workList.find((work) => work.id === id).name,
       works: workList
         .find((work) => work.id === id)
         .works.map((work) => {

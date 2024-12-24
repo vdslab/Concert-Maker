@@ -31,7 +31,7 @@ const ForceGraphWrapper = (props) => {
         d3
           .forceLink(data.links)
           .id((d) => d.id)
-          .distance((link) => link.distance)
+          .distance((link) => link.distance),
       )
       .force("x", d3.forceX(0).strength(0.05))
       .force("y", d3.forceY(0).strength(0.05))
@@ -69,7 +69,7 @@ const ForceGraphWrapper = (props) => {
     (node) => {
       setClickedNodeId(node.id);
     },
-    [setClickedNodeId]
+    [setClickedNodeId],
   );
 
   const connectedNodeIds = useMemo(() => {
@@ -78,9 +78,9 @@ const ForceGraphWrapper = (props) => {
       processedData.links
         .filter(
           (link) =>
-            link.source.id === clicknode.id || link.target.id === clicknode.id
+            link.source.id === clicknode.id || link.target.id === clicknode.id,
         )
-        .flatMap((link) => [link.source.id, link.target.id])
+        .flatMap((link) => [link.source.id, link.target.id]),
     );
   }, [clicknode, processedData.links]);
 
@@ -140,23 +140,33 @@ const ForceGraphWrapper = (props) => {
           const size = 8 * popularity + 2 / globalScale;
 
           const color = node.filter === 0 ? "hsl(240, 50%, 85%)" : "blue";
-          const connectedNodesColors =
-            isConnected && node.filter === 1
-              ? "#F80"
-              : isConnected && node.filter === 0
-              ? "#FFCF99"
-              : color;
-          const nodeColor =
-            node.id === clicknode?.id ? "red" : connectedNodesColors;
+          const nodeColor = (() => {
+            if (node.id === clicknode?.id) {
+              return "red";
+            }
+            if (isConnected) {
+              if (node.filter === 1) {
+                return "#F80";
+              } else {
+                return "#FFCF99";
+              }
+            } else {
+              return color;
+            }
+          })();
 
-          const strokeColor =
-            nodeColor === "red"
-              ? "black"
-              : !isConnected
-              ? nodeColor
-              : node.filter === 0
-              ? "#444"
-              : "black";
+          const strokeColor = (() => {
+            if (nodeColor === "red") {
+              return "black";
+            }
+            if (!isConnected) {
+              return nodeColor;
+            }
+            if (node.filter === 0) {
+              return "#444";
+            }
+            return "black";
+          })();
           DrawCircle(ctx, node.x, node.y, size, nodeColor, strokeColor);
         }}
         onNodeClick={handleNodeClick}
