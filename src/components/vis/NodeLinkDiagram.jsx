@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState, useCallback } from "react";
+import React, { useEffect, useRef, useState, useCallback, useMemo } from "react";
 import { Box } from "@mui/material";
 import ForceGraphWrapper from "./ForceGraphWrapper";
 import SearchBox from "../layouts/SearchBox";
@@ -6,7 +6,6 @@ import NodeInfo from "./NodeInfo/NodeInfo";
 
 const NodeLinkDiagram = (props) => {
   const { clickedNodeId, setClickedNodeId, graphData, setGraphData } = props;
-  const [clickNode, setClickNode] = useState(null);
   const [height, setHeight] = useState(0);
   const parentDivRef = useRef(null);
 
@@ -34,11 +33,11 @@ const NodeLinkDiagram = (props) => {
     }));
   }, []);
 
-  useEffect(() => {
+  const clickNode = useMemo(() => {
     if (clickedNodeId) {
       const node = graphData.nodes.find((node) => node.id === clickedNodeId);
-      if (node) setClickNode(node);
-    } else setClickNode(null);
+      if (node) return node;
+    } else return null;
   }, [clickedNodeId]);
 
   return (
