@@ -16,6 +16,7 @@ import DialogActions from "@mui/material/DialogActions";
 import { useSetRecoilState, useRecoilValue } from "recoil";
 import { workConcertState, concertsState } from "@/components/RecoilStates";
 import { useSnackbar } from "notistack";
+import { use } from "react";
 
 export default function AddMyConcert(props) {
   const { work, concertID, open, setOpen } = props;
@@ -26,6 +27,11 @@ export default function AddMyConcert(props) {
   const { enqueueSnackbar } = useSnackbar();
 
   const [movementList, setMovementList] = useState([]);
+
+  const totalDuration = movementList.reduce((sum, index) => {
+    const durationStr = work.workMovementDuration[index]?.replace("'", "");
+    return sum + (parseInt(durationStr, 10) || 0);
+  }, 0);
 
   const checkedWorkMovements = (workID, concertID) => {
     const concert = concerts.find(
@@ -126,7 +132,9 @@ export default function AddMyConcert(props) {
       aria-labelledby="modal-modal-title"
       aria-describedby="modal-modal-description"
     >
-      <DialogTitle id="modal-modal-title">{work.title}</DialogTitle>
+      <DialogTitle id="modal-modal-title">
+        {work.composer}／{work.title}
+      </DialogTitle>
       <DialogContent>
         <Grid container spacing={2}>
           <Grid size={12}>
@@ -206,6 +214,9 @@ export default function AddMyConcert(props) {
         </Grid>
       </DialogContent>
       <DialogActions>
+        <Typography variant="caption" color="textSecondary">
+          <Typography>合計時間: {totalDuration} 分</Typography>
+        </Typography>
         <Button variant="outlined" onClick={handleClose}>
           キャンセル
         </Button>
