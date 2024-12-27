@@ -12,6 +12,8 @@ import DialogTitle from "@mui/material/DialogTitle";
 import DialogContent from "@mui/material/DialogContent";
 import DialogActions from "@mui/material/DialogActions";
 
+import { durationFormat } from "@/utils/calcTime";
+
 import { useSetRecoilState, useRecoilValue } from "recoil";
 import { workConcertState, concertsState } from "@/components/RecoilStates";
 import { useSnackbar } from "notistack";
@@ -30,6 +32,12 @@ export default function AddMyConcert(props) {
     const durationStr = work.workMovementDuration[index]?.replace("'", "");
     return sum + (parseInt(durationStr, 10) || 0);
   }, 0);
+
+  console.log(totalDuration);
+
+  const formattedTotalDuration = durationFormat(totalDuration);
+
+  console.log(formattedTotalDuration);
 
   const checkedWorkMovements = (workID, concertID) => {
     const concert = concerts.find(
@@ -213,7 +221,7 @@ export default function AddMyConcert(props) {
       </DialogContent>
       <DialogActions>
         <Typography variant="caption" color="textSecondary">
-          <Typography>合計時間: {totalDuration} 分</Typography>
+          <Typography>合計時間: {formattedTotalDuration}</Typography>
         </Typography>
         <Button variant="outlined" onClick={handleClose}>
           キャンセル
