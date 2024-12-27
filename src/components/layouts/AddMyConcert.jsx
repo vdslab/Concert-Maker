@@ -5,7 +5,6 @@ import Checkbox from "@mui/material/Checkbox";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import FormGroup from "@mui/material/FormGroup";
 import Grid from "@mui/material/Grid2";
-import Modal from "@mui/material/Modal";
 import Typography from "@mui/material/Typography";
 
 import Dialog from "@mui/material/Dialog";
@@ -16,7 +15,6 @@ import DialogActions from "@mui/material/DialogActions";
 import { useSetRecoilState, useRecoilValue } from "recoil";
 import { workConcertState, concertsState } from "@/components/RecoilStates";
 import { useSnackbar } from "notistack";
-import { use } from "react";
 
 export default function AddMyConcert(props) {
   const { work, concertID, open, setOpen } = props;
