@@ -26,6 +26,8 @@ export default function AddMyConcert(props) {
   const handleClose = () => setOpen(false);
   const { enqueueSnackbar } = useSnackbar();
 
+  const [movementList, setMovementList] = useState([]);
+
   const checkedWorkMovements = (workID, concertID) => {
     const concert = concerts.find(
       (workConcert) =>
@@ -44,8 +46,6 @@ export default function AddMyConcert(props) {
       }
     }
   }, [work, concertID, concerts]);
-
-  const [movementList, setMovementList] = useState([]);
 
   const totalDuration = movementList.reduce((sum, index) => {
     const durationStr = work.workMovementDuration[index]?.replace("'", "");
