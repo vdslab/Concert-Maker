@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 import Checkbox from "@mui/material/Checkbox";
@@ -34,14 +34,18 @@ export default function AddMyConcert(props) {
     return concert ? concert.movements : [];
   };
 
-  const initialMovementList =
-    work && work.workMovements
-      ? checkedWorkMovements(work.id, concertID).length > 0
-        ? checkedWorkMovements(work.id, concertID)
-        : [...Array(work.workMovements.length)].map((_, i) => i)
-      : [];
+  useEffect(() => {
+    if (work && work.workMovements) {
+      const checkedMovements = checkedWorkMovements(work.id, concertID);
+      if (checkedMovements.length > 0) {
+        setMovementList(checkedMovements);
+      } else {
+        setMovementList([...Array(work.workMovements.length)].map((_, i) => i));
+      }
+    }
+  }, [work, concertID, concerts]);
 
-  const [movementList, setMovementList] = useState(initialMovementList);
+  const [movementList, setMovementList] = useState([]);
 
   const totalDuration = movementList.reduce((sum, index) => {
     const durationStr = work.workMovementDuration[index]?.replace("'", "");
