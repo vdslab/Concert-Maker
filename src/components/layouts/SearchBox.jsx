@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef, forwardRef } from "react";
+import React, { useState, useRef, forwardRef } from "react";
 import Box from "@mui/material/Box";
 import Paper from "@mui/material/Paper";
 import Autocomplete from "@mui/material/Autocomplete";
@@ -21,14 +21,11 @@ export default function SearchBox({ Data, setData, setClickedNodeId }) {
   const openPopper = () => setOpen(true);
   const closePopper = () => setOpen(false);
 
-  const [options, setOptions] = useState([]);
   const { nodes } = Data;
 
-  useEffect(() => {
-    setOptions(
-      nodes?.map((item) => item.name).sort((a, b) => a.localeCompare(b)) || []
-    );
-  }, [nodes]);
+  const initialOptions =
+    nodes?.map((item) => item.name).sort((a, b) => a.localeCompare(b)) || [];
+  const [options, setOptions] = useState(initialOptions);
 
   const handleInputChange = (event, newInputValue) => {
     newInputValue === "" ? closePopper() : openPopper();
@@ -68,7 +65,7 @@ export default function SearchBox({ Data, setData, setClickedNodeId }) {
           }}
           onClose={closePopper}
           PopperComponent={(
-            { disablePortal: _1, anchorEl: _2, open: _3, ...other } // disablePortal, anchorEl, openは読み捨てる
+            { disablePortal: _1, anchorEl: _2, open: _3, ...other }, // disablePortal, anchorEl, openは読み捨てる
           ) => (
             <Box
               {...other}

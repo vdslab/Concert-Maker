@@ -1,10 +1,4 @@
-import React, {
-  useRef,
-  useEffect,
-  useCallback,
-  useMemo,
-  useState,
-} from "react";
+import React, { useRef, useMemo, useCallback, useState } from "react";
 import * as d3 from "d3";
 import ForceGraph2D from "react-force-graph-2d";
 import DrawCircle from "./DrawCircle";
@@ -50,20 +44,6 @@ const ForceGraphWrapper = (props) => {
   };
 
   const processedData = useMemo(() => calculateInitialPositions(data), [data]);
-
-  useEffect(() => {
-    if (clicknode) {
-      setClickedNodeId(clicknode.id);
-    }
-  }, [clicknode, setClickedNodeId]);
-
-  useEffect(() => {
-    if (clicknode && fgRef.current) {
-      const targetZoom = Math.min(2, maxZoom);
-      fgRef.current.centerAt(clicknode.x - 100, clicknode.y, 1000);
-      fgRef.current.zoom(targetZoom, 1000);
-    }
-  }, [clicknode]);
 
   const handleNodeClick = useCallback(
     (node) => {
@@ -117,6 +97,18 @@ const ForceGraphWrapper = (props) => {
     }
     return "rgba(0, 0, 0, 0.1)";
   };
+
+  // clicknodeの変更に応じて処理を行う
+  useMemo(() => {
+    if (clicknode) {
+      setClickedNodeId(clicknode.id);
+      if (fgRef.current) {
+        const targetZoom = Math.min(2, maxZoom);
+        fgRef.current.centerAt(clicknode.x - 100, clicknode.y, 1000);
+        fgRef.current.zoom(targetZoom, 1000);
+      }
+    }
+  }, [clicknode, setClickedNodeId]);
 
   return (
     <div style={{ position: "relative", width: "100%", height }}>

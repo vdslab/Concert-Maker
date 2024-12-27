@@ -1,4 +1,10 @@
-import React, { useEffect, useRef, useState, useCallback } from "react";
+import React, {
+  useRef,
+  useState,
+  useCallback,
+  useLayoutEffect,
+  useMemo,
+} from "react";
 import { Box } from "@mui/material";
 import ForceGraphWrapper from "./ForceGraphWrapper";
 import SearchBox from "../layouts/SearchBox";
@@ -10,43 +16,48 @@ const NodeLinkDiagram = (props) => {
   const [height, setHeight] = useState(0);
   const parentDivRef = useRef(null);
 
-  useEffect(() => {
-    const updateHeight = () => {
-      if (parentDivRef.current) {
-        setHeight(parentDivRef.current.offsetHeight);
-      }
-    };
+  const updateHeight = useCallback(() => {
+    if (parentDivRef.current) {
+      setHeight(parentDivRef.current.offsetHeight);
+    }
+  }, []);
 
+  useLayoutEffect(() => {
     updateHeight();
     window.addEventListener("resize", updateHeight);
     return () => window.removeEventListener("resize", updateHeight);
-  }, []);
+  }, [updateHeight]);
 
-  const updateGraphData = useCallback((newData) => {
-    setGraphData((prevData) => ({
-      ...prevData,
-      ...newData,
-      links: newData.links.map((link) => ({
-        ...link,
-        source: typeof link.source === "object" ? link.source.id : link.source,
-        target: typeof link.target === "object" ? link.target.id : link.target,
-      })),
-    }));
-  }, []);
+  const updateGraphData = useCallback(
+    (newData) => {
+      setGraphData((prevData) => ({
+        ...prevData,
+        ...newData,
+        links: newData.links.map((link) => ({
+          ...link,
+          source:
+            typeof link.source === "object" ? link.source.id : link.source,
+          target:
+            typeof link.target === "object" ? link.target.id : link.target,
+        })),
+      }));
+    },
+    [setGraphData],
+  );
 
-  useEffect(() => {
+  const clickNodeMemo = useMemo(() => {
     if (clickedNodeId) {
-      const node = graphData.nodes.find((node) => node.id === clickedNodeId);
-      if (node) setClickNode(node);
-    } else setClickNode(null);
-  }, [clickedNodeId]);
+      return graphData.nodes.find((node) => node.id === clickedNodeId) || null;
+    }
+    return null;
+  }, [clickedNodeId, graphData.nodes]);
 
   return (
     <Box ref={parentDivRef} position="relative" height="100%">
       <ForceGraphWrapper
         data={graphData}
         height={height}
-        clicknode={clickNode}
+        clicknode={clickNodeMemo}
         setClickedNodeId={setClickedNodeId}
       />
       <SearchBox
@@ -55,7 +66,7 @@ const NodeLinkDiagram = (props) => {
         setClickedNodeId={setClickedNodeId}
       />
       <NodeInfo
-        node={clickNode}
+        node={clickNodeMemo}
         Data={graphData}
         setClickedNodeId={setClickedNodeId}
       />
