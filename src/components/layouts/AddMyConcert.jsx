@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 import Checkbox from "@mui/material/Checkbox";
@@ -26,15 +26,6 @@ export default function AddMyConcert(props) {
   const handleClose = () => setOpen(false);
   const { enqueueSnackbar } = useSnackbar();
 
-  const [movementList, setMovementList] = useState([]);
-
-  const totalDuration = movementList.reduce((sum, index) => {
-    const durationStr = work.workMovementDuration[index]?.replace("'", "");
-    return sum + (parseInt(durationStr, 10) || 0);
-  }, 0);
-
-  const formattedTotalDuration = durationFormat(totalDuration);
-
   const checkedWorkMovements = (workID, concertID) => {
     const concert = concerts.find(
       (workConcert) =>
@@ -43,16 +34,21 @@ export default function AddMyConcert(props) {
     return concert ? concert.movements : [];
   };
 
-  useEffect(() => {
-    if (work && work.workMovements) {
-      const checkedMovements = checkedWorkMovements(work.id, concertID);
-      if (checkedMovements.length > 0) {
-        setMovementList(checkedMovements);
-      } else {
-        setMovementList([...Array(work.workMovements.length)].map((_, i) => i));
-      }
-    }
-  }, [work, concertID, concerts]);
+  const initialMovementList =
+    work && work.workMovements
+      ? checkedWorkMovements(work.id, concertID).length > 0
+        ? checkedWorkMovements(work.id, concertID)
+        : [...Array(work.workMovements.length)].map((_, i) => i)
+      : [];
+
+  const [movementList, setMovementList] = useState(initialMovementList);
+
+  const totalDuration = movementList.reduce((sum, index) => {
+    const durationStr = work.workMovementDuration[index]?.replace("'", "");
+    return sum + (parseInt(durationStr, 10) || 0);
+  }, 0);
+
+  const formattedTotalDuration = durationFormat(totalDuration);
 
   const Submit = () => {
     const isAlreadyRegistered = concerts.some(
