@@ -33,11 +33,7 @@ export default function AddMyConcert(props) {
     return sum + (parseInt(durationStr, 10) || 0);
   }, 0);
 
-  console.log(totalDuration);
-
   const formattedTotalDuration = durationFormat(totalDuration);
-
-  console.log(formattedTotalDuration);
 
   const checkedWorkMovements = (workID, concertID) => {
     const concert = concerts.find(
