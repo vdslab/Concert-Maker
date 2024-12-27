@@ -136,8 +136,18 @@ export default function AddMyConcert(props) {
       <DialogContent>
         <Grid container spacing={2}>
           <Grid size={12}>
+            <Typography variant="body1" color="textSecondary">
+              追加する楽章を選択してください。
+            </Typography>
             <FormGroup>
               {work.workMovements.map((movement, index) => {
+                const movementDuration = work.workMovementDuration[index];
+                const formattedDuration = movementDuration
+                  ? `（${durationFormat(
+                      parseInt(movementDuration.replace("'", ""), 10),
+                    )}）`
+                  : "";
+
                 return (
                   <FormControlLabel
                     key={index}
@@ -155,7 +165,7 @@ export default function AddMyConcert(props) {
                         }}
                       />
                     }
-                    label={`${movement}（${work.workMovementDuration[index].replace("'", "")}分）`}
+                    label={`${movement} ${formattedDuration}`}
                   />
                 );
               })}
