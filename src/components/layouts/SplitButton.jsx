@@ -138,9 +138,7 @@ function SplitButton({ workId, node }) {
         aria-label="split button"
       >
         <Button onClick={handleClick}>
-          {mainConcert === undefined
-            ? "My演奏会に追加"
-            : `${mainConcert.name}に追加`}
+          {`${mainConcert ? mainConcert.name : "My演奏会"}に追加`}
         </Button>
         {concerts.length > 1 && (
           <Button
