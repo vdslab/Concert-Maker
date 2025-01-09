@@ -139,7 +139,7 @@ function SplitButton({ workId, node }) {
       >
         <Button onClick={clickHandler}>
           {mainConcert === undefined
-            ? "My演奏会を作成して追加"
+            ? "My演奏会に追加"
             : `${mainConcert.name}に追加`}
         </Button>
         {concerts.length > 1 && (

@@ -8,7 +8,7 @@ import Stack from "@mui/material/Stack";
 
 import { v4 as randomUUID } from "uuid";
 
-import { useRecoilValue, useRecoilState } from "recoil";
+import { useRecoilValue, useSetRecoilState, useRecoilState } from "recoil";
 import {
   concertsState,
   concertNamesState,
@@ -31,7 +31,7 @@ const BoxButton = styled(ButtonBase)(({ theme }) => ({
 }));
 
 export default function NewConcert() {
-  const [, setConcerts] = useRecoilState(concertsState);
+  const setConcerts = useSetRecoilState(concertsState);
   const existingNames = useRecoilValue(concertNamesState);
 
   const [selected_concert, setSelectedConcert] = useRecoilState(selectedConcertState);
