@@ -95,7 +95,7 @@ function SplitButton({ workId, node }) {
     handleClose(event);
   };
 
-  const clickHandler = (e) => {
+  const handleClick = (e) => {
     if (mainConcert === undefined) {
       const newConcertId = randomUUID();
       const concertName = "My演奏会";
@@ -137,7 +137,7 @@ function SplitButton({ workId, node }) {
         ref={anchorRef}
         aria-label="split button"
       >
-        <Button onClick={clickHandler}>
+        <Button onClick={handleClick}>
           {mainConcert === undefined
             ? "My演奏会に追加"
             : `${mainConcert.name}に追加`}
