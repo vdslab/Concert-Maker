@@ -20,7 +20,7 @@ const NodeInfo = (props) => {
   const { Data, node, setClickedNodeId } = props;
   const [isScrolled, setIsScrolled] = useState(false);
 
-  const handleCloseInfo = useCallback(() => {
+  const handleClose = useCallback(() => {
     setClickedNodeId(null);
   }, [setClickedNodeId]);
 
@@ -28,13 +28,11 @@ const NodeInfo = (props) => {
     setIsScrolled(e.target.scrollTop > 10);
   };
 
-  if (!node) return null;
-
   return (
     <StyledPaper key={node.id} onScroll={handleScroll}>
       <BasicInfomation
         node={node}
-        onClose={handleCloseInfo}
+        onClose={handleClose}
         showBorder={isScrolled}
       />
       <Divider />

@@ -33,11 +33,11 @@ const NodeLinkDiagram = (props) => {
     }));
   }, []);
 
+  // props.graphDataの値変更だけではclickNodeは不変のため、メモ化しておく
   const clickNode = useMemo(() => {
-    if (clickedNodeId) {
-      const node = graphData.nodes.find((node) => node.id === clickedNodeId);
-      if (node) return node;
-    } else return null;
+    return clickedNodeId
+      ? graphData.nodes.find((node) => node.id === clickedNodeId)
+      : null;
   }, [clickedNodeId]);
 
   return (
@@ -53,11 +53,16 @@ const NodeLinkDiagram = (props) => {
         setData={updateGraphData}
         setClickedNodeId={setClickedNodeId}
       />
-      <NodeInfo
-        node={clickNode}
-        Data={graphData}
-        setClickedNodeId={setClickedNodeId}
-      />
+      {clickedNodeId &&
+        <>
+          <div style={{ position: "absolute", top: "70px", left: "10px", height: "calc(100vh - 140px)", width: "calc(100% - 20px)", zIndex: "-1" }} data-tour-id="a-02">
+          </div>
+          <NodeInfo
+            node={clickNode}
+            Data={graphData}
+            setClickedNodeId={setClickedNodeId}
+          />
+        </>}
     </Box>
   );
 };
