@@ -16,8 +16,9 @@ import {
   workConcertState,
   concertListState,
   concertsState,
+  selectedConcertState,
 } from "@/components/RecoilStates";
-import { useRecoilValue, useSetRecoilState } from "recoil";
+import { useRecoilValue, useSetRecoilState, useRecoilState } from "recoil";
 import { v4 as randomUUID } from "uuid";
 
 const StyledMenu = styled((props) => (
@@ -75,6 +76,8 @@ export default function ConcertMenus(props) {
   const setConcerts = useSetRecoilState(concertsState);
   const setWorkConcert = useSetRecoilState(workConcertState);
 
+  const [, setSelectedConcertId] = useRecoilState(selectedConcertState);
+
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
   };
@@ -120,11 +123,12 @@ export default function ConcertMenus(props) {
   };
 
   const deleteConcert = () => {
-    if (workList.find((work) => work.id === id).main) {
-      enqueueSnackbar("削除するにはMainの演奏会を変更してください", {
-        variant: "warning",
-      });
-      return;
+    const workIndex = workList.findIndex((work) => work.id === id);
+    const nextConcertId = workList[workIndex + 1]?.id ?? null;
+    const prevConcertId = workList[workIndex - 1]?.id ?? null;
+
+    if (workList[workIndex]?.main) {
+      setSelectedConcertId(nextConcertId || prevConcertId || null);
     }
 
     setConcerts((oldConcerts) => {
