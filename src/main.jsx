@@ -27,7 +27,7 @@ const router = createBrowserRouter([
   },
 ]);
 
-export const themeOptions = responsiveFontSizes(
+const themeOptions = responsiveFontSizes(
   createTheme(
     {
       palette: {

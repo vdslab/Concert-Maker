@@ -136,6 +136,7 @@ function SplitButton({ workId, node }) {
         variant="contained"
         ref={anchorRef}
         aria-label="split button"
+        data-tour-id="a-03"
       >
         <Button onClick={handleClick}>
           {`${mainConcert ? mainConcert.name : "My演奏会"}に追加`}
