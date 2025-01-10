@@ -3,6 +3,9 @@ import Box from "@mui/material/Box";
 import NodeLinkDiagram from "@/components/vis/NodeLinkDiagram";
 import MyConcertCardList from "@/components/layouts/MyConcertCardList";
 
+import tourInsightsImg from "@/assets/img/tour-insights.png";
+import tourFilterImg from "@/assets/img/tour-filter.png";
+
 import { useState, useEffect, useMemo } from "react";
 import { processData, createGraphData } from "@/components/vis/DataProcessing";
 
@@ -64,13 +67,13 @@ function App() {
             element: '[data-tour-id="a-04"]',
             popover: {
               title: 'My演奏会の分析表示',
-              description: '<img style="max-width: 100%" src="./src/assets/img/tour-insights.png" />ここをクリックすると、作成したMy演奏会の分析結果が確認できます。',
+              description: `<img style="max-width: 100%" src="${tourInsightsImg}" />ここをクリックすると、作成したMy演奏会の分析結果が確認できます。`,
             }
           }, {
             element: '[data-tour-id="a-05"]',
             popover: {
               title: 'フィルター検索',
-              description: '<img style="max-width: 100%" src="./src/assets/img/tour-filter.png" />フィルター検索をクリックすると、作曲者名や楽器編成でフィルタリングできます。',
+              description: `<img style="max-width: 100%" src="${tourFilterImg}" />フィルター検索をクリックすると、作曲者名や楽器編成でフィルタリングできます。`,
               side: "right"
             }
           }, {
