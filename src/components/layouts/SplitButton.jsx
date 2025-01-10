@@ -3,32 +3,35 @@ import { Button, ButtonGroup, Menu, MenuItem } from "@mui/material";
 import AddMyConcert from "@/components/layouts/AddMyConcert";
 import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
 
+import { useSnackbar } from "notistack";
+
+import { v4 as randomUUID } from "uuid";
+
+import { useRecoilState } from "recoil";
 import {
   concertsState,
   workConcertState,
   selectedConcertState,
 } from "@/components/RecoilStates";
 
-import { useRecoilValue, useSetRecoilState } from "recoil";
-
-import { useSnackbar } from "notistack";
-
 function SplitButton({ workId, node }) {
   const existMovements = !(
     node.workMovements.length <= 0 ||
     (node.workMovements.length === 1 && node.workMovements[0] === "")
   );
+
+  const [concerts, setConcerts] = useRecoilState(concertsState);
+  const [mainConcertID, setSelectedConcert] =
+    useRecoilState(selectedConcertState);
+
   const { enqueueSnackbar } = useSnackbar();
 
-  const concerts = useRecoilValue(concertsState);
-  const workConcerts = useRecoilValue(workConcertState);
+  const [workConcerts, setWorkConcerts] = useRecoilState(workConcertState);
 
-  const setWorkConcerts = useSetRecoilState(workConcertState);
   const [openModal, setOpenModal] = React.useState(false);
 
   const [concertID, setConcertID] = React.useState("");
 
-  const mainConcertID = useRecoilValue(selectedConcertState);
   const mainConcert = concerts.find((concert) => concert.id === mainConcertID);
 
   const [open, setOpen] = React.useState(false);
@@ -92,6 +95,35 @@ function SplitButton({ workId, node }) {
     handleClose(event);
   };
 
+  const handleClick = (e) => {
+    if (mainConcert === undefined) {
+      const newConcertId = randomUUID();
+      const concertName = "My演奏会";
+
+      setConcerts((concerts) => [
+        ...concerts,
+        { id: newConcertId, name: concertName },
+      ]);
+
+      setConcertID(newConcertId);
+
+      setSelectedConcert(newConcertId);
+
+      if (existMovements) {
+        setOpenModal(true);
+      } else {
+        addWorkToConcert(newConcertId, concertName, workId);
+      }
+    } else {
+      if (existMovements) {
+        setOpenModal(true);
+        setConcertID(mainConcert.id);
+      } else {
+        addWorkToConcert(mainConcert.id, mainConcert.name, workId);
+      }
+    }
+  };
+
   return (
     <React.Fragment>
       <AddMyConcert
@@ -104,19 +136,10 @@ function SplitButton({ workId, node }) {
         variant="contained"
         ref={anchorRef}
         aria-label="split button"
+        data-tour-id="a-03"
       >
-        <Button
-          onClick={(e) => {
-            if (existMovements) {
-              setOpenModal(true);
-              setConcertID(mainConcert.id);
-            } else {
-              addWorkToConcert(mainConcert.id, mainConcert.name, workId);
-            }
-            e.stopPropagation();
-          }}
-        >
-          {mainConcert.name}に追加
+        <Button onClick={handleClick}>
+          {`${mainConcert ? mainConcert.name : "My演奏会"}に追加`}
         </Button>
         {concerts.length > 1 && (
           <Button

@@ -8,8 +8,12 @@ import Stack from "@mui/material/Stack";
 
 import { v4 as randomUUID } from "uuid";
 
-import { useSetRecoilState, useRecoilValue } from "recoil";
-import { concertsState, concertNamesState } from "@/components/RecoilStates";
+import { useRecoilValue, useSetRecoilState, useRecoilState } from "recoil";
+import {
+  concertsState,
+  concertNamesState,
+  selectedConcertState,
+} from "@/components/RecoilStates";
 
 const BoxButton = styled(ButtonBase)(({ theme }) => ({
   position: "relative",
@@ -30,6 +34,8 @@ export default function NewConcert() {
   const setConcerts = useSetRecoilState(concertsState);
   const existingNames = useRecoilValue(concertNamesState);
 
+  const [selected_concert, setSelectedConcert] = useRecoilState(selectedConcertState);
+
   return (
     <Box
       border="4px dashed dimgray"
@@ -49,11 +55,16 @@ export default function NewConcert() {
         onClick={() => {
           const newConcertNumber = findUniqueNumber(existingNames, "My演奏会");
           const newConcertName = `My演奏会 ${newConcertNumber}`;
+          const newConcertId = randomUUID();
 
           setConcerts((concerts) => [
             ...concerts,
-            { id: randomUUID(), name: newConcertName },
+            { id: newConcertId, name: newConcertName },
           ]);
+
+          if (selected_concert === null) {
+            setSelectedConcert(newConcertId);
+          }
         }}
       >
         <Stack

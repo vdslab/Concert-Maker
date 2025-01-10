@@ -1,12 +1,19 @@
 import { useState, useEffect } from "react";
-import Modal from "@mui/material/Modal";
 import Box from "@mui/material/Box";
-import Checkbox from "@mui/material/Checkbox";
-import FormGroup from "@mui/material/FormGroup";
-import FormControlLabel from "@mui/material/FormControlLabel";
 import Button from "@mui/material/Button";
-import Typography from "@mui/material/Typography";
+import Checkbox from "@mui/material/Checkbox";
+import FormControlLabel from "@mui/material/FormControlLabel";
+import FormGroup from "@mui/material/FormGroup";
 import Grid from "@mui/material/Grid2";
+import Typography from "@mui/material/Typography";
+
+import Dialog from "@mui/material/Dialog";
+import DialogTitle from "@mui/material/DialogTitle";
+import DialogContent from "@mui/material/DialogContent";
+import DialogActions from "@mui/material/DialogActions";
+
+import { durationFormat } from "@/utils/calcTime";
+
 import { useSetRecoilState, useRecoilValue } from "recoil";
 import { workConcertState, concertsState } from "@/components/RecoilStates";
 import { useSnackbar } from "notistack";
@@ -39,6 +46,13 @@ export default function AddMyConcert(props) {
       }
     }
   }, [work, concertID, concerts]);
+
+  const totalDuration = movementList.reduce((sum, index) => {
+    const durationStr = work.workMovementDuration[index]?.replace("'", "");
+    return sum + (parseInt(durationStr, 10) || 0);
+  }, 0);
+
+  const formattedTotalDuration = durationFormat(totalDuration);
 
   const Submit = () => {
     const isAlreadyRegistered = concerts.some(
@@ -113,56 +127,53 @@ export default function AddMyConcert(props) {
   }
 
   return (
-    <Modal
+    <Dialog
+      fullWidth
       open={open}
       onClose={handleClose}
       aria-labelledby="modal-modal-title"
       aria-describedby="modal-modal-description"
     >
-      <Box
-        sx={{
-          position: "absolute",
-          top: "50%",
-          left: "50%",
-          transform: "translate(-50%, -50%)",
-          width: "70%",
-          height: "70%",
-          overflow: "auto",
-          bgcolor: "background.paper",
-          border: "2px solid #000",
-          boxShadow: 24,
-          p: 4,
-        }}
-      >
+      <DialogTitle id="modal-modal-title">
+        {work.composer}／{work.title}
+      </DialogTitle>
+      <DialogContent>
         <Grid container spacing={2}>
           <Grid size={12}>
-            <Box key={work.id}>
-              <Typography variant="h5">{work.title}</Typography>
-              <FormGroup>
-                {work.workMovements.map((movement, index) => {
-                  return (
-                    <FormControlLabel
-                      key={index}
-                      control={
-                        <Checkbox
-                          checked={movementList.includes(index)}
-                          onChange={(e) => {
-                            if (e.target.checked) {
-                              setMovementList((prev) => [...prev, index]);
-                            } else {
-                              setMovementList((prev) =>
-                                prev.filter((movement) => movement !== index),
-                              );
-                            }
-                          }}
-                        />
-                      }
-                      label={`${movement}（${work.workMovementDuration[index].replace("'", "")}分）`}
-                    />
-                  );
-                })}
-              </FormGroup>
-            </Box>
+            <Typography variant="body1" color="textSecondary">
+              追加する楽章を選択してください。
+            </Typography>
+            <FormGroup>
+              {work.workMovements.map((movement, index) => {
+                const movementDuration = work.workMovementDuration[index];
+                const formattedDuration = movementDuration
+                  ? `（${durationFormat(
+                      parseInt(movementDuration.replace("'", ""), 10),
+                    )}）`
+                  : "";
+
+                return (
+                  <FormControlLabel
+                    key={index}
+                    control={
+                      <Checkbox
+                        checked={movementList.includes(index)}
+                        onChange={(e) => {
+                          if (e.target.checked) {
+                            setMovementList((prev) => [...prev, index]);
+                          } else {
+                            setMovementList((prev) =>
+                              prev.filter((m) => m !== index),
+                            );
+                          }
+                        }}
+                      />
+                    }
+                    label={`${movement} ${formattedDuration}`}
+                  />
+                );
+              })}
+            </FormGroup>
           </Grid>
           <Grid
             container
@@ -209,31 +220,22 @@ export default function AddMyConcert(props) {
                     }
                   />
                 </Grid>
-                <Grid
-                  container
-                  justifyContent="flex-end"
-                  alignItems="center"
-                  columnSpacing={1}
-                  flexDirection="row"
-                  sx={{ order: { xs: 1, sm: 2 } }}
-                  size={12}
-                >
-                  <Grid>
-                    <Button variant="outlined" onClick={handleClose}>
-                      キャンセル
-                    </Button>
-                  </Grid>
-                  <Grid>
-                    <Button variant="contained" onClick={Submit}>
-                      決定
-                    </Button>
-                  </Grid>
-                </Grid>
               </Grid>
             </Box>
           </Grid>
         </Grid>
-      </Box>
-    </Modal>
+      </DialogContent>
+      <DialogActions>
+        <Typography variant="caption" color="textSecondary">
+          <Typography>合計時間: {formattedTotalDuration}</Typography>
+        </Typography>
+        <Button variant="outlined" onClick={handleClose}>
+          キャンセル
+        </Button>
+        <Button variant="contained" onClick={Submit}>
+          決定
+        </Button>
+      </DialogActions>
+    </Dialog>
   );
 }

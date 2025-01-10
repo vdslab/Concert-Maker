@@ -35,15 +35,15 @@ export function Radar(props) {
   const data = [
     {
       category: "国籍の近さ",
-      value: Eval.DistEval(works),
+      value: Eval.DistEval(works) || 5,
     },
     {
       category: "作曲年の近さ",
-      value: Eval.YearEval(works),
+      value: Eval.YearEval(works) || 5,
     },
     {
       category: "一緒に演奏されている度合い",
-      value: Eval.PlayedWithEval(works),
+      value: Eval.PlayedWithEval(works) || 5,
     },
     {
       category: "平均有名度",

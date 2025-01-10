@@ -293,7 +293,7 @@ export default function FilterDialog({ Data, setData }) {
   return (
     <>
       {/* ダイアログを開くボタン */}
-      <Tooltip title="検索オプション">
+      <Tooltip title="検索オプション" data-tour-id="a-05">
         <IconButton
           color="primary"
           sx={{ p: "10px" }}
