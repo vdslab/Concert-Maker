@@ -27,7 +27,7 @@ const musicServices = [
     name: "Amazon Music",
     icon: AmazonIcon,
     url: "https://music.amazon.com/search/",
-    enabled: false,
+    enabled: true,
   },
 ];
 
