@@ -1,4 +1,5 @@
 import { ResponsiveBar } from "@nivo/bar";
+import { durationFormat } from "@/utils/calcTime";
 
 const CustomTooltip = ({ id, value, color }) => (
   <div
@@ -11,7 +12,7 @@ const CustomTooltip = ({ id, value, color }) => (
   >
     <strong>
       {id}
-      {value === 2.5 ? "" : `: ${value}分`}
+      {value === 2.5 ? "" : `: ${durationFormat(value)}`}
     </strong>
   </div>
 );
@@ -96,7 +97,21 @@ const RectangularGraph = (props) => {
     {
       group: "Works",
       ...works.reduce((acc, work) => {
-        acc[work.title] = work.duration === null ? 2.5 : work.duration;
+        const duration_time =
+          !work.selectedMovements ||
+          work.workMovementDuration.length <= 1 ||
+          work.workMovementDuration[0] === "'"
+            ? work.duration
+            : work.selectedMovements
+                .map((movement) =>
+                  parseInt(
+                    work.workMovementDuration[movement].replace("'", ""),
+                    10
+                  )
+                )
+                .reduce((x, y) => x + y, 0);
+
+        acc[work.title] = duration_time === null ? 2.5 : duration_time;
         return acc;
       }, {}),
     },
