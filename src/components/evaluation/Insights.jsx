@@ -153,9 +153,7 @@ export default function Insights(props) {
                                 variant="body2"
                                 color="text.secondary"
                               >
-                                {duration_time !== ""
-                                  ? `演奏時間: ${duration_time}`
-                                  : ""}
+                                {duration_time && `演奏時間: ${duration_time}`}
                               </Typography>
                               <Typography
                                 variant="body2"
