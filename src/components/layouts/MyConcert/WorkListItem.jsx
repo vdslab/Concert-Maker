@@ -84,10 +84,10 @@ export default function WorkListItem({
       work.workMovementDuration[0] === "'"
       ? work.duration
       : work.selectedMovements
-        .map((duration) =>
-          parseInt(work.workMovementDuration[duration].replace("'", "")),
-        )
-        .reduce((x, y) => x + y),
+          .map((duration) =>
+            parseInt(work.workMovementDuration[duration].replace("'", "")),
+          )
+          .reduce((x, y) => x + y),
   );
 
   const workFormulaText = getWorkFormulaText(work.workFormula);
@@ -122,8 +122,8 @@ export default function WorkListItem({
               <Typography variant="body1" component="div">
                 {`${work.composer} ${composer.birthYear || composer.deathYear
                   ? ` (${composer.birthYear || ""}〜${composer.deathYear || ""})`
-                  : ""
-                  }`}
+                    : ""
+                }`}
               </Typography>
               <Typography variant="h6" component="div">
                 {work.title}
@@ -132,7 +132,7 @@ export default function WorkListItem({
                 {work.year === null ? "" : "作曲年: " + work.year + "年"}
               </Typography>
               <Typography variant="body2" color="text.secondary">
-                {duration_time !== "" ? `演奏時間: ${duration_time}` : ""}
+                {duration_time && `演奏時間: ${duration_time}`}
               </Typography>
               <Typography variant="body2" color="text.secondary">
                 {workFormulaText ? "楽器編成: " + workFormulaText : ""}
@@ -209,7 +209,7 @@ export default function WorkListItem({
           </DialogContentText>
         </DialogContent>
         <DialogActions>
-          <Button variant="outlined" onClick={handleCalloutClose} sx={{ borderRadius: "2em", borderColor: "white", color: "white" }}>
+        <Button variant="outlined" onClick={handleCalloutClose} sx={{ borderRadius: "2em", borderColor: "white", color: "white" }}>
             閉じる
           </Button>
         </DialogActions>

@@ -9,6 +9,7 @@ export function sumDurationFormat(mins) {
 }
 
 export function durationFormat(mins) {
+  if (mins === null) return null;
   const timeObj = minTimeObject(mins);
   return `${timeObj.hours > 0 ? `${timeObj.hours}時間` : ""}${timeObj.minutes > 0 || timeObj.hours === 0 ? `${timeObj.minutes}分` : ""}`;
 }
