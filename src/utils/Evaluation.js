@@ -14,7 +14,7 @@ const avgDist = (works) => {
         works[i].composerData.latitude,
         works[i].composerData.longitude,
         works[j].composerData.latitude,
-        works[j].composerData.longitude,
+        works[j].composerData.longitude
       );
     }
   }
@@ -23,6 +23,7 @@ const avgDist = (works) => {
 };
 
 export const DistEval = (works) => {
+  if (!works) return 0;
   const calcDist = avgDist(works);
   const k = 3;
   return (1 - calcDist ** (2 / (1 + k))) ** ((1 + k) / 2) * 5;
@@ -44,6 +45,7 @@ const avgYear = (works) => {
 };
 
 export const YearEval = (works) => {
+  if (!works) return 0;
   const D_year = avgYear(works);
   const a = 1.0002;
   const b = 10;
@@ -69,6 +71,7 @@ const avgPlayedWith = (works) => {
 };
 
 export const PlayedWithEval = (works) => {
+  if (!works) return 0;
   const D_playedWith = avgPlayedWith(works);
   return Math.min(D_playedWith * 5, 5);
 };
@@ -87,6 +90,7 @@ const avgOrchPopularity = (works) => {
 };
 
 export const OrchPopularityEval = (works) => {
+  if (!works) return 0;
   const popularity = avgOrchPopularity(works);
   return popularity * 5;
 };
