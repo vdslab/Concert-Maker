@@ -6,6 +6,8 @@ import SearchIcon from "@mui/icons-material/Search";
 import FormatListNumberedIcon from "@mui/icons-material/FormatListNumbered";
 import PropTypes from "prop-types";
 import Paper from "@mui/material/Paper";
+import Search from "@/components/mobile/Search";
+import MyConcert from "@/components/mobile/MyConcert";
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -35,10 +37,10 @@ function Mobile() {
   return (
     <Box sx={{ width: 500 }}>
       <TabPanel value={value} index={0}>
-        Node linkとかもろもろ
+        <Search />
       </TabPanel>
       <TabPanel value={value} index={1}>
-        My演奏会のコンポーネントとかを置こう！
+        <MyConcert />
       </TabPanel>
       <Paper
         sx={{ position: "fixed", bottom: 0, left: 0, right: 0 }}
