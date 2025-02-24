@@ -3,16 +3,11 @@ import Box from "@mui/material/Box";
 import NodeLinkDiagram from "@/components/vis/NodeLinkDiagram";
 import MyConcertCardList from "@/components/layouts/MyConcertCardList";
 
-import { useState, useMemo } from "react";
-import { processData, createGraphData } from "@/components/vis/DataProcessing";
-
 import Share from "@/components/layouts/MyConcert/Share.jsx";
 
-function PC() {
-  const [clickedNodeId, setClickedNodeId] = useState(null);
-  const { linkData } = useMemo(() => processData(), []);
-  const [graphData, setGraphData] = useState(() => createGraphData(linkData));
-
+function PC(props) {
+  const { linkData, clickedNodeId, setClickedNodeId, graphData, setGraphData } =
+    props;
   return (
     <div className="container">
       <Share />
