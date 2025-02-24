@@ -15,7 +15,15 @@ function App() {
   const [graphData, setGraphData] = useState(() => createGraphData(linkData));
 
   if (isMobile) {
-    return <Mobile />;
+    return (
+      <Mobile
+        linkData={linkData}
+        clickedNodeId={clickedNodeId}
+        setClickedNodeId={setClickedNodeId}
+        graphData={graphData}
+        setGraphData={setGraphData}
+      />
+    );
   } else {
     return (
       <PC
