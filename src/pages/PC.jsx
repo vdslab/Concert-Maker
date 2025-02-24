@@ -6,8 +6,7 @@ import MyConcertCardList from "@/components/layouts/MyConcertCardList";
 import Share from "@/components/layouts/MyConcert/Share.jsx";
 
 function PC(props) {
-  const { linkData, clickedNodeId, setClickedNodeId, graphData, setGraphData } =
-    props;
+  const { clickedNodeId, setClickedNodeId, graphData, setGraphData } = props;
   return (
     <div className="container">
       <Share />

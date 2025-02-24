@@ -17,7 +17,6 @@ function App() {
   if (isMobile) {
     return (
       <Mobile
-        linkData={linkData}
         clickedNodeId={clickedNodeId}
         setClickedNodeId={setClickedNodeId}
         graphData={graphData}
@@ -27,7 +26,6 @@ function App() {
   } else {
     return (
       <PC
-        linkData={linkData}
         clickedNodeId={clickedNodeId}
         setClickedNodeId={setClickedNodeId}
         graphData={graphData}
