@@ -31,13 +31,19 @@ TabPanel.propTypes = {
   value: PropTypes.number.isRequired,
 };
 
-function Mobile() {
+function Mobile(props) {
   const [value, setValue] = React.useState(0);
+  const { clickedNodeId, setClickedNodeId, graphData, setGraphData } = props;
 
   return (
     <Box sx={{ width: 500 }}>
       <TabPanel value={value} index={0}>
-        <Search />
+        <Search
+          clickedNodeId={clickedNodeId}
+          setClickedNodeId={setClickedNodeId}
+          graphData={graphData}
+          setGraphData={setGraphData}
+        />
       </TabPanel>
       <TabPanel value={value} index={1}>
         <MyConcert />

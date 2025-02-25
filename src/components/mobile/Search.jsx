@@ -1,7 +1,17 @@
-function Search() {
+import React from "react";
+import NodeLinkDiagram from "../vis/NodeLinkDiagram";
+
+function Search(props) {
+  const { clickedNodeId, setClickedNodeId, graphData, setGraphData } = props;
+
   return (
     <div>
-      <h1>Search</h1>
+      <NodeLinkDiagram
+        clickedNodeId={clickedNodeId}
+        setClickedNodeId={setClickedNodeId}
+        graphData={graphData}
+        setGraphData={setGraphData}
+      />
     </div>
   );
 }
