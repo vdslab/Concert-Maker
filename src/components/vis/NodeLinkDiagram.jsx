@@ -14,7 +14,12 @@ import NodeInfo from "./NodeInfo/NodeInfo";
 const NodeLinkDiagram = (props) => {
   const { clickedNodeId, setClickedNodeId, graphData, setGraphData } = props;
   const [height, setHeight] = useState(0);
+  const [drawerHeight, setDrawerHeight] = useState(50);
   const parentDivRef = useRef(null);
+  const handleRef = useRef(null);
+  const isDraggingRef = useRef(false);
+  const startYRef = useRef(0);
+  const startHeightRef = useRef(0);
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
 
@@ -29,6 +34,64 @@ const NodeLinkDiagram = (props) => {
     window.addEventListener("resize", updateHeight);
     return () => window.removeEventListener("resize", updateHeight);
   }, []);
+
+  useEffect(() => {
+    if (!isMobile || !clickedNodeId) return;
+
+    const handleTouchStart = (e) => {
+      // ハンドル要素がタッチされた場合のみ処理
+      const handleElement = handleRef.current;
+      if (!handleElement) return;
+
+      let targetElement = e.target;
+      let isHandle = false;
+      while (targetElement) {
+        if (targetElement === handleElement) {
+          isHandle = true;
+          break;
+        }
+        targetElement = targetElement.parentElement;
+      }
+
+      if (!isHandle) return;
+
+      isDraggingRef.current = true;
+      startYRef.current = e.touches[0].clientY;
+      startHeightRef.current = drawerHeight;
+      e.preventDefault();
+    };
+
+    const handleTouchMove = (e) => {
+      if (!isDraggingRef.current) return;
+
+      const deltaY = startYRef.current - e.touches[0].clientY;
+      const newHeightVh =
+        startHeightRef.current + (deltaY / window.innerHeight) * 100;
+
+      const limitedHeight = Math.max(20, Math.min(90, newHeightVh));
+      setDrawerHeight(limitedHeight);
+      e.preventDefault();
+    };
+
+    const handleTouchEnd = (e) => {
+      if (isDraggingRef.current) {
+        isDraggingRef.current = false;
+        e.preventDefault();
+      }
+    };
+
+    document.addEventListener("touchstart", handleTouchStart, {
+      passive: false,
+    });
+    document.addEventListener("touchmove", handleTouchMove, { passive: false });
+    document.addEventListener("touchend", handleTouchEnd, { passive: false });
+
+    return () => {
+      document.removeEventListener("touchstart", handleTouchStart);
+      document.removeEventListener("touchmove", handleTouchMove);
+      document.removeEventListener("touchend", handleTouchEnd);
+    };
+  }, [isMobile, clickedNodeId, drawerHeight]);
 
   const updateGraphData = useCallback(
     (newData) => {
@@ -76,9 +139,39 @@ const NodeLinkDiagram = (props) => {
               open={Boolean(clickedNodeId)}
               onClose={() => setClickedNodeId(null)}
               onOpen={() => {}}
-              PaperProps={{ style: { height: "50vh" } }}
+              PaperProps={{
+                style: {
+                  height: `${drawerHeight}vh`,
+                  transition: "height 0.1s",
+                  overscrollBehavior: "none",
+                },
+              }}
               hideBackdrop
+              disableSwipeToOpen
             >
+              <Box
+                ref={handleRef}
+                sx={{
+                  width: "100%",
+                  height: "24px",
+                  display: "flex",
+                  justifyContent: "center",
+                  alignItems: "center",
+                  cursor: "ns-resize",
+                  borderBottom: "1px solid rgba(0, 0, 0, 0.12)",
+                  backgroundColor: theme.palette.background.paper,
+                  touchAction: "none",
+                }}
+              >
+                <Box
+                  sx={{
+                    width: "40px",
+                    height: "4px",
+                    backgroundColor: "rgba(0, 0, 0, 0.2)",
+                    borderRadius: "4px",
+                  }}
+                />
+              </Box>
               <NodeInfo
                 node={clickNode}
                 Data={graphData}

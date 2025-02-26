@@ -20,7 +20,7 @@ function TabPanel(props) {
       aria-labelledby={`simple-tab-${index}`}
       {...other}
     >
-      {value === index && <Box sx={{ p: 3 }}>{children}</Box>}
+      {value === index && <Box>{children}</Box>}
     </div>
   );
 }
@@ -36,7 +36,7 @@ function Mobile(props) {
   const { clickedNodeId, setClickedNodeId, graphData, setGraphData } = props;
 
   return (
-    <Box sx={{ width: 500 }}>
+    <Box>
       <TabPanel value={value} index={0}>
         <Search
           clickedNodeId={clickedNodeId}
