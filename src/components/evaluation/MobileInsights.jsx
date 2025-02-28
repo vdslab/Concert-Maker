@@ -28,7 +28,7 @@ const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="up" ref={ref} {...props} />;
 });
 
-export default function Insights(props) {
+export default function MobileInsights(props) {
   const { myConcert, handleClose, submitAction } = props;
 
   if (!myConcert) {
