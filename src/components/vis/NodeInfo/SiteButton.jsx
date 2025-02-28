@@ -31,7 +31,7 @@ const MusicButton = ({ node }) => {
     <Box p={2}>
       <Typography variant="h6">調べる</Typography>
       <Stack
-        direction={{ xs: "column", sm: "row" }}
+        direction="row"
         spacing={2}
         justifyContent="space-evenly"
         alignItems="center"

@@ -20,7 +20,7 @@ function TabPanel(props) {
       aria-labelledby={`simple-tab-${index}`}
       {...other}
     >
-      {value === index && <Box sx={{ p: 3 }}>{children}</Box>}
+      {value === index && <Box>{children}</Box>}
     </div>
   );
 }
@@ -31,13 +31,19 @@ TabPanel.propTypes = {
   value: PropTypes.number.isRequired,
 };
 
-function Mobile() {
+function Mobile(props) {
   const [value, setValue] = React.useState(0);
+  const { clickedNodeId, setClickedNodeId, graphData, setGraphData } = props;
 
   return (
-    <Box sx={{ width: 500 }}>
+    <Box>
       <TabPanel value={value} index={0}>
-        <Search />
+        <Search
+          clickedNodeId={clickedNodeId}
+          setClickedNodeId={setClickedNodeId}
+          graphData={graphData}
+          setGraphData={setGraphData}
+        />
       </TabPanel>
       <TabPanel value={value} index={1}>
         <MyConcert />
