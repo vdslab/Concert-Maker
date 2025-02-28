@@ -49,16 +49,16 @@ export default function MyConcertCard(props) {
   const sum_duration = sumDurationFormat(
     works.map((work) =>
       !work.selectedMovements ||
-        work.workMovementDuration.length <= 1 ||
-        work.workMovementDuration[0] === "'"
+      work.workMovementDuration.length <= 1 ||
+      work.workMovementDuration[0] === "'"
         ? work.duration
         : work.selectedMovements
-          .map((duration) =>
-            parseInt(work.workMovementDuration[duration].replace("'", "")),
-          )
-          .reduce((x, y) => x + y),
-    ),
-  );
+        .map((duration) =>
+          parseInt(work.workMovementDuration[duration].replace("'", "")),
+        )
+        .reduce((x, y) => x + y),
+  ),
+);
 
   const InsightsWorks = {
     concert: id,
@@ -88,7 +88,12 @@ export default function MyConcertCard(props) {
 
   return (
     <>
-      <Card elevation={3}>
+      <Card
+        elevation={3}
+        sx={{
+          m: { xs: 1, sm: 0 },
+        }}
+      >
         <InsightsModal
           myConcert={InsightsWorks}
           open={openInsight}
@@ -222,7 +227,7 @@ export default function MyConcertCard(props) {
           </DialogContentText>
         </DialogContent>
         <DialogActions>
-          <Button variant="outlined" onClick={handleCalloutClose} sx={{ borderRadius: "2em", borderColor: "white", color: "white" }}>
+        <Button variant="outlined" onClick={handleCalloutClose} sx={{ borderRadius: "2em", borderColor: "white", color: "white" }}>
             閉じる
           </Button>
         </DialogActions>

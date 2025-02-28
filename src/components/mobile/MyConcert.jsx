@@ -1,7 +1,10 @@
-function MyConcert() {
+import MyConcertCardList from "@/components/layouts/MyConcertCardList";
+
+function MyConcert(props) {
+  const { graphData, setClickedNodeId } = props;
   return (
     <div>
-      <h1>MyConcert</h1>
+      <MyConcertCardList Data={graphData} setClickedNodeId={setClickedNodeId} />
     </div>
   );
 }

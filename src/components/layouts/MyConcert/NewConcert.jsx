@@ -22,7 +22,7 @@ const BoxButton = styled(ButtonBase)(({ theme }) => ({
   textAlign: "justify",
   [theme.breakpoints.down("sm")]: {
     width: "100% !important", // Overrides inline-style
-    height: 100,
+    minHeight: 100,
   },
   "&:hover, &.Mui-focusVisible": {
     zIndex: 1,
@@ -45,6 +45,7 @@ export default function NewConcert() {
         flexGrow: 1,
         display: "flex",
         flexWrap: "wrap",
+        m: { xs: 1, sm: 0 },
       }}
     >
       <BoxButton
