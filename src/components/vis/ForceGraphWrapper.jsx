@@ -31,7 +31,7 @@ const ForceGraphWrapper = (props) => {
         d3
           .forceLink(data.links)
           .id((d) => d.id)
-          .distance((link) => link.distance),
+          .distance((link) => link.distance)
       )
       .force("x", d3.forceX(0).strength(0.05))
       .force("y", d3.forceY(0).strength(0.05))
@@ -59,8 +59,15 @@ const ForceGraphWrapper = (props) => {
 
   useEffect(() => {
     if (clicknode && fgRef.current) {
-      const targetZoom = Math.min(2, maxZoom);
-      fgRef.current.centerAt(clicknode.x, clicknode.y, 1000);
+      const zoomOffset = isMobile ? 1 : 2;
+      const targetZoom = Math.min(zoomOffset, maxZoom);
+      const xOffset = isMobile ? 0 : 100;
+      const yOffset = isMobile ? 120 : 0;
+      fgRef.current.centerAt(
+        clicknode.x - xOffset,
+        clicknode.y + yOffset,
+        1000
+      );
       fgRef.current.zoom(targetZoom, 1000);
     }
   }, [clicknode]);
@@ -69,7 +76,7 @@ const ForceGraphWrapper = (props) => {
     (node) => {
       setClickedNodeId(node.id);
     },
-    [setClickedNodeId],
+    [setClickedNodeId]
   );
 
   const connectedNodeIds = useMemo(() => {
@@ -78,9 +85,9 @@ const ForceGraphWrapper = (props) => {
       processedData.links
         .filter(
           (link) =>
-            link.source.id === clicknode.id || link.target.id === clicknode.id,
+            link.source.id === clicknode.id || link.target.id === clicknode.id
         )
-        .flatMap((link) => [link.source.id, link.target.id]),
+        .flatMap((link) => [link.source.id, link.target.id])
     );
   }, [clicknode, processedData.links]);
 
