@@ -107,7 +107,7 @@ const NodeLinkDiagram = (props) => {
         })),
       }));
     },
-    [setGraphData],
+    [setGraphData]
   );
 
   // props.graphData の値変更だけでは clickNode は不変のため、メモ化しておく
@@ -141,6 +141,7 @@ const NodeLinkDiagram = (props) => {
               onOpen={() => {}}
               PaperProps={{
                 style: {
+                  zIndex: 10,
                   height: `${drawerHeight}vh`,
                   transition: "height 0.1s",
                   overscrollBehavior: "none",
