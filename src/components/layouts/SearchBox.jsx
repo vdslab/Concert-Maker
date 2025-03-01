@@ -47,7 +47,7 @@ export default function SearchBox({ Data, setData, setClickedNodeId }) {
       component="form"
       onSubmit={handleSubmit}
       sx={{
-        width: 400,
+        width: { xs: "calc(100% - 20px)", sm: 400 },
         borderRadius: open ? "16px" : "100vh",
         overflow: "hidden",
         position: "absolute",

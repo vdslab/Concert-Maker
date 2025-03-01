@@ -8,8 +8,10 @@ import { useSnackbar } from "notistack";
 import { concertsState, workConcertState } from "@/components/RecoilStates";
 import { useSetRecoilState } from "recoil";
 import { useSearchParams } from "react-router-dom";
+import { useMediaQuery, useTheme } from "@mui/material";
 
 import Insights from "@/components/evaluation/Insights.jsx";
+import MobileInsights from "@/components/evaluation/MobileInsights.jsx";
 
 export default function Share() {
   const [searchParams, setSearchParams] = useSearchParams();
@@ -17,6 +19,9 @@ export default function Share() {
   const setConcerts = useSetRecoilState(concertsState);
   const setWorkConcert = useSetRecoilState(workConcertState);
   const { enqueueSnackbar } = useSnackbar();
+
+  const theme = useTheme();
+  const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
 
   if (!searchParams) {
     return null;
@@ -84,6 +89,16 @@ export default function Share() {
     label: "My演奏会に保存",
     func: duplicateConcert,
   };
+
+  if (isMobile) {
+    return (
+      <MobileInsights
+        myConcert={myConcert}
+        handleClose={handleClose}
+        submitAction={submitAction}
+      />
+    );
+  }
 
   return (
     <Insights

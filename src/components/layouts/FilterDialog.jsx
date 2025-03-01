@@ -3,7 +3,7 @@ import { useForm, Controller } from "react-hook-form";
 
 import Box from "@mui/material/Box";
 import Stack from "@mui/material/Stack";
-import Grid from "@mui/material/Grid";
+import Grid from '@mui/material/Grid2';
 
 import Button from "@mui/material/Button";
 import IconButton from "@mui/material/IconButton";
@@ -323,138 +323,148 @@ export default function FilterDialog({ Data, setData }) {
           </IconButton>
         </Tooltip>
         <DialogContent>
-          <Grid container spacing={2}>
+          <Stack spacing={2}>
             {/* 作曲者名 */}
-            <Grid item xs={3}>
-              <InputLabel
-                htmlFor="composer-input"
-                sx={{ fontWeight: 700, pt: "16.5px" }}
-              >
-                作曲者名
-              </InputLabel>
-            </Grid>
-            <Grid item xs={9}>
-              <Controller
-                name="composer"
-                control={control}
-                render={({ field }) => (
-                  <OutlinedInput
-                    {...field}
-                    id="composer-input"
-                    placeholder="作曲者名を入力"
-                    fullWidth
-                  />
-                )}
-              />
+            <Grid container spacing={1}>
+              <Grid size={{ xs: 12, sm: 3 }}>
+                <InputLabel
+                  htmlFor="composer-input"
+                  sx={{ fontWeight: 700, pt: { xs: 0, sm: "16.5px" } }}
+                >
+                  作曲者名
+                </InputLabel>
+              </Grid>
+              <Grid size={{ xs: 12, sm: 9 }}>
+                <Controller
+                  name="composer"
+                  control={control}
+                  render={({ field }) => (
+                    <OutlinedInput
+                      {...field}
+                      id="composer-input"
+                      placeholder="作曲者名を入力"
+                      fullWidth
+                    />
+                  )}
+                />
+              </Grid>
             </Grid>
             {/* 存命期間 */}
-            <Grid item xs={3}>
-              <InputLabel
-                htmlFor="lifespan-input"
-                sx={{ fontWeight: 700, pt: "16.5px" }}
-              >
-                存命期間
-              </InputLabel>
-            </Grid>
-            <Grid item xs={9}>
-              <NumberRangeInput
-                name="lifespan"
-                unit="年"
-                min={1000}
-                max={null}
-                control={control}
-              />
+            <Grid container spacing={1}>
+              <Grid size={{ xs: 12, sm: 3 }}>
+                <InputLabel
+                  htmlFor="lifespan-input"
+                  sx={{ fontWeight: 700, pt: { xs: 0, sm: "16.5px" } }}
+                >
+                  存命期間
+                </InputLabel>
+              </Grid>
+              <Grid size={{ xs: 12, sm: 9 }}>
+                <NumberRangeInput
+                  name="lifespan"
+                  unit="年"
+                  min={1000}
+                  max={null}
+                  control={control}
+                />
+              </Grid>
             </Grid>
             {/* 曲名 */}
-            <Grid item xs={3}>
-              <InputLabel
-                htmlFor="title-input"
-                sx={{ fontWeight: 700, pt: "16.5px" }}
-              >
-                曲名
-              </InputLabel>
-            </Grid>
-            <Grid item xs={9}>
-              <Controller
-                name="title"
-                control={control}
-                render={({ field }) => (
-                  <OutlinedInput
-                    {...field}
-                    id="title-input"
-                    placeholder="曲名を入力"
-                    fullWidth
-                  />
-                )}
-              />
+            <Grid container spacing={1}>
+              <Grid size={{ xs: 12, sm: 3 }}>
+                <InputLabel
+                  htmlFor="title-input"
+                  sx={{ fontWeight: 700, pt: { xs: 0, sm: "16.5px" } }}
+                >
+                  曲名
+                </InputLabel>
+              </Grid>
+              <Grid size={{ xs: 12, sm: 9 }}>
+                <Controller
+                  name="title"
+                  control={control}
+                  render={({ field }) => (
+                    <OutlinedInput
+                      {...field}
+                      id="title-input"
+                      placeholder="曲名を入力"
+                      fullWidth
+                    />
+                  )}
+                />
+              </Grid>
             </Grid>
             {/* 作曲年 */}
-            <Grid item xs={3}>
-              <InputLabel
-                htmlFor="composed-input"
-                sx={{ fontWeight: 700, pt: "16.5px" }}
-              >
-                作曲年
-              </InputLabel>
-            </Grid>
-            <Grid item xs={9}>
-              <NumberRangeInput
-                name="composed"
-                unit="年"
-                min={1000}
-                max={null}
-                control={control}
-              />
+            <Grid container spacing={1}>
+              <Grid size={{ xs: 12, sm: 3 }}>
+                <InputLabel
+                  htmlFor="composed-input"
+                  sx={{ fontWeight: 700, pt: { xs: 0, sm: "16.5px" } }}
+                >
+                  作曲年
+                </InputLabel>
+              </Grid>
+              <Grid size={{ xs: 12, sm: 9 }}>
+                <NumberRangeInput
+                  name="composed"
+                  unit="年"
+                  min={1000}
+                  max={null}
+                  control={control}
+                />
+              </Grid>
             </Grid>
             {/* 演奏時間 */}
-            <Grid item xs={3}>
-              <InputLabel
-                htmlFor="duration-input"
-                sx={{ fontWeight: 700, pt: "16.5px" }}
-              >
-                演奏時間
-              </InputLabel>
+            <Grid container spacing={1}>
+              <Grid size={{ xs: 12, sm: 3 }}>
+                <InputLabel
+                  htmlFor="duration-input"
+                  sx={{ fontWeight: 700, pt: { xs: 0, sm: "16.5px" } }}
+                >
+                  演奏時間
+                </InputLabel>
+              </Grid>
+              <Grid size={{ xs: 12, sm: 9 }}>
+                <NumberRangeInput
+                  name="duration"
+                  unit="分"
+                  min={0}
+                  max={null}
+                  control={control}
+                />
+                <Controller
+                  name="durationIncludeNoData"
+                  control={control}
+                  render={({ field }) => (
+                    <FormControlLabel
+                      {...field}
+                      checked={field.value}
+                      control={<Checkbox />}
+                      label="演奏時間データがない曲も含める"
+                    />
+                  )}
+                />
+              </Grid>
             </Grid>
-            <Grid item xs={9}>
-              <NumberRangeInput
-                name="duration"
-                unit="分"
-                min={0}
-                max={null}
-                control={control}
-              />
-              <Controller
-                name="durationIncludeNoData"
-                control={control}
-                render={({ field }) => (
-                  <FormControlLabel
-                    {...field}
-                    checked={field.value}
-                    control={<Checkbox />}
-                    label="演奏時間データがない曲も含める"
-                  />
-                )}
-              />
-            </Grid>
-          </Grid>
+          </Stack>
           <Accordion>
             <AccordionSummary expandIcon={<ExpandMoreIcon />}>
               楽器編成
             </AccordionSummary>
             <AccordionDetails>
-              <Grid container spacing={2}>
+              <Stack spacing={2}>
                 {/* 数値範囲で指定する楽器群 */}
                 {countableInstrumentList.map((countableInstrument) => (
-                  <Fragment key={countableInstrument.name}>
-                    <Grid item xs={3}>
+                  <Grid key={countableInstrument.name} container spacing={1}>
+                    <Grid size={{ xs: 12, sm: 3 }}>
                       <InputLabel
                         htmlFor={`${countableInstrument.name}-input`}
-                        sx={{ fontWeight: 700, pt: "16.5px" }}
+                        sx={{ fontWeight: 700, pt: { xs: 0, sm: "16.5px" } }}
                       >
                         {countableInstrument.str}
                       </InputLabel>
                     </Grid>
-                    <Grid item xs={9}>
+                    <Grid size={{ xs: 12, sm: 9 }}>
                       <NumberRangeInput
                         name={countableInstrument.name}
                         unit="人"
@@ -463,49 +473,47 @@ export default function FilterDialog({ Data, setData }) {
                         control={control}
                       />
                     </Grid>
-                  </Fragment>
+                  </Grid>
                 ))}
 
                 {/* 弦楽器 */}
-                <Grid
-                  item
-                  xs={3}
-                  sx={{ display: "flex", alignItems: "center" }}
-                >
-                  <InputLabel sx={{ fontWeight: 700 }}>弦楽器</InputLabel>
+                <Grid container spacing={1}>
+                  <Grid size={{ xs: 12, sm: 3 }} sx={{ display: "flex", alignItems: "center" }}>
+                    <InputLabel sx={{ fontWeight: 700 }}>弦楽器</InputLabel>
+                  </Grid>
+                  <Grid size={{ xs: 12, sm: 9 }}>
+                    <Controller
+                      name="strings"
+                      control={control}
+                      render={({ field }) => (
+                        <RadioGroup
+                          {...field}
+                          onChange={(e) =>
+                            field.onChange(JSON.parse(e.target.value))
+                          }
+                          row
+                        >
+                          <FormControlLabel
+                            value="null"
+                            control={<Radio />}
+                            label="指定なし"
+                          />
+                          <FormControlLabel
+                            value="true"
+                            control={<Radio />}
+                            label="あり"
+                          />
+                          <FormControlLabel
+                            value="false"
+                            control={<Radio />}
+                            label="なし"
+                          />
+                        </RadioGroup>
+                      )}
+                    />
+                  </Grid>
                 </Grid>
-                <Grid item xs={9}>
-                  <Controller
-                    name="strings"
-                    control={control}
-                    render={({ field }) => (
-                      <RadioGroup
-                        {...field}
-                        onChange={(e) =>
-                          field.onChange(JSON.parse(e.target.value))
-                        }
-                        row
-                      >
-                        <FormControlLabel
-                          value="null"
-                          control={<Radio />}
-                          label="指定なし"
-                        />
-                        <FormControlLabel
-                          value="true"
-                          control={<Radio />}
-                          label="あり"
-                        />
-                        <FormControlLabel
-                          value="false"
-                          control={<Radio />}
-                          label="なし"
-                        />
-                      </RadioGroup>
-                    )}
-                  />
-                </Grid>
-              </Grid>
+              </Stack>
             </AccordionDetails>
           </Accordion>
         </DialogContent>

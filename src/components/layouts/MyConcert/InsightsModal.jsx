@@ -1,11 +1,16 @@
 /* eslint-disable react/prop-types */
 import { useSnackbar } from "notistack";
 import { useState } from "react";
+import { useMediaQuery, useTheme } from "@mui/material";
 
 import Insights from "@/components/evaluation/Insights.jsx";
+import MobileInsights from "@/components/evaluation/MobileInsights.jsx";
 
 export default function InsightsModal(props) {
   const { myConcert, open, setOpen } = props;
+
+  const theme = useTheme();
+  const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
 
   const { enqueueSnackbar } = useSnackbar();
 
@@ -31,6 +36,15 @@ export default function InsightsModal(props) {
     return <></>;
   }
 
+  if (isMobile) {
+    return (
+      <MobileInsights
+        myConcert={myConcert}
+        handleClose={handleClose}
+        submitAction={submitAction}
+      />
+    );
+  }
   return (
     <Insights
       myConcert={myConcert}
