@@ -132,6 +132,11 @@ const ForceGraphWrapper = (props) => {
         height,
       };
 
+  const getNodeSize = (nodeId, globalScale) => {
+    const popularity = getPopularity(nodeId);
+    return 8 * popularity + 2 / globalScale;
+  };
+
   return (
     <div style={containerStyle} data-tour-id="a-01">
       <ForceGraph2D
@@ -148,8 +153,7 @@ const ForceGraphWrapper = (props) => {
             clicknode &&
             (node.id === clicknode.id || connectedNodeIds.has(node.id));
 
-          const popularity = getPopularity(node.id);
-          const size = 8 * popularity + 2 / globalScale;
+          const size = getNodeSize(node.id, globalScale);
 
           const color = node.filter === 0 ? "hsl(240, 50%, 85%)" : "blue";
           const nodeColor = (() => {
@@ -180,6 +184,14 @@ const ForceGraphWrapper = (props) => {
             return "black";
           })();
           DrawCircle(ctx, node.x, node.y, size, nodeColor, strokeColor);
+        }}
+        nodePointerAreaPaint={(node, color, ctx, globalScale) => {
+          const size = getNodeSize(node.id, globalScale);
+          const hitAreaSize = size * 2;
+          ctx.beginPath();
+          ctx.arc(node.x, node.y, hitAreaSize, 0, 2 * Math.PI);
+          ctx.fillStyle = color;
+          ctx.fill();
         }}
         onNodeClick={handleNodeClick}
         onNodeHover={handleNodeHover}
