@@ -103,9 +103,9 @@ export default function WorkListItem({
         elevation={0}
         sx={{
           "&:hover": {
-            backgroundColor: "#f5f5f5",
+            backgroundColor: { sm: "#f5f5f5" },
           },
-          cursor: "pointer",
+          cursor: { sm: "pointer" },
           touchAction: "none", // タッチの動作を無効にして、React DnD Kitがタッチイベントを処理できるようにする
         }}
         style={sortableItemProps?.style}
