@@ -12,7 +12,7 @@ import DrawCircle from "./DrawCircle";
 import Popularity from "@/assets/data/orchPopularity.json";
 
 const ForceGraphWrapper = (props) => {
-  const { data, height, clicknode, setClickedNodeId } = props;
+  const { data, height, clicknode, setClickedNodeId, isMobile } = props;
   const fgRef = useRef();
   const maxZoom = 3;
 
@@ -31,7 +31,7 @@ const ForceGraphWrapper = (props) => {
         d3
           .forceLink(data.links)
           .id((d) => d.id)
-          .distance((link) => link.distance),
+          .distance((link) => link.distance)
       )
       .force("x", d3.forceX(0).strength(0.05))
       .force("y", d3.forceY(0).strength(0.05))
@@ -59,8 +59,15 @@ const ForceGraphWrapper = (props) => {
 
   useEffect(() => {
     if (clicknode && fgRef.current) {
-      const targetZoom = Math.min(2, maxZoom);
-      fgRef.current.centerAt(clicknode.x - 100, clicknode.y, 1000);
+      const zoomOffset = isMobile ? 1 : 2;
+      const targetZoom = Math.min(zoomOffset, maxZoom);
+      const xOffset = isMobile ? 0 : 100;
+      const yOffset = isMobile ? 120 : 0;
+      fgRef.current.centerAt(
+        clicknode.x - xOffset,
+        clicknode.y + yOffset,
+        1000
+      );
       fgRef.current.zoom(targetZoom, 1000);
     }
   }, [clicknode]);
@@ -69,7 +76,7 @@ const ForceGraphWrapper = (props) => {
     (node) => {
       setClickedNodeId(node.id);
     },
-    [setClickedNodeId],
+    [setClickedNodeId]
   );
 
   const connectedNodeIds = useMemo(() => {
@@ -78,9 +85,9 @@ const ForceGraphWrapper = (props) => {
       processedData.links
         .filter(
           (link) =>
-            link.source.id === clicknode.id || link.target.id === clicknode.id,
+            link.source.id === clicknode.id || link.target.id === clicknode.id
         )
-        .flatMap((link) => [link.source.id, link.target.id]),
+        .flatMap((link) => [link.source.id, link.target.id])
     );
   }, [clicknode, processedData.links]);
 
@@ -118,26 +125,42 @@ const ForceGraphWrapper = (props) => {
     return "rgba(0, 0, 0, 0.1)";
   };
 
+  const containerStyle = isMobile
+    ? {
+        position: "fixed",
+        top: 0,
+        left: 0,
+        width: "100vw",
+        height: "100vh",
+      }
+    : {
+        position: "relative",
+        width: "100%",
+        height,
+      };
+
+  const getNodeSize = (nodeId, globalScale) => {
+    const popularity = getPopularity(nodeId);
+    return 8 * popularity + 2 / globalScale;
+  };
+
   return (
-    <div style={{ position: "relative", width: "100%", height }} data-tour-id="a-01">
+    <div style={containerStyle} data-tour-id="a-01">
       <ForceGraph2D
         ref={fgRef}
         graphData={processedData}
-        width={window.innerWidth * 0.6}
-        height={height}
+        width={isMobile ? window.innerWidth : window.innerWidth * 0.6}
+        height={isMobile ? window.innerHeight : height}
         maxZoom={maxZoom}
         cooldownTicks={0}
-        enableNodeDrag={false}
         enablePanInteraction={true}
+        enableNodeDrag={false}
         nodeCanvasObject={(node, ctx, globalScale) => {
           const isConnected =
             clicknode &&
             (node.id === clicknode.id || connectedNodeIds.has(node.id));
 
-          const popularity = getPopularity(node.id);
-
-          // nodeの基本サイズを8としている(nodeのサイズは2~10)
-          const size = 8 * popularity + 2 / globalScale;
+          const size = getNodeSize(node.id, globalScale);
 
           const color = node.filter === 0 ? "hsl(240, 50%, 85%)" : "blue";
           const nodeColor = (() => {
@@ -168,6 +191,14 @@ const ForceGraphWrapper = (props) => {
             return "black";
           })();
           DrawCircle(ctx, node.x, node.y, size, nodeColor, strokeColor);
+        }}
+        nodePointerAreaPaint={(node, color, ctx, globalScale) => {
+          const size = getNodeSize(node.id, globalScale);
+          const hitAreaSize = size * 2;
+          ctx.beginPath();
+          ctx.arc(node.x, node.y, hitAreaSize, 0, 2 * Math.PI);
+          ctx.fillStyle = color;
+          ctx.fill();
         }}
         onNodeClick={handleNodeClick}
         onNodeHover={handleNodeHover}

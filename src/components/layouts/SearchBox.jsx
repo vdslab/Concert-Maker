@@ -43,20 +43,21 @@ export default function SearchBox({ Data, setData, setClickedNodeId }) {
   };
 
   return (
-    <Paper
-      component="form"
-      onSubmit={handleSubmit}
-      sx={{
-        width: 400,
-        borderRadius: open ? "16px" : "100vh",
-        overflow: "hidden",
-        position: "absolute",
-        top: "10px",
-        left: "10px",
-        zIndex: 2,
-      }}
-    >
-      <ClickAwayListener onClickAway={closePopper}>
+    <ClickAwayListener onClickAway={closePopper}>
+      <Paper
+        component="form"
+        onSubmit={handleSubmit}
+        sx={{
+          borderRadius: open ? "16px" : "100vh",
+          overflow: "hidden",
+          position: "absolute",
+          top: "10px",
+          left: "10px",
+          maxWidth: { sm: 400 }, // smの場合は幅をmaxWidthで指定
+          right: { xs: "10px" }, // xs以上の場合は幅をrightで指定
+          zIndex: 2 // 曲詳細表示よりも上に表示する
+        }}
+      >
         <Autocomplete
           freeSolo
           options={options}
@@ -110,7 +111,7 @@ export default function SearchBox({ Data, setData, setClickedNodeId }) {
             );
           }}
         />
-      </ClickAwayListener>
-    </Paper>
+      </Paper>
+    </ClickAwayListener>
   );
 }
