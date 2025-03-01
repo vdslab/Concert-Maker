@@ -106,6 +106,7 @@ export default function WorkListItem({
             backgroundColor: "#f5f5f5",
           },
           cursor: "pointer",
+          touchAction: "none", // タッチの動作を無効にして、React DnD Kitがタッチイベントを処理できるようにする
         }}
         style={sortableItemProps?.style}
         onClick={() => handleItemClick(work)}
@@ -152,6 +153,7 @@ export default function WorkListItem({
               disableRipple={true} // ドラッグアイコンのリップルエフェクトは無効にする
               tabIndex={-1} // ドラッグハンドルへのキーボードフォーカスは無効にする
               {...sortableItemProps?.listeners}
+              onTouchStart={(e) => e.preventDefault()} // モバイルでタッチスタート時に動作を防止
             >
               <DragIndicatorIcon ref={anchorRef} />
             </IconButton>
