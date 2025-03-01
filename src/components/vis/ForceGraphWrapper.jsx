@@ -31,7 +31,7 @@ const ForceGraphWrapper = (props) => {
         d3
           .forceLink(data.links)
           .id((d) => d.id)
-          .distance((link) => link.distance)
+          .distance((link) => link.distance),
       )
       .force("x", d3.forceX(0).strength(0.05))
       .force("y", d3.forceY(0).strength(0.05))
@@ -69,7 +69,7 @@ const ForceGraphWrapper = (props) => {
     (node) => {
       setClickedNodeId(node.id);
     },
-    [setClickedNodeId]
+    [setClickedNodeId],
   );
 
   const connectedNodeIds = useMemo(() => {
@@ -78,9 +78,9 @@ const ForceGraphWrapper = (props) => {
       processedData.links
         .filter(
           (link) =>
-            link.source.id === clicknode.id || link.target.id === clicknode.id
+            link.source.id === clicknode.id || link.target.id === clicknode.id,
         )
-        .flatMap((link) => [link.source.id, link.target.id])
+        .flatMap((link) => [link.source.id, link.target.id]),
     );
   }, [clicknode, processedData.links]);
 
@@ -142,6 +142,7 @@ const ForceGraphWrapper = (props) => {
         maxZoom={maxZoom}
         cooldownTicks={0}
         enablePanInteraction={true}
+        enableNodeDrag={false}
         nodeCanvasObject={(node, ctx, globalScale) => {
           const isConnected =
             clicknode &&
