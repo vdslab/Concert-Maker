@@ -107,7 +107,7 @@ const NodeLinkDiagram = (props) => {
         })),
       }));
     },
-    [setGraphData]
+    [setGraphData],
   );
 
   // props.graphData の値変更だけでは clickNode は不変のため、メモ化しておく
@@ -148,6 +148,8 @@ const NodeLinkDiagram = (props) => {
               }}
               hideBackdrop
               disableSwipeToOpen
+              disableRestoreFocus
+              variant="persistent"
             >
               <Box
                 ref={handleRef}
