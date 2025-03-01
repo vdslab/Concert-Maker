@@ -39,7 +39,7 @@ function Mobile(props) {
   return (
     <>
       <Share />
-      <Box>
+      <Box sx={{ pb: 7 }}>
         <TabPanel value={value} index={0}>
           <Search
             clickedNodeId={clickedNodeId}
