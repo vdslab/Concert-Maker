@@ -142,7 +142,7 @@ const ForceGraphWrapper = (props) => {
         maxZoom={maxZoom}
         cooldownTicks={0}
         enablePanInteraction={true}
-        
+        enableNodeDrag={false}
         nodeCanvasObject={(node, ctx, globalScale) => {
           const isConnected =
             clicknode &&
