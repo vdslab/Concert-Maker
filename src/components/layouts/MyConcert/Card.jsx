@@ -362,7 +362,7 @@ export default function MyConcertCard(props) {
         <DialogTitle sx={{ fontSize: 16 }}>曲の追加先を変更する</DialogTitle>
         <DialogContent>
           <DialogContentText sx={{ color: "white", maxWidth: "20em" }}>
-            曲を追加したいy演奏会を切り替えるには、［メイン］をクリックしてください。
+            曲を追加したいMy演奏会を切り替えるには、［メイン］をクリックしてください。
           </DialogContentText>
         </DialogContent>
         <DialogActions>
