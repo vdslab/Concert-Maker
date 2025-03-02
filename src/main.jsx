@@ -92,7 +92,9 @@ const themeOptions = responsiveFontSizes(
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
     <RecoilRoot>
-      <SnackbarProvider maxSnack={3}>
+      <SnackbarProvider maxSnack={3}  
+        autoHideDuration={10000}
+        >
         <Box
           display="flex"
           flexDirection="column"
