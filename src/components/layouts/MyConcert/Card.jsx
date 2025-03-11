@@ -1,25 +1,26 @@
-/* eslint-disable react/prop-types */
 import { useState, useEffect, useRef, useId } from "react";
+import { useTheme } from "@mui/material/styles";
+import useMediaQuery from "@mui/material/useMediaQuery";
 
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 import Card from "@mui/material/Card";
-import ConcertMenus from "./ConcertMenus";
-import DialogTitle from "@mui/material/DialogTitle";
-import DialogContent from "@mui/material/DialogContent";
-import DialogContentText from "@mui/material/DialogContentText";
-import DialogActions from "@mui/material/DialogActions";
-import Divider from "@mui/material/Divider";
-import EditIcon from "@mui/icons-material/Edit";
 import Grid from "@mui/material/Grid2";
 import IconButton from "@mui/material/IconButton";
 import Stack from "@mui/material/Stack";
 import TextField from "@mui/material/TextField";
 import Typography from "@mui/material/Typography";
-import InsightsIcon from "@mui/icons-material/Insights";
-import useMediaQuery from "@mui/material/useMediaQuery";
-import { useTheme } from "@mui/material/styles";
+import Divider from "@mui/material/Divider";
 
+import EditIcon from "@mui/icons-material/Edit";
+import InsightsIcon from "@mui/icons-material/Insights";
+
+import DialogTitle from "@mui/material/DialogTitle";
+import DialogContent from "@mui/material/DialogContent";
+import DialogContentText from "@mui/material/DialogContentText";
+import DialogActions from "@mui/material/DialogActions";
+
+import ConcertMenus from "./ConcertMenus";
 import CalloutPopover from "@/components/layouts/CalloutPopover";
 import InsightsModal from "@/components/layouts/MyConcert/InsightsModal";
 import WorkList from "@/components/layouts/MyConcert/WorkList";
@@ -33,46 +34,44 @@ import {
 } from "@/components/RecoilStates";
 import { useSetRecoilState, useRecoilValue } from "recoil";
 
-export default function MyConcertCard(props) {
-  const { concert, setClickedNodeId, Data } = props;
+export default function MyConcertCard({ concert, setClickedNodeId }) {
   const { id, name, works } = concert;
-  const [editMode, setEditMode] = useState(false);
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
 
+  const [editMode, setEditMode] = useState(false);
   const [openInsight, setOpenInsight] = useState(false);
+  const [openCallout, setOpenCallout] = useState(false);
 
-  const [openCallout, setOpenCallout] = useState(false); // 吹き出し用
-  const anchorRef = useRef(null); // 吹き出し用
-  const calloutId = useId(); // 吹き出し用。CalloutPopover のアクセシビリティ属性として渡す ID
+  const anchorRef = useRef(null);
+  const calloutId = useId();
 
   const workList = useRecoilValue(concertListState);
   const selectConcert = useSetRecoilState(selectedConcertState);
   const setConcerts = useSetRecoilState(concertsState);
 
-  const sum_duration = sumDurationFormat(
+  // 楽曲の合計時間を計算
+  const sumDuration = sumDurationFormat(
     works.map((work) =>
       !work.selectedMovements ||
       work.workMovementDuration.length <= 1 ||
       work.workMovementDuration[0] === "'"
         ? work.duration
         : work.selectedMovements
-            .map((duration) =>
-              parseInt(work.workMovementDuration[duration].replace("'", ""))
+            .map((movement) =>
+              parseInt(work.workMovementDuration[movement].replace("'", ""))
             )
             .reduce((x, y) => x + y)
     )
   );
 
-  const InsightsWorks = {
+  const insightsData = {
     concert: id,
-    name: workList.find((work) => work.id === id).name,
-    works: works.map((work) => {
-      return {
-        work: work.id,
-        movements: work.selectedMovements,
-      };
-    }),
+    name: workList.find((item) => item.id === id)?.name || name,
+    works: works.map((work) => ({
+      work: work.id,
+      movements: work.selectedMovements,
+    })),
   };
 
   // 吹き出しを閉じたとき
@@ -91,56 +90,56 @@ export default function MyConcertCard(props) {
     }
   }, []);
 
-  // モバイル用のコンテンツレンダリング
-  const renderMobileContent = () => (
-    <>
-      {editMode ? (
-        <TextField
-          id="my-concert-name"
-          label="My演奏会名"
-          variant="standard"
-          defaultValue={name}
-          onKeyDown={(e) => {
-            if (e.keyCode === 13) {
-              const newName = e.target.value.trim();
-              if (newName === "") {
-                // 空欄の場合は元の名前に戻す
-                e.target.value = name;
-              } else {
-                setConcerts((concerts) =>
-                  concerts.map((concert) =>
-                    concert.id === id ? { ...concert, name: newName } : concert
-                  )
-                );
-              }
-              setEditMode(false);
-            }
-          }}
-          helperText="決定するにはEnterキーを押してください"
-        />
-      ) : (
-        <Stack
-          direction="column"
-          justifyContent="flex-start"
-          alignItems="flex-start"
-          spacing={0}
-        >
+  const handleNameKeyDown = (e) => {
+    if (e.key === "Enter") {
+      const newName = e.target.value.trim();
+      if (newName !== "") {
+        setConcerts((prev) =>
+          prev.map((concert) =>
+            concert.id === id ? { ...concert, name: newName } : concert
+          )
+        );
+      } else {
+        e.target.value = name;
+      }
+      setEditMode(false);
+    }
+  };
+
+  const renderNameField = () => (
+    <TextField
+      id="my-concert-name"
+      label="My演奏会名"
+      variant="standard"
+      defaultValue={name}
+      onKeyDown={handleNameKeyDown}
+      helperText="決定するにはEnterキーを押してください"
+    />
+  );
+
+  // 編集モードかどうかで表示を切り替え
+  const renderContent = () => {
+    if (editMode) return renderNameField();
+
+    if (isMobile) {
+      return (
+        <Stack direction="column" spacing={0} alignItems="flex-start">
           <Box sx={{ display: "flex", alignItems: "center" }}>
             <Typography
               variant="h5"
               component="div"
-              textOverflow="ellipsis"
-              overflow="hidden"
-              whiteSpace="nowrap"
-              sx={{ mb: 0.5 }}
+              sx={{
+                mb: 0.5,
+                textOverflow: "ellipsis",
+                overflow: "hidden",
+                whiteSpace: "nowrap",
+              }}
             >
               {name}
             </Typography>
             <IconButton
               aria-label="edit"
-              onClick={() => {
-                setEditMode(true);
-              }}
+              onClick={() => setEditMode(true)}
               sx={{ ml: 1 }}
             >
               <EditIcon />
@@ -152,197 +151,115 @@ export default function MyConcertCard(props) {
             color="text.secondary"
             whiteSpace="nowrap"
           >
-            {sum_duration}
+            {sumDuration}
           </Typography>
         </Stack>
-      )}
-    </>
+      );
+    }
+
+    return (
+      <Stack direction="row" spacing={2} alignItems="center">
+        <Typography
+          variant="h5"
+          component="div"
+          gutterBottom
+          sx={{
+            textOverflow: "ellipsis",
+            overflow: "hidden",
+            whiteSpace: "nowrap",
+          }}
+        >
+          {name}
+        </Typography>
+        <IconButton aria-label="edit" onClick={() => setEditMode(true)}>
+          <EditIcon />
+        </IconButton>
+      </Stack>
+    );
+  };
+
+  // 「メイン」ボタン部分
+  const renderLeftSection = () => (
+    <Grid size="auto">
+      <Button
+        variant="contained"
+        color={concert.main ? "secondary" : "inherit"}
+        size="small"
+        onClick={() => selectConcert(id)}
+        ref={anchorRef}
+      >
+        メイン
+      </Button>
+    </Grid>
   );
 
-  // PC用のコンテンツレンダリング
-  const renderDesktopContent = () => (
+  // 右側の「分析」ボタンとメニュー群
+  const renderRightSection = () => (
+    <Grid size="auto">
+      <Stack
+        direction="row"
+        spacing={1}
+        alignItems="center"
+        justifyContent="center"
+      >
+        {!isMobile && (
+          <Typography variant="h6" component="div" gutterBottom>
+            {sumDuration}
+          </Typography>
+        )}
+        <Button
+          variant="contained"
+          color="info"
+          style={{ borderRadius: 20 }}
+          startIcon={<InsightsIcon />}
+          onClick={() => setOpenInsight(true)}
+          data-tour-id="a-04"
+        >
+          分析
+        </Button>
+        <ConcertMenus id={id} />
+      </Stack>
+    </Grid>
+  );
+
+  const renderLayout = () => (
     <>
-      {editMode ? (
-        <TextField
-          id="my-concert-name"
-          label="My演奏会名"
-          variant="standard"
-          defaultValue={name}
-          onKeyDown={(e) => {
-            if (e.keyCode === 13) {
-              const newName = e.target.value.trim();
-              if (newName === "") {
-                // 空欄の場合は元の名前に戻す
-                e.target.value = name;
-              } else {
-                setConcerts((concerts) =>
-                  concerts.map((concert) =>
-                    concert.id === id ? { ...concert, name: newName } : concert
-                  )
-                );
-              }
-              setEditMode(false);
-            }
-          }}
-          helperText="決定するにはEnterキーを押してください"
-        />
-      ) : (
+      {isMobile ? (
         <Stack
           direction="row"
-          justifyContent="flex-start"
-          alignItems="center"
           spacing={2}
+          alignItems="center"
+          justifyContent="flex-start"
         >
-          <Typography
-            gutterBottom
-            variant="h5"
-            component="div"
-            textOverflow="ellipsis"
-            overflow="hidden"
-            whiteSpace="nowrap"
-          >
-            {name}
-          </Typography>
-          <IconButton
-            aria-label="edit"
-            onClick={() => {
-              setEditMode(true);
-            }}
-          >
-            <EditIcon />
-          </IconButton>
+          {renderLeftSection()}
+          <Grid size="grow">{renderContent()}</Grid>
+          {renderRightSection()}
         </Stack>
+      ) : (
+        <Grid
+          container
+          direction="row"
+          spacing={2}
+          alignItems="center"
+          justifyContent="space-between"
+        >
+          {renderLeftSection()}
+          <Grid size="grow">{renderContent()}</Grid>
+          {renderRightSection()}
+        </Grid>
       )}
     </>
   );
 
   return (
     <>
-      <Card
-        elevation={3}
-        sx={{
-          m: { xs: 1, sm: 0 },
-        }}
-      >
+      <Card elevation={3} sx={{ m: { xs: 1, sm: 0 } }}>
         <InsightsModal
-          myConcert={InsightsWorks}
+          myConcert={insightsData}
           open={openInsight}
           setOpen={setOpenInsight}
         />
-        <Box sx={{ p: 2 }}>
-          {isMobile ? (
-            <Grid
-              container
-              direction="row"
-              justifyContent="space-between"
-              alignItems={isMobile ? "flex-start" : "center"}
-              spacing={2}
-            >
-              <Stack
-                direction="row"
-                justifyContent="flex-start"
-                alignItems="center"
-                spacing={2}
-              >
-                <Grid size="auto">
-                  <Button
-                    variant="contained"
-                    color={concert.main ? "secondary" : "inherit"}
-                    size="small"
-                    onClick={() => {
-                      selectConcert(id);
-                    }}
-                    ref={anchorRef}
-                  >
-                    メイン
-                  </Button>
-                </Grid>
-                <Grid size="grow">
-                  {isMobile ? renderMobileContent() : renderDesktopContent()}
-                </Grid>
-                <Grid size="auto">
-                  <Stack
-                    direction="row"
-                    justifyContent="center"
-                    alignItems="center"
-                    spacing={1}
-                  >
-                    {!isMobile && (
-                      <Typography gutterBottom variant="h6" component="div">
-                        {sum_duration}
-                      </Typography>
-                    )}
-                    <Button
-                      variant="contained"
-                      color="info"
-                      style={{ borderRadius: 20 }}
-                      startIcon={<InsightsIcon />}
-                      onClick={() => {
-                        setOpenInsight(true);
-                      }}
-                      data-tour-id="a-04"
-                    >
-                      分析
-                    </Button>
-                    <ConcertMenus id={id} />
-                  </Stack>
-                </Grid>
-              </Stack>
-            </Grid>
-          ) : (
-            <Grid
-              container
-              direction="row"
-              justifyContent="space-between"
-              alignItems={isMobile ? "flex-start" : "center"}
-              spacing={2}
-            >
-              <Grid size="auto">
-                <Button
-                  variant="contained"
-                  color={concert.main ? "secondary" : "inherit"}
-                  size="small"
-                  onClick={() => {
-                    selectConcert(id);
-                  }}
-                  ref={anchorRef}
-                >
-                  メイン
-                </Button>
-              </Grid>
-              <Grid size="grow">
-                {isMobile ? renderMobileContent() : renderDesktopContent()}
-              </Grid>
-              <Grid size="auto">
-                <Stack
-                  direction="row"
-                  justifyContent="center"
-                  alignItems="center"
-                  spacing={1}
-                >
-                  {!isMobile && (
-                    <Typography gutterBottom variant="h6" component="div">
-                      {sum_duration}
-                    </Typography>
-                  )}
-                  <Button
-                    variant="contained"
-                    color="info"
-                    style={{ borderRadius: 20 }}
-                    startIcon={<InsightsIcon />}
-                    onClick={() => {
-                      setOpenInsight(true);
-                    }}
-                    data-tour-id="a-04"
-                  >
-                    分析
-                  </Button>
-                  <ConcertMenus id={id} />
-                </Stack>
-              </Grid>
-            </Grid>
-          )}
-        </Box>
+        <Box sx={{ p: 2 }}>{renderLayout()}</Box>
         <Divider />
         <Box sx={{ p: 2 }}>
           <WorkList
@@ -356,13 +273,13 @@ export default function MyConcertCard(props) {
         id={calloutId}
         open={openCallout}
         anchorEl={anchorRef.current}
-        horizontal={"left"}
+        horizontal="left"
         left={30}
       >
         <DialogTitle sx={{ fontSize: 16 }}>曲の追加先を変更する</DialogTitle>
         <DialogContent>
           <DialogContentText sx={{ color: "white", maxWidth: "20em" }}>
-            曲を追加したいMy演奏会を切り替えるには、［メイン］をクリックしてください。
+            曲を追加したい演奏会を切り替えるには、［メイン］をクリックしてください。
           </DialogContentText>
         </DialogContent>
         <DialogActions>
