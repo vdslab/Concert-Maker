@@ -14,6 +14,7 @@ import Chip from "@mui/material/Chip";
 import Stack from "@mui/material/Stack";
 import Divider from "@mui/material/Divider";
 import Button from "@mui/material/Button";
+import { useTranslation } from "react-i18next";
 
 import Radar from "@/components/evaluation/radarChart.jsx";
 import RectangularGraph from "@//components/evaluation/RectangularGraph.jsx";
@@ -22,6 +23,7 @@ import { sumDurationFormat } from "@/utils/calcTime";
 
 export default function Insights(props) {
   const { myConcert, handleClose, submitAction } = props;
+  const { t } = useTranslation();
 
   if (!myConcert) {
     return <></>;
@@ -35,10 +37,10 @@ export default function Insights(props) {
         work.workMovementDuration[0] === "'"
         ? work.duration
         : workConcert.movements
-            .map((duration) =>
-              parseInt(work.workMovementDuration[duration].replace("'", "")),
-            )
-            .reduce((x, y) => x + y);
+          .map((duration) =>
+            parseInt(work.workMovementDuration[duration].replace("'", "")),
+          )
+          .reduce((x, y) => x + y);
     }),
   );
 
@@ -46,15 +48,15 @@ export default function Insights(props) {
 
   const works = hasWorks
     ? myConcert.works.map((workConcert) => {
-        const work = workData.find((work) => work.id === workConcert.work);
-        return {
-          ...work,
-          composerData: composersData.find(
-            (composer) => composer.name === work.composer,
-          ),
-          selectedMovements: workConcert.movements,
-        };
-      })
+      const work = workData.find((work) => work.id === workConcert.work);
+      return {
+        ...work,
+        composerData: composersData.find(
+          (composer) => composer.name === work.composer,
+        ),
+        selectedMovements: workConcert.movements,
+      };
+    })
     : [];
 
   return (
@@ -93,15 +95,15 @@ export default function Insights(props) {
                       work.workMovementDuration[0] === "'"
                       ? work.duration
                       : work.selectedMovements
-                          .map((duration) =>
-                            parseInt(
-                              work.workMovementDuration[duration].replace(
-                                "'",
-                                "",
-                              ),
+                        .map((duration) =>
+                          parseInt(
+                            work.workMovementDuration[duration].replace(
+                              "'",
+                              "",
                             ),
-                          )
-                          .reduce((x, y) => x + y),
+                          ),
+                        )
+                        .reduce((x, y) => x + y),
                   );
 
                   const workFormulaText = getWorkFormulaText(work.workFormula);
@@ -128,14 +130,12 @@ export default function Insights(props) {
                           <Grid size="grow">
                             <Box sx={{ p: 1 }}>
                               <Typography variant="body1" component="div">
-                                {`${work.composer} ${
-                                  work.composerData.birthYear ||
-                                  work.composerData.deathYear
-                                    ? ` (${
-                                        work.composerData.birthYear || ""
-                                      }〜${work.composerData.deathYear || ""})`
+                                {`${work.composer} ${work.composerData.birthYear ||
+                                    work.composerData.deathYear
+                                    ? ` (${work.composerData.birthYear || ""
+                                    }〜${work.composerData.deathYear || ""})`
                                     : ""
-                                }`}
+                                  }`}
                               </Typography>
                               <Typography variant="h6" component="div">
                                 {work.title}
@@ -233,7 +233,7 @@ export default function Insights(props) {
             }}
           >
             <Typography variant="body1" sx={{ fontSize: 20 }} align="center">
-              分析結果を表示するには1つ以上曲を追加してください
+              {t("evaluation.Insights.nowork")}
             </Typography>
           </Box>
         )}

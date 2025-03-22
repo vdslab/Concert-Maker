@@ -2,9 +2,12 @@ import AppBar from "@mui/material/AppBar";
 import Toolbar from "@mui/material/Toolbar";
 import Icon from "@mui/material/Icon";
 import Typography from "@mui/material/Typography";
+import { useTranslation } from "react-i18next";
 
 
 function ResponsiveAppBar() {
+  const { t, i18n } = useTranslation();
+  console.log(i18n.language, i18n.languages, i18n.resolvedLanguage);
   return (
     <AppBar position="sticky" sx={{ px: 2 }}>
       <Toolbar disableGutters>
@@ -28,6 +31,7 @@ function ResponsiveAppBar() {
           <Icon sx={{ textAlign: "center", mr: "8px" }} fontSize={"large"}>
             <img style={{ height: "100%" }} src="/logo.svg" alt="Logo" />
           </Icon>
+          {t("welcome")}
           Orchestra Concert Maker
         </Typography>
       </Toolbar>

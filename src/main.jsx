@@ -8,6 +8,7 @@ import { createTheme, responsiveFontSizes } from "@mui/material/styles";
 import { grey } from "@mui/material/colors";
 import { jaJP } from "@mui/material/locale";
 import Box from "@mui/material/Box";
+import "./i18n/config.js";
 import "@fontsource/roboto/300.css";
 import "@fontsource/roboto/400.css";
 import "@fontsource/roboto/500.css";

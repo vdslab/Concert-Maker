@@ -1,0 +1,49 @@
+{
+  "hello": "こんにちは",
+  "evaluation": {
+    "Insights": {
+      "nowork": "分析結果を表示するには1つ以上曲を追加してください"
+    },
+    "MobileInsights": {},
+    "radarChart": {},
+    "RectangularGraph": {}
+  },
+  "layouts": {
+    "MyConcert": {
+      "Card": {},
+      "ConcertMenus": {},
+      "InsightsModal": {},
+      "NewConcert": {},
+      "Share": {},
+      "WorkList": {},
+      "WorkListItem": {},
+      "WorkListSortableItem": {}
+    },
+    "AddMyConcert": {},
+    "CalloutPopover": {},
+    "FilterDialog": {},
+    "Header": {},
+    "MyConcertCardList": {},
+    "SearchBox": {},
+    "SplitButton": {}
+  },
+  "mobile": {
+    "MyConcert": {},
+    "Search": {}
+  },
+  "vis": {
+    "NodeInfo": {
+      "BasicInfomation": {},
+      "DetailInfomation": {},
+      "MusicButton": {},
+      "NodeInfo": {},
+      "SiteButton": {},
+      "SongPlayedTogether": {}
+    },
+    "DataProcessing": {},
+    "DrawCircle": {},
+    "ForceGraphWrapper": {},
+    "NodeLinkDiagram": {},
+    "utils": {}
+  }
+}
