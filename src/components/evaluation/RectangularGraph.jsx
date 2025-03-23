@@ -1,4 +1,5 @@
 import { ResponsiveBar } from "@nivo/bar";
+import { useTranslation } from "react-i18next";
 import { durationFormat } from "@/utils/calcTime";
 
 const CustomTooltip = ({ id, value, color }) => (
@@ -40,6 +41,8 @@ const DifferenceLayer = ({
   tickValues,
   differences,
 }) => {
+  const { t } = useTranslation();
+  
   return differences.map((diff, index) => {
     const prevTick = tickValues[index];
     const currentTick = tickValues[index + 1];
@@ -55,7 +58,7 @@ const DifferenceLayer = ({
         fill="#000"
         fontSize={12}
       >
-        {diff === 2.5 ? "不明" : `${diff}分`}
+        {diff === 2.5 ? t("evaluation.RectangularGraph.unknown") : durationFormat(diff)}
       </text>
     );
   });

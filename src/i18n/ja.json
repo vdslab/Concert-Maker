@@ -18,7 +18,9 @@
       "degreeOfCoperformance": "一緒に演奏されている度合い",
       "averagePopularity": "平均有名度"
     },
-    "RectangularGraph": {}
+    "RectangularGraph": {
+      "unknown": "不明"
+    }
   },
   "layouts": {
     "MyConcert": {
