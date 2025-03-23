@@ -153,7 +153,13 @@
         "serviceUnavailable": "This service is currently unavailable"
       },
       "NodeInfo": {},
-      "SiteButton": {},
+      "SiteButton": {
+        "google": "Google Search",
+        "wikipedia": "Wikipedia",
+        "imslp": "IMSLP (sheet music)",
+        "search": "Search",
+        "serviceUnavailable": "This service is currently unavailable"
+      },
       "SongPlayedTogether": {}
     },
     "DataProcessing": {},

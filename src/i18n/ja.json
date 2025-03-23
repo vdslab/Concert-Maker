@@ -153,7 +153,13 @@
         "serviceUnavailable": "このサービスは現在利用できません"
       },
       "NodeInfo": {},
-      "SiteButton": {},
+      "SiteButton": {
+        "google": "Google 検索",
+        "wikipedia": "Wikipedia",
+        "imslp": "IMSLP（楽譜）",
+        "search": "調べる",
+        "serviceUnavailable": "このサービスは現在利用できません"
+      },
       "SongPlayedTogether": {}
     },
     "DataProcessing": {},
