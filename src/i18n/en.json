@@ -143,7 +143,11 @@
         "duration": "Duration: {{duration_time}}",
         "instrumentation": "Instrumentation: {{workFormulaText}}"
       },
-      "DetailInfomation": {},
+      "DetailInfomation": {
+        "movementInformation": "Movement information",
+        "showLess": "Show less",
+        "showMore": "Show more"
+      },
       "MusicButton": {},
       "NodeInfo": {},
       "SiteButton": {},

@@ -1,7 +1,11 @@
 import React, { useState } from "react";
 import { Typography, Box, Grid, Button } from "@mui/material";
+import { useTranslation } from "react-i18next";
+import { durationFormat } from "@/utils/calcTime";
 
 const DetailInfomation = ({ node }) => {
+  const { t } = useTranslation();
+
   if (!node.workMovements || node.workMovements[0] === "") return null;
 
   const [showAll, setShowAll] = useState(false);
@@ -24,7 +28,7 @@ const DetailInfomation = ({ node }) => {
   return (
     <Box p={2}>
       <Typography variant="h6" gutterBottom>
-        楽章情報
+        {t("vis.NodeInfo.DetailInfomation.movementInformation")}
       </Typography>
       <Grid container spacing={2}>
         {displayedItems.map((item, index) => (
@@ -34,7 +38,7 @@ const DetailInfomation = ({ node }) => {
             </Grid>
             <Grid item xs={2}>
               <Typography align="right">
-                {item.duration?.replace("'", "分")}
+                {item.duration ? durationFormat(parseInt(item.duration.replace("'", ""))) : ""}
               </Typography>
             </Grid>
           </Grid>
@@ -43,7 +47,7 @@ const DetailInfomation = ({ node }) => {
       {hasMore && (
         <Box mt={2} textAlign="center">
           <Button onClick={handleToggle} variant="text" color="primary">
-            {showAll ? "表示を折りたたむ" : "さらに表示"}
+            {showAll ? t("vis.NodeInfo.DetailInfomation.showLess") : t("vis.NodeInfo.DetailInfomation.showMore")}
           </Button>
         </Box>
       )}

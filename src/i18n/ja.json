@@ -143,7 +143,11 @@
         "duration": "演奏時間：{{duration_time}}",
         "instrumentation": "楽器編成：{{workFormulaText}}"
       },
-      "DetailInfomation": {},
+      "DetailInfomation": {
+        "movementInformation": "楽章情報",
+        "showLess": "表示を折りたたむ",
+        "showMore": "さらに表示"
+      },
       "MusicButton": {},
       "NodeInfo": {},
       "SiteButton": {},
