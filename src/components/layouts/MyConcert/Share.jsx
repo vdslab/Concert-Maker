@@ -9,6 +9,7 @@ import { concertsState, workConcertState } from "@/components/RecoilStates";
 import { useSetRecoilState } from "recoil";
 import { useSearchParams } from "react-router-dom";
 import { useMediaQuery, useTheme } from "@mui/material";
+import { useTranslation } from "react-i18next";
 
 import Insights from "@/components/evaluation/Insights.jsx";
 import MobileInsights from "@/components/evaluation/MobileInsights.jsx";
@@ -22,6 +23,8 @@ export default function Share() {
 
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
+
+  const { t } = useTranslation();
 
   if (!searchParams) {
     return null;
@@ -80,13 +83,13 @@ export default function Share() {
       return [...oldWorks, ...addWorks];
     });
 
-    enqueueSnackbar("My演奏会に保存しました！", { variant: "success" });
+    enqueueSnackbar(t("layouts.MyConcert.Share.savedToMyConcert"), { variant: "success" });
 
     handleClose();
   };
 
   const submitAction = {
-    label: "My演奏会に保存",
+    label: t("layouts.MyConcert.Share.saveToMyConcert"),
     func: duplicateConcert,
   };
 

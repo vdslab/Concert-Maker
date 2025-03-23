@@ -50,7 +50,10 @@
         "myConcert": "My演奏会",
         "toAddMyConcert": "ここをクリックしてMy演奏会を作成"
       },
-      "Share": {},
+      "Share": {
+        "saveToMyConcert": "My演奏会に保存",
+        "savedToMyConcert": "My演奏会に保存しました！"
+      },
       "WorkList": {},
       "WorkListItem": {},
       "WorkListSortableItem": {}

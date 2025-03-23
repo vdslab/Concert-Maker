@@ -37,7 +37,10 @@
         "myConcert": "My Concert",
         "toAddMyConcert": "Click here to add My Concert"
       },
-      "Share": {},
+      "Share": {
+        "saveToMyConcert": "Save to My Concert",
+        "savedToMyConcert": "Saved to My Concert!"
+      },
       "WorkList": {},
       "WorkListItem": {},
       "WorkListSortableItem": {}
