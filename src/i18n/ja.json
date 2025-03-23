@@ -160,7 +160,13 @@
         "search": "調べる",
         "serviceUnavailable": "このサービスは現在利用できません"
       },
-      "SongPlayedTogether": {}
+      "SongPlayedTogether": {
+        "performedTogether": "よく一緒に演奏されている曲",
+        "degreeOfCoperformance": "共演度：{{degree}}",
+        "yearOfComposition": "作曲年：{{year}}年",
+        "duration": "演奏時間：{{duration_time}}",
+        "instrumentation": "楽器編成：{{workFormulaText}}"
+      }
     },
     "DataProcessing": {},
     "DrawCircle": {},

@@ -160,7 +160,13 @@
         "search": "Search",
         "serviceUnavailable": "This service is currently unavailable"
       },
-      "SongPlayedTogether": {}
+      "SongPlayedTogether": {
+        "performedTogether": "Works commonly performed together",
+        "degreeOfCoperformance": "Degree of Co-performance: {{degree}}",
+        "yearOfComposition": "Year of composition: {{year}}",
+        "duration": "Duration: {{duration_time}}",
+        "instrumentation": "Instrumentation: {{workFormulaText}}"
+      }
     },
     "DataProcessing": {},
     "DrawCircle": {},
