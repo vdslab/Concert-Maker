@@ -18,6 +18,7 @@ import IconButton from "@mui/material/IconButton";
 import CloseIcon from "@mui/icons-material/Close";
 import Slide from "@mui/material/Slide";
 import React from "react";
+import { useTranslation } from "react-i18next";
 
 import Radar from "@/components/evaluation/radarChart.jsx";
 import RectangularGraph from "@//components/evaluation/RectangularGraph.jsx";
@@ -30,6 +31,7 @@ const Transition = React.forwardRef(function Transition(props, ref) {
 
 export default function MobileInsights(props) {
   const { myConcert, handleClose, submitAction } = props;
+  const { t } = useTranslation();
 
   if (!myConcert) {
     return <></>;
@@ -43,10 +45,10 @@ export default function MobileInsights(props) {
         work.workMovementDuration[0] === "'"
         ? work.duration
         : workConcert.movements
-            .map((duration) =>
-              parseInt(work.workMovementDuration[duration].replace("'", "")),
-            )
-            .reduce((x, y) => x + y);
+          .map((duration) =>
+            parseInt(work.workMovementDuration[duration].replace("'", "")),
+          )
+          .reduce((x, y) => x + y);
     }),
   );
 
@@ -54,15 +56,15 @@ export default function MobileInsights(props) {
 
   const works = hasWorks
     ? myConcert.works.map((workConcert) => {
-        const work = workData.find((work) => work.id === workConcert.work);
-        return {
-          ...work,
-          composerData: composersData.find(
-            (composer) => composer.name === work.composer,
-          ),
-          selectedMovements: workConcert.movements,
-        };
-      })
+      const work = workData.find((work) => work.id === workConcert.work);
+      return {
+        ...work,
+        composerData: composersData.find(
+          (composer) => composer.name === work.composer,
+        ),
+        selectedMovements: workConcert.movements,
+      };
+    })
     : [];
 
   return (
@@ -111,7 +113,7 @@ export default function MobileInsights(props) {
               }}
             >
               <Typography variant="h7" gutterBottom>
-                曲目構成の分析結果
+                {t("evaluation.Insights.analysisOfProgramStructure")}
               </Typography>
               <Radar works={works} />
             </Box>
@@ -122,8 +124,8 @@ export default function MobileInsights(props) {
               }}
             >
               <Typography variant="h7" gutterBottom>
-                演奏時間の分析結果{" "}
-                {sum_duration === "" ? "" : `（合計演奏時間：${sum_duration}）`}
+                {t("evaluation.Insights.analysisOfPerformanceTime")}{" "}
+                {sum_duration === "" ? "" : t("evaluation.Insights.totalPerformanceTime", { sum_duration })}
               </Typography>
               <RectangularGraph works={works} />
             </Box>
@@ -136,15 +138,15 @@ export default function MobileInsights(props) {
                       work.workMovementDuration[0] === "'"
                       ? work.duration
                       : work.selectedMovements
-                          .map((duration) =>
-                            parseInt(
-                              work.workMovementDuration[duration].replace(
-                                "'",
-                                "",
-                              ),
+                        .map((duration) =>
+                          parseInt(
+                            work.workMovementDuration[duration].replace(
+                              "'",
+                              "",
                             ),
-                          )
-                          .reduce((x, y) => x + y),
+                          ),
+                        )
+                        .reduce((x, y) => x + y),
                   );
 
                   const workFormulaText = getWorkFormulaText(work.workFormula);
@@ -171,14 +173,12 @@ export default function MobileInsights(props) {
                           <Grid size="grow">
                             <Box sx={{ p: 1 }}>
                               <Typography variant="body1" component="div">
-                                {`${work.composer} ${
-                                  work.composerData.birthYear ||
+                                {`${work.composer} ${work.composerData.birthYear ||
                                   work.composerData.deathYear
-                                    ? ` (${
-                                        work.composerData.birthYear || ""
-                                      }〜${work.composerData.deathYear || ""})`
-                                    : ""
-                                }`}
+                                  ? ` (${work.composerData.birthYear || ""
+                                  }〜${work.composerData.deathYear || ""})`
+                                  : ""
+                                  }`}
                               </Typography>
                               <Typography variant="h6" component="div">
                                 {work.title}
@@ -190,20 +190,20 @@ export default function MobileInsights(props) {
                               >
                                 {work.year === null
                                   ? ""
-                                  : "作曲年: " + work.year + "年"}
+                                  : t("evaluation.Insights.yearOfComposition", { year: work.year })}
                               </Typography>
                               <Typography
                                 variant="body2"
                                 color="text.secondary"
                               >
-                                {duration_time && `演奏時間: ${duration_time}`}
+                                {duration_time && t("evaluation.Insights.duration", { duration_time })}
                               </Typography>
                               <Typography
                                 variant="body2"
                                 color="text.secondary"
                               >
                                 {workFormulaText
-                                  ? "楽器編成: " + workFormulaText
+                                  ? t("evaluation.Insights.instrumentation", { workFormulaText })
                                   : ""}
                               </Typography>
                             </Box>
@@ -252,7 +252,7 @@ export default function MobileInsights(props) {
             }}
           >
             <Typography variant="body1" sx={{ fontSize: 20 }} align="center">
-              分析結果を表示するには1つ以上曲を追加してください
+              {t("evaluation.Insights.noWork")}
             </Typography>
           </Box>
         )}
