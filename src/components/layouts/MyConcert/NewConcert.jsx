@@ -15,6 +15,8 @@ import {
   selectedConcertState,
 } from "@/components/RecoilStates";
 
+import { useTranslation } from "react-i18next";
+
 const BoxButton = styled(ButtonBase)(({ theme }) => ({
   position: "relative",
   borderRadius: "30px",
@@ -36,6 +38,8 @@ export default function NewConcert() {
 
   const [selected_concert, setSelectedConcert] = useRecoilState(selectedConcertState);
 
+  const { t } = useTranslation();
+  
   return (
     <Box
       border="4px dashed dimgray"
@@ -54,8 +58,8 @@ export default function NewConcert() {
           width: "100%",
         }}
         onClick={() => {
-          const newConcertNumber = findUniqueNumber(existingNames, "My演奏会");
-          const newConcertName = `My演奏会 ${newConcertNumber}`;
+          const newConcertNumber = findUniqueNumber(existingNames, t("layouts.MyConcert.NewConcert.myConcert"));
+          const newConcertName = `${t("layouts.MyConcert.NewConcert.myConcert")} ${newConcertNumber}`;
           const newConcertId = randomUUID();
 
           setConcerts((concerts) => [
@@ -76,7 +80,7 @@ export default function NewConcert() {
         >
           <Stack>
             <Typography variant="body1" sx={{ fontSize: 20 }}>
-              ここをクリックしてMy演奏会を作成
+              {t("layouts.MyConcert.NewConcert.toAddMyConcert")}
             </Typography>
           </Stack>
           <Stack>

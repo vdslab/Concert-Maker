@@ -46,7 +46,10 @@
         "linkCopied": "URLをコピーしました",
         "shareThisMyConcert": "このMy演奏会を共有"
       },
-      "NewConcert": {},
+      "NewConcert": {
+        "myConcert": "My演奏会",
+        "toAddMyConcert": "ここをクリックしてMy演奏会を作成"
+      },
       "Share": {},
       "WorkList": {},
       "WorkListItem": {},

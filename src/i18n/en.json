@@ -33,7 +33,10 @@
         "linkCopied": "Link copied",
         "shareThisMyConcert": "Share this My Concert"
       },
-      "NewConcert": {},
+      "NewConcert": {
+        "myConcert": "My Concert",
+        "toAddMyConcert": "Click here to add My Concert"
+      },
       "Share": {},
       "WorkList": {},
       "WorkListItem": {},
