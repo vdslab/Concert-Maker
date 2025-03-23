@@ -122,7 +122,9 @@
     },
     "Header": {},
     "MyConcertCardList": {},
-    "SearchBox": {},
+    "SearchBox": {
+      "searchForWorks": "作品を検索する"
+    },
     "SplitButton": {}
   },
   "mobile": {

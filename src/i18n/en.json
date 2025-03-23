@@ -122,7 +122,9 @@
     },
     "Header": {},
     "MyConcertCardList": {},
-    "SearchBox": {},
+    "SearchBox": {
+      "searchForWorks": "Search for works"
+    },
     "SplitButton": {}
   },
   "mobile": {
