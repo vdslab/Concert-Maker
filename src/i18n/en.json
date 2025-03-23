@@ -29,7 +29,10 @@
         "share": "Share",
         "duplicatedMyConcertName": "Copy of {{prefix}}"
       },
-      "InsightsModal": {},
+      "InsightsModal": {
+        "linkCopied": "Link copied",
+        "shareThisMyConcert": "Share this My Concert"
+      },
       "NewConcert": {},
       "Share": {},
       "WorkList": {},

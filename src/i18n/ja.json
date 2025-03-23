@@ -42,7 +42,10 @@
         "share": "共有",
         "duplicatedMyConcertName": "{{prefix}} のコピー"
       },
-      "InsightsModal": {},
+      "InsightsModal": {
+        "linkCopied": "URLをコピーしました",
+        "shareThisMyConcert": "このMy演奏会を共有"
+      },
       "NewConcert": {},
       "Share": {},
       "WorkList": {},
