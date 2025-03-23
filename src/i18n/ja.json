@@ -2,7 +2,14 @@
   "hello": "こんにちは",
   "evaluation": {
     "Insights": {
-      "nowork": "分析結果を表示するには1つ以上曲を追加してください"
+      "totalPerformanceTime": "（合計演奏時間：{{sum_duration}}）",
+      "yearOfComposition": "作曲年：{{year}}年",
+      "duration": "演奏時間：{{duration_time}}",
+      "instrumentation": "楽器編成：{{workFormulaText}}",
+      "analysisOfProgramStructure": "曲目構成の分析結果",
+      "analysisOfPerformanceTime": "演奏時間の分析結果",
+      "noWork": "分析結果を表示するには1つ以上曲を追加してください",
+      "close": "閉じる"
     },
     "MobileInsights": {},
     "radarChart": {},

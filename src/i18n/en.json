@@ -2,7 +2,8 @@
   "hello": "Hello",
   "evaluation": {
     "Insights": {
-      "nowork": "To show analysis results, please add one or more songs" 
+      "nowork": "To show analysis results, please add one or more songs",
+      "totalPerformanceTime": " (Total performance time: {{sum_duration}})"
     },
     "MobileInsights": {},
     "radarChart": {},

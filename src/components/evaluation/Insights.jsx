@@ -70,7 +70,7 @@ export default function Insights(props) {
       <DialogTitle>
         {myConcert.name}
         <Typography variant="body1" component="span">
-          {sum_duration === "" ? "" : `（合計演奏時間：${sum_duration}）`}
+          {sum_duration === "" ? "" : t("evaluation.Insights.totalPerformanceTime", { sum_duration })}
         </Typography>
         {/* ToDo */}
       </DialogTitle>
@@ -131,10 +131,10 @@ export default function Insights(props) {
                             <Box sx={{ p: 1 }}>
                               <Typography variant="body1" component="div">
                                 {`${work.composer} ${work.composerData.birthYear ||
-                                    work.composerData.deathYear
-                                    ? ` (${work.composerData.birthYear || ""
-                                    }〜${work.composerData.deathYear || ""})`
-                                    : ""
+                                  work.composerData.deathYear
+                                  ? ` (${work.composerData.birthYear || ""
+                                  }〜${work.composerData.deathYear || ""})`
+                                  : ""
                                   }`}
                               </Typography>
                               <Typography variant="h6" component="div">
@@ -147,20 +147,20 @@ export default function Insights(props) {
                               >
                                 {work.year === null
                                   ? ""
-                                  : "作曲年: " + work.year + "年"}
+                                  : t("evaluation.Insights.yearOfComposition", { year: work.year })}
                               </Typography>
                               <Typography
                                 variant="body2"
                                 color="text.secondary"
                               >
-                                {duration_time && `演奏時間: ${duration_time}`}
+                                {duration_time && t("evaluation.Insights.duration", { duration_time })}
                               </Typography>
                               <Typography
                                 variant="body2"
                                 color="text.secondary"
                               >
                                 {workFormulaText
-                                  ? "楽器編成: " + workFormulaText
+                                  ? t("evaluation.Insights.instrumentation", { workFormulaText })
                                   : ""}
                               </Typography>
                             </Box>
@@ -206,7 +206,7 @@ export default function Insights(props) {
               }}
             >
               <Typography variant="h7" gutterBottom>
-                曲目構成の分析結果
+                {t("evaluation.Insights.analysisOfProgramStructure")}
               </Typography>
               <Radar works={works} />
             </Box>
@@ -218,7 +218,7 @@ export default function Insights(props) {
               }}
             >
               <Typography variant="h7" gutterBottom>
-                演奏時間の分析結果
+                {t("evaluation.Insights.analysisOfPerformanceTime")}
               </Typography>
               <RectangularGraph works={works} />
             </Box>
@@ -233,14 +233,14 @@ export default function Insights(props) {
             }}
           >
             <Typography variant="body1" sx={{ fontSize: 20 }} align="center">
-              {t("evaluation.Insights.nowork")}
+              {t("evaluation.Insights.noWork")}
             </Typography>
           </Box>
         )}
       </DialogContent>
       <DialogActions>
         <Button variant="outlined" onClick={handleClose}>
-          閉じる
+          {t("evaluation.Insights.close")}
         </Button>
         {hasWorks && (
           <Button variant="contained" onClick={submitAction.func}>
