@@ -3,6 +3,7 @@ import YoutubeIcon from "@/assets/img/YouTube.png";
 import AmazonIcon from "@/assets/img/Amazon_Music.png";
 import AppleIcon from "@/assets/img/Apple_Music_Icon.svg";
 import { Typography, Box, Stack, Tooltip, IconButton } from "@mui/material";
+import { useTranslation } from "react-i18next";
 
 const musicServices = [
   {
@@ -32,12 +33,14 @@ const musicServices = [
 ];
 
 const MusicButton = ({ node }) => {
+  const { t } = useTranslation();
+  
   const { title, composer } = node;
   const searchQuery = encodeURIComponent(`${composer}: ${title}`);
 
   return (
     <Box p={2}>
-      <Typography variant="h6">聴く</Typography>
+      <Typography variant="h6">{t("vis.NodeInfo.MusicButton.listen")}</Typography>
       <Stack
         direction="row"
         spacing={2}
@@ -76,7 +79,7 @@ const MusicButton = ({ node }) => {
           return service.enabled ? (
             <Box key={index}>{button}</Box>
           ) : (
-            <Tooltip key={index} title="このサービスは現在利用できません">
+            <Tooltip key={index} title={t("vis.NodeInfo.MusicButton.serviceUnavailable")}>
               {button}
             </Tooltip>
           );

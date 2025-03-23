@@ -148,7 +148,10 @@
         "showLess": "表示を折りたたむ",
         "showMore": "さらに表示"
       },
-      "MusicButton": {},
+      "MusicButton": {
+        "listen": "聴く",
+        "serviceUnavailable": "このサービスは現在利用できません"
+      },
       "NodeInfo": {},
       "SiteButton": {},
       "SongPlayedTogether": {}

@@ -148,7 +148,10 @@
         "showLess": "Show less",
         "showMore": "Show more"
       },
-      "MusicButton": {},
+      "MusicButton": {
+        "listen": "Listen",
+        "serviceUnavailable": "This service is currently unavailable"
+      },
       "NodeInfo": {},
       "SiteButton": {},
       "SongPlayedTogether": {}
