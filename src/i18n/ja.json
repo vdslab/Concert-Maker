@@ -125,7 +125,12 @@
     "SearchBox": {
       "searchForWorks": "作品を検索する"
     },
-    "SplitButton": {}
+    "SplitButton": {
+      "addedToMyConcert": "{{concertName}}に追加しました！",
+      "alreadyAdded": "{{concertName}}には既に追加されています",
+      "myConcert": "My演奏会",
+      "addTo": "{{myConcertName}}に追加"
+    }
   },
   "mobile": {
     "MyConcert": {},

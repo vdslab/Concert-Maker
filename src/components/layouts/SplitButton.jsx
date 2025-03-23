@@ -2,6 +2,7 @@ import React from "react";
 import { Button, ButtonGroup, Menu, MenuItem } from "@mui/material";
 import AddMyConcert from "@/components/layouts/AddMyConcert";
 import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
+import { useTranslation } from "react-i18next";
 
 import { useSnackbar } from "notistack";
 
@@ -15,6 +16,8 @@ import {
 } from "@/components/RecoilStates";
 
 function SplitButton({ workId, node }) {
+  const { t } = useTranslation();
+
   const existMovements = !(
     node.workMovements.length <= 0 ||
     (node.workMovements.length === 1 && node.workMovements[0] === "")
@@ -75,9 +78,9 @@ function SplitButton({ workId, node }) {
           },
         ];
       });
-      enqueueSnackbar(`${concertName}に追加しました！`, { variant: "success" });
+      enqueueSnackbar(t("layouts.AddMyConcert.addedToMyConcert", { concertName }), { variant: "success" });
     } else {
-      enqueueSnackbar(`${concertName}には既に追加されています`, {
+      enqueueSnackbar(t("layouts.AddMyConcert.alreadyAdded", { concertName }), {
         variant: "error",
       });
     }
@@ -98,7 +101,7 @@ function SplitButton({ workId, node }) {
   const handleClick = (e) => {
     if (mainConcert === undefined) {
       const newConcertId = randomUUID();
-      const concertName = "My演奏会";
+      const concertName = t("layouts.SplitButton.myConcert");
 
       setConcerts((concerts) => [
         ...concerts,
@@ -139,7 +142,7 @@ function SplitButton({ workId, node }) {
         data-tour-id="a-03"
       >
         <Button onClick={handleClick}>
-          {`${mainConcert ? mainConcert.name : "My演奏会"}に追加`}
+          {t("layouts.SplitButton.addTo", { myConcertName: mainConcert ? mainConcert.name : t("layouts.SplitButton.myConcert") })}
         </Button>
         {concerts.length > 1 && (
           <Button

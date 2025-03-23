@@ -125,7 +125,12 @@
     "SearchBox": {
       "searchForWorks": "Search for works"
     },
-    "SplitButton": {}
+    "SplitButton": {
+      "addedToMyConcert": "Added to {{concertName}}!",
+      "alreadyAdded": "Already added to {{concertName}}",
+      "myConcert": "My Concert",
+      "addTo": "Add to {{myConcertName}}"
+    }
   },
   "mobile": {
     "MyConcert": {},
