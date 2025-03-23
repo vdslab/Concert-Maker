@@ -33,7 +33,15 @@
         "changeWhereToAddText": "曲を追加したいMy演奏会を切り替えるには、［メイン］をクリックしてください。",
         "close": "閉じる"
       },
-      "ConcertMenus": {},
+      "ConcertMenus": {
+        "successfullyDuplicated": "複製に成功しました！",
+        "linkCopied": "URLをコピーしました",
+        "failedToCopyLink": "URLのコピーに失敗しました",
+        "duplicate": "複製",
+        "delete": "削除",
+        "share": "共有",
+        "duplicatedMyConcertName": "{{prefix}} のコピー"
+      },
       "InsightsModal": {},
       "NewConcert": {},
       "Share": {},

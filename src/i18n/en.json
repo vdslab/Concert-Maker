@@ -20,9 +20,17 @@
         "changeWhereToAddText": "To switch to the My Concert you want to add a song to, click [Main].",
         "close": "Close"
       },
-      "ConcertMenus": {},
+      "ConcertMenus": {
+        "successfullyDuplicated": "Successfully duplicated!",
+        "linkCopied": "Link copied",
+        "failedToCopyLink": "Failed to copy link",
+        "duplicate": "Duplicate",
+        "delete": "Delete",
+        "share": "Share",
+        "duplicatedMyConcertName": "Copy of {{prefix}}"
+      },
       "InsightsModal": {},
-      "NewConcert": {}, 
+      "NewConcert": {},
       "Share": {},
       "WorkList": {},
       "WorkListItem": {},
