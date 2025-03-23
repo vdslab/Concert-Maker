@@ -57,7 +57,14 @@
       "WorkList": {
         "noSong": "曲を追加してください"
       },
-      "WorkListItem": {},
+      "WorkListItem": {
+        "yearOfComposition": "作曲年：{{year}}年",
+        "duration": "演奏時間：{{duration_time}}",
+        "instrumentation": "楽器編成：{{workFormulaText}}",
+        "rearrangeSongs": "曲順を並び替える",
+        "rearrangeSongsText": "曲順を並び替えるには、⋮⋮ をドラッグ＆ドロップしてください。",
+        "close": "閉じる"
+      },
       "WorkListSortableItem": {}
     },
     "AddMyConcert": {},

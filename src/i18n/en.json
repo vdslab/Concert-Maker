@@ -57,7 +57,14 @@
       "WorkList": {
         "noSong": "Please add a song"
       },
-      "WorkListItem": {},
+      "WorkListItem": {
+        "yearOfComposition": "Year of composition: {{year}}",
+        "duration": "Duration: {{duration_time}}",
+        "instrumentation": "Instrumentation: {{workFormulaText}}",
+        "rearrangeSongs": "Rearrange songs",
+        "rearrangeSongsText": "To rearrange songs, drag and drop ⋮⋮.",
+        "close": "Close"
+      },
       "WorkListSortableItem": {}
     },
     "AddMyConcert": {},
