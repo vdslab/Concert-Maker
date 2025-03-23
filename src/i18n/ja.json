@@ -24,7 +24,15 @@
   },
   "layouts": {
     "MyConcert": {
-      "Card": {},
+      "Card": {
+        "myConcertName": "My演奏会名",
+        "toConfirm": "決定するにはEnterキーを押してください",
+        "main": "メイン",
+        "analyze": "分析",
+        "changeWhereToAdd": "曲の追加先を変更する",
+        "changeWhereToAddText": "曲を追加したいMy演奏会を切り替えるには、［メイン］をクリックしてください。",
+        "close": "閉じる"
+      },
       "ConcertMenus": {},
       "InsightsModal": {},
       "NewConcert": {},

@@ -33,6 +33,8 @@ import {
 } from "@/components/RecoilStates";
 import { useSetRecoilState, useRecoilValue } from "recoil";
 
+import { useTranslation } from "react-i18next";
+
 export default function MyConcertCard(props) {
   const { concert, setClickedNodeId, Data } = props;
   const { id, name, works } = concert;
@@ -50,17 +52,19 @@ export default function MyConcertCard(props) {
   const selectConcert = useSetRecoilState(selectedConcertState);
   const setConcerts = useSetRecoilState(concertsState);
 
+  const { t } = useTranslation();
+
   const sum_duration = sumDurationFormat(
     works.map((work) =>
       !work.selectedMovements ||
-      work.workMovementDuration.length <= 1 ||
-      work.workMovementDuration[0] === "'"
+        work.workMovementDuration.length <= 1 ||
+        work.workMovementDuration[0] === "'"
         ? work.duration
         : work.selectedMovements
-            .map((duration) =>
-              parseInt(work.workMovementDuration[duration].replace("'", ""))
-            )
-            .reduce((x, y) => x + y)
+          .map((duration) =>
+            parseInt(work.workMovementDuration[duration].replace("'", ""))
+          )
+          .reduce((x, y) => x + y)
     )
   );
 
@@ -97,7 +101,7 @@ export default function MyConcertCard(props) {
       {editMode ? (
         <TextField
           id="my-concert-name"
-          label="My演奏会名"
+          label={t("layouts.MyConcert.Card.myConcertName")}
           variant="standard"
           defaultValue={name}
           onKeyDown={(e) => {
@@ -116,7 +120,7 @@ export default function MyConcertCard(props) {
               setEditMode(false);
             }
           }}
-          helperText="決定するにはEnterキーを押してください"
+          helperText={t("layouts.MyConcert.Card.toConfirm")}
         />
       ) : (
         <Stack
@@ -165,7 +169,7 @@ export default function MyConcertCard(props) {
       {editMode ? (
         <TextField
           id="my-concert-name"
-          label="My演奏会名"
+          label={t("layouts.MyConcert.Card.myConcertName")}
           variant="standard"
           defaultValue={name}
           onKeyDown={(e) => {
@@ -184,7 +188,7 @@ export default function MyConcertCard(props) {
               setEditMode(false);
             }
           }}
-          helperText="決定するにはEnterキーを押してください"
+          helperText={t("layouts.MyConcert.Card.toConfirm")}
         />
       ) : (
         <Stack
@@ -254,7 +258,7 @@ export default function MyConcertCard(props) {
                     }}
                     ref={anchorRef}
                   >
-                    メイン
+                    {t("layouts.MyConcert.Card.main")}
                   </Button>
                 </Grid>
                 <Grid size="grow">
@@ -282,7 +286,7 @@ export default function MyConcertCard(props) {
                       }}
                       data-tour-id="a-04"
                     >
-                      分析
+                      {t("layouts.MyConcert.Card.analyze")}
                     </Button>
                     <ConcertMenus id={id} />
                   </Stack>
@@ -307,7 +311,7 @@ export default function MyConcertCard(props) {
                   }}
                   ref={anchorRef}
                 >
-                  メイン
+                  {t("layouts.MyConcert.Card.main")}
                 </Button>
               </Grid>
               <Grid size="grow">
@@ -335,7 +339,7 @@ export default function MyConcertCard(props) {
                     }}
                     data-tour-id="a-04"
                   >
-                    分析
+                    {t("layouts.MyConcert.Card.analyze")}
                   </Button>
                   <ConcertMenus id={id} />
                 </Stack>
@@ -359,10 +363,10 @@ export default function MyConcertCard(props) {
         horizontal={"left"}
         left={30}
       >
-        <DialogTitle sx={{ fontSize: 16 }}>曲の追加先を変更する</DialogTitle>
-        <DialogContent>
+        <DialogTitle sx={{ fontSize: 16 }}>{t("layouts.MyConcert.Card.changeWhereToAdd")}</DialogTitle>
+        <DialogContent> 
           <DialogContentText sx={{ color: "white", maxWidth: "20em" }}>
-            曲を追加したいMy演奏会を切り替えるには、［メイン］をクリックしてください。
+            {t("layouts.MyConcert.Card.changeWhereToAddText")}
           </DialogContentText>
         </DialogContent>
         <DialogActions>
@@ -371,7 +375,7 @@ export default function MyConcertCard(props) {
             onClick={handleCalloutClose}
             sx={{ borderRadius: "2em", borderColor: "white", color: "white" }}
           >
-            閉じる
+            {t("layouts.MyConcert.Card.close")}
           </Button>
         </DialogActions>
       </CalloutPopover>

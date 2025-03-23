@@ -11,7 +11,15 @@
   },
   "layouts": {
     "MyConcert": {
-      "Card": {},
+      "Card": {
+        "myConcertName": "My Concert name",
+        "toConfirm": "Press Enter to confirm",
+        "main": "Main",
+        "analyze": "Analyze",
+        "changeWhereToAdd": "Change where songs are added",
+        "changeWhereToAddText": "To switch to the My Concert you want to add a song to, click [Main].",
+        "close": "Close"
+      },
       "ConcertMenus": {},
       "InsightsModal": {},
       "NewConcert": {}, 
