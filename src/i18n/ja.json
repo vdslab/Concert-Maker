@@ -1,5 +1,8 @@
 {
   "hello": "こんにちは",
+  "common": {
+    "tilde": "～"
+  },
   "evaluation": {
     "Insights": {
       "totalPerformanceTime": "（合計演奏時間：{{sum_duration}}）",

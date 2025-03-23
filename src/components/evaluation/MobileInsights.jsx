@@ -176,7 +176,7 @@ export default function MobileInsights(props) {
                                 {`${work.composer} ${work.composerData.birthYear ||
                                   work.composerData.deathYear
                                   ? ` (${work.composerData.birthYear || ""
-                                  }〜${work.composerData.deathYear || ""})`
+                                  }${t("common.tilde")}${work.composerData.deathYear || ""})`
                                   : ""
                                   }`}
                               </Typography>

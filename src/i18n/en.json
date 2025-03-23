@@ -1,5 +1,8 @@
 {
   "hello": "Hello",
+  "common": {
+    "tilde": "-"
+  },
   "evaluation": {
     "Insights": {
       "totalPerformanceTime": " (Total performance time: {{sum_duration}})",

@@ -125,7 +125,7 @@ export default function WorkListItem({
             <Box sx={{ p: 1 }}>
               <Typography variant="body1" component="div">
                 {`${work.composer} ${composer.birthYear || composer.deathYear
-                  ? ` (${composer.birthYear || ""}〜${composer.deathYear || ""})`
+                  ? ` (${composer.birthYear || ""}${t("common.tilde")}${composer.deathYear || ""})`
                   : ""
                   }`}
               </Typography>

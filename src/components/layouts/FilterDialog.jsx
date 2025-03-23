@@ -180,7 +180,7 @@ function NumberRangeInput({ name, unit, min, max, displayOnlyOneUnit, control })
               inputProps={{ min, max }}
               sx={{ width: "12ch", mr: "8px" }}
             />
-            {displayOnlyOneUnit ? "" : unit} ～
+            {displayOnlyOneUnit ? "" : unit} {t("common.tilde")}
             <OutlinedInput
               error={name in errors}
               type="number"
