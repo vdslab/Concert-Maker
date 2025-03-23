@@ -54,7 +54,9 @@
         "saveToMyConcert": "My演奏会に保存",
         "savedToMyConcert": "My演奏会に保存しました！"
       },
-      "WorkList": {},
+      "WorkList": {
+        "noSong": "曲を追加してください"
+      },
       "WorkListItem": {},
       "WorkListSortableItem": {}
     },

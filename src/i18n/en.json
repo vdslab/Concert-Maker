@@ -41,7 +41,9 @@
         "saveToMyConcert": "Save to My Concert",
         "savedToMyConcert": "Saved to My Concert!"
       },
-      "WorkList": {},
+      "WorkList": {
+        "noSong": "Please add a song"
+      },
       "WorkListItem": {},
       "WorkListSortableItem": {}
     },

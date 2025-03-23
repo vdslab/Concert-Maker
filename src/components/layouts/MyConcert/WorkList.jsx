@@ -29,9 +29,11 @@ import {
 import { workConcertState } from "@/components/RecoilStates";
 import { useSetRecoilState } from "recoil";
 
+import { useTranslation } from "react-i18next";
+
 export default function WorkList({ works, concertID, setClickedNodeId }) {
-  console.log("WorkList render with:", { works, concertID });
-  
+  const { t } = useTranslation();
+
   // すべてのフックを最初に宣言
   const setWorkConcertState = useSetRecoilState(workConcertState);
   
@@ -68,7 +70,7 @@ export default function WorkList({ works, concertID, setClickedNodeId }) {
   if (works.length === 0) {
     return (
       <Typography variant="body1" align="center">
-        曲を追加してください
+        {t("layouts.MyConcert.WorkList.noSong")}
       </Typography>
     );
   }
