@@ -64,15 +64,15 @@ const BasicInfomation = ({ node, onClose, showBorder }) => {
       </FixedHeader>
       <ScrollableContent>
         <Typography variant="body2" color="text.secondary" gutterBottom>
-          {node.year === null ? "" : "作曲年: " + node.year + "年"}
+          {node.year === null ? "" : t("vis.NodeInfo.BasicInfomation.yearOfComposition", { year: node.year })}
         </Typography>
         <Typography variant="body2" color="text.secondary" gutterBottom>
           {node.duration === null
             ? ""
-            : "演奏時間: " + durationFormat(node.duration)}
+            : t("vis.NodeInfo.BasicInfomation.duration", { duration_time: durationFormat(node.duration) })}
         </Typography>
         <Typography variant="body2" color="text.secondary" gutterBottom>
-          {workFormulaText ? "楽器編成: " + workFormulaText : ""}
+          {workFormulaText ? t("vis.NodeInfo.BasicInfomation.instrumentation", { workFormulaText }) : ""}
         </Typography>
         <SplitButton workId={node.id} node={node} />
       </ScrollableContent>

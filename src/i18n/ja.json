@@ -138,7 +138,11 @@
   },
   "vis": {
     "NodeInfo": {
-      "BasicInfomation": {},
+      "BasicInfomation": {
+        "yearOfComposition": "作曲年：{{year}}年",
+        "duration": "演奏時間：{{duration_time}}",
+        "instrumentation": "楽器編成：{{workFormulaText}}"
+      },
       "DetailInfomation": {},
       "MusicButton": {},
       "NodeInfo": {},

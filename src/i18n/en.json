@@ -138,7 +138,11 @@
   },
   "vis": {
     "NodeInfo": {
-      "BasicInfomation": {},
+      "BasicInfomation": {
+        "yearOfComposition": "Year of composition: {{year}}",
+        "duration": "Duration: {{duration_time}}",
+        "instrumentation": "Instrumentation: {{workFormulaText}}"
+      },
       "DetailInfomation": {},
       "MusicButton": {},
       "NodeInfo": {},
