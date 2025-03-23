@@ -2,12 +2,25 @@
   "hello": "Hello",
   "evaluation": {
     "Insights": {
+      "totalPerformanceTime": " (Total performance time: {{sum_duration}})",
+      "yearOfComposition": "Year of composition: {{year}}",
+      "duration": "Duration: {{duration_time}}",
+      "instrumentation": "Instrumentation: {{workFormulaText}}",
+      "analysisOfProgramStructure": "Analysis of program structure",
+      "analysisOfPerformanceTime": "Analysis of performance time",
       "nowork": "To show analysis results, please add one or more songs",
-      "totalPerformanceTime": " (Total performance time: {{sum_duration}})"
+      "close": "Close"
     },
     "MobileInsights": {},
-    "radarChart": {},
-    "RectangularGraph": {}
+    "radarChart": {
+      "proximityOfNationality": "Proximity of nationality",
+      "proximityOfCompositionYear": "Proximity of composition year",
+      "degreeOfCoperformance": "Degree of co-performance",
+      "averagePopularity": "Average popularity"
+    },
+    "RectangularGraph": {
+      "unknown": "Unknown"
+    }
   },
   "layouts": {
     "MyConcert": {
