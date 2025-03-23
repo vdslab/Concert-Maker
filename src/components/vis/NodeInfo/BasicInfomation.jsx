@@ -2,6 +2,7 @@ import { Typography, Box, IconButton } from "@mui/material";
 import CloseIcon from "@mui/icons-material/Close";
 import SplitButton from "@/components/layouts/SplitButton";
 import { styled } from "@mui/system";
+import { useTranslation } from "react-i18next";
 import { durationFormat } from "@/utils/calcTime";
 import { getWorkFormulaText } from "@/utils/getWorkFormulaText";
 
@@ -39,6 +40,7 @@ const ScrollableContent = styled(Box)({
 });
 
 const BasicInfomation = ({ node, onClose, showBorder }) => {
+  const { t } = useTranslation();
   const workFormulaText = getWorkFormulaText(node.workFormula);
 
   return (

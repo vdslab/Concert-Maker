@@ -1,11 +1,13 @@
 import React from "react";
 import { Typography, Box, Button, Divider } from "@mui/material";
+import { useTranslation } from "react-i18next";
 import { durationFormat } from "@/utils/calcTime";
 import { getWorkFormulaText } from "@/utils/getWorkFormulaText";
 
 const SongPlayedTogether = (props) => {
   const { node, Data, setClickedNodeId } = props;
   const { links } = Data;
+  const { t } = useTranslation();
 
   const linkNodes = new Set();
 
