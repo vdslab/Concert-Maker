@@ -40,7 +40,7 @@ const ScrollableContent = styled(Box)({
 });
 
 const BasicInfomation = ({ node, onClose, showBorder }) => {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
   const workFormulaText = getWorkFormulaText(node.workFormula);
 
   return (
@@ -69,7 +69,7 @@ const BasicInfomation = ({ node, onClose, showBorder }) => {
         <Typography variant="body2" color="text.secondary" gutterBottom>
           {node.duration === null
             ? ""
-            : t("vis.NodeInfo.BasicInfomation.duration", { duration_time: durationFormat(node.duration) })}
+            : t("vis.NodeInfo.BasicInfomation.duration", { duration_time: durationFormat(node.duration, i18n.resolvedLanguage) })}
         </Typography>
         <Typography variant="body2" color="text.secondary" gutterBottom>
           {workFormulaText ? t("vis.NodeInfo.BasicInfomation.instrumentation", { workFormulaText }) : ""}

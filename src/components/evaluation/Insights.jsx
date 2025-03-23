@@ -23,7 +23,7 @@ import { sumDurationFormat } from "@/utils/calcTime";
 
 export default function Insights(props) {
   const { myConcert, handleClose, submitAction } = props;
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
 
   if (!myConcert) {
     return <></>;
@@ -42,6 +42,7 @@ export default function Insights(props) {
           )
           .reduce((x, y) => x + y);
     }),
+    i18n.resolvedLanguage
   );
 
   const hasWorks = myConcert.works && myConcert.works.length > 0;
@@ -104,6 +105,7 @@ export default function Insights(props) {
                           ),
                         )
                         .reduce((x, y) => x + y),
+                    i18n.resolvedLanguage
                   );
 
                   const workFormulaText = getWorkFormulaText(work.workFormula);

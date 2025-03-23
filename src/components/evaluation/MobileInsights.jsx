@@ -31,7 +31,7 @@ const Transition = React.forwardRef(function Transition(props, ref) {
 
 export default function MobileInsights(props) {
   const { myConcert, handleClose, submitAction } = props;
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
 
   if (!myConcert) {
     return <></>;
@@ -50,6 +50,7 @@ export default function MobileInsights(props) {
           )
           .reduce((x, y) => x + y);
     }),
+    i18n.resolvedLanguage
   );
 
   const hasWorks = myConcert.works && myConcert.works.length > 0;
@@ -147,6 +148,7 @@ export default function MobileInsights(props) {
                           ),
                         )
                         .reduce((x, y) => x + y),
+                    i18n.resolvedLanguage
                   );
 
                   const workFormulaText = getWorkFormulaText(work.workFormula);

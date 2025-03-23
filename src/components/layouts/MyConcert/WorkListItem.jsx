@@ -43,7 +43,7 @@ export default function WorkListItem({
   const anchorRef = useRef(null); // 吹き出し用
   const calloutId = useId(); // 吹き出し用。CalloutPopover のアクセシビリティ属性として渡す ID
   const concertList = useRecoilValue(concertListState);
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
 
   // 吹き出しを閉じたとき
   const handleCalloutClose = () => {
@@ -91,6 +91,7 @@ export default function WorkListItem({
           parseInt(work.workMovementDuration[duration].replace("'", "")),
         )
         .reduce((x, y) => x + y),
+    i18n.resolvedLanguage
   );
 
   const workFormulaText = getWorkFormulaText(work.workFormula);

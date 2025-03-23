@@ -4,7 +4,7 @@ import { useTranslation } from "react-i18next";
 import { durationFormat } from "@/utils/calcTime";
 
 const DetailInfomation = ({ node }) => {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
 
   if (!node.workMovements || node.workMovements[0] === "") return null;
 
@@ -38,7 +38,7 @@ const DetailInfomation = ({ node }) => {
             </Grid>
             <Grid item xs={2}>
               <Typography align="right">
-                {item.duration ? durationFormat(parseInt(item.duration.replace("'", ""))) : ""}
+                {item.duration ? durationFormat(parseInt(item.duration.replace("'", "")), i18n.resolvedLanguage) : ""}
               </Typography>
             </Grid>
           </Grid>

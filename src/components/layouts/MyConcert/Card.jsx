@@ -52,7 +52,7 @@ export default function MyConcertCard(props) {
   const selectConcert = useSetRecoilState(selectedConcertState);
   const setConcerts = useSetRecoilState(concertsState);
 
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
 
   const sum_duration = sumDurationFormat(
     works.map((work) =>
@@ -65,7 +65,8 @@ export default function MyConcertCard(props) {
             parseInt(work.workMovementDuration[duration].replace("'", ""))
           )
           .reduce((x, y) => x + y)
-    )
+    ),
+    i18n.resolvedLanguage
   );
 
   const InsightsWorks = {

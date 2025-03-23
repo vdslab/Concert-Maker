@@ -7,7 +7,7 @@ import { getWorkFormulaText } from "@/utils/getWorkFormulaText";
 const SongPlayedTogether = (props) => {
   const { node, Data, setClickedNodeId } = props;
   const { links } = Data;
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
 
   const linkNodes = new Set();
 
@@ -94,7 +94,7 @@ const SongPlayedTogether = (props) => {
             <Typography variant="body2" color="text.secondary">
               {work.duration === null
                 ? ""
-                : "演奏時間: " + durationFormat(work.duration)}
+                : "演奏時間: " + durationFormat(work.duration, i18n.resolvedLanguage)}
             </Typography>
             <Typography variant="body2" color="text.secondary">
               {workFormulaText ? "楽器編成: " + workFormulaText : ""}

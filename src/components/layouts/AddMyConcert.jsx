@@ -27,7 +27,7 @@ export default function AddMyConcert(props) {
   const setConcerts = useSetRecoilState(workConcertState);
   const handleClose = () => setOpen(false);
   const { enqueueSnackbar } = useSnackbar();
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
 
   const [movementList, setMovementList] = useState([]);
 
@@ -55,7 +55,7 @@ export default function AddMyConcert(props) {
     return sum + (parseInt(durationStr, 10) || 0);
   }, 0);
 
-  const formattedTotalDuration = durationFormat(totalDuration);
+  const formattedTotalDuration = durationFormat(totalDuration, i18n.resolvedLanguage);
 
   const Submit = () => {
     const isAlreadyRegistered = concerts.some(
@@ -152,6 +152,7 @@ export default function AddMyConcert(props) {
                 const formattedDuration = movementDuration
                   ? `（${durationFormat(
                       parseInt(movementDuration.replace("'", ""), 10),
+                      i18n.resolvedLanguage
                     )}）`
                   : "";
 
