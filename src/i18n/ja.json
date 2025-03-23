@@ -67,7 +67,18 @@
       },
       "WorkListSortableItem": {}
     },
-    "AddMyConcert": {},
+    "AddMyConcert": {
+      "alreadyAdded": "{{concertName}}には既に追加されています",
+      "noMovementSelected": "楽章が選択されていません",
+      "changedSelectedMovements": "楽章を変更しました",
+      "addedToMyConcert": "{{concertName}}に追加しました！",
+      "selectTheMovements": "追加する楽章を選択してください。",
+      "deselectAll": "全て選択解除",
+      "selectAll": "全て選択",
+      "totalTime": "合計時間：{{totalTime}}",
+      "cancel": "キャンセル",
+      "decide": "決定"
+    },
     "CalloutPopover": {},
     "FilterDialog": {},
     "Header": {},

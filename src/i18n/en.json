@@ -67,7 +67,18 @@
       },
       "WorkListSortableItem": {}
     },
-    "AddMyConcert": {},
+    "AddMyConcert": {
+      "alreadyAdded": "Already added to {{concertName}}",
+      "noMovementSelected": "No movement selected",
+      "changedSelectedMovements": "Changed selected movements",
+      "addedToMyConcert": "Added to {{concertName}}!",
+      "selectTheMovements": "Please select the movements you want to add.",
+      "deselectAll": "Deselect All",
+      "selectAll": "Select All",
+      "totalTime": "Total time: {{totalTime}}",
+      "cancel": "Cancel",
+      "decide": "Decide"
+    },
     "CalloutPopover": {},
     "FilterDialog": {},
     "Header": {},

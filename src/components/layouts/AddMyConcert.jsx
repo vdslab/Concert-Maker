@@ -18,6 +18,8 @@ import { useSetRecoilState, useRecoilValue } from "recoil";
 import { workConcertState, concertsState } from "@/components/RecoilStates";
 import { useSnackbar } from "notistack";
 
+import { useTranslation } from "react-i18next";
+
 export default function AddMyConcert(props) {
   const { work, concertID, open, setOpen } = props;
   const concertList = useRecoilValue(concertsState);
@@ -25,6 +27,7 @@ export default function AddMyConcert(props) {
   const setConcerts = useSetRecoilState(workConcertState);
   const handleClose = () => setOpen(false);
   const { enqueueSnackbar } = useSnackbar();
+  const { t } = useTranslation();
 
   const [movementList, setMovementList] = useState([]);
 
@@ -68,14 +71,14 @@ export default function AddMyConcert(props) {
     ).name;
 
     if (isAlreadyRegistered) {
-      enqueueSnackbar(`${concertName}には既に追加されています`, {
+      enqueueSnackbar(t("layouts.AddMyConcert.alreadyAdded", { concertName }), {
         variant: "error",
       });
       return;
     }
 
     if (movementList.length === 0) {
-      enqueueSnackbar("楽章が選択されていません", { variant: "error" });
+      enqueueSnackbar(t("layouts.AddMyConcert.noMovementSelected"), { variant: "error" });
       return;
     } else {
       setConcerts((workConcerts) => {
@@ -95,12 +98,12 @@ export default function AddMyConcert(props) {
                 ? movementList
                 : movementList.toSorted((a, b) => a - b),
           };
-          enqueueSnackbar(`楽章を変更しました`, {
+          enqueueSnackbar(t("layouts.AddMyConcert.changedSelectedMovements"), {
             variant: "success",
           });
           return updatedWorkConcerts;
         } else {
-          enqueueSnackbar(`${concertName}に追加しました！`, {
+          enqueueSnackbar(t("layouts.AddMyConcert.addedToMyConcert", { concertName }), {
             variant: "success",
           });
           // 新しい要素を追加
@@ -141,7 +144,7 @@ export default function AddMyConcert(props) {
         <Grid container spacing={2}>
           <Grid size={12}>
             <Typography variant="body1" color="textSecondary">
-              追加する楽章を選択してください。
+              {t("layouts.AddMyConcert.selectTheMovements")}
             </Typography>
             <FormGroup>
               {work.workMovements.map((movement, index) => {
@@ -215,8 +218,8 @@ export default function AddMyConcert(props) {
                     }
                     label={
                       movementList.length === work.workMovements.length
-                        ? "全て選択解除"
-                        : "全て選択"
+                        ? t("layouts.AddMyConcert.deselectAll")
+                        : t("layouts.AddMyConcert.selectAll")
                     }
                   />
                 </Grid>
@@ -227,13 +230,13 @@ export default function AddMyConcert(props) {
       </DialogContent>
       <DialogActions>
         <Typography variant="caption" color="textSecondary">
-          <Typography>合計時間: {formattedTotalDuration}</Typography>
+          <Typography>{t("layouts.AddMyConcert.totalTime", { totalTime: formattedTotalDuration })}</Typography>
         </Typography>
         <Button variant="outlined" onClick={handleClose}>
-          キャンセル
+          {t("layouts.AddMyConcert.cancel")}
         </Button>
         <Button variant="contained" onClick={Submit}>
-          決定
+          {t("layouts.AddMyConcert.decide")}
         </Button>
       </DialogActions>
     </Dialog>
