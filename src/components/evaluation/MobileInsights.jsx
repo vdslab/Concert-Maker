@@ -3,8 +3,7 @@ import Dialog from "@mui/material/Dialog";
 import DialogContent from "@mui/material/DialogContent";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
-import workData from "@/assets/data/works.json";
-import composersData from "@/assets/data/composers.json";
+import { getWorksJson, getComposersJson } from "@/utils/processJson";
 import { durationFormat } from "@/utils/calcTime";
 import Grid from "@mui/material/Grid2";
 import Paper from "@mui/material/Paper";
@@ -24,6 +23,9 @@ import Radar from "@/components/evaluation/radarChart.jsx";
 import RectangularGraph from "@//components/evaluation/RectangularGraph.jsx";
 import { getWorkFormulaText } from "@/utils/getWorkFormulaText";
 import { sumDurationFormat } from "@/utils/calcTime";
+
+const workData = getWorksJson();
+const composersData = getComposersJson();
 
 const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="up" ref={ref} {...props} />;

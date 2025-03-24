@@ -1,5 +1,7 @@
 import { atom, selector } from "recoil";
-import workData from "@/assets/data/works.json";
+import { getWorksJson } from "@/utils/processJson";
+
+const workData = getWorksJson();
 
 const firstUUID = "863c30b8-50ff-491c-a934-1e6c9cd7754e";
 

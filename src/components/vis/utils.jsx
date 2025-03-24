@@ -1,5 +1,7 @@
-import Works from "@/assets/data/works.json";
-import Composer from "@/assets/data/composers.json";
+import { getWorksJson, getComposersJson } from "@/utils/processJson";
+
+const Works = getWorksJson();
+const Composer = getComposersJson();
 
 /**
  * 指定した名前の作曲家情報を返すヘルパー関数

@@ -5,6 +5,7 @@ import { styled } from "@mui/system";
 import { useTranslation } from "react-i18next";
 import { durationFormat } from "@/utils/calcTime";
 import { getWorkFormulaText } from "@/utils/getWorkFormulaText";
+import { getWorksJson } from "@/utils/processJson";
 
 const StyledIconButton = styled(IconButton)(({ theme }) => ({
   position: "absolute",
@@ -40,6 +41,8 @@ const ScrollableContent = styled(Box)({
 });
 
 const BasicInfomation = ({ node, onClose, showBorder }) => {
+  const data = getWorksJson();
+  console.log(data);
   const { t, i18n } = useTranslation();
   const workFormulaText = getWorkFormulaText(node.workFormula);
 

@@ -19,7 +19,7 @@ import Typography from "@mui/material/Typography";
 import AddMyConcert from "@/components/layouts/AddMyConcert";
 import CalloutPopover from "@/components/layouts/CalloutPopover";
 
-import composersData from "@/assets/data/composers.json";
+import { getComposersJson } from "@/utils/processJson";
 
 import { durationFormat } from "@/utils/calcTime";
 import { getWorkFormulaText } from "@/utils/getWorkFormulaText";
@@ -28,6 +28,8 @@ import { concertListState } from "@/components/RecoilStates";
 import { useRecoilValue } from "recoil";
 
 import { useTranslation } from "react-i18next";
+
+const composersData = getComposersJson();
 
 export default function WorkListItem({
   work,

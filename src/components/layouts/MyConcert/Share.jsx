@@ -1,5 +1,4 @@
-import workData from "@/assets/data/works.json";
-import composersData from "@/assets/data/composers.json";
+import { getWorksJson, getComposersJson } from "@/utils/processJson";
 
 import { v4 as randomUUID } from "uuid";
 
@@ -13,6 +12,9 @@ import { useTranslation } from "react-i18next";
 
 import Insights from "@/components/evaluation/Insights.jsx";
 import MobileInsights from "@/components/evaluation/MobileInsights.jsx";
+
+const workData = getWorksJson();
+const composersData = getComposersJson();
 
 export default function Share() {
   const [searchParams, setSearchParams] = useSearchParams();

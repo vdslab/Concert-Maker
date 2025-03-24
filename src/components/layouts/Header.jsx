@@ -31,7 +31,6 @@ function ResponsiveAppBar() {
           <Icon sx={{ textAlign: "center", mr: "8px" }} fontSize={"large"}>
             <img style={{ height: "100%" }} src="/logo.svg" alt="Logo" />
           </Icon>
-          {t("welcome")}
           Orchestra Concert Maker
         </Typography>
       </Toolbar>
