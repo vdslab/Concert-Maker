@@ -21,6 +21,8 @@ import {
 import { useRecoilValue, useSetRecoilState, useRecoilState } from "recoil";
 import { v4 as randomUUID } from "uuid";
 
+import { useTranslation } from "react-i18next";
+
 const StyledMenu = styled((props) => (
   <Menu
     elevation={0}
@@ -78,12 +80,27 @@ export default function ConcertMenus(props) {
 
   const [, setSelectedConcertId] = useRecoilState(selectedConcertState);
 
+  const { t } = useTranslation();
+
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
   };
   const handleClose = () => {
     setAnchorEl(null);
   };
+
+  function generateCopyName(existingNames, prefix) {
+    const duplicatedMyConcertName = t("layouts.MyConcert.ConcertMenus.duplicatedMyConcertName", { prefix });
+
+    if (!existingNames.includes(duplicatedMyConcertName)) {
+      return duplicatedMyConcertName;
+    }
+    let number = 1;
+    while (existingNames.includes(`${duplicatedMyConcertName} (${number})`)) {
+      number++;
+    }
+    return `${duplicatedMyConcertName} (${number})`;
+  }
 
   const duplicateConcert = () => {
     const newId = randomUUID();
@@ -119,7 +136,7 @@ export default function ConcertMenus(props) {
     });
 
     handleClose();
-    enqueueSnackbar("複製に成功しました！", { variant: "success" });
+    enqueueSnackbar(t("layouts.MyConcert.ConcertMenus.successfullyDuplicated"), { variant: "success" });
   };
 
   const deleteConcert = () => {
@@ -166,12 +183,12 @@ export default function ConcertMenus(props) {
 
     navigator.clipboard.writeText(shareURL).then(
       function () {
-        enqueueSnackbar("URLをコピーしました", {
+        enqueueSnackbar(t("layouts.MyConcert.ConcertMenus.linkCopied"), {
           variant: "success",
         });
       },
       function (err) {
-        enqueueSnackbar("URLのコピーに失敗しました", {
+        enqueueSnackbar(t("layouts.MyConcert.ConcertMenus.failedToCopyLink"), {
           variant: "error",
         });
       },
@@ -203,28 +220,17 @@ export default function ConcertMenus(props) {
       >
         <MenuItem onClick={duplicateConcert} disableRipple>
           <FileCopyIcon />
-          複製
+          {t("layouts.MyConcert.ConcertMenus.duplicate")}
         </MenuItem>
         <MenuItem onClick={deleteConcert} disableRipple>
           <DeleteForeverIcon />
-          削除
+          {t("layouts.MyConcert.ConcertMenus.delete")}
         </MenuItem>
         <MenuItem onClick={shareConcert} disableRipple>
           <ShareIcon />
-          共有
+          {t("layouts.MyConcert.ConcertMenus.share")}
         </MenuItem>
       </StyledMenu>
     </div>
   );
-}
-
-function generateCopyName(existingNames, prefix) {
-  if (!existingNames.includes(`${prefix}のコピー`)) {
-    return `${prefix}のコピー`;
-  }
-  let number = 1;
-  while (existingNames.includes(`${prefix}のコピー ${number}`)) {
-    number++;
-  }
-  return `${prefix}のコピー ${number}`;
 }

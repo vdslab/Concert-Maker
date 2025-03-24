@@ -2,6 +2,7 @@
 import { useSnackbar } from "notistack";
 import { useState } from "react";
 import { useMediaQuery, useTheme } from "@mui/material";
+import { useTranslation } from "react-i18next";
 
 import Insights from "@/components/evaluation/Insights.jsx";
 import MobileInsights from "@/components/evaluation/MobileInsights.jsx";
@@ -13,6 +14,7 @@ export default function InsightsModal(props) {
   const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
 
   const { enqueueSnackbar } = useSnackbar();
+  const { t } = useTranslation();
 
   const handleClose = () => {
     setOpen(false);
@@ -24,11 +26,11 @@ export default function InsightsModal(props) {
         "?share=" +
         encodeURIComponent(JSON.stringify(myConcert)),
     );
-    enqueueSnackbar("URLをコピーしました", { variant: "success" });
+    enqueueSnackbar(t("layouts.MyConcert.InsightsModal.linkCopied"), { variant: "success" });
   };
 
   const submitAction = {
-    label: "このMy演奏会を共有",
+    label: t("layouts.MyConcert.InsightsModal.shareThisMyConcert"),
     func: copyShareURL,
   };
 

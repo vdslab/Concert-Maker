@@ -19,13 +19,17 @@ import Typography from "@mui/material/Typography";
 import AddMyConcert from "@/components/layouts/AddMyConcert";
 import CalloutPopover from "@/components/layouts/CalloutPopover";
 
-import composersData from "@/assets/data/composers.json";
+import { getComposersJson } from "@/utils/processJson";
 
 import { durationFormat } from "@/utils/calcTime";
 import { getWorkFormulaText } from "@/utils/getWorkFormulaText";
 
 import { concertListState } from "@/components/RecoilStates";
 import { useRecoilValue } from "recoil";
+
+import { useTranslation } from "react-i18next";
+
+const composersData = getComposersJson();
 
 export default function WorkListItem({
   work,
@@ -41,6 +45,7 @@ export default function WorkListItem({
   const anchorRef = useRef(null); // 吹き出し用
   const calloutId = useId(); // 吹き出し用。CalloutPopover のアクセシビリティ属性として渡す ID
   const concertList = useRecoilValue(concertListState);
+  const { t, i18n } = useTranslation();
 
   // 吹き出しを閉じたとき
   const handleCalloutClose = () => {
@@ -84,10 +89,11 @@ export default function WorkListItem({
       work.workMovementDuration[0] === "'"
       ? work.duration
       : work.selectedMovements
-          .map((duration) =>
-            parseInt(work.workMovementDuration[duration].replace("'", "")),
-          )
-          .reduce((x, y) => x + y),
+        .map((duration) =>
+          parseInt(work.workMovementDuration[duration].replace("'", "")),
+        )
+        .reduce((x, y) => x + y),
+    i18n.resolvedLanguage
   );
 
   const workFormulaText = getWorkFormulaText(work.workFormula);
@@ -122,21 +128,21 @@ export default function WorkListItem({
             <Box sx={{ p: 1 }}>
               <Typography variant="body1" component="div">
                 {`${work.composer} ${composer.birthYear || composer.deathYear
-                  ? ` (${composer.birthYear || ""}〜${composer.deathYear || ""})`
-                    : ""
-                }`}
+                  ? ` (${composer.birthYear || ""}${t("common.tilde")}${composer.deathYear || ""})`
+                  : ""
+                  }`}
               </Typography>
               <Typography variant="h6" component="div">
                 {work.title}
               </Typography>
               <Typography variant="body2" color="text.secondary">
-                {work.year === null ? "" : "作曲年: " + work.year + "年"}
+                {work.year === null ? "" : t("layouts.MyConcert.WorkListItem.yearOfComposition", { year: work.year })}
               </Typography>
               <Typography variant="body2" color="text.secondary">
-                {duration_time && `演奏時間: ${duration_time}`}
+                {duration_time && t("layouts.MyConcert.WorkListItem.duration", { duration_time })}
               </Typography>
               <Typography variant="body2" color="text.secondary">
-                {workFormulaText ? "楽器編成: " + workFormulaText : ""}
+                {workFormulaText ? t("layouts.MyConcert.WorkListItem.instrumentation", { workFormulaText }) : ""}
               </Typography>
             </Box>
           </Grid>
@@ -203,16 +209,16 @@ export default function WorkListItem({
         right={30}
       >
         <DialogTitle sx={{ fontSize: 16 }}>
-          曲順を並び替える
+          {t("layouts.MyConcert.WorkListItem.rearrangeSongs")}
         </DialogTitle>
         <DialogContent>
           <DialogContentText sx={{ color: "white", maxWidth: "20em" }}>
-            曲順を並び替えるには、⋮⋮ をドラッグ＆ドロップしてください。
+            {t("layouts.MyConcert.WorkListItem.rearrangeSongsText")}
           </DialogContentText>
         </DialogContent>
         <DialogActions>
-        <Button variant="outlined" onClick={handleCalloutClose} sx={{ borderRadius: "2em", borderColor: "white", color: "white" }}>
-            閉じる
+          <Button variant="outlined" onClick={handleCalloutClose} sx={{ borderRadius: "2em", borderColor: "white", color: "white" }}>
+            {t("layouts.MyConcert.WorkListItem.close")}
           </Button>
         </DialogActions>
       </CalloutPopover>

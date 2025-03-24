@@ -1,42 +1,47 @@
 import Google from "@/assets/img/google.svg";
 import Wiki from "@/assets/img/wikipedia.svg";
 import { Typography, Box, Stack, Tooltip, IconButton } from "@mui/material";
+import { useTranslation } from "react-i18next";
 
-const musicServices = [
-  {
-    name: "Google 検索",
-    icon: Google,
-    url: "https://www.google.com/search?q=",
-    enabled: true,
-  },
-  {
-    name: "Wikipedia",
-    icon: Wiki,
-    url: "https://ja.wikipedia.org/w/index.php?search=",
-    enabled: true,
-  },
-  {
-    name: "IMSLP（楽譜）",
-    icon: "https://upload.wikimedia.org/wikipedia/commons/9/98/IMSLP_logo_(2016).svg",
-    url: "https://www.google.com/search?q=site:imslp.org+",
-    enabled: true,
-  },
-];
+const getMusicServices = () => {
+  const { t } = useTranslation();
+  return [
+    {
+      name: t("vis.NodeInfo.SiteButton.google"),
+      icon: Google,
+      url: "https://www.google.com/search?q=",
+      enabled: true,
+    },
+    {
+      name: t("vis.NodeInfo.SiteButton.wikipedia"),
+      icon: Wiki,
+      url: "https://ja.wikipedia.org/w/index.php?search=",
+      enabled: true,
+    },
+    {
+      name: t("vis.NodeInfo.SiteButton.imslp"),
+      icon: "https://upload.wikimedia.org/wikipedia/commons/9/98/IMSLP_logo_(2016).svg",
+      url: "https://www.google.com/search?q=site:imslp.org+",
+      enabled: true,
+    },
+  ]
+};
 
 const MusicButton = ({ node }) => {
+  const { t } = useTranslation();
   const { title, composer } = node;
   const searchQuery = encodeURIComponent(`${title} (${composer})`);
 
   return (
     <Box p={2}>
-      <Typography variant="h6">調べる</Typography>
+      <Typography variant="h6">{t("vis.NodeInfo.SiteButton.search")}</Typography>
       <Stack
         direction="row"
         spacing={2}
         justifyContent="space-evenly"
         alignItems="center"
       >
-        {musicServices.map((service, index) => {
+        {getMusicServices().map((service, index) => {
           const button = (
             <Box display="flex" flexDirection="column" alignItems="center">
               <IconButton
@@ -68,7 +73,7 @@ const MusicButton = ({ node }) => {
           return service.enabled ? (
             <Box key={index}>{button}</Box>
           ) : (
-            <Tooltip key={index} title="このサービスは現在利用できません">
+            <Tooltip key={index} title={t("vis.NodeInfo.SiteButton.serviceUnavailable")}>
               {button}
             </Tooltip>
           );

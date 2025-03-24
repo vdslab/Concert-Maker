@@ -1,0 +1,177 @@
+{
+  "hello": "Hello",
+  "common": {
+    "tilde": "-"
+  },
+  "evaluation": {
+    "Insights": {
+      "totalPerformanceTime": " (Total performance time: {{sum_duration}})",
+      "yearOfComposition": "Year of composition: {{year}}",
+      "duration": "Duration: {{duration_time}}",
+      "instrumentation": "Instrumentation: {{workFormulaText}}",
+      "analysisOfProgramStructure": "Analysis of program structure",
+      "analysisOfPerformanceTime": "Analysis of performance time",
+      "nowork": "To show analysis results, please add one or more songs",
+      "close": "Close"
+    },
+    "MobileInsights": {},
+    "radarChart": {
+      "proximityOfNationality": "Proximity of nationality",
+      "proximityOfCompositionYear": "Proximity of composition year",
+      "degreeOfCoperformance": "Degree of co-performance",
+      "averagePopularity": "Average popularity"
+    },
+    "RectangularGraph": {
+      "unknown": "Unknown"
+    }
+  },
+  "layouts": {
+    "MyConcert": {
+      "Card": {
+        "myConcertName": "My Concert name",
+        "toConfirm": "Press Enter to confirm",
+        "main": "Main",
+        "analyze": "Analyze",
+        "changeWhereToAdd": "Change where songs are added",
+        "changeWhereToAddText": "To switch to the My Concert you want to add a song to, click [Main].",
+        "close": "Close"
+      },
+      "ConcertMenus": {
+        "successfullyDuplicated": "Successfully duplicated!",
+        "linkCopied": "Link copied",
+        "failedToCopyLink": "Failed to copy link",
+        "duplicate": "Duplicate",
+        "delete": "Delete",
+        "share": "Share",
+        "duplicatedMyConcertName": "Copy of {{prefix}}"
+      },
+      "InsightsModal": {
+        "linkCopied": "Link copied",
+        "shareThisMyConcert": "Share this My Concert"
+      },
+      "NewConcert": {
+        "myConcert": "My Concert",
+        "toAddMyConcert": "Click here to add My Concert"
+      },
+      "Share": {
+        "saveToMyConcert": "Save to My Concert",
+        "savedToMyConcert": "Saved to My Concert!"
+      },
+      "WorkList": {
+        "noSong": "Please add a song"
+      },
+      "WorkListItem": {
+        "yearOfComposition": "Year of composition: {{year}}",
+        "duration": "Duration: {{duration_time}}",
+        "instrumentation": "Instrumentation: {{workFormulaText}}",
+        "rearrangeSongs": "Rearrange songs",
+        "rearrangeSongsText": "To rearrange songs, drag and drop ⋮⋮.",
+        "close": "Close"
+      },
+      "WorkListSortableItem": {}
+    },
+    "AddMyConcert": {
+      "alreadyAdded": "Already added to {{concertName}}",
+      "noMovementSelected": "No movement selected",
+      "changedSelectedMovements": "Changed selected movements",
+      "addedToMyConcert": "Added to {{concertName}}!",
+      "selectTheMovements": "Please select the movements you want to add.",
+      "deselectAll": "Deselect All",
+      "selectAll": "Select All",
+      "totalTime": "Total time: {{totalTime}}",
+      "cancel": "Cancel",
+      "decide": "Decide"
+    },
+    "CalloutPopover": {},
+    "FilterDialog": {
+      "invalidNumericRange": "Invalid numeric range.",
+      "specifyRange": "Specify a range of {{min}} or more.",
+      "notSpec": "Not spec",
+      "flute": "Flute",
+      "oboe": "Oboe",
+      "clarinet": "Clarinet",
+      "bassoon": "Bassoon",
+      "horn": "Horn",
+      "trumpet": "Trumpet",
+      "trombone": "Trombone",
+      "tuba": "Tuba",
+      "timpani": "Timpani",
+      "percussion": "Percussion",
+      "harp": "Harp",
+      "keyboard": "Keyboard",
+      "strings": "Strings",
+      "searchOptions": "Search Options",
+      "close": "Close",
+      "composer": "Composer",
+      "composerEnter": "Enter the composer name",
+      "lifespan": "Lifespan",
+      "years": "years",
+      "workTitle": "Work Title",
+      "workTitleEnter": "Enter the work title",
+      "compositionYear": "Composition",
+      "duration": "Duration",
+      "mins": "mins",
+      "includeNoDuration": "Include works with no duration data",
+      "instrumentation": "Instrumentation",
+      "players": "players",
+      "unspecified": "Unspecified",
+      "yes": "Yes",
+      "no": "No",
+      "reset": "Reset",
+      "search": "Search"
+    },
+    "Header": {},
+    "MyConcertCardList": {},
+    "SearchBox": {
+      "searchForWorks": "Search for works"
+    },
+    "SplitButton": {
+      "addedToMyConcert": "Added to {{concertName}}!",
+      "alreadyAdded": "Already added to {{concertName}}",
+      "myConcert": "My Concert",
+      "addTo": "Add to {{myConcertName}}"
+    }
+  },
+  "mobile": {
+    "MyConcert": {},
+    "Search": {}
+  },
+  "vis": {
+    "NodeInfo": {
+      "BasicInfomation": {
+        "yearOfComposition": "Year of composition: {{year}}",
+        "duration": "Duration: {{duration_time}}",
+        "instrumentation": "Instrumentation: {{workFormulaText}}"
+      },
+      "DetailInfomation": {
+        "movementInformation": "Movement information",
+        "showLess": "Show less",
+        "showMore": "Show more"
+      },
+      "MusicButton": {
+        "listen": "Listen",
+        "serviceUnavailable": "This service is currently unavailable"
+      },
+      "NodeInfo": {},
+      "SiteButton": {
+        "google": "Google Search",
+        "wikipedia": "Wikipedia",
+        "imslp": "IMSLP (sheet music)",
+        "search": "Search",
+        "serviceUnavailable": "This service is currently unavailable"
+      },
+      "SongPlayedTogether": {
+        "performedTogether": "Works commonly performed together",
+        "degreeOfCoperformance": "Degree of Co-performance: {{degree}}",
+        "yearOfComposition": "Year of composition: {{year}}",
+        "duration": "Duration: {{duration_time}}",
+        "instrumentation": "Instrumentation: {{workFormulaText}}"
+      }
+    },
+    "DataProcessing": {},
+    "DrawCircle": {},
+    "ForceGraphWrapper": {},
+    "NodeLinkDiagram": {},
+    "utils": {}
+  }
+}

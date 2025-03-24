@@ -1,21 +1,25 @@
 import { ResponsiveBar } from "@nivo/bar";
+import { useTranslation } from "react-i18next";
 import { durationFormat } from "@/utils/calcTime";
 
-const CustomTooltip = ({ id, value, color }) => (
-  <div
-    style={{
-      padding: "12px 16px",
-      background: "#fff",
-      borderRadius: "4px",
-      boxShadow: "0 3px 9px rgba(0,0,0,0.25)",
-    }}
-  >
-    <strong>
-      {id}
-      {value === 2.5 ? "" : `: ${durationFormat(value)}`}
-    </strong>
-  </div>
-);
+const CustomTooltip = ({ id, value, color }) => {
+  const { i18n } = useTranslation();
+  return (
+    <div
+      style={{
+        padding: "12px 16px",
+        background: "#fff",
+        borderRadius: "4px",
+        boxShadow: "0 3px 9px rgba(0,0,0,0.25)",
+      }}
+    >
+      <strong>
+        {id}
+        {value === 2.5 ? "" : `: ${durationFormat(value, i18n.resolvedLanguage)}`}
+      </strong>
+    </div>
+  )
+};
 
 const calculateDifferences = (tickValues) => {
   return tickValues.slice(1).map((value, index) => value - tickValues[index]);
@@ -40,6 +44,8 @@ const DifferenceLayer = ({
   tickValues,
   differences,
 }) => {
+  const { t, i18n } = useTranslation();
+
   return differences.map((diff, index) => {
     const prevTick = tickValues[index];
     const currentTick = tickValues[index + 1];
@@ -55,7 +61,7 @@ const DifferenceLayer = ({
         fill="#000"
         fontSize={12}
       >
-        {diff === 2.5 ? "不明" : `${diff}分`}
+        {diff === 2.5 ? t("evaluation.RectangularGraph.unknown") : durationFormat(diff, i18n.resolvedLanguage)}
       </text>
     );
   });
@@ -99,17 +105,17 @@ const RectangularGraph = (props) => {
       ...works.reduce((acc, work) => {
         const duration_time =
           !work.selectedMovements ||
-          work.workMovementDuration.length <= 1 ||
-          work.workMovementDuration[0] === "'"
+            work.workMovementDuration.length <= 1 ||
+            work.workMovementDuration[0] === "'"
             ? work.duration
             : work.selectedMovements
-                .map((movement) =>
-                  parseInt(
-                    work.workMovementDuration[movement].replace("'", ""),
-                    10
-                  )
+              .map((movement) =>
+                parseInt(
+                  work.workMovementDuration[movement].replace("'", ""),
+                  10
                 )
-                .reduce((x, y) => x + y, 0);
+              )
+              .reduce((x, y) => x + y, 0);
 
         acc[work.title] = duration_time === null ? 2.5 : duration_time;
         return acc;

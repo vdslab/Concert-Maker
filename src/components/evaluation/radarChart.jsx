@@ -10,6 +10,8 @@ import { ResponsiveRadar } from "@nivo/radar";
 
 import * as Eval from "@/utils/Evaluation.js";
 
+import { useTranslation } from "react-i18next";
+
 // const data = [
 //   {
 //     category: "国籍の近さ",
@@ -31,22 +33,23 @@ import * as Eval from "@/utils/Evaluation.js";
 
 export function Radar(props) {
   const { works } = props;
+  const { t } = useTranslation();
 
   const data = [
     {
-      category: "国籍の近さ",
+      category: t("evaluation.radarChart.proximityOfNationality"),
       value: Eval.DistEval(works) || 5,
     },
     {
-      category: "作曲年の近さ",
+      category: t("evaluation.radarChart.proximityOfCompositionYear"),
       value: Eval.YearEval(works) || 5,
     },
     {
-      category: "一緒に演奏されている度合い",
+      category: t("evaluation.radarChart.degreeOfCoperformance"),
       value: Eval.PlayedWithEval(works) || 5,
     },
     {
-      category: "平均有名度",
+      category: t("evaluation.radarChart.averagePopularity"),
       value: Eval.OrchPopularityEval(works),
     },
   ];
@@ -82,7 +85,7 @@ export function Radar(props) {
             <div>
               <strong>{slice.index}</strong>
             </div>
-            <div>{slice.data[0].value.toFixed(1)} 点</div>
+            <div>{slice.data[0].value.toFixed(1)} / 5.0 </div>
           </div>
         );
       }}

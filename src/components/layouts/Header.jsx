@@ -3,7 +3,6 @@ import Toolbar from "@mui/material/Toolbar";
 import Icon from "@mui/material/Icon";
 import Typography from "@mui/material/Typography";
 
-
 function ResponsiveAppBar() {
   return (
     <AppBar position="sticky" sx={{ px: 2 }}>
