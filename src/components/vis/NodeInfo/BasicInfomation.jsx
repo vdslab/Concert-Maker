@@ -2,8 +2,10 @@ import { Typography, Box, IconButton } from "@mui/material";
 import CloseIcon from "@mui/icons-material/Close";
 import SplitButton from "@/components/layouts/SplitButton";
 import { styled } from "@mui/system";
+import { useTranslation } from "react-i18next";
 import { durationFormat } from "@/utils/calcTime";
 import { getWorkFormulaText } from "@/utils/getWorkFormulaText";
+import { getWorksJson } from "@/utils/processJson";
 
 const StyledIconButton = styled(IconButton)(({ theme }) => ({
   position: "absolute",
@@ -39,6 +41,7 @@ const ScrollableContent = styled(Box)({
 });
 
 const BasicInfomation = ({ node, onClose, showBorder }) => {
+  const { t, i18n } = useTranslation();
   const workFormulaText = getWorkFormulaText(node.workFormula);
 
   return (
@@ -51,7 +54,7 @@ const BasicInfomation = ({ node, onClose, showBorder }) => {
           <Typography variant="body">
             {`${node.composer} ${
               node.birth || node.death
-                ? ` (${node.birth || ""}〜${node.death || ""})`
+                ? ` (${node.birth || ""}${t("common.tilde")}${node.death || ""})`
                 : ""
             }`}
           </Typography>
@@ -62,15 +65,15 @@ const BasicInfomation = ({ node, onClose, showBorder }) => {
       </FixedHeader>
       <ScrollableContent>
         <Typography variant="body2" color="text.secondary" gutterBottom>
-          {node.year === null ? "" : "作曲年: " + node.year + "年"}
+          {node.year === null ? "" : t("vis.NodeInfo.BasicInfomation.yearOfComposition", { year: node.year })}
         </Typography>
         <Typography variant="body2" color="text.secondary" gutterBottom>
           {node.duration === null
             ? ""
-            : "演奏時間: " + durationFormat(node.duration)}
+            : t("vis.NodeInfo.BasicInfomation.duration", { duration_time: durationFormat(node.duration, i18n.resolvedLanguage) })}
         </Typography>
         <Typography variant="body2" color="text.secondary" gutterBottom>
-          {workFormulaText ? "楽器編成: " + workFormulaText : ""}
+          {workFormulaText ? t("vis.NodeInfo.BasicInfomation.instrumentation", { workFormulaText }) : ""}
         </Typography>
         <SplitButton workId={node.id} node={node} />
       </ScrollableContent>

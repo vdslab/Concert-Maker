@@ -1,8 +1,10 @@
-import Works from "@/assets/data/works.json";
+import { getWorksJson, getComposersJson } from "@/utils/processJson";
 import PlayedWithData from "@/assets/data/playedWith.json";
-import Composer from "@/assets/data/composers.json";
 import { getComposerFromId, getWorksWithComposerDetails } from "./utils";
 import Distance from "@/utils/Distance";
+
+const Works = getWorksJson();
+const Composer = getComposersJson();
 
 const findItem = (array, key, value) =>
   array.find((item) => item[key] === value);

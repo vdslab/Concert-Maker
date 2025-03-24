@@ -5,8 +5,7 @@ import DialogContent from "@mui/material/DialogContent";
 import DialogTitle from "@mui/material/DialogTitle";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
-import workData from "@/assets/data/works.json";
-import composersData from "@/assets/data/composers.json";
+import { getWorksJson, getComposersJson } from "@/utils/processJson";
 import { durationFormat } from "@/utils/calcTime";
 import Grid from "@mui/material/Grid2";
 import Paper from "@mui/material/Paper";
@@ -14,14 +13,20 @@ import Chip from "@mui/material/Chip";
 import Stack from "@mui/material/Stack";
 import Divider from "@mui/material/Divider";
 import Button from "@mui/material/Button";
+import { useTranslation } from "react-i18next";
 
 import Radar from "@/components/evaluation/radarChart.jsx";
 import RectangularGraph from "@//components/evaluation/RectangularGraph.jsx";
 import { getWorkFormulaText } from "@/utils/getWorkFormulaText";
 import { sumDurationFormat } from "@/utils/calcTime";
 
+
+const workData = getWorksJson();
+const composersData = getComposersJson();
+
 export default function Insights(props) {
   const { myConcert, handleClose, submitAction } = props;
+  const { t, i18n } = useTranslation();
 
   if (!myConcert) {
     return <></>;
@@ -35,26 +40,27 @@ export default function Insights(props) {
         work.workMovementDuration[0] === "'"
         ? work.duration
         : workConcert.movements
-            .map((duration) =>
-              parseInt(work.workMovementDuration[duration].replace("'", "")),
-            )
-            .reduce((x, y) => x + y);
+          .map((duration) =>
+            parseInt(work.workMovementDuration[duration].replace("'", "")),
+          )
+          .reduce((x, y) => x + y);
     }),
+    i18n.resolvedLanguage
   );
 
   const hasWorks = myConcert.works && myConcert.works.length > 0;
 
   const works = hasWorks
     ? myConcert.works.map((workConcert) => {
-        const work = workData.find((work) => work.id === workConcert.work);
-        return {
-          ...work,
-          composerData: composersData.find(
-            (composer) => composer.name === work.composer,
-          ),
-          selectedMovements: workConcert.movements,
-        };
-      })
+      const work = workData.find((work) => work.id === workConcert.work);
+      return {
+        ...work,
+        composerData: composersData.find(
+          (composer) => composer.name === work.composer,
+        ),
+        selectedMovements: workConcert.movements,
+      };
+    })
     : [];
 
   return (
@@ -68,7 +74,7 @@ export default function Insights(props) {
       <DialogTitle>
         {myConcert.name}
         <Typography variant="body1" component="span">
-          {sum_duration === "" ? "" : `（合計演奏時間：${sum_duration}）`}
+          {sum_duration === "" ? "" : t("evaluation.Insights.totalPerformanceTime", { sum_duration })}
         </Typography>
         {/* ToDo */}
       </DialogTitle>
@@ -93,15 +99,16 @@ export default function Insights(props) {
                       work.workMovementDuration[0] === "'"
                       ? work.duration
                       : work.selectedMovements
-                          .map((duration) =>
-                            parseInt(
-                              work.workMovementDuration[duration].replace(
-                                "'",
-                                "",
-                              ),
+                        .map((duration) =>
+                          parseInt(
+                            work.workMovementDuration[duration].replace(
+                              "'",
+                              "",
                             ),
-                          )
-                          .reduce((x, y) => x + y),
+                          ),
+                        )
+                        .reduce((x, y) => x + y),
+                    i18n.resolvedLanguage
                   );
 
                   const workFormulaText = getWorkFormulaText(work.workFormula);
@@ -128,14 +135,12 @@ export default function Insights(props) {
                           <Grid size="grow">
                             <Box sx={{ p: 1 }}>
                               <Typography variant="body1" component="div">
-                                {`${work.composer} ${
-                                  work.composerData.birthYear ||
+                                {`${work.composer} ${work.composerData.birthYear ||
                                   work.composerData.deathYear
-                                    ? ` (${
-                                        work.composerData.birthYear || ""
-                                      }〜${work.composerData.deathYear || ""})`
-                                    : ""
-                                }`}
+                                  ? ` (${work.composerData.birthYear || ""
+                                  }${t("common.tilde")}${work.composerData.deathYear || ""})`
+                                  : ""
+                                  }`}
                               </Typography>
                               <Typography variant="h6" component="div">
                                 {work.title}
@@ -147,20 +152,20 @@ export default function Insights(props) {
                               >
                                 {work.year === null
                                   ? ""
-                                  : "作曲年: " + work.year + "年"}
+                                  : t("evaluation.Insights.yearOfComposition", { year: work.year })}
                               </Typography>
                               <Typography
                                 variant="body2"
                                 color="text.secondary"
                               >
-                                {duration_time && `演奏時間: ${duration_time}`}
+                                {duration_time && t("evaluation.Insights.duration", { duration_time })}
                               </Typography>
                               <Typography
                                 variant="body2"
                                 color="text.secondary"
                               >
                                 {workFormulaText
-                                  ? "楽器編成: " + workFormulaText
+                                  ? t("evaluation.Insights.instrumentation", { workFormulaText })
                                   : ""}
                               </Typography>
                             </Box>
@@ -206,7 +211,7 @@ export default function Insights(props) {
               }}
             >
               <Typography variant="h7" gutterBottom>
-                曲目構成の分析結果
+                {t("evaluation.Insights.analysisOfProgramStructure")}
               </Typography>
               <Radar works={works} />
             </Box>
@@ -218,7 +223,7 @@ export default function Insights(props) {
               }}
             >
               <Typography variant="h7" gutterBottom>
-                演奏時間の分析結果
+                {t("evaluation.Insights.analysisOfPerformanceTime")}
               </Typography>
               <RectangularGraph works={works} />
             </Box>
@@ -233,14 +238,14 @@ export default function Insights(props) {
             }}
           >
             <Typography variant="body1" sx={{ fontSize: 20 }} align="center">
-              分析結果を表示するには1つ以上曲を追加してください
+              {t("evaluation.Insights.noWork")}
             </Typography>
           </Box>
         )}
       </DialogContent>
       <DialogActions>
         <Button variant="outlined" onClick={handleClose}>
-          閉じる
+          {t("evaluation.Insights.close")}
         </Button>
         {hasWorks && (
           <Button variant="contained" onClick={submitAction.func}>

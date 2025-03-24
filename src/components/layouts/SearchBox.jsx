@@ -7,6 +7,7 @@ import TextField from "@mui/material/TextField";
 import Divider from "@mui/material/Divider";
 import InputAdornment from "@mui/material/InputAdornment";
 import SearchIcon from "@mui/icons-material/Search";
+import { useTranslation } from "react-i18next";
 
 import FilterDialog from "@/components/layouts/FilterDialog";
 
@@ -16,6 +17,7 @@ import FilterDialog from "@/components/layouts/FilterDialog";
  * @returns {JSX.Element}
  */
 export default function SearchBox({ Data, setData, setClickedNodeId }) {
+  const { t } = useTranslation();
   const inputRef = useRef(null);
   const [open, setOpen] = useState(false);
   const openPopper = () => setOpen(true);
@@ -86,7 +88,7 @@ export default function SearchBox({ Data, setData, setClickedNodeId }) {
               <TextField
                 {...params}
                 inputRef={inputRef}
-                placeholder="作品を検索する"
+                placeholder={t("layouts.SearchBox.searchForWorks")}
                 variant="standard"
                 InputProps={{
                   ...params.InputProps,

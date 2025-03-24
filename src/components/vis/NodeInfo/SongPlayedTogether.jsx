@@ -1,11 +1,13 @@
 import React from "react";
 import { Typography, Box, Button, Divider } from "@mui/material";
+import { useTranslation } from "react-i18next";
 import { durationFormat } from "@/utils/calcTime";
 import { getWorkFormulaText } from "@/utils/getWorkFormulaText";
 
 const SongPlayedTogether = (props) => {
   const { node, Data, setClickedNodeId } = props;
   const { links } = Data;
+  const { t, i18n } = useTranslation();
 
   const linkNodes = new Set();
 
@@ -37,7 +39,7 @@ const SongPlayedTogether = (props) => {
   return (
     <Box p={2}>
       <Typography variant="h6" gutterBottom>
-        よく一緒に演奏されている曲
+        {t("vis.NodeInfo.SongPlayedTogether.performedTogether")}
       </Typography>
       {linkNodesArray.map((work, index) => {
         const workFormulaText = getWorkFormulaText(work.workFormula);
@@ -64,11 +66,10 @@ const SongPlayedTogether = (props) => {
             }}
           >
             <Typography variant="body2" component="div">
-              {`${work.composer} ${
-                work.birth || work.death
-                  ? ` (${work.birth || ""}〜${work.death || ""})`
-                  : ""
-              }`}
+              {`${work.composer} ${work.birth || work.death
+                ? ` (${work.birth || ""}${t("common.tilde")}${work.death || ""})`
+                : ""
+                }`}
             </Typography>
             <Typography
               variant="subtitle1"
@@ -80,22 +81,22 @@ const SongPlayedTogether = (props) => {
             <Typography variant="body2" color="text.secondary">
               {(() => {
                 if (work.amount == null) return "";
-                else if (work.amount <= 2) return "共演度: ★☆☆";
-                else if (work.amount <= 4) return "共演度: ★★☆";
-                else return "共演度: ★★★";
+                else if (work.amount <= 2) return t("vis.NodeInfo.SongPlayedTogether.degreeOfCoperformance", { degree: "★☆☆" });
+                else if (work.amount <= 4) return t("vis.NodeInfo.SongPlayedTogether.degreeOfCoperformance", { degree: "★★☆" });
+                else return t("vis.NodeInfo.SongPlayedTogether.degreeOfCoperformance", { degree: "★★★" });
               })()}
             </Typography>
             <Typography variant="body2" color="text.secondary">
-              {work.year === null ? "" : "作曲年: " + work.year + "年"}
+              {work.year === null ? "" : t("vis.NodeInfo.SongPlayedTogether.yearOfComposition", { year: work.year })}
             </Typography>
 
             <Typography variant="body2" color="text.secondary">
               {work.duration === null
                 ? ""
-                : "演奏時間: " + durationFormat(work.duration)}
+                : t("vis.NodeInfo.SongPlayedTogether.duration", { duration_time: durationFormat(work.duration, i18n.resolvedLanguage) })}
             </Typography>
             <Typography variant="body2" color="text.secondary">
-              {workFormulaText ? "楽器編成: " + workFormulaText : ""}
+              {workFormulaText ? t("vis.NodeInfo.SongPlayedTogether.instrumentation", { workFormulaText }) : ""}
             </Typography>
           </Button>
         );

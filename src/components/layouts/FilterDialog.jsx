@@ -30,6 +30,8 @@ import TuneIcon from "@mui/icons-material/Tune";
 import CloseIcon from "@mui/icons-material/Close";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 
+import { useTranslation } from "react-i18next";
+
 const applyFilter = (filterValues, Data, setData) => {
   // ここでfilterValuesをDataに反映させる
 
@@ -126,10 +128,13 @@ const applyFilter = (filterValues, Data, setData) => {
  * @param {string} props.unit - 数値の単位を表す文字列です。
  * @param {number} props.min - 数値の下限値です。
  * @param {number} props.max - 数値の上限値です。
+ * @param {boolean} props.displayOnlyOneUnit - unitを末尾にのみ表示するかを表す真偽値です。
  * @param {Object} props.control - react-hook-formで使用するcontrolオブジェクトです。
  * @returns {JSX.Element}
  */
-function NumberRangeInput({ name, unit, min, max, control }) {
+function NumberRangeInput({ name, unit, min, max, displayOnlyOneUnit, control }) {
+  const { t } = useTranslation();
+
   const validateNumberRange = (from, to) => {
     from = from ?? min;
     to = to ?? Infinity;
@@ -138,10 +143,10 @@ function NumberRangeInput({ name, unit, min, max, control }) {
       if (from <= to) {
         return true;
       } else {
-        return "数値の範囲が無効です。";
+        return t("layouts.FilterDialog.invalidNumericRange");
       }
     } else {
-      return `${min}以上の範囲で指定してください。`;
+      return t("layouts.FilterDialog.specifyRange", { min });
     }
   };
 
@@ -171,11 +176,11 @@ function NumberRangeInput({ name, unit, min, max, control }) {
                 })
               }
               value={value.since ?? ""}
-              placeholder="指定なし"
+              placeholder={t("layouts.FilterDialog.notSpec")}
               inputProps={{ min, max }}
               sx={{ width: "12ch", mr: "8px" }}
             />
-            {unit} ～
+            {displayOnlyOneUnit ? "" : unit} {t("common.tilde")}
             <OutlinedInput
               error={name in errors}
               type="number"
@@ -188,7 +193,7 @@ function NumberRangeInput({ name, unit, min, max, control }) {
                 })
               }
               value={value.until ?? ""}
-              placeholder="指定なし"
+              placeholder={t("layouts.FilterDialog.notSpec")}
               inputProps={{ min, max }}
               sx={{ width: "12ch", mx: "8px" }}
             />
@@ -212,6 +217,8 @@ function NumberRangeInput({ name, unit, min, max, control }) {
  * @returns {JSX.Element}
  */
 export default function FilterDialog({ Data, setData }) {
+  const { t, i18n } = useTranslation();
+
   const defaultFilterValues = {
     composer: "",
     title: "",
@@ -276,24 +283,24 @@ export default function FilterDialog({ Data, setData }) {
   };
 
   const countableInstrumentList = [
-    { name: "flute", str: "フルート" },
-    { name: "oboe", str: "オーボエ" },
-    { name: "clarinet", str: "クラリネット" },
-    { name: "bassoon", str: "ファゴット" },
-    { name: "horn", str: "ホルン" },
-    { name: "trumpet", str: "トランペット" },
-    { name: "trombone", str: "トロンボーン" },
-    { name: "tuba", str: "チューバ" },
-    { name: "timpani", str: "ティンパニ" },
-    { name: "percussion", str: "パーカッション" },
-    { name: "harp", str: "ハープ" },
-    { name: "keyboard", str: "鍵盤楽器" },
+    { name: "flute", str: t("layouts.FilterDialog.flute") },
+    { name: "oboe", str: t("layouts.FilterDialog.oboe") },
+    { name: "clarinet", str: t("layouts.FilterDialog.clarinet") },
+    { name: "bassoon", str: t("layouts.FilterDialog.bassoon") },
+    { name: "horn", str: t("layouts.FilterDialog.horn") },
+    { name: "trumpet", str: t("layouts.FilterDialog.trumpet") },
+    { name: "trombone", str: t("layouts.FilterDialog.trombone") },
+    { name: "tuba", str: t("layouts.FilterDialog.tuba") },
+    { name: "timpani", str: t("layouts.FilterDialog.timpani") },
+    { name: "percussion", str: t("layouts.FilterDialog.percussion") },
+    { name: "harp", str: t("layouts.FilterDialog.harp") },
+    { name: "keyboard", str: t("layouts.FilterDialog.keyboard") },
   ];
 
   return (
     <>
       {/* ダイアログを開くボタン */}
-      <Tooltip title="検索オプション" data-tour-id="a-05">
+      <Tooltip title={t("layouts.FilterDialog.searchOptions")} data-tour-id="a-05">
         <IconButton
           color="primary"
           sx={{ p: "10px" }}
@@ -308,8 +315,8 @@ export default function FilterDialog({ Data, setData }) {
         onClose={handleInterruption}
         PaperProps={{ component: "form", onSubmit, onReset }}
       >
-        <DialogTitle>検索オプション</DialogTitle>
-        <Tooltip title="閉じる">
+        <DialogTitle>{t("layouts.FilterDialog.searchOptions")}</DialogTitle>
+        <Tooltip title={t("layouts.FilterDialog.close")}>
           <IconButton
             onClick={handleInterruption}
             sx={{
@@ -331,7 +338,7 @@ export default function FilterDialog({ Data, setData }) {
                   htmlFor="composer-input"
                   sx={{ fontWeight: 700, pt: { xs: 0, sm: "16.5px" } }}
                 >
-                  作曲者名
+                  {t("layouts.FilterDialog.composer")}
                 </InputLabel>
               </Grid>
               <Grid size={{ xs: 12, sm: 9 }}>
@@ -342,7 +349,7 @@ export default function FilterDialog({ Data, setData }) {
                     <OutlinedInput
                       {...field}
                       id="composer-input"
-                      placeholder="作曲者名を入力"
+                      placeholder={t("layouts.FilterDialog.composerEnter")}
                       fullWidth
                     />
                   )}
@@ -356,15 +363,16 @@ export default function FilterDialog({ Data, setData }) {
                   htmlFor="lifespan-input"
                   sx={{ fontWeight: 700, pt: { xs: 0, sm: "16.5px" } }}
                 >
-                  存命期間
+                  {t("layouts.FilterDialog.lifespan")}
                 </InputLabel>
               </Grid>
               <Grid size={{ xs: 12, sm: 9 }}>
                 <NumberRangeInput
                   name="lifespan"
-                  unit="年"
+                  unit={t("layouts.FilterDialog.years")}
                   min={1000}
                   max={null}
+                  displayOnlyOneUnit={i18n.resolvedLanguage !== "ja"}
                   control={control}
                 />
               </Grid>
@@ -376,7 +384,7 @@ export default function FilterDialog({ Data, setData }) {
                   htmlFor="title-input"
                   sx={{ fontWeight: 700, pt: { xs: 0, sm: "16.5px" } }}
                 >
-                  曲名
+                  {t("layouts.FilterDialog.workTitle")}
                 </InputLabel>
               </Grid>
               <Grid size={{ xs: 12, sm: 9 }}>
@@ -387,7 +395,7 @@ export default function FilterDialog({ Data, setData }) {
                     <OutlinedInput
                       {...field}
                       id="title-input"
-                      placeholder="曲名を入力"
+                      placeholder={t("layouts.FilterDialog.workTitleEnter")}
                       fullWidth
                     />
                   )}
@@ -401,15 +409,16 @@ export default function FilterDialog({ Data, setData }) {
                   htmlFor="composed-input"
                   sx={{ fontWeight: 700, pt: { xs: 0, sm: "16.5px" } }}
                 >
-                  作曲年
+                  {t("layouts.FilterDialog.compositionYear")}
                 </InputLabel>
               </Grid>
               <Grid size={{ xs: 12, sm: 9 }}>
                 <NumberRangeInput
                   name="composed"
-                  unit="年"
+                  unit={t("layouts.FilterDialog.years")}
                   min={1000}
                   max={null}
+                  displayOnlyOneUnit={i18n.resolvedLanguage !== "ja"}
                   control={control}
                 />
               </Grid>
@@ -421,15 +430,16 @@ export default function FilterDialog({ Data, setData }) {
                   htmlFor="duration-input"
                   sx={{ fontWeight: 700, pt: { xs: 0, sm: "16.5px" } }}
                 >
-                  演奏時間
+                  {t("layouts.FilterDialog.duration")}
                 </InputLabel>
               </Grid>
               <Grid size={{ xs: 12, sm: 9 }}>
                 <NumberRangeInput
                   name="duration"
-                  unit="分"
+                  unit={t("layouts.FilterDialog.mins")}
                   min={0}
                   max={null}
+                  displayOnlyOneUnit={i18n.resolvedLanguage !== "ja"}
                   control={control}
                 />
                 <Controller
@@ -440,7 +450,7 @@ export default function FilterDialog({ Data, setData }) {
                       {...field}
                       checked={field.value}
                       control={<Checkbox />}
-                      label="演奏時間データがない曲も含める"
+                      label={t("layouts.FilterDialog.includeNoDuration")}
                     />
                   )}
                 />
@@ -449,7 +459,7 @@ export default function FilterDialog({ Data, setData }) {
           </Stack>
           <Accordion>
             <AccordionSummary expandIcon={<ExpandMoreIcon />}>
-              楽器編成
+              {t("layouts.FilterDialog.instrumentation")}
             </AccordionSummary>
             <AccordionDetails>
               <Stack spacing={2}>
@@ -467,9 +477,10 @@ export default function FilterDialog({ Data, setData }) {
                     <Grid size={{ xs: 12, sm: 9 }}>
                       <NumberRangeInput
                         name={countableInstrument.name}
-                        unit="人"
+                        unit={t("layouts.FilterDialog.players")}
                         min={0}
                         max={null}
+                        displayOnlyOneUnit={i18n.resolvedLanguage !== "ja"}
                         control={control}
                       />
                     </Grid>
@@ -479,7 +490,7 @@ export default function FilterDialog({ Data, setData }) {
                 {/* 弦楽器 */}
                 <Grid container spacing={1}>
                   <Grid size={{ xs: 12, sm: 3 }} sx={{ display: "flex", alignItems: "center" }}>
-                    <InputLabel sx={{ fontWeight: 700 }}>弦楽器</InputLabel>
+                    <InputLabel sx={{ fontWeight: 700 }}>{t("layouts.FilterDialog.strings")}</InputLabel>
                   </Grid>
                   <Grid size={{ xs: 12, sm: 9 }}>
                     <Controller
@@ -496,17 +507,17 @@ export default function FilterDialog({ Data, setData }) {
                           <FormControlLabel
                             value="null"
                             control={<Radio />}
-                            label="指定なし"
+                            label={t("layouts.FilterDialog.unspecified")}
                           />
                           <FormControlLabel
                             value="true"
                             control={<Radio />}
-                            label="あり"
+                            label={t("layouts.FilterDialog.yes")}
                           />
                           <FormControlLabel
                             value="false"
                             control={<Radio />}
-                            label="なし"
+                            label={t("layouts.FilterDialog.no")}
                           />
                         </RadioGroup>
                       )}
@@ -519,14 +530,14 @@ export default function FilterDialog({ Data, setData }) {
         </DialogContent>
         <DialogActions>
           <Button type="reset" variant="text" sx={{ borderRadius: "100vh" }}>
-            リセット
+            {t("layouts.FilterDialog.reset")}
           </Button>
           <Button
             type="submit"
             variant="contained"
             sx={{ borderRadius: "100vh" }}
           >
-            検索
+            {t("layouts.FilterDialog.search")}
           </Button>
         </DialogActions>
       </Dialog>
