@@ -25,7 +25,7 @@ export const concertsState = atom({
   default: [
     {
       id: firstUUID,
-      name: "My演奏会",
+      name: "My Concert",
     },
   ],
   effects: [localStorageEffect("concerts")],

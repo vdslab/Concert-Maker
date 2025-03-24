@@ -14,6 +14,7 @@ i18n
   .use(initReactI18next)
   .init({
     resources,
+    lng: "en",
     fallbackLng: "en", // デフォルトの言語を設定
     returnEmptyString: false,  // 空文字での定義を許可
     supportedLngs: Object.keys(resources),
