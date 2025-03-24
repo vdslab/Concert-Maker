@@ -141,7 +141,7 @@ function SplitButton({ workId, node }) {
         aria-label="split button"
         data-tour-id="a-03"
       >
-        <Button onClick={handleClick}>
+        <Button onClick={handleClick} sx={{ textTransform: "none" }}>
           {t("layouts.SplitButton.addTo", { myConcertName: mainConcert ? mainConcert.name : t("layouts.SplitButton.myConcert") })}
         </Button>
         {concerts.length > 1 && (
