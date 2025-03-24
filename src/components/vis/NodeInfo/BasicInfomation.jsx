@@ -41,8 +41,6 @@ const ScrollableContent = styled(Box)({
 });
 
 const BasicInfomation = ({ node, onClose, showBorder }) => {
-  const data = getWorksJson();
-  console.log(data);
   const { t, i18n } = useTranslation();
   const workFormulaText = getWorkFormulaText(node.workFormula);
 
